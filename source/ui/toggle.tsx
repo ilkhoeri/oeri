@@ -39,7 +39,7 @@ export const GetCodeButton = React.forwardRef<
         {...props}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        href={href || `https://github.com/ilkhoeri/modules/tree/main/${repo}`}
+        href={href || `https://github.com/ilkhoeri/modules/blob/main/${repo}`}
         tabIndex={-1}
         title="Get Code"
         className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}>

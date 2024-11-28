@@ -28,7 +28,7 @@ You can use several ways to use Tooltip.
 
 1. Using with `TooltipProvider` and `Origin/Trees` Tooltip will provide full flexibility in customization.
 
-```js
+```tsx
 export function MyToggle() {
   return (
     <TooltipProvider side="left" sideOffset={6}>
@@ -50,7 +50,7 @@ export function MyToggle() {
 
 - without `asChild` property
 
-```js
+```tsx
 export function MyToggle() {
   return (
     <Tooltip side="left" sideOffset={6} content="Lorem...">
@@ -62,7 +62,7 @@ export function MyToggle() {
 
 - with asChild property
 
-```js
+```tsx
 export function MyToggle() {
   return (
     <Tooltip asChild side="left" sideOffset={6} content={<span>Lorem...</span>}>
@@ -76,7 +76,7 @@ export function MyToggle() {
 
 3. Using ref in the trigger component.
 
-```js
+```tsx
 export const MyToggle = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
@@ -99,7 +99,7 @@ MyToggle.displayName = "MyToggle";
 | API             | Type                                   | default     | Annotation                                                               |
 | --------------- | -------------------------------------- | ----------- | ------------------------------------------------------------------------ |
 | asChild`?`      | false                                  | -           | pass the `triggerRef` props to an element or component as a single child |
-| unstyled`?`     | boolean                                | `false`     | remove default class `TooltipTrigger` component                          |
+| unstyled`?`     | boolean                                | `false`     | if `true`, all default styles will be removed                            |
 | content`?`      | React.ReactNode                        | `null`      | pass children to `TooltipContent` as `React.ReactNode`                   |
 | contentProps`?` | DetailedHTMLProps Content              | `"div"`     | pass all attribute `TooltipContent`                                      |
 | open`?`         | boolean                                | `false`     | change the original `open` and `onOpenChange` state with own approach    |

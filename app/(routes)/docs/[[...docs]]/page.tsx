@@ -7,40 +7,19 @@ import { allDocs } from "contentlayer/generated";
 import { Playground } from "@/source/ui/playground";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
+import { prefixName, getSlug, sourceFile } from "@/source/utils";
 import { getContent, getMdx } from "@/source/generated/fs-get-contents";
-import {
-  prefixName,
-  retitled,
-  getSlug,
-  sourceFile,
-} from "@/source/utils";
 import {
   getFilesWithPrefix,
   readdirPrefix
 } from "@/source/generated/fs-get-demos";
 
 import type { Metadata, ResolvingMetadata } from "next";
-import { log } from "@/source/log/development";
 
 interface DocsParams {
   params: Promise<{
     docs: string[];
   }>;
-}
-
-export async function generateMetadata(
-  { params }: DocsParams,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const slug = (await params).docs;
-  const currentSlug = !slug ? "/docs" : `/docs/${slug.join("/")}`;
-
-  return configMetadata({
-    url: currentSlug,
-    title: retitled(slug) || "Docs",
-    description: siteConfig.description,
-    images: (await parent).openGraph?.images
-  });
 }
 
 function getDocFromParams(slug: string[]) {
@@ -51,6 +30,22 @@ function getDocFromParams(slug: string[]) {
     return null;
   }
   return doc;
+}
+
+export async function generateMetadata(
+  { params }: DocsParams,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = (await params).docs;
+  const doc = getDocFromParams(slug);
+  const currentSlug = !slug ? "/docs" : `/docs/${slug.join("/")}`;
+
+  return configMetadata({
+    url: currentSlug,
+    title: doc?.title || "Docs",
+    description: siteConfig.description,
+    images: (await parent).openGraph?.images
+  });
 }
 
 async function getCode(segment: string[], files: string[]) {
@@ -90,9 +85,6 @@ export default async function Page({ params }: DocsParams) {
   const files = getFilesWithPrefix(segment);
   const { code, css, usage } = await getCode(segment, files);
   const codes: { [key: string]: React.JSX.Element | null } = {};
-
-  log("SOURCEFILE", sourceFile(segment));
-  log(sourceFile(segment));
 
   if (css) {
     codes.css = (

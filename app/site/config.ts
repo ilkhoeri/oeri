@@ -11,7 +11,7 @@ export const siteConfig = {
   name: "Oeri",
   ogImage: "/assets/images/homepage.webp",
   description:
-    "The Best Choice for Development Application based on React, components server, hooks, and more functions.",
+    "The Good Choice for Development Application based on React, components server, hooks, and more functions.",
   archives: ["https://github.com/ilkhoeri/ioeri"],
   keywords: [
     "ui",

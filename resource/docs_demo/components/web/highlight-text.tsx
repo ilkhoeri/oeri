@@ -6,7 +6,7 @@ export function Demo() {
   const highlight = props.str; // ignore
   return (
     <div data-ignore className="w-80 text-left">
-      <HighlightText text={text} highlight={highlight} />
+    <HighlightText text={text} highlight={highlight} className="text-justify" />
       <SetProps.Wrapper>
         <SetPropsText {...props} />
       </SetProps.Wrapper>

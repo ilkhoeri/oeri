@@ -46,7 +46,7 @@ export function TableOfContents({ toc, sub }: TocProps) {
   const paths = pathname.split("/").slice(2).filter(Boolean);
   const editPageLink =
     paths.length > 1
-      ? `https://github.com/ilkhoeri/oeri/edit/main/resource/docs_raw/${sourceFile(paths)}.mdx`
+      ? `https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFile(paths)}.mdx`
       : "";
 
   return (

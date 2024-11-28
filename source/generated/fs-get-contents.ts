@@ -48,7 +48,8 @@ export async function getRepo(
   return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
 }
 
-const gitrepo = `https://raw.githubusercontent.com/ilkhoeri/oeri/main`;
+// const git_raw = "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
+// await getRepo(`${git_raw}${basePath}`, ".ts")
 
 export async function getContent(
   basePath: string,
@@ -70,16 +71,11 @@ export async function getContent(
         }
 
         return {
-          content: text.trimEnd()
-            ? text
-            : await getRepo(
-                `${gitrepo}/resource/docs/${basePath}`,
-                ext || ".tsx"
-              ),
+          content: text.trimEnd() ? text : null,
           extension: ext
         };
       } catch (error: any) {
-        log(error);
+        log.error(error);
         // Continue to the next extension if file is not found
       }
     }

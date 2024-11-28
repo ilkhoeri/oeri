@@ -109,14 +109,6 @@
   }
 }
 
-.mdx_customizer {
-  &
-    :where(
-      figure[data-rehype-pretty-code-figure] + :is(h1, h2, h3, h4, h5, h6)
-    ) {
-    @apply !mt-16;
-  }
-}
 
 [data-rehype-pretty-code-fragment],
 [data-rehype-customizer] {
@@ -136,7 +128,8 @@
     }
   }
 }
-[data-rehype-customizer] {
+
+.mdx_customizer {
   & :where(:is(h1, h2, h3, h4, h5, h6)) {
     @apply font-semibold text-color mt-9 mb-1 text-h4 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive;
 
@@ -149,14 +142,28 @@
     @apply hover:text-color hover:decoration-color;
   }
 
+  &
+    :where(
+      figure[data-rehype-pretty-code-figure] + :is(h1, h2, h3, h4, h5, h6)
+    ) {
+    @apply !mt-16;
+  }
+
   & figure pre code {
     @apply py-6 px-7 overflow-x-auto scrollbar;
   }
   & figure pre:has(+ [data-rehype-pretty-code-caption]) code {
     @apply rounded-b-none;
   }
-  & figure pre + figcaption[data-rehype-pretty-code-caption] {
-    @apply font-roboto-mono p-[.25em_.5em] leading-normal [font-size:75%] rounded-b-sm border border-t-0 bg-code/40 [overflow-wrap:break-word];
+  &
+    :where(
+      figure[data-rehype-pretty-code-figure]
+        > :is(pre + figcaption[data-rehype-pretty-code-caption])
+    ) {
+      @apply -mt-4 mb-6 rounded-b-lg font-geist-mono text-muted-foreground p-[.65em_.5em_.5em] leading-normal [font-size:75%] border border-t-0 bg-muted/40 [overflow-wrap:break-word];
+  }
+  & img:where(:is(h1, h2, h3, h4, h5, h6) + ul li img) {
+    @apply h-[22px] rounded-sm;
   }
 }
 [data-rehype-pretty-code-figure] mark {
