@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
+import { cn } from "str-merge";
 import { usePathname } from "next/navigation";
-import { cleanedIdSlug, cn, sourceFiles } from "@/source/utils";
+import { cleanedIdSlug, sourceFiles } from "@/source/utils";
 import { useIdsContext } from "@/source/context/ids";
 import { ArrowsSquareIcon } from "@/resource/docs";
 import { ClientOnly } from "../ui/client-only";

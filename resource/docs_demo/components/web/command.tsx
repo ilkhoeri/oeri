@@ -7,12 +7,12 @@ export function Demo() {
   const props = useSetProps({ Str: "single" });
   const data = props.str === "single" ? dataSingle : dataGroup; // prettier-ignore
   return (
-    <div>
-      <Command modal={false} defaultOpen actions={data} nothingFound="Oops..." searchProps={{ autoFocus: false }} />
+    <div data-ignore>
+    <Command modal={false} defaultOpen actions={data} nothingFound="Oops..." searchProps={{ autoFocus: false }} />
       <SetProps.Wrapper>
         <SetPropsSelect values={["single", "group"]} str={props.str} setStr={props.setStr} />
       </SetProps.Wrapper>
-    </div>
+    </div> // ignore
   );
 }
 

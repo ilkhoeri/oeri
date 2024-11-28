@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { cn } from "@/source/utils";
+import { cn } from "str-merge";
 import { TypingWords } from "@/modules/components/web";
 import { Transform } from "@/resource/docs/ondevelopment";
 import { sanitizedToParams } from "@/resource/docs/ondevelopment/utils";

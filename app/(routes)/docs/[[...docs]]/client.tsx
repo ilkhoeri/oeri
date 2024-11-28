@@ -2,16 +2,15 @@
 
 import React from "react";
 import Link from "next/link";
-import { log } from "@/source/log/development";
-import { displayName } from "@/source/utils";
+import dynamic from "next/dynamic";
 import { cvx } from "str-merge";
 import { Title } from "@/source/ui/components";
 import { FilterDocs } from "@/source/ui/input";
+import { log } from "@/source/log/development";
+import { displayName, sourceFiles } from "@/source/utils";
 import { sanitizedToParams } from "@/modules/ondevelopment/utils";
 
-import dynamic from "next/dynamic";
 import { FileIcon } from "@/modules/icons";
-import { sourceFiles } from "@/source/utils";
 import { Spinner } from "@/source/assets/loader";
 import { readdirPrefix } from "@/source/generated/fs-get-demos";
 
@@ -143,7 +142,7 @@ export function LoadComponent({ segment, file }: Segment & { file: string }) {
           return FallbackComponent({ segment });
         }),
     {
-      ssr: false,
+      ssr: true,
       loading: () => <Spinner size={22} classNames={{ root: "my-auto" }} />
     }
   );
