@@ -1,0 +1,437 @@
+/* command install */
+.cmd {
+  height: 19px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.cmd::before {
+  content: attr(data-cmd);
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: transparent;
+  animation: inputs 8s steps(22) infinite;
+}
+.cmd::after {
+  content: "";
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  background-color: transparent;
+  border-right: 0.15em solid #e34ba9;
+  animation:
+    cursor 0.5s step-end infinite alternate,
+    blinking 0.5s infinite;
+}
+
+@keyframes blinking {
+  20%,
+  80% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+}
+@keyframes cursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+@keyframes inputs {
+  0%,
+  100% {
+    width: 0;
+  }
+  10%,
+  90% {
+    width: 105px;
+  }
+  30%,
+  70% {
+    width: 215px;
+    max-width: max-content;
+  }
+}
+
+.aura {
+  &::before,
+  &::after {
+    @apply content-[''] absolute rounded-full;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      var(--conic-0, hsl(var(--background))) 0deg,
+      var(--conic-1, hsl(var(--background))) 1turn
+    );
+    mix-blend-mode: normal;
+    filter: blur(75px);
+    will-change: filter;
+  }
+  &::before {
+    @apply size-full;
+  }
+  &::after {
+    @apply size-1/2;
+  }
+}
+/* main - layout */
+.main_home {
+  @apply m-0 flex items-center min-h-screen flex-col p-4 lg:p-14 relative inset-x-0 z-[86] w-full min-w-full overflow-hidden space-y-12;
+
+  background-size: 55px 55px;
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      var(--hex) 25%,
+      var(--hex) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--hex) 75%,
+      var(--hex) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      var(--hex) 25%,
+      var(--hex) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--hex) 75%,
+      var(--hex) 76%,
+      transparent 77%,
+      transparent
+    );
+}
+
+/* home */
+.header_home {
+  & [data-line] {
+    animation: borderAnimation 1.5s infinite linear;
+  }
+
+  & .line_top {
+    @apply max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max;
+    & svg {
+      @apply size-full overflow-visible z-9;
+      & circle[cy="130.5"] {
+        animation: progress 6s infinite linear;
+      }
+    }
+    & circle:hover,
+    & circle:hover ~ circle[cy="130.5"] {
+      fill: #29943a;
+      stroke: hsl(var(--color));
+    }
+    & circle:hover ~ [data-line] {
+      transition: stroke 0.5s ease;
+      animation:
+        borderAnimation 0.5s infinite linear,
+        strokeAnimation 0.5s infinite linear;
+    }
+    &::before,
+    &::after {
+      @apply content-[''] absolute rounded-full;
+    }
+    &::before {
+      @apply h-[--sz-rx] w-[--sz-ry] border-2 border-muted-foreground left-[-93.5px] bottom-[-8.5px] flex items-center justify-center;
+    }
+    &::after {
+      z-index: -1;
+      height: 2px;
+      width: calc(var(--sz-rx) * 2.75);
+      background-color: hsl(var(--muted-foreground));
+      bottom: calc(var(--sz-ry) * 0.0725);
+      left: calc(var(--sz-rx) * -2.25);
+    }
+  }
+
+  & .line_circle {
+    @apply absolute z-9 flex items-center h-[--sz-h] w-[--sz-w] [--sz-h:7rem] [--sz-w:9rem] mr-[clamp(22px,22px+30vw,25rem)] mb-[clamp(10rem,22px+5vw,14rem)];
+    & svg {
+      @apply size-full;
+    }
+    & circle:hover,
+    & circle:hover ~ path[d*="m203"] {
+      fill: #29943a;
+      stroke: hsl(var(--color));
+    }
+    & circle:hover + [data-line] {
+      transition: stroke 0.5s ease;
+      animation:
+        borderAnimation 0.5s infinite linear,
+        strokeAnimation 0.5s infinite linear;
+    }
+    &::before,
+    &::after {
+      @apply absolute bottom-[calc(var(--sz-h)*-0.2)] md:bottom-[calc(var(--sz-h)*-0.325)] h-[--sz-circle] w-[calc(var(--sz-circle)*1.25)] rounded-full;
+    }
+    &::before {
+      @apply right-[calc(var(--right)*0.5)] md:right-[--right];
+      --right: calc(calc(var(--sz-w) / 2) * -1);
+      background-color: hsl(var(--color));
+    }
+    &::after {
+      @apply right-[calc(var(--right)*0.55)] md:right-[--right];
+      --right: calc(calc(var(--sz-w) - 1rem) * -1);
+      background-color: hsl(var(--muted));
+      box-shadow:
+        -2px 0 16px 0 rgba(0, 0, 0, 0.1) inset,
+        0 0 0 1px rgb(255 255 255 / 0.5);
+    }
+  }
+
+  & .wrap_command {
+    @apply absolute top-[34.125%] left-[49.5%] md:top-[41%] md:left-[37.5%] flex items-center justify-end px-[5px] h-[--sz-rx] w-[calc(var(--sz-ry)-2rem)] bg-white/25 backdrop-blur-md rounded-full;
+    box-shadow:
+      0 4px 30px rgba(0, 0, 0, 0.1),
+      0 0px 0 1px rgb(255 255 255 / 0.5);
+    & .command {
+      @apply relative text-[12px] leading-none font-extrabold not-italic text-background bg-color h-3/4 w-1/2 flex items-center justify-center rounded-full;
+      box-shadow:
+        hsl(var(--background) / 0.4) 0px 2px 4px,
+        hsl(var(--background) / 0.3) 0px 7px 13px -3px,
+        hsl(var(--background) / 0.2) 0px -2px 0px inset;
+    }
+  }
+}
+
+@keyframes progressX {
+  0%,
+  100% {
+    translate: calc(var(--sz-rx) * -0) 0;
+  }
+  50% {
+    translate: calc(var(--sz-rx) * -2.35) 0;
+  }
+}
+@keyframes borderAnimationX {
+  0% {
+    stroke-dashoffset: -8;
+  }
+  100% {
+    stroke-dashoffset: 20;
+  }
+}
+@keyframes strokeAnimationX {
+  0%,
+  100% {
+    stroke: hsl(var(--color));
+  }
+  25%,
+  50% {
+    stroke: #29943a;
+  }
+}
+/* checkbox toggle */
+
+.checkbox_wrap {
+  z-index: 20;
+  position: absolute;
+  top: 7.5%;
+  margin-left: 8rem;
+  height: var(--sz-circle);
+  width: var(--w-checkbox);
+  --bd: 1px;
+  --pad: 0.125rem;
+  --w-checkbox: calc(var(--sz-circle) * 2);
+  --space-toggle: calc(calc(var(--pad) * 2) + calc(var(--bd) * 2));
+  --sz-toggle: calc(var(--sz-circle) - var(--space-toggle));
+  --checked: calc(var(--sz-circle) + calc(var(--pad) - calc(var(--bd) * 2)));
+
+  & .tgl {
+    display: none;
+
+    &::-moz-selection,
+    &:after::-moz-selection,
+    &:before::-moz-selection,
+    & *::-moz-selection,
+    & *:after::-moz-selection,
+    & *:before::-moz-selection,
+    & + .tgl_btn::-moz-selection,
+    &::selection,
+    &:after::selection,
+    &:before::selection,
+    & *::selection,
+    & *:after::selection,
+    & *:before::selection,
+    & + .tgl_btn::selection {
+      background: none;
+    }
+    /* &:not(:checked) + .tgl_btn:active {
+      background-color: #e8eae9;
+    } */
+  }
+
+  & .tgl:checked + .tgl_btn {
+    background-color: hsl(var(--color));
+    &:after {
+      --state-checked: var(--checked);
+    }
+    &:active {
+      box-shadow: none;
+    }
+    &:active::after {
+      margin-left: calc(calc(var(--w-switch) - var(--sz-toggle)) * -1);
+    }
+  }
+  & .tgl + .tgl_btn {
+    @apply cursor-pointer select-none relative size-full block p-[--pad] outline-0 bg-color rounded-full [border-width:--bd] border-muted-foreground transition-all [--light:0] [--dark:--checked];
+
+    &:active::after {
+      --w-switch: calc(var(--sz-circle) * 1.25);
+    }
+    &:after {
+      @apply relative block content-[''] w-[--w-switch,var(--sz-toggle)] h-[--sz-toggle] left-[--state,var(--state-checked,0)] rounded-full bg-background;
+      box-shadow: var(--shadow-3d);
+      will-change: left, width, margin, padding;
+      transition:
+        left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        width 0.3s ease,
+        padding 0.3s ease,
+        margin 0.3s ease;
+    }
+    &:active:after {
+      padding-right: 0.8em;
+    }
+  }
+}
+
+/* switch new = var(--sz-circle)*/
+.switch_wrap {
+  z-index: 20;
+  position: absolute;
+  top: 7.5%;
+  margin-left: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  width: calc(var(--w-switch) + calc(var(--p) * 1));
+  height: calc(var(--h-switch) + calc(var(--p) * 1));
+  box-shadow:
+    hsla(var(--pure-black), 0.15) 2px -5px 4px inset,
+    hsla(var(--pure-black), 0.25) 0px 2px 5px -1px,
+    hsla(var(--pure-black), 0.3) 0 1px 3px -1px;
+  --round: var(--sz-circle);
+  --pure-black: 0, 0%, 0%;
+  --pure-white: 0, 0%, 100%;
+  --scale-x: calc(1.35 * var(--round));
+  --p: calc(calc(6.25 / 100) * var(--round));
+  --checked: calc(100% - calc(var(--round) + var(--p)));
+  --sz-marbles: calc(var(--w-switch) + calc(var(--p) * 1));
+  --h-switch: calc(var(--round) + calc(var(--p) * 2));
+  --w-switch: calc(calc(var(--round) * 2) + calc(var(--p) * 2));
+  --bg-switch: var(--pure-black);
+  --box: var(--pure-white);
+}
+
+.switch_wrap .switch_input {
+  display: none;
+  background: transparent none;
+  visibility: hidden;
+}
+
+.switch_label {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 20;
+  width: var(--w-switch);
+  height: var(--h-switch);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  margin: 0 !important;
+  background-color: hsl(var(--pure-white));
+  border-radius: 9999px;
+  border-width: 0px;
+  transition: all linear 300ms;
+  box-shadow: var(--shadow);
+  --switch-shadow-light: hsla(var(--pure-black), 0.4) 0 2px 4px,
+    hsla(var(--pure-black), 0.3) 0 7px 13px -3px,
+    hsla(var(--pure-black), 0.25) -2px -5px 4px inset,
+    hsla(var(--pure-black), 0.2) 0 0 0 1px inset;
+  --switch-shadow-dark: hsla(var(--pure-black), 0.4) 0 2px 4px,
+    hsla(var(--pure-black), 0.35) 0 7px 13px -3px,
+    hsla(var(--pure-black), 0.5) 2px -5px 4px inset,
+    hsla(var(--pure-black), 0.25) 0 0 0 1px inset;
+  --switch-shadow-active: hsla(var(--pure-black), 0.4) 0 2px 4px,
+    hsla(var(--pure-black), 0.3) 0 7px 13px -3px,
+    hsla(var(--pure-black), 0.25) 0px -2px 8px 6px inset,
+    hsla(var(--pure-black), 0.25) 0 0 0 1px inset;
+  --switch-ml-dark: calc(calc(var(--checked) - var(--scale-x)) - var(--p));
+  --light: var(--p);
+  --dark: var(--checked);
+}
+
+.switch_label::after {
+  left: var(--state, var(--checked, var(--p)));
+  position: absolute;
+  display: block;
+  content: "";
+  width: var(--round);
+  height: var(--round);
+  border-radius: 9999px;
+  background: var(--ring);
+  will-change: left, width, margin, padding;
+  box-shadow: var(--shadow);
+  transition:
+    left 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    width 300ms ease,
+    padding 300ms ease,
+    margin 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms linear;
+}
+
+.switch_label:active::after {
+  width: var(--scale-x);
+  margin-left: var(--switch-ml, 0);
+  --shadow: var(--switch-shadow-active);
+}
+
+.switch_input:checked + .switch_label {
+  --shadow: var(--switch-shadow-dark);
+  --bg-switch: var(--pure-white);
+  --box: var(--pure-black);
+}
+
+.switch_input:checked + .switch_label::after {
+  background: var(--ring);
+  left: var(--state, var(--checked, var(--p)));
+}
+
+.switch_input:checked + .switch_label:active::after {
+  margin-left: var(--switch-ml, var(--switch-ml-dark));
+}
+
+.switch_marbles {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.switch_input:checked ~ .switch_marbles::after,
+.switch_marbles::after {
+  content: "";
+  height: var(--sz-marbles);
+  width: var(--sz-marbles);
+  position: absolute;
+  border-radius: 9999px;
+  z-index: -1;
+  background: var(--ring);
+  filter: blur(20px);
+  opacity: var(0.7);
+}

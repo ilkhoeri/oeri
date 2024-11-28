@@ -1,0 +1,102 @@
+.collapse {
+  @apply h-auto w-full flex flex-col gap-1 border-b-0;
+
+  & [data-inner-collapse] {
+    @apply w-full z-1 px-0.5;
+  }
+
+  & [data-origin="content"] [data-origin="content"] a {
+    @apply capitalize;
+  }
+  & [data-origin="content"] [data-origin="root"] [data-origin="trigger"] {
+    @apply pl-1.5;
+  }
+  & [data-origin="root"],
+  & [data-origin="trigger"],
+  & [data-origin="content"] {
+    @apply border-0 w-full;
+  }
+}
+
+.link,
+.link[data-path="active"] {
+  @apply text-muted-foreground text-sm rounded-sm py-1 flex items-center flex-nowrap flex-row justify-start min-w-max h-7 px-4 transition-colors focus-visible:ring-inset focus-visible:ring-offset-[-2px] hover:text-color hover:bg-background-box;
+  &::before {
+    @apply content-[''] absolute bg-muted rounded-none w-[0.6px] h-full left-[5.7px] inset-y-0 right-auto;
+  }
+
+  & > svg {
+    @apply mr-2 sizer [--sz:22px];
+  }
+}
+
+.link[data-path="active"] {
+  @apply text-constructive font-medium [box-shadow:0_0_0_1px_hsl(var(--constructive)/0)];
+  &::after {
+    @apply content-[''] absolute z-2 bg-background rounded-full w-1 h-4/5 left-1 inset-y-auto right-auto [box-shadow:0_0_0_1px_hsl(var(--constructive))];
+  }
+}
+
+.clb {
+  & svg[data-icon="area-code"] {
+    & path {
+      stroke-width: 2px;
+      transition:
+        stroke-width 0.5s,
+        transform 0.5s,
+        opacity 0.5s;
+    }
+    & path[d*="m18"] {
+      opacity: 1;
+    }
+    & path[d*="m10"] {
+      transform: scale(1) translate(0, 0);
+    }
+    & path[d*="m13"] {
+      transform: scale(1) translate(0, 0);
+    }
+  }
+}
+.clb:hover {
+  & svg[data-icon="area-code"] {
+    & path {
+      stroke-width: 1.7px;
+    }
+    & path[d*="m18"] {
+      opacity: 0;
+    }
+    & path[d*="m10"] {
+      animation: m10 2s infinite;
+      transform: scale(1.5) translate(-15%, -44.5%);
+    }
+    & path[d*="m13"] {
+      animation: m13 2s infinite;
+      transform: scale(1.5) translate(-15%, -44.5%);
+    }
+  }
+}
+@keyframes m10 {
+  0% {
+    d: path("m10.5,16l-2,2,2,2");
+  }
+  25% {
+    d: path("m12,18h-6");
+  }
+  75% {
+    d: path("m9.5,15v3s0,3,0,3");
+  }
+  100% {
+    d: path("m10.5,16l-2,2,2,2");
+  }
+}
+@keyframes m13 {
+  0% {
+    d: path("m13.5,20l2-2-2-2");
+  }
+  50% {
+    d: path("m9.5,21l5-3-5-3");
+  }
+  100% {
+    d: path("m13.5,20l2-2-2-2");
+  }
+}

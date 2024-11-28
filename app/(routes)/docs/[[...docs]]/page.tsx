@@ -1,0 +1,128 @@
+import { Demos } from "./demo";
+import { Tabs } from "@/source/ui/tabs";
+import { Code } from "@/source/ui/code";
+import { Mdx } from "@/source/md/mdx-component";
+import { pathParams } from "@/source/md/config";
+import { allDocs } from "contentlayer/generated";
+import { Playground } from "@/source/ui/playground";
+import { highlightCode } from "@/source/utils/escape-code";
+import { configMetadata, siteConfig } from "@/app/site/config";
+import { getContent, getMdx } from "@/source/generated/fs-get-contents";
+import {
+  prefixName,
+  retitled,
+  getSlug,
+  sourceFile,
+} from "@/source/utils";
+import {
+  getFilesWithPrefix,
+  readdirPrefix
+} from "@/source/generated/fs-get-demos";
+
+import type { Metadata, ResolvingMetadata } from "next";
+import { log } from "@/source/log/development";
+
+interface DocsParams {
+  params: Promise<{
+    docs: string[];
+  }>;
+}
+
+export async function generateMetadata(
+  { params }: DocsParams,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = (await params).docs;
+  const currentSlug = !slug ? "/docs" : `/docs/${slug.join("/")}`;
+
+  return configMetadata({
+    url: currentSlug,
+    title: retitled(slug) || "Docs",
+    description: siteConfig.description,
+    images: (await parent).openGraph?.images
+  });
+}
+
+function getDocFromParams(slug: string[]) {
+  const { path, segment } = pathParams("docs", slug);
+  const doc = allDocs.find(doc => doc.url === (slug ? path : segment));
+
+  if (!doc) {
+    return null;
+  }
+  return doc;
+}
+
+async function getCode(segment: string[], files: string[]) {
+  const usageMap: { [key: string]: string | null } = {};
+
+  for (const file of files) {
+    const usage = await getContent(
+      `resource/docs_demo/${readdirPrefix("readdir", segment)}/${file}`,
+      undefined,
+      {
+        Demo: `${prefixName(segment, file)}Demo`
+      }
+    );
+    usageMap[file] = usage.content;
+  }
+
+  return {
+    code: await getContent(`/resource/docs/${sourceFile(segment)}`, [
+      ".tsx",
+      ".ts"
+    ]),
+    css: await getContent(
+      `/resource/docs/${sourceFile(segment)}`,
+      [".css"],
+      undefined,
+      { lang: "css" }
+    ).then(res => res.content),
+    usage: !files.length
+      ? await getMdx(`/resource/docs/${sourceFile(segment)}`, "usage")
+      : usageMap
+  };
+}
+
+export default async function Page({ params }: DocsParams) {
+  const segment = (await params).docs;
+  const doc = getDocFromParams(segment);
+  const files = getFilesWithPrefix(segment);
+  const { code, css, usage } = await getCode(segment, files);
+  const codes: { [key: string]: React.JSX.Element | null } = {};
+
+  log("SOURCEFILE", sourceFile(segment));
+  log(sourceFile(segment));
+
+  if (css) {
+    codes.css = (
+      <Code
+        ext=".css"
+        code={css}
+        title={`${getSlug(segment)}.css`}
+        setInnerHTML={await highlightCode(css)}
+      />
+    );
+  }
+  if (code) {
+    codes.code = (
+      <Code
+        title={`${getSlug(segment)}${code.extension}`}
+        repo={`${sourceFile(segment)}${code.extension}`}
+        setInnerHTML={await highlightCode(code.content)}
+        ext={code.extension}
+        code={code.content}
+      />
+    );
+  }
+
+  return (
+    <article className="relative mx-auto w-full">
+      {code && <Demos {...{ doc, files, segment, usage, ...code }} />}
+      {doc && <Mdx code={doc?.body?.code} />}
+      <Tabs defaultValue="code" className="mb-12 w-full">
+        <Playground childrens={codes} />
+      </Tabs>
+    </article>
+  );
+}

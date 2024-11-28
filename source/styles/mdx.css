@@ -1,0 +1,329 @@
+[data-theme="light"] {
+  display: block;
+}
+[data-theme="dark"] {
+  display: none;
+}
+.dark [data-theme="light"] {
+  display: none;
+}
+.dark [data-theme="dark"] {
+  display: block;
+}
+[data-rehype-pretty-code-fragment] {
+  @apply relative;
+}
+[data-rehype-pretty-code-fragment] code {
+  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 leading-[20px] relative whitespace-pre-wrap w-max font-roboto-mono text-[13px] font-normal [counter-reset:line] [box-decoration-break:clone];
+}
+[data-rehype-pretty-code-fragment] [data-fragment="comment"] {
+  @apply text-color-muted h-5 mt-3 -mb-3;
+}
+[data-rehype-pretty-code-fragment] .line {
+  @apply px-4 min-h-[1rem] py-0.5 w-full inline-block;
+}
+[data-rehype-pretty-code-fragment] [data-line-numbers] .line {
+  @apply px-2;
+}
+[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
+  @apply text-zinc-50/40 text-xs;
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1.8rem;
+  margin-right: 1.4rem;
+  text-align: right;
+}
+
+[data-rehype-pretty-code-fragment] .line--highlighted {
+  @apply bg-zinc-700/50;
+}
+
+[data-rehype-pretty-code-fragment] .line-highlighted span {
+  @apply relative;
+}
+
+[data-rehype-pretty-code-fragment] .word--highlighted {
+  @apply rounded-md bg-zinc-700/50 border-zinc-700/70 p-1;
+}
+
+.dark [data-rehype-pretty-code-fragment] .word--highlighted {
+  @apply bg-zinc-900;
+}
+
+[data-rehype-pretty-code-title] {
+  @apply mt-2 pt-3 pb-1 px-4 text-sm font-medium;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  @apply mt-2;
+}
+
+.mdx_customizer > .steps:first-child > h3:first-child {
+  @apply mt-0;
+}
+
+/* added */
+.mdx_customizer {
+  & .linkbox {
+    @apply transition-colors no-underline decoration-none border bg-color text-background hover:bg-color/90 hover:text-background rounded-md font-semibold font-geist-mono px-2 py-px text-sm after:content-['↗'] md:after:content-['🡵'] after:ml-1 after:text-muted-foreground after:transition-colors hover:after:text-constructive;
+  }
+  & a code {
+    @apply p-[0em_.25em] text-[85%] leading-normal transition-colors underline underline-offset-2 text-color decoration-color-muted hover:decoration-constructive hover:text-color font-geist-mono;
+  }
+  & ul {
+    @apply list-disc;
+  }
+  & ol {
+    @apply list-decimal;
+  }
+  & ul,
+  & ol {
+    @apply pl-8 flex flex-col space-y-2;
+  }
+  & ol li::marker {
+    @apply [font-weight:400];
+  }
+  & ul li,
+  & ol li {
+    @apply list-item [text-align:-webkit-match-parent] [unicode-bidi:isolate] leading-normal;
+  }
+}
+
+[data-rehype-customizer] {
+  &
+    :where(ul:is(:is(h1, h2, h3, h4, h5, h6) + ul:not(:is(p + ul)))):not(
+      :where([class~="not-prose"], [class~="not-prose"] *)
+    ) {
+    @apply !list-none !pl-0 relative whitespace-pre-wrap text-base flex !flex-row !items-center !flex-wrap gap-4 !space-y-0;
+    & > li {
+      @apply !block !m-0;
+      & > a {
+        @apply !no-underline !decoration-none;
+
+        & > code {
+          @apply rounded-md border bg-color px-2 py-px font-roboto-mono text-sm font-semibold text-background no-underline transition-colors decoration-none after:ml-1 after:text-muted-foreground after:transition-colors after:content-['↗'] hover:bg-color/90 hover:text-background hover:after:text-constructive md:after:content-['🡵'];
+        }
+      }
+    }
+  }
+}
+
+.mdx_customizer {
+  &
+    :where(
+      figure[data-rehype-pretty-code-figure] + :is(h1, h2, h3, h4, h5, h6)
+    ) {
+    @apply !mt-16;
+  }
+}
+
+[data-rehype-pretty-code-fragment],
+[data-rehype-customizer] {
+  & .rehype-pretty-copy {
+    @apply size-8 top-2 right-[0.8rem] mr-0;
+    --copy-icon: url('data:image/svg+xml,<svg fill="none" stroke="%23909293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" height="16px" width="16px"><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"></path><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"></path></svg>');
+    --success-icon: url('data:image/svg+xml,<svg fill="none" stroke="%23909293" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" height="16px" width="16px"><path d="M5 12l5 5l10 -10"></path></svg>');
+    & span.ready {
+      @apply hover:bg-muted/75;
+    }
+    & span.success {
+      @apply bg-muted/75 animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms];
+    }
+    & span.ready,
+    & span.success {
+      @apply [background-size:20px] bg-center size-8 min-w-8 min-h-8 rounded-md bg-no-repeat;
+    }
+  }
+}
+[data-rehype-customizer] {
+  & :where(:is(h1, h2, h3, h4, h5, h6)) {
+    @apply font-semibold text-color mt-9 mb-1 text-h4 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive;
+
+    & a.anchor_id {
+      @apply [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
+    }
+  }
+
+  & a {
+    @apply hover:text-color hover:decoration-color;
+  }
+
+  & figure pre code {
+    @apply py-6 px-7 overflow-x-auto scrollbar;
+  }
+  & figure pre:has(+ [data-rehype-pretty-code-caption]) code {
+    @apply rounded-b-none;
+  }
+  & figure pre + figcaption[data-rehype-pretty-code-caption] {
+    @apply font-roboto-mono p-[.25em_.5em] leading-normal [font-size:75%] rounded-b-sm border border-t-0 bg-code/40 [overflow-wrap:break-word];
+  }
+}
+[data-rehype-pretty-code-figure] mark {
+  &[data-highlighted-chars] {
+    @apply bg-muted p-[0.075rem_0.225rem] rounded-sm border;
+  }
+  &[data-highlighted-chars][data-chars-id="at"] {
+    @apply bg-muted p-[0.075rem_0.225rem] rounded-sm border;
+  }
+}
+
+[data-language][data-theme] span span[style="color:#858AA6"] {
+  font-style: italic;
+}
+[data-rehype-pretty-code-fragment] pre code * {
+  font-weight: 400;
+}
+code[data-language][data-theme] {
+  @apply bg-background-code-body border-border rounded-lg;
+}
+code {
+  counter-reset: line;
+}
+
+code > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  /* Other styling */
+  display: inline-block;
+  width: 1rem;
+  margin-right: 2rem;
+  text-align: right;
+  color: gray;
+}
+
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
+  width: 2rem;
+}
+
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
+  width: 3rem;
+}
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}
+
+.prefers_code_fragment [data-rehype-customizer] .mdx_customizer {
+  @apply p-4;
+}
+
+.prefers_code_fragment [data-rehype-pretty-code-fragment] {
+  & > pre > code[data-language][data-theme] {
+    @apply w-full max-w-full;
+    & p {
+      @apply w-max;
+    }
+    & hr {
+      @apply my-8;
+    }
+    & > figure[data-rehype-pretty-code-figure] {
+      @apply min-w-full w-full;
+      & > pre {
+        @apply min-w-full max-w-full;
+      }
+      & > pre > code {
+        @apply py-6 px-4 min-w-full max-w-full border rounded-md overflow-x-auto scrollbar;
+        & [data-line] {
+          @apply w-max;
+        }
+        & > button {
+          @apply top-4 m-0;
+        }
+      }
+    }
+  }
+}
+
+[data-code-fragment] [data-table="scroll-area"] {
+  @apply relative border border-border rounded-lg w-full min-w-full max-w-full overflow-x-auto scrollbar;
+  & > table {
+    @apply w-max min-w-full max-w-max caption-bottom text-sm;
+
+    & thead {
+      @apply relative;
+      &::after {
+        @apply content-[''] absolute w-full h-px bg-border bottom-[3px] inset-x-0;
+      }
+    }
+
+    & tr {
+      @apply border-b appearance-none;
+
+      & th,
+      & td {
+        @apply pl-1 pr-3 first:pl-4 font-mono last:pr-4 bg-background;
+        &:first-child {
+          @apply sticky left-0;
+        }
+      }
+
+      & th {
+        @apply py-[10px] h-12 text-left font-medium align-middle text-color [&:has([role=checkbox])]:pr-0;
+      }
+      & td {
+        @apply py-4;
+      }
+    }
+
+    & tbody {
+      & tr {
+        @apply last:border-b-0 relative;
+        &:hover,
+        &:hover th,
+        &:hover td,
+        &[data-state="open"] {
+          @apply bg-muted-emphasis;
+        }
+
+        & td[data-sr-only] {
+          @apply hidden sr-only;
+        }
+        & td {
+          & code {
+            @apply whitespace-nowrap;
+          }
+        }
+        & td[data-value="true"] {
+          @apply relative z-[99] p-4 align-middle [&:has([role=checkbox])]:pr-0 min-w-max truncate whitespace-nowrap;
+
+          & mark {
+            @apply block mx-auto [--sz:16px] w-[--sz] min-w-[--sz] h-[--sz] min-h-[--sz] rounded-full data-[mark=true]:bg-[#6cc4d2] data-[mark=false]:bg-[#e54b4b];
+          }
+
+          & time {
+            @apply w-full flex flex-nowrap flex-row items-center justify-end gap-2 text-[#888];
+            & svg {
+              @apply sizer [--sz:16px];
+            }
+          }
+          & time:nth-child(2) {
+            @apply text-[13px];
+          }
+        }
+      }
+
+      & .tr_empty {
+        @apply border-b border-b-border data-[state=selected]:bg-muted;
+
+        & .td_empty {
+          @apply py-4 px-4 whitespace-pre-line align-middle [&:has([role=checkbox])]:pr-0 max-w-var min-w-max truncate h-24 text-center;
+        }
+      }
+    }
+  }
+}
+
+.other-collapsible-content-class {
+  @apply absolute data-[side=top]:bottom-[calc(50%+calc(calc(var(--trigger-h)/2)+var(--offset)))] data-[side=bottom]:top-[calc(50%+calc(calc(var(--trigger-h)/2)+var(--offset)))] data-[side=right]:left-[calc(50%+calc(calc(var(--trigger-w)/2)+var(--offset)))] data-[side=left]:right-[calc(50%+calc(calc(var(--trigger-w)/2)+var(--offset)))] data-[side=left]:webkit-scrollbar data-[side=right]:webkit-scrollbar;
+}

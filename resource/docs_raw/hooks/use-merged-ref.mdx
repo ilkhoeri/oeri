@@ -1,0 +1,88 @@
+---
+title: useMergedRef
+description: Create your project and compactness the required dependencies.
+date: 2024-11-28
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### Usages
+
+#### `mergeRefs()`
+
+```tsx "mergeRefs(myRef, ref)" "mergeRefs"
+import { useRef } from "react";
+import { mergeRefs } from "@/modules/hooks";
+
+export const MyComponent = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div">
+>(({ ...props }, ref) => {
+  const myRef = useRef();
+
+  return <div ref={mergeRefs(myRef, ref)} {...props} />;
+});
+MyComponent.displayName = "MyComponent";
+```
+
+---
+
+#### `createRefs()`
+
+```tsx /createRefs/
+import { createRefs } from "@/modules/hooks";
+
+export enum Structure {
+  Root = "root",
+  Wrap = "wrap",
+  Inner = "inner",
+}
+
+export function MyComponent() {
+  const refs = createRefs<HTMLDivElement, `${Structure}`>(Object.values(Structure));
+
+  // ...more actions for each ref
+
+  return (
+    <div ref={refs.root}>
+      <div ref={refs.wrap}>
+        <div ref={refs.inner}>inner<div/>
+        <div ref={refs.inner}>inner<div/>
+      </div>
+
+      <div ref={refs.wrap}>
+        <div ref={refs.inner}>inner<div/>
+        <div ref={refs.inner}>inner<div/>
+      </div>
+    </div>
+  )
+}
+```
+
+---
+
+#### `useMergedRef()`
+
+```tsx /useMergedRef/
+import { useRef } from "react";
+import { useHover, useMergedRef, useMove } from "@/modules/hooks";
+
+export function MyComponent() {
+  const myRef = useRef();
+  const { ref: moveRef } = useMove<HTMLDivElement>();
+  const { ref: hoverRef } = useHover<HTMLDivElement>();
+
+  const mergedRef = useMergedRef(myRef, moveRef, hoverRef);
+
+  return <div ref={mergedRef} />;
+}
+```
+
+---
+
+### Code
