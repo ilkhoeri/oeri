@@ -34,7 +34,7 @@ export function NavBottom({ routes }: { routes: SingleRoute[] | null }) {
   const nextRoute = currentRoutes[currentIndex + 1] || null;
 
   const classLink = cnx(
-    "inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-border bg-background py-2 text-sm font-medium shadow-sm transition-colors hover:bg-muted-foreground/60 hover:text-color focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground disabled:pointer-events-none disabled:opacity-50 max-md:max-w-[144px]"
+    "inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-border bg-background py-2 text-sm font-medium shadow-sm transition-colors hover:text-color focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground disabled:pointer-events-none disabled:opacity-50 max-md:max-w-[144px] [@media(hover:hover)]:hover:bg-muted/65"
   );
 
   return (

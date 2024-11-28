@@ -1,8 +1,8 @@
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "str-merge";
 import { CopyButton, GetCodeButton } from "./toggle";
+import { sanitizedToParams } from "@/modules/utility";
 import { ChainIcon, CSSIcon, TypescriptIcon } from "@/modules/icons";
-import { sanitizedToParams } from "@/modules/ondevelopment/utils";
 
 type CodeCustomizer = {
   code?: string | null;
@@ -64,7 +64,7 @@ export function Customizer(Text: CodeCustomizer) {
   if (!Text.code && !Text.setInnerHTML) return null;
   return (
     <div
-      className={twMerge("mb-12 text-base", Text.className)}
+      className={cn("mb-12 text-base", Text.className)}
       data-rehype-customizer=""
       data-code-fragment="">
       {Text.title && <h4>{Text.title}</h4>}
@@ -87,7 +87,7 @@ export function Reference(Text: CodeCustomizer) {
     <div
       data-block="reference"
       data-rehype-customizer=""
-      className={twMerge("-mt-4 text-base", Text.className)}>
+      className={cn("-mt-4 text-base", Text.className)}>
       {Text.title && (
         <h4 id={sanitizedToParams(Text.title)}>
           <a

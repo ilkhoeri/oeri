@@ -6,7 +6,7 @@
     @apply border-border scroll-smooth [font-family:--fontid,var(--ff-sans)];
   }
   body {
-    @apply relative overflow-y-auto overflow-x-hidden h-screen min-h-screen max-w-full scroll-smooth bg-background-theme text-color antialiased m-0 [overflow:hidden_auto] [--max-w:1860px];
+    @apply relative overflow-y-auto overflow-x-hidden h-screen min-h-screen max-w-full scroll-smooth bg-background text-color antialiased m-0 [overflow:hidden_auto] [--max-w:1860px];
   }
   img {
     @apply [display:initial] [-webkit-user-select:none] [-moz-user-select:none] [-ms-user-select:none] [user-select:none] [-webkit-user-drag:none];

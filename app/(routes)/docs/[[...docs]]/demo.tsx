@@ -14,12 +14,12 @@ import { compareWords } from "@/modules/utility";
 interface DemosProps {
   segment: string[];
   files: string[];
-  usage: { [key: string]: string | null } | string | null;
+  usages: { [key: string]: string | null } | string | null;
   doc: Doc | null;
 }
 
 export async function Demos(_props: DemosProps) {
-  const { files, segment, usage, doc } = _props;
+  const { files, segment, usages, doc } = _props;
   if (!files.length) {
     return (
       <div className="mt-6">
@@ -34,7 +34,7 @@ export async function Demos(_props: DemosProps) {
 
         <LinksFields fields={doc?.links?.related} />
 
-        {usage && typeof usage === "string" && (
+        {usages && typeof usages === "string" && (
           <Tabs
             id="usage"
             defaultValue="usage"
@@ -43,7 +43,7 @@ export async function Demos(_props: DemosProps) {
               childrens={{
                 usage: (
                   <Customizer
-                    setInnerHTML={await highlightCode(usage, {
+                    setInnerHTML={await highlightCode(usages, {
                       copy: true
                     })}
                     className="mb-0 scrollbar"
@@ -96,12 +96,12 @@ export async function Demos(_props: DemosProps) {
                       <LoadComponent segment={segment} file={file} />
                     </article>
                   ),
-                  usage: usage && typeof usage === "object" && (
+                  usage: usages && typeof usages === "object" && (
                     <Code
                       title={`${file}-demo.tsx`}
                       ext=".tsx"
-                      code={usage[file]}
-                      setInnerHTML={await highlightCode(usage[file])}
+                      code={usages[file]}
+                      setInnerHTML={await highlightCode(usages[file])}
                     />
                   )
                 }}

@@ -1,10 +1,4 @@
-import { cnx, type ClassValue } from "@/resource/docs/ondevelopment/utils/cnx";
 import { camelToKebab, capitalizeWords } from "@/modules/ondevelopment/utils";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(cnx(...inputs));
-}
 
 export function cleanedIds(ids: string[], id: string): string[] {
   return ids.map(i => {

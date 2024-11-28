@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { default as NextImage } from "next/image";
-import { twMerge } from "tailwind-merge";
+import { cn } from "str-merge";
 
 import type { ImageProps } from "next/image";
 
@@ -61,8 +61,8 @@ export const Image = React.forwardRef<HTMLImageElement, ImgProps>(
         {!hasLoad && (
           <Slot
             data-src-load="true"
-            className={twMerge(
-              "absolute flex items-center justify-center h-full w-full opacity-20 font-bold",
+            className={cn(
+              "absolute flex h-full w-full items-center justify-center font-bold opacity-20",
               classNames?.srcLoad
             )}>
             {typeof srcLoad === "string" ? (
@@ -91,7 +91,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImgProps>(
             },
             src: hasLoad ? src : IMAGESRC,
             loading: priority ? "eager" : loading,
-            className: twMerge(className, classNames?.image),
+            className: cn(className, classNames?.image),
             ...props
           }}
         />

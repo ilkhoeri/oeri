@@ -1,8 +1,7 @@
 "use client";
 import * as React from "react";
-import { twMerge } from "tailwind-merge";
 import { ArrowDropdownIcon } from "@/modules/icons";
-import { cvx, InferTypes } from "str-merge";
+import { twMerge, cvx, type InferTypes } from "str-merge";
 import { HoverOpenOptions, useOpenState } from "@/hooks/use-open-state";
 import { createSafeContext } from "@/hooks/open-state-context";
 import { mergeRefs } from "@/hooks/use-merged-ref";

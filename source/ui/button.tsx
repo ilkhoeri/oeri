@@ -10,8 +10,8 @@ export const cvButton = cvx({
     variant: {
       default: "text-color",
       destructive: "action_destructive font-bold text-white",
-      outline: "border bg-background hover:bg-muted",
-      ghost: "hover:bg-muted hover:text-muted-foreground",
+      outline: "border bg-background [@media(hover:hover)]:hover:bg-muted/65",
+      ghost: "[@media(hover:hover)]:hover:bg-muted hover:text-muted-foreground",
       link: "layer_fold rounded-[--round] bg-constructive px-4 py-1.5 text-base font-semibold text-white transition-transform [--round:0.625rem] active:scale-95"
     },
     size: {

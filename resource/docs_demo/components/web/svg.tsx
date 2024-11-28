@@ -3,11 +3,7 @@ import { getRandomColor } from "@/hooks/use-random-colors"; // ignore
 import { SetPropsSvg, useSetProps } from "../../__set_props";
 
 export function Demo() {
-  const {
-    numb: size,
-    str: color,
-    ...props
-  } = useSetProps({ Str: getRandomColor(), Numb: 16 });
+  const { numb: size, str: color, ...props } = useSetProps({ Str: getRandomColor(), Numb: 16 });
   return (
     <div className="flex flex-row items-center gap-4">
       <LogoIcon size={size} color={color} />
@@ -27,7 +23,6 @@ function FileIcon({ arrow, ...props }: SvgProps & { arrow?: "top-right" }) {
       chevron = "M15 16v-5h-5";
       line = "M15 11l-5 5";
       break;
-
     default:
       break;
   }

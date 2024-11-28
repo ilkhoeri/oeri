@@ -73,7 +73,7 @@ async function getCode(segment: string[], files: string[]) {
       undefined,
       { lang: "css" }
     ).then(res => res.content),
-    usage: !files.length
+    usages: !files.length
       ? await getMdx(`/resource/docs/${sourceFile(segment)}`, "usage")
       : usageMap
   };
@@ -83,7 +83,7 @@ export default async function Page({ params }: DocsParams) {
   const segment = (await params).docs;
   const doc = getDocFromParams(segment);
   const files = getFilesWithPrefix(segment);
-  const { code, css, usage } = await getCode(segment, files);
+  const { code, css, usages } = await getCode(segment, files);
   const codes: { [key: string]: React.JSX.Element | null } = {};
 
   if (css) {
@@ -110,7 +110,7 @@ export default async function Page({ params }: DocsParams) {
 
   return (
     <article className="relative mx-auto w-full">
-      {code && <Demos {...{ doc, files, segment, usage, ...code }} />}
+      {code && <Demos {...{ doc, files, segment, usages, ...code }} />}
       {doc && <Mdx code={doc?.body?.code} />}
       <Tabs defaultValue="code" className="mb-12 w-full">
         <Playground childrens={codes} />

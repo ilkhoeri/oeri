@@ -2,7 +2,7 @@
 import React, { ElementType, FC } from "react";
 
 import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { twMerge } from "str-merge";
 
 export const formatterIDR = new Intl.NumberFormat("id-ID", {
   style: "currency",

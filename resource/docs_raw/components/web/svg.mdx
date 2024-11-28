@@ -31,6 +31,24 @@ We added several utility properties to make it easier for you in development, su
 | ratio`?`       | \{h?: number; w?: number\}          | `undefined` | scaling height and width when determining `size` |
 | currentFill`?` | "stroke" \| "fill" \| "fill-stroke" | `stroke`    | adjust currentColor on the coordinate            |
 
+
+### Sizing Ratio
+
+
+By default, the `viewbox="0 0 24 24"` and `size={16}`, here is an example of changing the viewbox and ratio of `w` \(width\)
+
+When `<svg/>` has a different viewbox size, you should pass the viewbox size back to the element, like `viewBox="0 0 94.2 24"`, and to preserve the `size` property you can calculate the ratio by adding `ratio={{ w: 3.925 /* 94.2/24 */ }}`, which means when `size={16}`, then by defaults to `height={16}` and `width={62.8}`. So it will look like this:
+
+```tsx
+function LogoIcon({ viewBox = "0 0 94.2 24", ...props }: SvgProps) {
+  return (
+    <Svg currentFill="fill" viewBox={viewBox} ratio={{ w: 3.925 }} {...props}>
+      {/* child */}
+    </Svg>
+  );
+}
+```
+
 ---
 
 ### Code

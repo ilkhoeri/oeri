@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { MonitorSmartphoneIcon, MoonStarIcon, SunIcon } from "@/modules/icons";
+import { useHotkeys } from "@/hooks/use-hotkeys";
 import { useAppContext } from "../context/app";
 import { UnstyledButton } from "../ui/button";
-import { twMerge } from "tailwind-merge";
+import { twMerge } from "str-merge";
 import {
   useTheme,
   ThemeProvider as NextThemesProvider,
@@ -56,10 +57,20 @@ export function useNextTheme() {
     [setTheme, dataTheme]
   );
 
+  useHotkeys([
+    [
+      "mod+J",
+      () => {
+        memoizedTheme(keyTheme, true);
+      }
+    ]
+  ]);
+
+  /**
   // Mengaktifkan hotkey untuk berpindah tema
   React.useEffect(() => {
     const handleHotkey = (e: KeyboardEvent) => {
-      if (e.metaKey && e.key === "j") {
+      if (e.metaKey && e.key === "mod+J") {
         memoizedTheme(keyTheme, true);
       }
     };
@@ -67,6 +78,7 @@ export function useNextTheme() {
     window.addEventListener("keydown", handleHotkey);
     return () => window.removeEventListener("keydown", handleHotkey);
   }, [keyTheme, memoizedTheme]);
+  */
 
   return { theme, keyTheme, memoizedTheme };
 }

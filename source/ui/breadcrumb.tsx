@@ -1,8 +1,7 @@
 import * as React from "react";
 import Link, { type LinkProps } from "next/link";
 import { SlashIcon } from "@/modules/icons";
-import { twMerge } from "tailwind-merge";
-import { cn } from "@/source/utils";
+import { cn } from "str-merge";
 
 import type { IconType } from "@/modules/components/web/svg";
 
@@ -17,7 +16,7 @@ const Breadcrumb = React.forwardRef<
   <nav
     ref={ref}
     aria-label="breadcrumb"
-    className={twMerge("overflow-hidden max-w-full", className)}
+    className={cn("max-w-full overflow-hidden", className)}
     {...props}
   />
 ));
@@ -29,9 +28,9 @@ const BreadcrumbList = React.forwardRef<
 >(({ unstyled, className, ...props }, ref) => (
   <ol
     ref={ref}
-    className={twMerge(
+    className={cn(
       !unstyled &&
-        "flex items-center flex-wrap break-words text-sm text-muted-foreground gap-1.5 sm:gap-2.5 overflow-auto flex-row w-max max-w-full",
+        "flex w-max max-w-full flex-row flex-wrap items-center gap-1.5 overflow-auto break-words text-sm text-muted-foreground sm:gap-2.5",
       className
     )}
     {...props}
@@ -45,10 +44,7 @@ const BreadcrumbItem = React.forwardRef<
 >(({ unstyled, className, ...props }, ref) => (
   <li
     ref={ref}
-    className={twMerge(
-      !unstyled && "inline-flex items-center gap-1.5",
-      className
-    )}
+    className={cn(!unstyled && "inline-flex items-center gap-1.5", className)}
     {...props}
   />
 ));
@@ -67,7 +63,8 @@ const BreadcrumbLink = React.forwardRef<
       scroll={scroll}
       data-path={active ? "active" : "inactive"}
       className={cn(
-        "[font-size:clamp(0.925rem,0.925rem+1vw,1rem)] leading-tight transition-colors text-muted-foreground rounded-md max-w-max inline-flex truncate border-0 max-md:active:bg-primitive/35 max-md:active:border-primitive-emphasis md:hover:bg-primitive/35 md:hover:border-primitive-emphasis data-[path=active]:font-semibold",
+        !unstyled &&
+          "inline-flex max-w-max truncate rounded-md border-0 leading-tight text-muted-foreground transition-colors [font-size:clamp(0.925rem,0.925rem+1vw,1rem)] data-[path=active]:font-semibold max-md:active:border-primitive-emphasis max-md:active:bg-primitive/35 md:hover:border-primitive-emphasis md:hover:bg-primitive/35",
         className
       )}
       {...props}
@@ -85,10 +82,7 @@ const BreadcrumbPage = React.forwardRef<
     role="link"
     aria-disabled="true"
     aria-current="page"
-    className={twMerge(
-      !unstyled && "font-normal text-muted-foreground",
-      className
-    )}
+    className={cn(!unstyled && "font-normal text-muted-foreground", className)}
     {...props}
   />
 ));
@@ -145,7 +139,7 @@ const BreadcrumbEllipsis = ({
     role="presentation"
     aria-hidden="true"
     aria-label="More"
-    className={twMerge(
+    className={cn(
       !unstyled && "flex size-7 items-center justify-center",
       className
     )}

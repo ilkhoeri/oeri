@@ -3,13 +3,7 @@ import { Sheets, SheetsContent, SheetsTrigger } from "@/modules/components/web";
 import { SetProps, SetPropsBoolean, SetPropsRange, SetPropsSideAlign, useSetProps } from "../../__set_props";
 
 export function Demo() {
-  const {
-    boo: clickOutsideToClose,
-    numb: offset,
-    align,
-    side,
-    ...props
-  } = useSetProps({ Numb: 0 });
+  const { boo: clickOutsideToClose, numb: offset, align, side, ...props } = useSetProps({ Numb: 0 });
   return (
     <SetProps.Div>
       <Sheets

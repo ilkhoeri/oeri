@@ -3,9 +3,8 @@
 import * as React from "react";
 import { DataAlign, DataSide } from "@/modules/index";
 import { PolymorphicWithoutRef } from "@/source/ui/element";
-import { InferTypes, VariantsType, cvx } from "str-merge";
+import { twMerge, cvx, InferTypes, VariantsType } from "str-merge";
 
-import { twMerge } from "tailwind-merge";
 import globalStyle from "@/source/styles/styles";
 import { nextValue } from "@/source/utils";
 

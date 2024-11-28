@@ -40,6 +40,8 @@
     "**/*.md",
     "**/*.mdx",
     ".next/types/**/*.ts",
+    "resource/docs/**/*.ts",
+    "resource/docs/**/*.tsx",
     ".contentlayer/generated"
   ],
   "exclude": ["node_modules"]

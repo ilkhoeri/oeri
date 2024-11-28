@@ -253,44 +253,27 @@ export default {
           scrollbarGutter: "auto"
         },
         ".webkit-scrollbar": {
-          "&::-webkit-scrollbar": {
-            width: "var(--scroll-sz, 0px)",
-            height: "var(--scroll-sz, 0px)",
-            borderRadius: "var(--scroll-rounded, 9999px)"
-          },
-          "&::-webkit-scrollbar-track": {
-            background: "var(--scroll-bg, #0000)"
-          },
-          "&::-webkit-scrollbar-thumb": {
-            cursor: "grab",
-            background: "var(--scroll-color, #0000)",
-            borderRadius: "var(--scroll-rounded, 9999px)"
-          },
-          "&:hover": {
+          "@supports (scrollbar-color: auto)": {
+            "&::-webkit-scrollbar": {
+              display: "none",
+              width: "var(--scroll-sz, 0px)",
+              height: "var(--scroll-sz, 0px)",
+              borderRadius: "var(--scroll-rounded, 9999px)"
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "var(--scroll-bg, #0000)"
+            },
             "&::-webkit-scrollbar-thumb": {
-              background:
-                "var(--scroll-color-hover, var(--scroll-color, #0000))"
+              background: "var(--scroll-color, #0000)",
+              borderRadius: "var(--scroll-rounded, 9999px)"
+            },
+            "&:hover": {
+              "&::-webkit-scrollbar-thumb": {
+                background:
+                  "var(--scroll-color-hover, var(--scroll-color, #0000))"
+              }
             }
-          },
-          "&::-webkit-scrollbar-thumb:active": {
-            cursor: "grabbing"
           }
-        },
-        ".sizer": {
-          width: "var(--sz--w, var(--sz-w, var(--sz)))",
-          minWidth: "var(--sz-miw, var(--sz-min, var(--sz-w, var(--sz))))",
-          maxWidth: "var(--sz-maw, var(--sz-max, var(--sz-w, var(--sz))))",
-          height: "var(--sz--h, var(--sz-h, var(--sz)))",
-          minHeight: "var(--sz-mih, var(--sz-min, var(--sz-h, var(--sz))))",
-          maxHeight: "var(--sz-mah, var(--sz-max, var(--sz-h, var(--sz))))"
-        },
-        ".unmounted": {
-          height: "0px",
-          width: "0px",
-          overflow: "hidden",
-          opacity: "0",
-          scale: "0",
-          display: "none"
         },
         ".underline-hover": {
           position: "relative",
@@ -315,6 +298,22 @@ export default {
               transition: "transform .45s cubic-bezier(0.86, 0, 0.07, 1)"
             }
           }
+        },
+        ".sizer": {
+          width: "var(--sz--w, var(--sz-w, var(--sz)))",
+          minWidth: "var(--sz-miw, var(--sz-min, var(--sz-w, var(--sz))))",
+          maxWidth: "var(--sz-maw, var(--sz-max, var(--sz-w, var(--sz))))",
+          height: "var(--sz--h, var(--sz-h, var(--sz)))",
+          minHeight: "var(--sz-mih, var(--sz-min, var(--sz-h, var(--sz))))",
+          maxHeight: "var(--sz-mah, var(--sz-max, var(--sz-h, var(--sz))))"
+        },
+        ".unmounted": {
+          height: "0px",
+          width: "0px",
+          overflow: "hidden",
+          opacity: "0",
+          scale: "0",
+          display: "none"
         },
         ".bg-clip-text": {
           backgroundClip: "text",
