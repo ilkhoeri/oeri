@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/ilkhoeri/oeri" target="_blank">
-    <img src="https://raw.githubusercontent.com/ioeridev/.github/main/profile/ioeri-512x512.png" alt="oeri" height="200" style="width: 200px;height: 200px;border-radius: 8px;overflow: hidden;" />
+    <img src="https://raw.githubusercontent.com/ioeridev/assets/refs/heads/public/brand/oeri-asset.png" alt="oeri" height="200" style="width: 200px;height: 200px;border-radius: 8px;overflow: hidden;" />
   </a>
 </div>
 
