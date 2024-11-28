@@ -2,7 +2,7 @@
 import React from "react";
 import { CommandEmpty } from "./command-empty";
 import { CommandFooter } from "./command-footer";
-import { useUncontrolled } from "@/modules/hooks-rest";
+import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { CommandActionsList } from "./command-actions-list";
 import { CommandActionsGroup } from "./command-actions-group";
 import { Factory, factory, useProps } from "@/modules/resolver/factory";

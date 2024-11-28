@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMediaQuery } from "@/modules/hooks-rest";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 const MOBILE_BREAKPOINT = 768;
 

@@ -1,5 +1,5 @@
 "use client";
-import { useHover } from "@/modules/hooks-rest";
+import { useHover } from "@/hooks/use-hover";
 import { SetProps, SetPropsBoolean, useSetProps } from "../__set_props";
 import globalStyle from "@/source/styles/styles";
 

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 
 export type KeyboardModifiers = {
@@ -19,7 +20,7 @@ export interface HotkeyItemOptions {
 export type HotkeyItem = [
   string,
   (event: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void,
-  HotkeyItemOptions?,
+  HotkeyItemOptions?
 ];
 
 type CheckHotkeyMatch = (event: KeyboardEvent) => boolean;
@@ -28,22 +29,22 @@ export function parseHotkey(hotkey: string): Hotkey {
   const keys = hotkey
     .toLowerCase()
     .split("+")
-    .map((part) => part.trim());
+    .map(part => part.trim());
 
   const modifiers: KeyboardModifiers = {
     alt: keys.includes("alt"),
     ctrl: keys.includes("ctrl"),
     meta: keys.includes("meta"),
     mod: keys.includes("mod"),
-    shift: keys.includes("shift"),
+    shift: keys.includes("shift")
   };
 
   const reservedKeys = ["alt", "ctrl", "meta", "shift", "mod"];
-  const freeKey = keys.find((key) => !reservedKeys.includes(key));
+  const freeKey = keys.find(key => !reservedKeys.includes(key));
 
   return {
     ...modifiers,
-    key: freeKey,
+    key: freeKey
   };
 }
 
@@ -83,7 +84,7 @@ function isExactHotkey(hotkey: Hotkey, event: KeyboardEvent): boolean {
 }
 
 export function getHotkeyMatcher(hotkey: string): CheckHotkeyMatch {
-  return (event) => isExactHotkey(parseHotkey(hotkey), event);
+  return event => isExactHotkey(parseHotkey(hotkey), event);
 }
 
 export function getHotkeyHandler(hotkeys: HotkeyItem[]) {
@@ -101,13 +102,20 @@ export function getHotkeyHandler(hotkeys: HotkeyItem[]) {
   };
 }
 
-function shouldFireEvent(event: KeyboardEvent, tagsToIgnore: string[], triggerOnContentEditable = false) {
+function shouldFireEvent(
+  event: KeyboardEvent,
+  tagsToIgnore: string[],
+  triggerOnContentEditable = false
+) {
   if (event.target instanceof HTMLElement) {
     if (triggerOnContentEditable) {
       return !tagsToIgnore.includes(event.target.tagName);
     }
 
-    return !event.target.isContentEditable && !tagsToIgnore.includes(event.target.tagName);
+    return (
+      !event.target.isContentEditable &&
+      !tagsToIgnore.includes(event.target.tagName)
+    );
   }
 
   return true;
@@ -116,22 +124,28 @@ function shouldFireEvent(event: KeyboardEvent, tagsToIgnore: string[], triggerOn
 export function useHotkeys(
   hotkeys: HotkeyItem[],
   tagsToIgnore: string[] = ["INPUT", "TEXTAREA", "SELECT"],
-  triggerOnContentEditable = false,
+  triggerOnContentEditable = false
 ) {
   useEffect(() => {
     const keydownListener = (event: KeyboardEvent) => {
-      hotkeys.forEach(([hotkey, handler, options = { preventDefault: true }]) => {
-        if (getHotkeyMatcher(hotkey)(event) && shouldFireEvent(event, tagsToIgnore, triggerOnContentEditable)) {
-          if (options.preventDefault) {
-            event.preventDefault();
-          }
+      hotkeys.forEach(
+        ([hotkey, handler, options = { preventDefault: true }]) => {
+          if (
+            getHotkeyMatcher(hotkey)(event) &&
+            shouldFireEvent(event, tagsToIgnore, triggerOnContentEditable)
+          ) {
+            if (options.preventDefault) {
+              event.preventDefault();
+            }
 
-          handler(event);
+            handler(event);
+          }
         }
-      });
+      );
     };
 
     document.documentElement.addEventListener("keydown", keydownListener);
-    return () => document.documentElement.removeEventListener("keydown", keydownListener);
+    return () =>
+      document.documentElement.removeEventListener("keydown", keydownListener);
   }, [hotkeys, tagsToIgnore, triggerOnContentEditable]);
 }

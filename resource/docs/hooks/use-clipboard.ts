@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 export function useClipboard({ timeout = 2000 } = {}) {
@@ -16,7 +17,7 @@ export function useClipboard({ timeout = 2000 } = {}) {
       navigator.clipboard
         .writeText(valueToCopy)
         .then(() => handleCopyResult(true))
-        .catch((err) => setError(err));
+        .catch(err => setError(err));
     } else {
       setError(new Error("useClipboard: navigator.clipboard is not supported"));
     }

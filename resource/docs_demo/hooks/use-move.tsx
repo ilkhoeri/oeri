@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useMove } from "@/modules/hooks-rest";
+import { useMove } from "@/hooks/use-move";
 
 export function Demo() {
   const [value, setValue] = useState({ x: 0, y: 0 });

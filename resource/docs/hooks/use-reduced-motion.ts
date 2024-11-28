@@ -1,4 +1,5 @@
-import { useMediaQuery, UseMediaQueryOptions } from "@/modules/hooks-rest";
+"use client";
+import { useMediaQuery, UseMediaQueryOptions } from "@/hooks/use-media-query";
 
 export function useReducedMotion(
   initialValue?: boolean,

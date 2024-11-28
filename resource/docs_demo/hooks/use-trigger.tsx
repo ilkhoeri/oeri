@@ -1,5 +1,5 @@
 "use client";
-import { useTrigger } from "@/modules/hooks-rest";
+import { useTrigger } from "@/hooks/use-trigger";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

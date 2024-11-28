@@ -1,5 +1,7 @@
+"use client";
 import { createPortal } from "react-dom";
-import { useHotkeys, useMeasureScrollbar } from "@/modules/hooks-rest";
+import { useHotkeys } from "@/hooks/use-hotkeys";
+import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import {
   useCallback,
   useEffect,

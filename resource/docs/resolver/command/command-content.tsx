@@ -2,7 +2,9 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { CommandProvider } from "./command-store";
-import { useDidUpdate, useHotkeys, useRender } from "@/modules/hooks-rest";
+import { useDidUpdate } from "@/hooks/use-did-update";
+import { useHotkeys } from "@/hooks/use-hotkeys";
+import { useRender } from "@/hooks/use-trigger";
 import {
   Factory,
   factory,
@@ -23,6 +25,7 @@ import {
 export type CommandContentOrigin = "overlay" | "content";
 
 import classes from "./command-styles";
+
 export interface CommandContentProps
   extends StylesApiProps<CommandContentFactory> {
   store?: CommandStore;

@@ -1,3 +1,4 @@
+"use client";
 import {
   DependencyList,
   useCallback,
@@ -5,7 +6,7 @@ import {
   useRef,
   useState
 } from "react";
-import { useMeasureScrollbar } from "@/modules/hooks-rest";
+import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 
 interface UseTrigger {
   popstate?: boolean;

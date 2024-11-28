@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { cnx } from "str-merge";
-import { mergeRefs } from "@/modules/hooks-rest";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 
 type Origin = "wrap" | "inner";
 type CSSProperties = React.CSSProperties & { [key: string]: any };

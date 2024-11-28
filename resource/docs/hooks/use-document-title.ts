@@ -1,3 +1,4 @@
+"use client";
 import { useIsomorphicEffect } from "./use-isomorphic-effect";
 
 export function useDocumentTitle(title: string) {

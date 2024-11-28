@@ -1,9 +1,13 @@
 import { Svg, SvgProps } from "@/modules/components/web";
-import { getRandomColor } from "@/modules/hooks-rest"; // prettier-ignore
+import { getRandomColor } from "@/hooks/use-random-colors"; // ignore
 import { SetPropsSvg, useSetProps } from "../../__set_props";
 
 export function Demo() {
-  const { numb: size,str: color, ...props } = useSetProps({ Str: getRandomColor(), Numb: 16 });
+  const {
+    numb: size,
+    str: color,
+    ...props
+  } = useSetProps({ Str: getRandomColor(), Numb: 16 });
   return (
     <div className="flex flex-row items-center gap-4">
       <LogoIcon size={size} color={color} />

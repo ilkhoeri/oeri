@@ -1,6 +1,6 @@
 "use client";
 import { Svg } from "@/modules/components/web";
-import { useReload } from "@/modules/hooks-rest";
+import { useReload } from "@/hooks/use-reload";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

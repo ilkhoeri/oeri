@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { mergeRefs } from "@/modules/hooks-rest";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 import {
   observeIntersection,
   styletransformVars

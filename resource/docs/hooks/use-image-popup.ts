@@ -1,10 +1,11 @@
+"use client";
 import React, { useEffect } from "react";
 import {
-  useMeasureScrollbar,
-  attributeState,
   attachBodyProperty,
-  detachBodyProperty
-} from "@/modules/hooks-rest";
+  attributeState,
+  detachBodyProperty,
+  useMeasureScrollbar
+} from "./use-measure-scrollbar";
 
 import "./use-image-popup.css";
 

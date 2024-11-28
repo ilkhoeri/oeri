@@ -1,13 +1,17 @@
+"use client";
 import { useEffect, useRef, EffectCallback, DependencyList } from "react";
 
-export function useDidUpdate(fn: EffectCallback, dependencies?: DependencyList) {
+export function useDidUpdate(
+  fn: EffectCallback,
+  dependencies?: DependencyList
+) {
   const mounted = useRef(false);
 
   useEffect(
     () => () => {
       mounted.current = false;
     },
-    [],
+    []
   );
 
   useEffect(() => {

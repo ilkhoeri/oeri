@@ -1,5 +1,5 @@
 "use client";
-import { useElementInfo } from "@/modules/hooks-rest";
+import { useElementInfo } from "@/hooks/use-element-info";
 import { SetProps } from "../__set_props";
 
 export function Demo() {

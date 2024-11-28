@@ -1,6 +1,17 @@
+"use client";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
-export type RectInfo = "x" | "y" | "width" | "height" | "top" | "right" | "bottom" | "left" | "scrollX" | "scrollY";
+export type RectInfo =
+  | "x"
+  | "y"
+  | "width"
+  | "height"
+  | "top"
+  | "right"
+  | "bottom"
+  | "left"
+  | "scrollX"
+  | "scrollY";
 export type RectElement = Record<RectInfo, number>;
 export type InitialInfo = { initial?: Partial<RectElement> };
 
@@ -8,8 +19,13 @@ function round(num: number) {
   return Math.round(num * 100) / 100;
 }
 
-export function useElementInfo<T extends HTMLElement | null>(element?: T | null, { initial }: InitialInfo = {}) {
-  const [rect, setRect] = useState<RectElement>({ ...(initial || {}) } as RectElement);
+export function useElementInfo<T extends HTMLElement | null>(
+  element?: T | null,
+  { initial }: InitialInfo = {}
+) {
+  const [rect, setRect] = useState<RectElement>({
+    ...(initial || {})
+  } as RectElement);
   const [hovered, setHovered] = useState<DOMRect | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollBody, setScrollBody] = useState(0);
@@ -38,8 +54,8 @@ export function useElementInfo<T extends HTMLElement | null>(element?: T | null,
             top: round(rect.top),
             bottom: round(rect.bottom),
             right: round(rect.right),
-            left: round(rect.left),
-          }),
+            left: round(rect.left)
+          })
         );
       }
     }
@@ -82,7 +98,11 @@ export function useElementInfo<T extends HTMLElement | null>(element?: T | null,
         }
 
         resizeObserverRef.current.observe(el);
-        mutationObserverRef.current.observe(el, { attributes: true, childList: true, subtree: true });
+        mutationObserverRef.current.observe(el, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
       }
     };
 
@@ -132,6 +152,6 @@ export function useElementInfo<T extends HTMLElement | null>(element?: T | null,
     elementName,
     onMouseEnter,
     onMouseLeave,
-    hovered,
+    hovered
   };
 }

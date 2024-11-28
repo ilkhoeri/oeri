@@ -1,5 +1,5 @@
 "use client";
-import { useGeoLocation } from "@/modules/hooks-rest";
+import { useGeoLocation } from "@/hooks/use-geo-location";
 import {
   Table,
   TableBody,

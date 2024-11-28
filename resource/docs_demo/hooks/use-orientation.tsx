@@ -1,5 +1,5 @@
 "use client";
-import { useOrientation } from "@/modules/hooks-rest";
+import { useOrientation } from "@/hooks/use-orientation";
 import {
   Table,
   TableBody,

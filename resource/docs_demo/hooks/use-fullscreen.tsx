@@ -1,5 +1,5 @@
 "use client";
-import { useFullscreen } from "@/modules/hooks-rest";
+import { useFullscreen } from "@/hooks/use-fullscreen";
 import { MinimizeIcon, MaximizeIcon } from "@/modules/icons";
 import { SetProps } from "../__set_props";
 import globalStyle from "@/source/styles/styles";

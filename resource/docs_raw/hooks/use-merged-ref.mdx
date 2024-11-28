@@ -17,7 +17,7 @@ links:
 
 ```tsx "mergeRefs(myRef, ref)" "mergeRefs"
 import { useRef } from "react";
-import { mergeRefs } from "@/modules/hooks";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 
 export const MyComponent = React.forwardRef<
   React.ElementRef<"div">,
@@ -35,7 +35,7 @@ MyComponent.displayName = "MyComponent";
 #### `createRefs()`
 
 ```tsx /createRefs/
-import { createRefs } from "@/modules/hooks";
+import { createRefs } from "@/hooks/use-merged-ref";
 
 export enum Structure {
   Root = "root",
@@ -70,7 +70,7 @@ export function MyComponent() {
 
 ```tsx /useMergedRef/
 import { useRef } from "react";
-import { useHover, useMergedRef, useMove } from "@/modules/hooks";
+import { useHover, useMergedRef, useMove } from "@/hooks";
 
 export function MyComponent() {
   const myRef = useRef();

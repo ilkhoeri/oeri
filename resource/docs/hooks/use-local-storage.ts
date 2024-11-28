@@ -1,3 +1,4 @@
+"use client";
 import { useState, useCallback, useEffect } from "react";
 import { useWindowEvent } from "./use-window-event";
 

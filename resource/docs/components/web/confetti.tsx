@@ -1,6 +1,6 @@
 "use client";
 import { forwardRef } from "react";
-import { mergeRefs } from "@/modules/hooks-rest";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 import { useEffect, useRef, useState } from "react";
 
 const DEFAULT_COLORS = [

@@ -1,5 +1,5 @@
 "use client";
-import { usePWAInstaller } from "@/modules/hooks-rest";
+import { usePWAInstaller } from "@/hooks/use-pwa-installer";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

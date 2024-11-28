@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useHotkeys } from "@/modules/hooks-rest";
+import { useHotkeys } from "@/hooks/use-hotkeys";
 import globalStyle from "@/source/styles/styles";
 import { SetProps, SetPropsText, useSetProps } from "../__set_props";
 

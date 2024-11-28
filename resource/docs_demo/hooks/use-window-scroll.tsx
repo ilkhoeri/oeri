@@ -1,5 +1,5 @@
 "use client";
-import { useWindowScroll } from "@/modules/hooks-rest";
+import { useWindowScroll } from "@/hooks/use-window-scroll";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

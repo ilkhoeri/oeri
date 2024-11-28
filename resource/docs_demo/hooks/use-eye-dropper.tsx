@@ -1,5 +1,5 @@
 "use client";
-import { useEyeDropper } from "@/modules/hooks-rest";
+import { useEyeDropper } from "@/hooks/use-eye-dropper";
 import { PickColorIcon } from "@/modules/icons";
 import { SetProps } from "../__set_props";
 import globalStyle from "@/source/styles/styles";

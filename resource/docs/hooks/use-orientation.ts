@@ -1,5 +1,6 @@
+"use client";
 import { useState } from "react";
-import { useIsomorphicEffect } from "@/modules/hooks-rest";
+import { useIsomorphicEffect } from "@/hooks/use-isomorphic-effect";
 
 export function useOrientation() {
   const [orientation, setOrientation] = useState({

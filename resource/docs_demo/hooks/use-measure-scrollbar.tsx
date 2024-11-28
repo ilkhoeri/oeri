@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useMeasureScrollbar } from "@/modules/hooks-rest";
+import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

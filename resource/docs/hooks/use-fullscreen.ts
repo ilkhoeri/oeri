@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function getFullscreenElement(): HTMLElement | null {

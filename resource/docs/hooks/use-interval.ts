@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 
 export function useInterval(fn: () => void, interval: number) {
@@ -10,7 +11,7 @@ export function useInterval(fn: () => void, interval: number) {
   }, [fn]);
 
   const start = () => {
-    setActive((old) => {
+    setActive(old => {
       if (!old && !intervalRef.current) {
         intervalRef.current = window.setInterval(fnRef.current!, interval);
       }

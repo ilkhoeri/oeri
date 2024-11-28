@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useWindowScroll } from "@/modules/hooks-rest";
+import { useWindowScroll } from "@/hooks/use-window-scroll";
 
 export type UseSlideType = {
   threshold?: number;

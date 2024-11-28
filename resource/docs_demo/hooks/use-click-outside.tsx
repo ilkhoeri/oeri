@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { useClickOutside } from "@/modules/hooks-rest";
+import { useClickOutside } from "@/hooks/use-click-outside";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

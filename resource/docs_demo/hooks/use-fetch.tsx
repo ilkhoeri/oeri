@@ -1,5 +1,5 @@
 "use client";
-import { useFetch } from "@/modules/hooks-rest";
+import { useFetch } from "@/hooks/use-fetch";
 import { cnx } from "str-merge";
 import globalStyle from "@/source/styles/styles";
 

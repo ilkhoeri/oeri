@@ -1,5 +1,5 @@
 "use client";
-import { useOS } from "@/modules/hooks-rest";
+import { useOS } from "@/hooks/use-os";
 
 export function Demo() {
   const os = useOS();

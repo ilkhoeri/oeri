@@ -1,5 +1,5 @@
 "use client";
-import { HotkeyItem } from "@/modules/hooks-rest";
+import { HotkeyItem } from "@/hooks/use-hotkeys";
 import { clamp } from "@/modules/resolver/factory/factory-utils";
 import { CommandContentFactory } from "./command-content";
 import {

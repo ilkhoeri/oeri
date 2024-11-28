@@ -1,5 +1,6 @@
+"use client";
 import { useEffect, useState } from "react";
-import { useWindowEvent } from "@/modules/hooks-rest";
+import { useWindowEvent } from "@/hooks/use-window-event";
 
 interface ScrollPosition {
   x: number;

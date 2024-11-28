@@ -1,5 +1,5 @@
 "use client";
-import { useNetwork } from "@/modules/hooks-rest";
+import { useNetwork } from "@/hooks/use-network";
 import {
   Table,
   TableBody,

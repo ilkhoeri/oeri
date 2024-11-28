@@ -1,7 +1,9 @@
+"use client";
 import { useEffect, useState } from "react";
 
 export function useDocumentVisibility(): DocumentVisibilityState {
-  const [documentVisibility, setDocumentVisibility] = useState<DocumentVisibilityState>("visible");
+  const [documentVisibility, setDocumentVisibility] =
+    useState<DocumentVisibilityState>("visible");
 
   useEffect(() => {
     const listener = () => setDocumentVisibility(document.visibilityState);

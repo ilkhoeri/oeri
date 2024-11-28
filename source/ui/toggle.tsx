@@ -6,7 +6,8 @@ import { tocopy } from "../utils";
 import { twMerge } from "str-merge";
 import { UnstyledButton } from "./button";
 import { Tooltip } from "@/modules/components/web";
-import { useClipboard, useWindowScroll } from "@/modules/hooks-rest";
+import { useClipboard } from "@/hooks/use-clipboard";
+import { useWindowScroll } from "@/hooks/use-window-scroll";
 import {
   ChevronDownSquareIcon,
   GithubIcon,

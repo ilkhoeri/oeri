@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { useMeasureScrollbar } from "@/modules/hooks-rest";
+import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { camelToKebab, transform } from "@/modules/utility";
 import { cn } from "str-merge";
 

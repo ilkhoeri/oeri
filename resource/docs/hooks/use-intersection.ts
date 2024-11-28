@@ -1,7 +1,8 @@
+"use client";
 import { useCallback, useRef, useState } from "react";
 
 export function useIntersection<T extends HTMLElement = any>(
-  options?: ConstructorParameters<typeof IntersectionObserver>[1],
+  options?: ConstructorParameters<typeof IntersectionObserver>[1]
 ) {
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
 
@@ -25,7 +26,7 @@ export function useIntersection<T extends HTMLElement = any>(
 
       observer.current.observe(element);
     },
-    [options],
+    [options]
   );
 
   return { ref, entry };

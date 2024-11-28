@@ -3,12 +3,9 @@ import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import { ArrowDropdownIcon } from "@/modules/icons";
 import { cvx, InferTypes } from "str-merge";
-import {
-  mergeRefs,
-  useOpenState,
-  createSafeContext,
-  type HoverOpenOptions
-} from "@/modules/hooks-rest";
+import { HoverOpenOptions, useOpenState } from "@/hooks/use-open-state";
+import { createSafeContext } from "@/hooks/open-state-context";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 
 type SharedType = {
   unstyled?: boolean;

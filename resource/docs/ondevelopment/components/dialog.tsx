@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { mergeRefs, useMeasureScrollbar } from "@/modules/hooks-rest";
+import { mergeRefs } from "@/hooks/use-merged-ref";
+import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { XIcon } from "@/modules/icons";
 import ReactDOM from "react-dom";
 import { twMerge } from "tailwind-merge";

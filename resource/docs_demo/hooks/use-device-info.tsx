@@ -1,5 +1,5 @@
 "use client";
-import { useDeviceInfo } from "@/modules/hooks-rest";
+import { useDeviceInfo } from "@/hooks/use-device-info";
 import {
   Table,
   TableBody,

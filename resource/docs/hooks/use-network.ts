@@ -1,5 +1,6 @@
+"use client";
 import { useCallback, useEffect, useState } from "react";
-import { useWindowEvent } from "@/modules/hooks-rest";
+import { useWindowEvent } from "@/hooks/use-window-event";
 
 interface NetworkStatus {
   downlink?: number;

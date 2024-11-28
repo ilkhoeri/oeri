@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 
 export function usePWAInstaller() {
@@ -12,7 +13,10 @@ export function usePWAInstaller() {
     window.addEventListener("beforeinstallprompt", beforeInstallPromptHandler);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", beforeInstallPromptHandler);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        beforeInstallPromptHandler
+      );
     };
   }, []);
 

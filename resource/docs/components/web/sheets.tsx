@@ -2,15 +2,9 @@
 import * as React from "react";
 import { XIcon } from "@/modules/icons";
 import { twMerge, cvx, InferTypes } from "str-merge";
-import {
-  createSafeContext,
-  mergeRefs,
-  useOpenState,
-  hasSpecificChildren,
-  DataOrigin,
-  DataSide,
-  type ClickOpenOptions
-} from "@/modules/hooks-rest";
+import { ClickOpenOptions, DataOrigin, DataSide, useOpenState } from "@/hooks/use-open-state";
+import { createSafeContext, hasSpecificChildren } from "@/hooks/open-state-context";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 
 import "./sheets.css";
 

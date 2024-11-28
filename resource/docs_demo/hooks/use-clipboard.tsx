@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useClipboard } from "@/modules/hooks-rest";
+import { useClipboard } from "@/hooks/use-clipboard";
 import { CheckIcon, CopyIcon } from "@/modules/icons";
 import globalStyle from "@/source/styles/styles";
 

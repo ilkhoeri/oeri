@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useMemo, useState } from "react";
 
 export interface UseStateHistoryHandlers<T> {

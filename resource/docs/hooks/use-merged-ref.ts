@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, Ref, useRef, MutableRefObject } from "react";
 
 export type PossibleRef<T> = Ref<T> | MutableRefObject<T | null> | undefined;

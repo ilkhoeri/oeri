@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { getOS, type OS } from "./use-os";
 

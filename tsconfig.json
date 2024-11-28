@@ -23,6 +23,7 @@
     "plugins": [{ "name": "next" }],
     "noEmitOnError": true,
     "paths": {
+      "@/hooks/*": ["./resource/docs/hooks/*"],
       "@/modules/*": ["./resource/docs/*"],
       "@/*": ["./*"],
       "#/*": ["source/*"],

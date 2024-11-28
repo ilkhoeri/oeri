@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { cvx } from "str-merge";
-import { useOpenState, DataSide } from "@/modules/hooks-rest";
+import { useOpenState, DataSide } from "@/hooks/use-open-state";
 import { SetProps, SetPropsSelect } from "../__set_props";
 import globalStyle from "@/source/styles/styles";
 

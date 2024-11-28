@@ -1,7 +1,7 @@
 "use client";
 import { XIcon } from "@/modules/icons";
 import { cvx, VariantsType } from "str-merge";
-import { useOpenState } from "@/modules/hooks-rest";
+import { useOpenState } from "@/hooks/use-open-state";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {

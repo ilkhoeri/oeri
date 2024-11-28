@@ -9,7 +9,7 @@ import React, {
   useCallback
 } from "react";
 
-import { mergeRefs } from "@/modules/hooks-rest";
+import { mergeRefs } from "@/hooks/use-merged-ref";
 import { twMerge } from "tailwind-merge";
 
 interface AccordionContextProps {

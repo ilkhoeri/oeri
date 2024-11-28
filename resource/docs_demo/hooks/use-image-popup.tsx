@@ -1,5 +1,5 @@
 "use client";
-import { useImagePopup } from "@/modules/hooks-rest";
+import { useImagePopup } from "@/hooks/use-image-popup";
 
 export function Demo() {
   useImagePopup("[data-has-popup]");

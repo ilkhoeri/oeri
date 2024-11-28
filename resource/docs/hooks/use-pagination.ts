@@ -1,5 +1,6 @@
+"use client";
 import { useMemo } from "react";
-import { useUncontrolled } from "@/modules/hooks-rest";
+import { useUncontrolled } from "@/hooks/use-uncontrolled";
 
 export function range(start: number, end: number) {
   const length = end - start + 1;
