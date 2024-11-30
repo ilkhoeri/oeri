@@ -81,10 +81,16 @@ export async function getContent(
         // Continue to the next extension if file is not found
       }
     }
-    return { content: null, extension: null }; // If none of the extensions matched
+    return {
+      content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
+      extension: ".tsx"
+    }; // If none of the extensions matched
   } catch (error: any) {
     log(error);
-    return { content: null, extension: null };
+    return {
+      content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
+      extension: ".tsx"
+    };
   }
 }
 
