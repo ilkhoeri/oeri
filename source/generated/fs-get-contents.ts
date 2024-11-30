@@ -72,7 +72,7 @@ export async function getRawIcons(
       text = `\`\`\`${lang}\n${text}\n\`\`\``;
     }
 
-    return text.trimEnd() ? text : null;
+    return text ? text : null;
   } catch (error: any) {
     log.error(error);
     return null;

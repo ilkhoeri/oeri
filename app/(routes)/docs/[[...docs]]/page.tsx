@@ -8,7 +8,11 @@ import { Playground } from "@/source/ui/playground";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { prefixName, getSlug, sourceFile } from "@/source/utils";
-import { getContent, getMdx, getRepo } from "@/source/generated/fs-get-contents";
+import {
+  getContent,
+  getMdx,
+  getRepo
+} from "@/source/generated/fs-get-contents";
 import {
   getFilesWithPrefix,
   readdirPrefix
@@ -66,9 +70,7 @@ async function getCode(segment: string[], files: string[]) {
   }
 
   return {
-    code:
-      (await getContent(resource, [".tsx", ".ts"])) ||
-      (await getRepo(`${git_raw}${resource}`, ".ts")),
+    code: await getContent(resource, [".tsx", ".ts"]),
     css: await getContent(resource, [".css"], undefined, { lang: "css" }).then(
       res => res.content
     ),
@@ -99,8 +101,14 @@ export default async function Page({ params }: DocsParams) {
         title={`${getSlug(segment)}${code.extension}`}
         repo={`${sourceFile(segment)}${code.extension}`}
         setInnerHTML={await highlightCode(code.content)}
-        ext={code.extension}
-        code={code.content}
+        ext={code.extension || ".ts"}
+        code={
+          code.content ||
+          (await getRepo(
+            `${git_raw}/resource/docs/${sourceFile(segment)}`,
+            ".ts"
+          ))
+        }
       />
     );
   }
