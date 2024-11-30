@@ -154,13 +154,13 @@
   & figure pre code {
     @apply py-6 px-7 overflow-x-auto scrollbar;
   }
-  & figure pre:has(+ [data-rehype-pretty-code-caption]) code {
+  & figure pre:has(~ [data-rehype-pretty-code-caption]) code {
     @apply rounded-b-none;
   }
   &
     :where(
       figure[data-rehype-pretty-code-figure]
-        > :is(pre + figcaption[data-rehype-pretty-code-caption])
+        > :is(pre ~ figcaption[data-rehype-pretty-code-caption])
     ) {
     @apply -mt-4 mb-6 rounded-b-lg font-geist-mono text-muted-foreground p-[.65em_.5em_.5em] leading-normal [font-size:75%] border border-t-0 bg-muted/40 [overflow-wrap:break-word];
   }

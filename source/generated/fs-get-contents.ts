@@ -76,14 +76,13 @@ export async function getContent(
         };
       } catch (error: any) {
         log.error(error);
-        return {
-          content: await getRepo(`${git_raw}${basePath}`, ""),
-          extension: null
-        };
         // Continue to the next extension if file is not found
       }
     }
-    return { content: null, extension: null }; // If none of the extensions matched
+    return {
+      content: await getRepo(`${git_raw}${basePath}`, ""),
+      extension: ".ts"
+    }; // If none of the extensions matched
   } catch (error: any) {
     log(error);
     return { content: null, extension: null };
