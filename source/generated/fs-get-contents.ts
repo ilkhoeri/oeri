@@ -45,7 +45,7 @@ export async function getRepo(
   const response = await fetch(`${raw}${ext}`);
   let text = await response.text();
   text = await filterContent(text, {});
-  return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
+  return `\`\`\`${lang}\n${text}\n\`\`\``;
 }
 const git_raw =
   "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
@@ -72,7 +72,7 @@ export async function getRawIcons(
       text = `\`\`\`${lang}\n${text}\n\`\`\``;
     }
 
-    return text ? text : null;
+    return text.trimEnd() ? text : null;
   } catch (error: any) {
     log.error(error);
     return null;
