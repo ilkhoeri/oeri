@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "str-merge";
 import { sourceFile } from "@/source/utils";
 import { usePathname } from "next/navigation";
-import { ArrowsSquareIcon } from "@/resource/docs";
+import { ArrowsSquareIcon } from "@/modules/icons";
 import { formatTitle } from "@/source/utils/text-transform";
 
 import type { TableOfContentsType } from "./config";

@@ -6,7 +6,7 @@ import { cn } from "str-merge";
 import { usePathname } from "next/navigation";
 import { cleanedIdSlug, sourceFiles } from "@/source/utils";
 import { useIdsContext } from "@/source/context/ids";
-import { ArrowsSquareIcon } from "@/resource/docs";
+import { ArrowsSquareIcon } from "@/modules/icons";
 import { ClientOnly } from "../ui/client-only";
 import Element from "@/source/ui/element";
 
