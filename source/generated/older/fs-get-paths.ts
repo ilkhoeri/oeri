@@ -6,7 +6,11 @@ import { getSlug } from "../../utils";
 import { log } from "../../log/development";
 
 import type { InnerRoutes, NestedRoute, SingleRoute } from "../../routes/index";
-import { capitalizeFirst, toCamelCase, toSource } from "@/source/utils/text-transform";
+import {
+  capitalizeFirst,
+  toCamelCase,
+  toSource
+} from "@/source/utils/text-transform";
 
 /**
 function getFilesDir(): string[] {
@@ -31,6 +35,28 @@ export async function getFilesDir(): Promise<string[]> {
     console.error("Error reading directory:", err);
     return [];
   }
+}
+
+// Function to generate routes dynamically
+export async function iconsPath(
+  // sourcePath: string[],
+  basePath: string
+) {
+  const routes = [];
+  try {
+    const files = (await fs.readdir(basePath)).filter(file =>
+      file.endsWith(".tsx")
+    );
+
+    for (const file of files) {
+      routes.push(file);
+      // const folderPath = path.join(basePath, folder);
+      // href: `/${toSource(sourcePath)}/${folder}`
+    }
+  } catch (error) {
+    log("Error reading directory:", error);
+  }
+  return routes;
 }
 
 // Function to generate routes dynamically
@@ -87,6 +113,7 @@ async function generatePaths(
     for (const folder of folders) {
       const folderPath = path.join(basePath, folder);
       const isDirectory = (await fs.stat(folderPath)).isDirectory();
+
       if (isDirectory) {
         const subFolders = await fs.readdir(folderPath);
         const hasSubFolders = subFolders.some(async subFolder => {

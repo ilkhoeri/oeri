@@ -3,7 +3,8 @@ import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getContent } from "@/source/generated/fs-get-contents";
-import { getFilesDir } from "@/source/generated/older/fs-get-paths";
+// import { iconsPath } from "@/source/generated/older/fs-get-paths";
+import fs from "fs-extra";
 
 import type { Metadata } from "next";
 
@@ -29,7 +30,10 @@ async function Icons({ file }: { file: string }) {
 }
 
 export default async function Page() {
-  const files = await getFilesDir();
+  // const files = await iconsPath("resource/docs/icons");
+  const files = (await fs.readdir("resource/docs/icons")).filter(file =>
+    file.endsWith(".tsx")
+  );
 
   //log.warn(JSON.stringify(files));
 
