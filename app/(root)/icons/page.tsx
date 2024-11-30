@@ -3,8 +3,8 @@ import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getContent } from "@/source/generated/fs-get-contents";
-// import { iconsPath } from "@/source/generated/older/fs-get-paths";
-import fs from "fs-extra";
+import { iconsPath } from "@/source/generated/older/fs-get-paths";
+// import fs from "fs-extra";
 
 import type { Metadata } from "next";
 
@@ -29,13 +29,13 @@ async function Icons({ file }: { file: string }) {
   );
 }
 
-async function getFilesIcons(source: string) {
-  return (await fs.readdir(source)).filter(file => file.endsWith(".tsx"));
-}
+// async function getFilesIcons(source: string) {
+//   return (await fs.readdir(source)).filter(file => file.endsWith(".tsx"));
+// }
 
 export default async function Page() {
-  // const files = await iconsPath("resource/docs/icons");
-  const files = await getFilesIcons("resource/docs/icons");
+  const files = await iconsPath("resource/docs/icons");
+  // const files = await getFilesIcons("resource/docs/icons");
   //log.warn(JSON.stringify(files));
 
   return (
