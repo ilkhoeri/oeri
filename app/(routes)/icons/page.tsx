@@ -1,16 +1,13 @@
 import { LoadComponent } from "./client";
 import { configMetadata, siteConfig } from "@/app/site/config";
 
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
-export async function generateMetadata(
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return configMetadata({
     url: "/icons",
     title: "Icons",
-    description: siteConfig.description,
-    images: (await parent).openGraph?.images
+    description: siteConfig.description
   });
 }
 
