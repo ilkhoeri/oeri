@@ -34,7 +34,7 @@ function getFilesDir(): string[] {
  async function getFilesDir(): Promise<string[]> {
   const iconsDir = path.join(process.cwd(), "resource/docs/icons");
   try {
-    const files = await fs.readdir(iconsDir);
+    const files = await fs.readdirSync(iconsDir);
     return files.filter(file => file.endsWith(".tsx"));
   } catch (err) {
     console.error("Error reading directory:", err);
