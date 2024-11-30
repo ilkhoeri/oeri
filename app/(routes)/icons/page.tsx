@@ -17,6 +17,7 @@ import { highlightCode } from "@/source/utils/escape-code";
 import { getContent } from "@/source/generated/fs-get-contents";
 import { prefixName } from "@/source/utils";
 
+/**
 function getFilesDir(): string[] {
   const iconsDir = path.join(process.cwd(), "resource/docs/icons");
   try {
@@ -27,8 +28,8 @@ function getFilesDir(): string[] {
     return [];
   }
 }
+ */
 
-/**
  // with asynchronous
  async function getFilesDir(): Promise<string[]> {
   const iconsDir = path.join(process.cwd(), "resource/docs/icons");
@@ -40,7 +41,6 @@ function getFilesDir(): string[] {
     return [];
   }
  }
- */
 
 async function Icons({ file }: { file: string }) {
   const segment = ["resource", "docs", "icons"];
@@ -56,7 +56,7 @@ async function Icons({ file }: { file: string }) {
 }
 
 export default async function Page() {
-  const files = getFilesDir();
+  const files = await getFilesDir();
 
   //log.warn(JSON.stringify(files));
 
