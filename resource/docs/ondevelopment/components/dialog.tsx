@@ -2,7 +2,7 @@
 import * as React from "react";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
-import { XIcon } from "@/modules/icons";
+import { XIcon } from "@/modules/icons/icons";
 import ReactDOM from "react-dom";
 import { twMerge } from "tailwind-merge";
 

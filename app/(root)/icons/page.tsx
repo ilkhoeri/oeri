@@ -4,7 +4,8 @@ import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getContent } from "@/source/generated/fs-get-contents";
 // import { iconsPath } from "@/source/generated/older/fs-get-paths";
-import fs from "fs-extra";
+// import fs from "fs-extra";
+import files from "./temporary-files.json";
 
 import type { Metadata } from "next";
 
@@ -37,7 +38,7 @@ export default async function Page() {
   // const files = await iconsPath("resource/docs/icons");
   // const files = await getFilesIcons("resource/docs/icons");
   //log.warn(JSON.stringify(files));
-  const files = await fs.readdir("resource/docs/icons");
+  // const files = await fs.readdir("resource/docs/icons");
 
   return (
     <article className="relative mx-auto mt-20 min-h-screen w-full px-6 [--sz:24px] md:px-8 lg:px-10 xl:px-12 [&_svg]:transition-colors [&_svg]:sizer [&_svg]:[will-change:width,height,stroke-width,stroke]">
