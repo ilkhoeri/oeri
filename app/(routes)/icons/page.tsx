@@ -1,4 +1,3 @@
-// import { Demos } from "./demo";
 import { LoadComponent } from "./client";
 import { configMetadata, siteConfig } from "@/app/site/config";
 
@@ -21,8 +20,7 @@ import { highlightCode } from "@/source/utils/escape-code";
 import { getContent } from "@/source/generated/fs-get-contents";
 import { prefixName } from "@/source/utils";
 
-/**
-export function getFilesDir(): string[] {
+function getFilesDir(): string[] {
   const iconsDir = path.join(process.cwd(), "resource/docs/icons");
   try {
     const files = fs.readdirSync(iconsDir);
@@ -32,10 +30,10 @@ export function getFilesDir(): string[] {
     return [];
   }
 }
- */
 
+/**
  // with asynchronous
- export async function getFilesDir(): Promise<string[]> {
+ async function getFilesDir(): Promise<string[]> {
   const iconsDir = path.join(process.cwd(), "resource/docs/icons");
   try {
     const files = await fs.readdir(iconsDir);
@@ -45,6 +43,7 @@ export function getFilesDir(): string[] {
     return [];
   }
  }
+ */
 
 async function Icons({ file }: { file: string }) {
   const segment = ["resource", "docs", "icons"];
@@ -60,7 +59,7 @@ async function Icons({ file }: { file: string }) {
 }
 
 export default async function Page() {
-  const files = await getFilesDir();
+  const files = getFilesDir();
 
   //log.warn(JSON.stringify(files));
 
