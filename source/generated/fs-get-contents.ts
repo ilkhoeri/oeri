@@ -45,7 +45,7 @@ export async function getRepo(
   const response = await fetch(`${raw}${ext}`);
   let text = await response.text();
   text = await filterContent(text, {});
-  return `\`\`\`${lang}\n${text}\n\`\`\``;
+  return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
 }
 const git_raw =
   "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
@@ -59,20 +59,20 @@ export async function getRawIcons(
   const ext: string = ".tsx";
 
   try {
-    let text =
-      process.env.NODE_ENV === "development"
-        ? await fs.readFile(
-            path.join(process.cwd(), `${basePath}${ext}`),
-            "utf-8"
-          )
-        : await getRepo(`${git_raw}${basePath}`, "");
-
+    let text = await fs.readFile(
+      path.join(process.cwd(), `${basePath}${ext}`),
+      "utf-8"
+    );
     text = await filterContent(text, replace);
     if (wrap) {
       text = `\`\`\`${lang}\n${text}\n\`\`\``;
     }
 
-    return text.trimEnd() ? text : null;
+    return text.trimEnd()
+      ? process.env.NODE_ENV === "development"
+        ? text
+        : await getRepo(`${git_raw}${basePath}`, "")
+      : null;
   } catch (error: any) {
     log.error(error);
     return null;

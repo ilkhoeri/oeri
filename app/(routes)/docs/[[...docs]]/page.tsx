@@ -69,8 +69,18 @@ async function getCode(segment: string[], files: string[]) {
     usageMap[file] = usage.content;
   }
 
+  const content = await getContent(resource, [".tsx", ".ts"])
+
   return {
-    code: await getContent(resource, [".tsx", ".ts"]),
+    code: {
+      content:
+        content.content ||
+        (await getRepo(
+          `${git_raw}/resource/docs/${sourceFile(segment)}`,
+          ".ts"
+        )),
+      extension: content.extension || ".ts"
+    },
     css: await getContent(resource, [".css"], undefined, { lang: "css" }).then(
       res => res.content
     ),
@@ -100,15 +110,9 @@ export default async function Page({ params }: DocsParams) {
       <Code
         title={`${getSlug(segment)}${code.extension}`}
         repo={`${sourceFile(segment)}${code.extension}`}
-        setInnerHTML={await highlightCode(code.content)}
         ext={code.extension || ".ts"}
-        code={
-          code.content ||
-          (await getRepo(
-            `${git_raw}/resource/docs/${sourceFile(segment)}`,
-            ".ts"
-          ))
-        }
+        code={code.content}
+        setInnerHTML={await highlightCode(code.content)}
       />
     );
   }
