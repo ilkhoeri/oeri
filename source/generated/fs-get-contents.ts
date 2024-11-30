@@ -38,18 +38,18 @@ export type GetContentOptions = {
 };
 
 export async function getRepo(
-  gitrepo: string,
+  raw: string,
   ext: string,
-  lang: string = "js showLineNumbers"
+  lang: string = "tsx showLineNumbers"
 ): Promise<string> {
-  const response = await fetch(`${gitrepo}${ext}`);
+  const response = await fetch(`${raw}${ext}`);
   let text = await response.text();
   text = await filterContent(text, {});
   return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
 }
 
-const git_raw = "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
-
+const git_raw =
+  "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
 
 export async function getContent(
   basePath: string,
@@ -57,7 +57,7 @@ export async function getContent(
   replace: Record<string, string> = {},
   options: GetContentOptions = {}
 ) {
-  const { lang = "js showLineNumbers", wrap = true } = options;
+  const { lang = "tsx showLineNumbers", wrap = true } = options;
 
   try {
     for (const ext of extensions) {
@@ -73,7 +73,7 @@ export async function getContent(
         return {
           content: text.trimEnd()
             ? text
-            : await getRepo(`${git_raw}${basePath}`, ".ts"),
+            : await getRepo(`${git_raw}${basePath}`, ext),
           extension: ext
         };
       } catch (error: any) {
