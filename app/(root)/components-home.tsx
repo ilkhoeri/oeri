@@ -11,7 +11,7 @@ import {
   BookOpen2Icon,
   BrandGithubIcon,
   ArrowsSquareIcon
-} from "@/resource/docs/icons";
+} from "@/modules/icons";
 
 import style from "@/source/styles/.module.css";
 

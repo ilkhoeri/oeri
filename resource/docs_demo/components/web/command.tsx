@@ -8,9 +8,19 @@ export function Demo() {
   const data = props.str === "single" ? dataSingle : dataGroup; // prettier-ignore
   return (
     <div data-ignore>
-    <Command modal={false} defaultOpen actions={data} nothingFound="Oops..." searchProps={{ autoFocus: false }} />
+      <Command
+        modal={false}
+        defaultOpen
+        actions={data}
+        nothingFound="Oops..."
+        searchProps={{ autoFocus: false }}
+      />
       <SetProps.Wrapper>
-        <SetPropsSelect values={["single", "group"]} str={props.str} setStr={props.setStr} />
+        <SetPropsSelect
+          values={["single", "group"]}
+          str={props.str}
+          setStr={props.setStr}
+        />
       </SetProps.Wrapper>
     </div> // ignore
   );
@@ -22,22 +32,22 @@ const dataSingle = [
     href: "/",
     label: "Home",
     description: "Get to home page",
-    leftSection: <HomeIcon size={18} />,
+    leftSection: <HomeIcon size={18} />
   },
   {
     id: "2",
     href: "/docs",
     label: "Docs",
     description: "Get to docs page",
-    leftSection: <CommandIcon size={18} />,
+    leftSection: <CommandIcon size={18} />
   },
   {
     id: "3",
     href: "/docs/components",
     label: "Components",
     description: "Get to components page",
-    leftSection: <ComponentsIcon size={18} />,
-  },
+    leftSection: <ComponentsIcon size={18} />
+  }
 ];
 
 const dataGroup = [
@@ -49,16 +59,15 @@ const dataGroup = [
         href: "/",
         label: "Repellat provident",
         description:
-          "expedita et cum reprehenderit nostrum rerum est autem sunt architecto.",
+          "expedita et cum reprehenderit nostrum rerum est autem sunt architecto."
       },
       {
         id: "1-2",
         href: "",
         label: "Eum et est occaecati",
-        description:
-          "assumenda provident rerum culpa quis hic commodi.",
-      },
-    ],
+        description: "assumenda provident rerum culpa quis hic commodi."
+      }
+    ]
   },
   {
     group: "Group (2)",
@@ -68,16 +77,15 @@ const dataGroup = [
         href: "",
         label: "Qui est esse",
         description:
-          "reprehenderit dolor beatae ea dolores neque fugiat blanditiis.",
+          "reprehenderit dolor beatae ea dolores neque fugiat blanditiis."
       },
       {
         id: "2-2",
         href: "",
         label: "Optio reprehenderit",
-        description:
-          "aut fugiat sit autem sed est voluptatem omnis possimus.",
-      },
-    ],
+        description: "aut fugiat sit autem sed est voluptatem omnis possimus."
+      }
+    ]
   },
   {
     group: "Group (3)",
@@ -87,15 +95,15 @@ const dataGroup = [
         href: "",
         label: "Nesciunt quas odio",
         description:
-          "sit autem sed est voluptatem omnis possimus esse voluptatibus.",
+          "sit autem sed est voluptatem omnis possimus esse voluptatibus."
       },
       {
         id: "3-2",
         href: "",
         label: "Repellat qui ipsa sit aut",
         description:
-          "aut ad voluptatem doloribus vel accusantium quis pariatur.",
-      },
-    ],
-  },
+          "aut ad voluptatem doloribus vel accusantium quis pariatur."
+      }
+    ]
+  }
 ];

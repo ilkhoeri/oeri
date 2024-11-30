@@ -1,5 +1,10 @@
 import React from "react";
-import { Sheets, SheetsItem, SheetsContent, SheetsTrigger } from "@/modules/components/web";
+import {
+  Sheets,
+  SheetsItem,
+  SheetsContent,
+  SheetsTrigger
+} from "@/modules/components/web";
 import { SetProps, SetPropsBoolean, useSetProps } from "../../__set_props";
 import { ChevronIcon } from "@/modules/icons";
 
@@ -10,7 +15,8 @@ export function Demo() {
       <Sheets multipleOpen={multipleOpen} className="w-80">
         {data.map((i, index) => (
           <SheetsItem key={index}>
-            <SheetsTrigger id={String(i.title.toLowerCase().replace(/\s/g, "-"))}>
+            <SheetsTrigger
+              id={String(i.title.toLowerCase().replace(/\s/g, "-"))}>
               {i.title}
               <ChevronIcon chevron="down" data-origin="arrow-collapse" />
             </SheetsTrigger>
@@ -22,7 +28,11 @@ export function Demo() {
         ))}
       </Sheets>
       <SetProps.Wrapper>
-        <SetPropsBoolean label="multipleOpen" boo={multipleOpen} setBoo={props.setBoo} />
+        <SetPropsBoolean
+          label="multipleOpen"
+          boo={multipleOpen}
+          setBoo={props.setBoo}
+        />
       </SetProps.Wrapper>
     </SetProps.Div>
   );
