@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { OeriIcon } from "@/modules/icons";
+import { BrandOeriIcon } from "@/modules/icons";
 
 export default async function NotFound() {
   return (
@@ -17,7 +17,7 @@ export default async function NotFound() {
           tabIndex={-1}
           aria-label="back-home"
           className="sticky top-14 rounded-lg px-4 py-1 hover:text-color focus-visible:border-0 focus-visible:ring-0">
-          <OeriIcon size={146} />
+          <BrandOeriIcon size={146} />
         </Link>
         <h1 className="min681:text-[38px] text-[32px] font-[900] text-[inherit]">
           Could not find requested resource

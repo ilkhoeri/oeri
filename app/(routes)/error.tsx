@@ -23,7 +23,9 @@ export default function Error({
   }
 
   return (
-    <Comp el="section" className="my-12 gap-4 font-medium [&_*]:font-mono">
+    <Comp
+      el="section"
+      className="my-12 min-h-screen gap-4 font-medium [&_*]:font-geist-mono">
       <h2 className="">Something went wrong!</h2>
       {errorMessage}
 

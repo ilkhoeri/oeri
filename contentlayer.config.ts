@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 import { visit } from "unist-util-visit";
 import { getHighlighter } from "@shikijs/compat";
 // import { transformerCopyButton } from "@rehype-pretty/transformers";
+import rehypeStringify from "rehype-stringify";
 
 import moonlightTheme from "./source/md/moonlight.json" with { type: "json" };
 
@@ -120,9 +121,7 @@ export default makeSource({
         visit(tree, node => {
           if (node?.type === "element" && node?.tagName === "pre") {
             const [codeEl] = node.children;
-            if (codeEl.tagName !== "code") {
-              return;
-            }
+            if (codeEl.tagName !== "code") return;
 
             if (codeEl.data?.meta) {
               // Extract event from meta and pass it down the tree.
@@ -140,6 +139,7 @@ export default makeSource({
           }
         });
       },
+      rehypeStringify,
       [
         rehypePrettyCode,
         {
@@ -149,6 +149,7 @@ export default makeSource({
           tokensMap: {
             fn: "entity.name.function"
           },
+
           // transformers: [
           //   transformerCopyButton({
           //     visibility: "hover",
@@ -177,8 +178,8 @@ export default makeSource({
       ],
       () => tree => {
         visit(tree, node => {
-          if (node?.type === "element" && node?.tagName === "div") {
-            if (!("data-rehype-pretty-code-fragment" in node.properties)) {
+          if (node?.type === "element" && node?.tagName === "figure") {
+            if (!("data-rehype-pretty-code-figure" in node.properties)) {
               return;
             }
 
@@ -188,7 +189,7 @@ export default makeSource({
             }
 
             preElement.properties["__withMeta__"] =
-              node.children.at(0).tagName === "div";
+              node.children.at(0).tagName === "figure";
             preElement.properties["__rawString__"] = node.__rawString__;
 
             if (node.__src__) {
@@ -213,7 +214,7 @@ export default makeSource({
           properties: {
             className: [
               "subheading-anchor",
-              "anchor_id text-color flex flex-row-reverse items-center"
+              "anchor_id text-color flex flex-row-reverse items-center gap-2"
             ],
             ariaLabel: "Link to section"
           },
@@ -227,7 +228,7 @@ export default makeSource({
                 height: "26",
                 fill: "currentColor",
                 viewBox: "0 0 24 24",
-                className: "mr-2"
+                className: ""
               },
               children: [
                 {

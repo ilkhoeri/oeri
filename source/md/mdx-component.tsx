@@ -5,14 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import { cn } from "str-merge";
-import { Figure } from "./component";
+import { Figure } from "./pre-component";
+import { CopyButton } from "../ui/toggle";
+import { Svg } from "@/modules/components/web";
+import { TypingWords } from "@/modules/index";
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       role="presentation"
       className={cn(
-        "mt-0 flex flex-row items-center border-b-0 pb-0 font-bold tracking-normal text-h3 first:mt-0",
+        "border-b-0 pb-0 font-bold tracking-normal text-h2 first:mt-0",
         className
       )}
       {...props}
@@ -21,7 +24,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "mt-12 border-b pb-2 font-inter font-semibold tracking-tight text-h2 first:mt-0",
+        "mt-12 pb-2 font-inter font-semibold tracking-tight text-h3 first:mt-0",
         className
       )}
       {...props}
@@ -29,19 +32,19 @@ const components = {
   ),
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
-      className={cn("mt-8 font-semibold tracking-tight text-h3", className)}
+      className={cn("mt-8 font-semibold tracking-tight text-h4", className)}
       {...props}
     />
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
-      className={cn("mt-8 font-semibold tracking-tight text-h4", className)}
+      className={cn("mt-8 font-semibold tracking-tight text-h5", className)}
       {...props}
     />
   ),
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
-      className={cn("mt-8 font-semibold tracking-tight text-h5", className)}
+      className={cn("mt-8 font-semibold tracking-tight text-h6", className)}
       {...props}
     />
   ),
@@ -56,20 +59,10 @@ const components = {
     href = "",
     ...props
   }: Omit<React.ComponentProps<typeof Link>, "href"> & { href?: string }) => (
-    <Link
-      href={href}
-      className={cn("text-constructive", className)}
-      {...props}
-    />
+    <Link href={href} className={cn("", className)} {...props} />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p
-      className={cn(
-        "text-justify leading-7 [&:not(:first-child)]:mt-6",
-        className
-      )}
-      {...props}
-    />
+    <p className={cn("text-justify leading-7", className)} {...props} />
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className={cn("my-6 ml-6 list-disc pl-3", className)} {...props} />
@@ -82,7 +75,10 @@ const components = {
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn("mt-6 border-l-2 pl-6 italic", className)}
+      className={cn(
+        "relative isolate my-8 flex flex-row items-center rounded-xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:left-6 before:z-[10] before:h-4/5 before:w-1 before:bg-[#202425] before:content-['']",
+        className
+      )}
       {...props}
     />
   ),
@@ -137,6 +133,7 @@ const components = {
   ),
   pre: ({
     className,
+    __rawString__,
     ...props
   }: React.HTMLAttributes<HTMLPreElement> & {
     __rawString__?: string;
@@ -149,6 +146,11 @@ const components = {
           className={cn("mb-4 mt-6 !bg-transparent !bg-none", className)}
           {...props}
         />
+
+        <CopyButton
+          value={__rawString__}
+          className="absolute right-1 top-1 shadow"
+        />
       </>
     );
   },
@@ -157,6 +159,8 @@ const components = {
   ),
   Image,
   Figure,
+  Svg,
+  TypingWords,
   CodeBlockWrapper: ({ ...props }) => (
     <div className="rounded-md border" {...props} />
   ),
@@ -226,9 +230,15 @@ const components = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center rounded-xl border bg-background-box p-6 text-muted-foreground shadow transition-colors hover:bg-muted/50 sm:p-10",
+        "flex w-full flex-col items-center rounded-lg border bg-background p-6 text-color shadow-md transition-colors hover:bg-muted/30 dark:hover:bg-muted/50 sm:p-10",
         className
       )}
+      {...props}
+    />
+  ),
+  GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+    <div
+      className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)}
       {...props}
     />
   )

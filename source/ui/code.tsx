@@ -2,7 +2,11 @@ import * as React from "react";
 import { cn } from "str-merge";
 import { CopyButton, GetCodeButton } from "./toggle";
 import { sanitizedToParams } from "@/modules/utility";
-import { ChainIcon, CSSIcon, TypescriptIcon } from "@/modules/icons";
+import {
+  ChainIcon,
+  BrandCSSFillIcon,
+  BrandTypescriptFillIcon
+} from "@/modules/icons";
 
 type CodeCustomizer = {
   code?: string | null;
@@ -16,9 +20,9 @@ type ExtIconsType = { ext?: string | null };
 export function ExtIcons({ ext }: ExtIconsType) {
   if (!ext) return null;
 
-  if (ext === ".ts") return <TypescriptIcon />;
-  if (ext === ".tsx") return <TypescriptIcon />;
-  if (ext === ".css") return <CSSIcon />;
+  if (ext === ".ts") return <BrandTypescriptFillIcon />;
+  if (ext === ".tsx") return <BrandTypescriptFillIcon />;
+  if (ext === ".css") return <BrandCSSFillIcon />;
 }
 
 export function Code(Text: CodeCustomizer & ExtIconsType) {

@@ -92,6 +92,7 @@
   color: var(--link-color, hsl(var(--ocean)));
   text-decoration: var(--decoration, underline);
   text-underline-offset: 2px;
+  width: max-content;
 }
 .markdown-body a:hover,
 .markdown-body a:focus,

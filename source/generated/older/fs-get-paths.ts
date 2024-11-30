@@ -7,7 +7,7 @@ import { log } from "../../log/development";
 
 import type { InnerRoutes, NestedRoute, SingleRoute } from "../../routes/index";
 
-function toCamelCase(str: string): string {
+export function toCamelCase(str: string): string {
   return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }
 function capitalizeFirst(str: string): string {

@@ -1,4 +1,3 @@
-import { Docs } from "./docs";
 import { RestDocs } from "./client";
 import { notFound } from "next/navigation";
 import { Comp } from "@/source/ui/components";
@@ -11,6 +10,7 @@ import { InnerRoutes, SingleRoute } from "@/source/routes";
 import { TableOfContents } from "@/source/md/toc/toc";
 import { allDocs } from "contentlayer/generated";
 import { pathParams } from "@/source/md/config";
+import { Mdx } from "@/source/md/mdx-component";
 
 interface DocsParams {
   children: React.ReactNode;
@@ -21,7 +21,9 @@ interface DocsParams {
 
 function getDocFromParams(slug: string[]) {
   const { path, segment } = pathParams("docs", slug);
-  const doc = allDocs.find(doc => doc.url === (slug ? path : segment));
+  const doc = allDocs.find(
+    doc => doc.url === (slug ? path : `/docs/${segment}`)
+  );
 
   if (!doc) {
     return null;
@@ -56,11 +58,7 @@ export default async function Layout({ children, params }: DocsParams) {
   }
 
   if (!slug) {
-    return (
-      <Template>
-        <Docs />
-      </Template>
-    );
+    return <Template>{doc && <Mdx code={doc?.body.code} />}</Template>;
   }
 
   if (slug.length === 1) {

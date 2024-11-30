@@ -9,7 +9,7 @@ import { sanitizedToParams } from "@/resource/docs/ondevelopment/utils";
 import { useNextTheme } from "@/source/assets/theme";
 import {
   BookOpen2Icon,
-  GithubIcon,
+  BrandGithubIcon,
   ArrowsSquareIcon
 } from "@/resource/docs/icons";
 
@@ -303,7 +303,7 @@ const links = [
   {
     title: "Repo",
     target: "_blank",
-    icon: GithubIcon,
+    icon: BrandGithubIcon,
     url: "https://github.com/ilkhoeri/modules"
   }
 ];

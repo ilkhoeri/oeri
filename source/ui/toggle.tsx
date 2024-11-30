@@ -10,7 +10,7 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
 import {
   ChevronDownSquareIcon,
-  GithubIcon,
+  BrandGithubIcon,
   CheckIcon,
   CopyIcon
 } from "@/modules/icons";
@@ -43,7 +43,7 @@ export const GetCodeButton = React.forwardRef<
         tabIndex={-1}
         title="Get Code"
         className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}>
-        <GithubIcon className="size-5" />
+        <BrandGithubIcon className="size-5" />
       </Link>
     </Tooltip>
   );
@@ -73,7 +73,7 @@ export const CopyButton = React.forwardRef<
       )}
       side="left"
       sideOffset={6}
-      contentProps={{ className: "min-w-[86px]" }}
+      contentProps={{ className: "min-w-[86px] py-1" }}
       content={<span>{clipboard.copied ? "Success" : "Copy"}</span>}>
       {clipboard.copied ? (
         <CheckIcon className="size-5 animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" />

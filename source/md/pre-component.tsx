@@ -3,6 +3,8 @@
 import * as React from "react";
 import Image from "next/image";
 import { cn } from "str-merge";
+import { Button, ButtonProps } from "../ui/button";
+import { CheckIcon, ClipboardCheckIcon } from "@/modules/icons";
 
 type SizeImage = number | `${number}`;
 type DataFigure = {
@@ -66,5 +68,41 @@ export function Figure({
         )}
       </figcaption>
     </figure>
+  );
+}
+
+interface CopyButtonProps extends ButtonProps {
+  text: string | undefined;
+  className?: string;
+}
+
+export function CopyButton({ text, className, ...props }: CopyButtonProps) {
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  const copy = async () => {
+    if (!text) return;
+    await navigator.clipboard.writeText(text);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 700);
+  };
+
+  return (
+    <Button
+      size="icon"
+      className={cn("size-7 !bg-slate-700 !text-white", className)}
+      disabled={isCopied}
+      onClick={copy}
+      aria-label="Copy"
+      {...props}>
+      <span className="sr-only">Copy</span>
+      {isCopied ? (
+        <CheckIcon className="text-green-400" />
+      ) : (
+        <ClipboardCheckIcon />
+      )}
+    </Button>
   );
 }

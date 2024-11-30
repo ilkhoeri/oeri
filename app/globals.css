@@ -390,9 +390,6 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
   --tw-ring-offset-color: hsl(var(--background));
   transition:
     color,
@@ -401,6 +398,12 @@ button {
     text-decoration-color,
     fill,
     stroke 180ms ease;
+}
+
+button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 a:focus-visible,
@@ -709,10 +712,6 @@ hr {
   99.999% {
     content: "•";
   }
-}
-
-.links {
-  @apply underline underline-offset-2 decoration-color-muted hover:text-color hover:decoration-color;
 }
 
 .mdx_customizer code,

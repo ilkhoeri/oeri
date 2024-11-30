@@ -4,7 +4,7 @@ import { ThemeToggle } from "./theme";
 import Element from "@/source/ui/element";
 import { NavLinkItem } from "@/source/ui/link-nav";
 import { appRoutes } from "@/source/routes";
-import { OeriIcon } from "@/modules/icons";
+import { BrandOeriIcon } from "@/modules/icons";
 import { cvx } from "str-merge";
 
 import globalStyle from "../styles/styles";
@@ -41,7 +41,7 @@ export async function FootNav() {
             href="/"
             className="flex flex-initial items-center rounded-lg font-semibold text-muted-foreground hover:text-color"
             aria-label="HOME">
-            <OeriIcon className="mr-2 flex h-[36px] w-[36px] flex-none items-center justify-center rounded-xl border bg-background p-1" />
+            <BrandOeriIcon className="mr-2 flex h-[36px] w-[36px] flex-none items-center justify-center rounded-xl border bg-background p-1" />
           </Link>
         </div>
 
@@ -99,7 +99,7 @@ export async function FootNav() {
             href="https://github.com/ilkhoeri"
             aria-label="Vercel.com Link"
             className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color">
-            <OeriIcon
+            <BrandOeriIcon
               size={28}
               aria-label="oeri Logo"
               className="duration-200 ease-linear group-hover:scale-110"

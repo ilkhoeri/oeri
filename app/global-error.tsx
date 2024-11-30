@@ -17,7 +17,7 @@ export default function GlobalError({
   }
   return (
     <html>
-      <body className="flex flex-col items-center justify-center gap-4 bg-background">
+      <body className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background font-mono">
         <h2 className="font-medium">Something went wrong!</h2>
         {errorMessage}
 

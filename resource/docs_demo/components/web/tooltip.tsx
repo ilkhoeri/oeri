@@ -8,7 +8,7 @@ export function Demo() {
     <span key={index}>Lorem ipsum...</span>
   ));
 
-  function MarkHover({ label }: { label: string }) {
+  function Hover({ label }: { label: string }) {
     return (
       <Tooltip
         asChild
@@ -18,7 +18,10 @@ export function Demo() {
         align={align}
         sideOffset={offset}
         withArrow={withArrow}
-        contentProps={{ className: "bg-color text-background font-medium" }}>
+        contentProps={{
+          className:
+            "bg-color text-background [&_[data-tooltip]]:text-color font-medium"
+        }}>
         <mark>{label}</mark>
       </Tooltip>
     );
@@ -40,9 +43,9 @@ export function Demo() {
 
       <p className="w-80 text-justify">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit.{" "}
-        <MarkHover label="Blanditiis" /> dolor placeat odit{" "}
-        <MarkHover label="reprehenderit" /> expedita nisi ab natus inventore
-        consectetur a? <MarkHover label="Quibusdam" /> harum sapiente voluptas
+        <Hover label="Blanditiis" /> dolor placeat odit{" "}
+        <Hover label="reprehenderit" /> expedita nisi ab natus inventore
+        consectetur a? <Hover label="Quibusdam" /> harum sapiente voluptas
         nam quaerat odit, atque, iusto repellendus expedita, nostrum aperiam
         magni perspiciatis!
       </p>

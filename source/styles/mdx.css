@@ -22,18 +22,6 @@
 [data-rehype-pretty-code-fragment] .line {
   @apply px-4 min-h-[1rem] py-0.5 w-full inline-block;
 }
-[data-rehype-pretty-code-fragment] [data-line-numbers] .line {
-  @apply px-2;
-}
-[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
-  @apply text-zinc-50/40 text-xs;
-  counter-increment: line;
-  content: counter(line);
-  display: inline-block;
-  width: 1.8rem;
-  margin-right: 1.4rem;
-  text-align: right;
-}
 
 [data-rehype-pretty-code-fragment] .line--highlighted {
   @apply bg-zinc-700/50;
@@ -109,7 +97,6 @@
   }
 }
 
-
 [data-rehype-pretty-code-fragment],
 [data-rehype-customizer] {
   & .rehype-pretty-copy {
@@ -131,15 +118,30 @@
 
 .mdx_customizer {
   & :where(:is(h1, h2, h3, h4, h5, h6)) {
-    @apply font-semibold text-color mt-9 mb-1 text-h4 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive;
-
+    @apply text-color mt-9 mb-1 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive;
+  }
+  & :where(:is(h1, h2, h3, h4, h5, h6)) {
     & a.anchor_id {
       @apply [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
     }
+    & + hr {
+      @apply my-0 h-px;
+    }
+    & + hr + p {
+      @apply [&:not(:first-child)]:mt-6;
+    }
   }
-
+  & p {
+    & a {
+      @apply underline underline-offset-2 decoration-color-muted hover:text-color hover:decoration-color;
+    }
+  }
   & a {
     @apply hover:text-color hover:decoration-color;
+  }
+
+  & figure[data-rehype-pretty-code-figure] {
+    @apply relative;
   }
 
   &
@@ -160,7 +162,7 @@
       figure[data-rehype-pretty-code-figure]
         > :is(pre + figcaption[data-rehype-pretty-code-caption])
     ) {
-      @apply -mt-4 mb-6 rounded-b-lg font-geist-mono text-muted-foreground p-[.65em_.5em_.5em] leading-normal [font-size:75%] border border-t-0 bg-muted/40 [overflow-wrap:break-word];
+    @apply -mt-4 mb-6 rounded-b-lg font-geist-mono text-muted-foreground p-[.65em_.5em_.5em] leading-normal [font-size:75%] border border-t-0 bg-muted/40 [overflow-wrap:break-word];
   }
   & img:where(:is(h1, h2, h3, h4, h5, h6) + ul li img) {
     @apply h-[22px] rounded-sm;
@@ -181,23 +183,30 @@
 [data-rehype-pretty-code-fragment] pre code * {
   font-weight: 400;
 }
+code[data-language] {
+  @apply bg-background-code-body;
+}
+code[data-language*="sh"] {
+  @apply bg-background-box;
+}
 code[data-language][data-theme] {
-  @apply bg-background-code-body border-border rounded-lg;
+  @apply border-border rounded-lg;
 }
 code {
   counter-reset: line;
 }
 
-code > [data-line]::before {
+[data-rehype-pretty-code-figure] [data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-
   /* Other styling */
+  font-size: 0.875rem;
+  line-height: 1rem;
   display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
+  width: 1.5rem;
+  margin-right: 0.875rem;
   text-align: right;
-  color: gray;
+  color: rgba(128, 128, 128, 0.75);
 }
 
 code[data-line-numbers-max-digits="2"] > [data-line]::before {

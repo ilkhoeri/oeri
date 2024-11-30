@@ -31,9 +31,7 @@ type PlaygroundType = RecordNested<
   "childrens",
   MarkdownValue,
   React.ReactNode
-> & {
-  defaultState?: MarkdownValue;
-};
+> & { expand?: `${Expands}`; defaultState?: MarkdownValue };
 
 const classes = cvx({
   variants: {
@@ -79,8 +77,8 @@ function Resizer({
 }
 
 export function Playground(_Play: PlaygroundType) {
-  const { childrens } = _Play;
-  const [expand, setExpand] = useState<`${Expands}`>("expand");
+  const { childrens, expand: defaultExpand = "expand" } = _Play;
+  const [expand, setExpand] = useState<`${Expands}`>(defaultExpand);
 
   const tabs = Object.values(MarkdownValue);
   const omitTab = (key: MarkdownValue) => key === "edit" || key === "preview";

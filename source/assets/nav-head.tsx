@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Element from "@/source/ui/element";
 import {
-  DiscordIcon,
-  GithubIcon,
-  OeriIcon,
+  BrandDiscordFillIcon,
+  BrandGithubIcon,
+  BrandOeriIcon,
   LineMenuBarIcon
 } from "@/modules/icons";
 import { useHoveredElement } from "@/source/hooks/use-hovered-element";
@@ -77,14 +77,14 @@ export function Headnav({
           <CommandDialog routes={routes} />
 
           <NavLinkItem
-            icon={GithubIcon}
+            icon={BrandGithubIcon}
             target="_blank"
             aria-label="github repository"
             href="https://github.com/ilkhoeri/oeri"
             className={globalStyle({ toggle: "item", size: "icon-xs" })}
           />
           <NavLinkItem
-            icon={DiscordIcon}
+            icon={BrandDiscordFillIcon}
             target="_blank"
             aria-label="discord community"
             href="https://discord.gg/Xct5BBPDZ9"
@@ -121,7 +121,7 @@ export function LinkHome({
         "rounded-lg gap-2 py-1 px-2 text-lg font-medium leading-none font-geist-mono",
         className
       )}>
-      <OeriIcon size={30} />
+      <BrandOeriIcon size={30} />
       <span>oeri</span>
     </Link>
   );

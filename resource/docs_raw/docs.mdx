@@ -10,3 +10,137 @@ links:
   #   - label: label
   #     link: https://
 ---
+
+# Getting Started
+
+Create your project and compactness the required dependencies.
+
+## Quick Installation![quick-installation](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtOC40MSwyM2MtLjIsMC0uNDEtLjA2LS41OC0uMTgtLjM5LS4yNy0uNTQtLjc2LS4zOC0xLjE5bDIuNjMtNi45LTYuMzMtMS42OGMtLjM3LS4xLS42NS0uMzgtLjczLS43NS0uMDktLjM2LjA0LS43NS4zMi0uOTlMMTQuOTEsMS4yNWMuMzUtLjMxLjg3LS4zNCwxLjI2LS4wNy4zOS4yNy41NC43Ni4zOCwxLjE5bC0yLjYzLDYuOSw2LjMzLDEuNjhjLjM3LjEuNjUuMzguNzMuNzUuMDkuMzYtLjA0Ljc1LS4zMi45OWwtMTEuNTYsMTAuMDZjLS4xOS4xNy0uNDMuMjUtLjY4LjI1Wm0tMi4yNy0xMS40Mmw1LjU3LDEuNDhjLjI4LjA3LjUxLjI2LjY1LjUyLjEzLjI1LjE1LjU1LjA1LjgybC0xLjU4LDQuMTQsNy4wNC02LjEyLTUuNTctMS40OGMtLjI4LS4wNy0uNTEtLjI2LS42NS0uNTItLjEzLS4yNS0uMTUtLjU1LS4wNS0uODJsMS41OC00LjE0LTcuMDQsNi4xMloiIGZpbGw9IiNmMmMwMTIiIHN0cm9rZS13aWR0aD0iMCIvPjwvc3ZnPg==)
+
+---
+
+You can use npx CLI to install the React library framework. The npx ships with npm.
+
+This lets you install packages and run commands in one step. You can use the following command to start creating a new project.
+
+<div className="mt-8 grid sm:grid-cols-2">
+  <div className="relative overflow-hidden rounded-xl border border-muted bg-muted/40 backdrop-blur shadow-md">
+    <div className="relative z-10 flex flex-col gap-4">
+      <div className="mb-4 flex flex-col font-mono last:mb-0">
+        <div className="flex min-h-[48px] items-center justify-between overflow-hidden rounded-t-md border-b-[0.5px] border-b-muted bg-[#eaecee] px-3 dark:bg-[#202425]">
+          <div className="flex h-10 select-none items-center gap-2 truncate font-medium text-muted-foreground font-geist-mono">
+            <Svg className="mt-0.5 size-[18px] text-constructive">
+              <path d="m6.34,4.37h-1.98c-1.31,0-2.37,1.06-2.37,2.37v10.53c0,1.31,1.06,2.37,2.37,2.37h1.98m11.31,0h1.98c1.31,0,2.37-1.06,2.37-2.37V6.73c0-1.31-1.06-2.37-2.37-2.37h-1.98" />
+              <path d="m6.52,7.5l3.91,3.91-3.91,3.91" />
+              <path d="m12,16.5h5.48" />
+            </Svg>
+            <span className="font-geist-mono">Terminal</span>
+          </div>
+        </div>
+        <div className="relative flex flex-col overflow-x-auto whitespace-nowrap rounded-b-md border border-transparent bg-background py-8 pl-4 pr-2 leading-[19px] text-color webkit-scrollbar">
+          <div className="relative box-border flex w-max flex-row items-center overflow-hidden whitespace-pre text-nowrap border-none bg-transparent leading-normal text-color">
+            <span className="text-muted-foreground font-geist-mono">
+              -&nbsp;
+            </span>
+            <span className="text-[#e34ba9] font-geist-mono">npx&nbsp;</span>
+            <TypingWords
+              el="span"
+              withCursor
+              className="[display:flex] font-geist-mono"
+              placeholders={[
+                "create-react-app@latest",
+                "create-expo-app@latest",
+                "create-next-app@latest",
+                "gatsby new my-project",
+                "create-remix@latest",
+                "create-vite@latest"
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+> **Note**: npx requires npm version 5.2 or later. If you’ve installed the latest versions of Node and npm, you should also have npx. Otherwise, you should upgrade Node and/or npm.
+
+Once the installation completes, you can add some [`tailwindcss`](https://tailwindcss.com) class utilities like [`tailwind-merge`](https://www.npmjs.com/package/tailwind-merge) and [`tailwindcss-animate`](https://www.npmjs.com/package/tailwindcss-animate), then run `http://localhost:3000` with your browser to start editing the project and using the oeri module utilities.
+
+## Learn![learn](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMy4yNCw1Ljc3bDguNzYsNC42NCw4Ljc2LTQuNjRjLjIzLS4xMi40OS0uMTguNzQtLjE5LS4wNS0uMDMtLjEtLjA4LS4xNS0uMTFMMTMuNjUsMS40MWMtMS4wMi0uNTQtMi4yOC0uNTQtMy4zLDBMMi42NSw1LjQ3Yy0uMDUuMDMtLjEuMDctLjE1LjEuMjUuMDEuNS4wNy43NC4xOVoiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0xMC4zNSwyMi4zM3YtOS4yN0wxLjYsOC40MWMtLjI0LS4xMy0uNDMtLjMxLS41Ny0uNTEsMCwuMDctLjAzLjE0LS4wMy4yMXY4LjEzYzAsMS4wOC42MywyLjA5LDEuNjUsMi42NGw3LjcsNC4wNmMuMDYuMDMuMTIuMDQuMTguMDctLjExLS4yLS4xOC0uNDMtLjE4LS42N1oiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0yMi40LDguNDFsLTguNzUsNC42NHY5LjI3YzAsLjI0LS4wNy40Ny0uMTguNjcuMDYtLjAzLjEyLS4wNC4xNy0uMDdsNy43LTQuMDdjMS4wMi0uNTQsMS42NS0xLjU1LDEuNjUtMi42NGgwdi04LjEzYzAtLjA3LS4wMi0uMTQtLjAzLS4yLS4xNC4yLS4zMy4zOC0uNTcuNTFaIiBmaWxsPSIjNThjNGRjIiBzdHJva2Utd2lkdGg9IjAiLz48L3N2Zz4=)
+
+---
+
+This project is based on the [React.js](https://react.dev/learn/) library.
+
+On web projects we recommend using [Next.js](https://nextjs.org/), or [Remix](https://remix.run/docs/), or [Gatsby](https://www.gatsbyjs.com/docs/) framework. On native projects we recommend using [Expo](https://docs.expo.dev/) framework.
+
+### Library
+
+React has been designed from the start for gradual adoption. You can use as little or as much React as you need. You don’t need to install anything to play with React.
+
+<GridCard>
+  <LinkedCard href="https://react.dev/learn/installation">
+    <Svg currentFill="fill" size={40}>
+      <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z" />
+    </Svg>
+    <p className="mt-2 font-medium">React</p>
+  </LinkedCard>
+</GridCard>
+
+### Native Frameworks
+
+Framework and platform for mobile application development built on React Native. Expo provides a set of tools and services that simplify the process of creating, building, and distributing React Native applications.
+
+<GridCard>
+  <LinkedCard href="https://docs.expo.dev/">
+    <Svg currentFill="fill" size={40}>
+      <path d="m18.14,11.66c1.48.1,2.8-.91,3.09-2.36-.36-.55-.97-.88-1.62-.88-1.7-.04-2.62,1.99-1.46,3.24h0ZM11.26,3.52l4.02-2.33-1.28-.72-5.54,3.21.44.25.84.47,1.52-.88h0ZM15.79.98c.07.02.12.08.14.14l1.86,5.69c.04.1,0,.2-.09.26-1.48.87-2.19,2.62-1.74,4.27.49,1.79,2.2,2.96,4.05,2.78.1,0,.2.05.23.15l1.92,5.85c.03.1,0,.2-.09.26l-5.89,3.58s-.06.03-.1.03c-.05.01-.1,0-.15-.03l-2.07-1.35s-.06-.06-.08-.1l-4.05-9.67-6.16,3.66s-.03.02-.04.02c-.06.03-.14.02-.2-.02l-1.39-.82c-.1-.05-.14-.18-.09-.29L7.81,3.59s.06-.08.1-.1L13.88.04c.07-.04.15-.04.22,0l1.69.95Zm-6.24,3.83l-1.45-.82L2.33,15.41l1.05.62,4.97-6.76c.05-.07.13-.1.2-.09.08,0,.14.06.18.13l5.42,12.97,1.45.94L9.55,4.81h0Zm10.05,7.92c-1.69,0-2.84-1.72-2.19-3.28.65-1.56,2.67-1.96,3.87-.77.45.44.7,1.05.7,1.68,0,1.31-1.06,2.38-2.37,2.38h0Z" />
+    </Svg>
+    <p className="mt-2 font-medium">Expo</p>
+  </LinkedCard>
+</GridCard>
+
+### React Frameworks
+
+A React-based framework that provides features for web application development, including server-side rendering (SSR), statistical rendering (SSG), and automatic routing. It is more than just a bundling tool, as it provides the structure and conventions for building complete web applications.
+
+<GridCard>
+  <LinkedCard href="https://nextjs.org/">
+    <Svg currentFill="fill" size={40}>
+      <path d="M11.5725 0c-.1763 0-.3098.0013-.3584.0067-.0516.0053-.2159.021-.3636.0328-3.4088.3073-6.6017 2.1463-8.624 4.9728C1.1004 6.584.3802 8.3666.1082 10.255c-.0962.659-.108.8537-.108 1.7474s.012 1.0884.108 1.7476c.652 4.506 3.8591 8.2919 8.2087 9.6945.7789.2511 1.6.4223 2.5337.5255.3636.04 1.9354.04 2.299 0 1.6117-.1783 2.9772-.577 4.3237-1.2643.2065-.1056.2464-.1337.2183-.1573-.0188-.0139-.8987-1.1938-1.9543-2.62l-1.919-2.592-2.4047-3.5583c-1.3231-1.9564-2.4117-3.556-2.4211-3.556-.0094-.0026-.0187 1.5787-.0235 3.509-.0067 3.3802-.0093 3.5162-.0516 3.596-.061.115-.108.1618-.2064.2134-.075.0374-.1408.0445-.495.0445h-.406l-.1078-.068a.4383.4383 0 01-.1572-.1712l-.0493-.1056.0053-4.703.0067-4.7054.0726-.0915c.0376-.0493.1174-.1125.1736-.143.0962-.047.1338-.0517.5396-.0517.4787 0 .5584.0187.6827.1547.0353.0377 1.3373 1.9987 2.895 4.3608a10760.433 10760.433 0 004.7344 7.1706l1.9002 2.8782.096-.0633c.8518-.5536 1.7525-1.3418 2.4657-2.1627 1.5179-1.7429 2.4963-3.868 2.8247-6.134.0961-.6591.1078-.854.1078-1.7475 0-.8937-.012-1.0884-.1078-1.7476-.6522-4.506-3.8592-8.2919-8.2087-9.6945-.7672-.2487-1.5836-.42-2.4985-.5232-.169-.0176-1.0835-.0366-1.6123-.037zm4.0685 7.217c.3473 0 .4082.0053.4857.047.1127.0562.204.1642.237.2767.0186.061.0234 1.3653.0186 4.3044l-.0067 4.2175-.7436-1.14-.7461-1.14v-3.066c0-1.982.0093-3.0963.0234-3.1502.0375-.1313.1196-.2346.2323-.2955.0961-.0494.1313-.054.4997-.054z" />
+    </Svg>
+    <p className="mt-2 font-medium">Next.js</p>
+  </LinkedCard>
+  <LinkedCard href="https://www.gatsbyjs.com/docs/glossary/npm/">
+    <Svg currentFill="fill" size={40}>
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm0 2.571c3.171 0 5.915 1.543 7.629 3.858l-1.286 1.115C16.886 5.572 14.571 4.286 12 4.286c-3.343 0-6.171 2.143-7.286 5.143l9.857 9.857c2.486-.857 4.373-3 4.973-5.572h-4.115V12h6c0 4.457-3.172 8.228-7.372 9.17L2.83 9.944C3.772 5.743 7.543 2.57 12 2.57zm-9.429 9.6l9.344 9.258c-2.4-.086-4.801-.943-6.601-2.743-1.8-1.8-2.743-4.201-2.743-6.515z" />
+    </Svg>
+    <p className="mt-2 font-medium">Gatsby</p>
+  </LinkedCard>
+  <LinkedCard href="https://remix.run/docs/en/main/other-api/create-remix">
+    <Svg currentFill="fill" size={40}>
+      <path d="M21.511 18.508c.216 2.773.216 4.073.216 5.492H15.31c0-.309.006-.592.011-.878.018-.892.036-1.821-.109-3.698-.19-2.747-1.374-3.358-3.55-3.358H1.574v-5h10.396c2.748 0 4.122-.835 4.122-3.049 0-1.946-1.374-3.125-4.122-3.125H1.573V0h11.541c6.221 0 9.313 2.938 9.313 7.632 0 3.511-2.176 5.8-5.114 6.182 2.48.497 3.93 1.909 4.198 4.694ZM1.573 24v-3.727h6.784c1.133 0 1.379.84 1.379 1.342V24Z" />
+    </Svg>
+    <p className="mt-2 font-medium">Remix</p>
+  </LinkedCard>
+</GridCard>
+
+### Bundler
+
+A modern bundling tool that supports various frameworks including React, Svelte, and others. It uses ES Modules to provide a very fast development server and relies on Rollup for production bundling.
+
+<GridCard>
+  <LinkedCard href="https://vitejs.dev/guide/">
+    <Svg currentFill="fill" size={40}>
+      <path d="m8.286 10.578.512-8.657a.306.306 0 0 1 .247-.282L17.377.006a.306.306 0 0 1 .353.385l-1.558 5.403a.306.306 0 0 0 .352.385l2.388-.46a.306.306 0 0 1 .332.438l-6.79 13.55-.123.19a.294.294 0 0 1-.252.14c-.177 0-.35-.152-.305-.369l1.095-5.301a.306.306 0 0 0-.388-.355l-1.433.435a.306.306 0 0 1-.389-.354l.69-3.375a.306.306 0 0 0-.37-.36l-2.32.536a.306.306 0 0 1-.374-.316zm14.976-7.926L17.284 3.74l-.544 1.887 2.077-.4a.8.8 0 0 1 .84.369.8.8 0 0 1 .034.783L12.9 19.93l-.013.025-.015.023-.122.19a.801.801 0 0 1-.672.37.826.826 0 0 1-.634-.302.8.8 0 0 1-.16-.67l1.029-4.981-1.12.34a.81.81 0 0 1-.86-.262.802.802 0 0 1-.165-.67l.63-3.08-2.027.468a.808.808 0 0 1-.768-.233.81.81 0 0 1-.217-.6l.389-6.57-7.44-1.33a.612.612 0 0 0-.64.906L11.58 23.691a.612.612 0 0 0 1.066-.004l11.26-20.135a.612.612 0 0 0-.644-.9z" />
+    </Svg>
+    <p className="mt-2 font-medium">Vite</p>
+  </LinkedCard>
+</GridCard>
+
+## TypeScript![typeScript](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMTkuNywxSDQuM2MtMS44MywwLTMuMywxLjQ3LTMuMywzLjN2MTUuNGMwLDEuODMsMS40NywzLjMsMy4zLDMuM2gxNS40YzEuODMsMCwzLjMtMS40NywzLjMtMy4zVjQuM2MwLTEuODMtMS40Ny0zLjMtMy4zLTMuM1ptLTUuOTQsMTIuMmgtMi43NXY3Ljg2aC0yLjE5di03Ljg2aC0yLjc1di0xLjc2aDcuNjl2MS43NlptNy4wOSw2LjQ1Yy0uMTguMzktLjQ3LjY3LS44MS45LS4zNC4yMS0uNzMuMzctMS4yLjQ3cy0uOTUuMTQtMS40Ni4xNC0xLjAzLS4wNC0xLjUxLS4xMy0uOS0uMjItMS4yNC0uNDF2LTIuMDdjLjMxLjI1Ljc0LjUsMS4yMS42Ni40My4xNi45LjI0LDEuMzguMjQuMywwLC41My0uMDIuNzMtLjA4LjIxLS4wNS4zNy0uMTIuNTItLjIxcy4yNC0uMTkuMzEtLjMxYy4wNy0uMTIuMS0uMjUuMS0uMzksMC0uMi0uMDUtLjM3LS4xNi0uNTItLjEtLjE0LS4yNC0uMjktLjQzLS40MS0uMTgtLjEyLS4zOS0uMjQtLjY1LS4zNi0uMjUtLjEyLS41Mi0uMjMtLjgxLS4zNS0uNzMtLjM0LTEuMzEtLjY4LTEuNjctMS4xNi0uMzctLjQzLS41Ni0uOTktLjU2LTEuNjMsMC0uNTIuMS0uOTIuMy0xLjI5LjIyLS4zOS40Ny0uNjcuODEtLjkuMzQtLjIzLjczLS40MSwxLjItLjUycy45NS0uMTYsMS40Ni0uMTYuOTUuMDMsMS4zMy4wOWMuMzkuMDYuNzUuMTUsMS4wOC4yN3YyLjAyYy0uMTUtLjExLS4zMy0uMjEtLjUyLS4zLS4yLS4wOS0uNC0uMTUtLjYtLjIxcy0uNDEtLjEtLjYtLjEyYy0uMTktLjAyLS4zNy0uMDQtLjU2LS4wNC0uMjYsMC0uNDguMDItLjY4LjA3LS4yMS4wNC0uMzcuMTEtLjUyLjJzLS4yNC4xOS0uMzIuMzEtLjEyLjI1LS4xMi40YzAsLjE1LjA0LjMuMTMuNDMuMDkuMTIuMjEuMjQuMzYuMzYuMTQuMTEuMzMuMjIuNTYuMzMuMjUuMTEuNS4yMi43Ny4zNC4zOS4xNi43My4zNCwxLjAzLjUycy41NS4zNy43Ny42MWMuMjMuMjIuNC40Ny41Mi43N3MuMTguNjQuMTgsMS4wM2MwLC41Ni0uMTMuOTktLjMxLDEuMzhoLjAxWiIgc3R5bGU9ImZpbGw6IzMxNzhjNjsgc3Ryb2tlLXdpZHRoOjBweDsiLz48L3N2Zz4=)
+
+---
+
+This project and the components are written in TypeScript. We recommend using TypeScript for your project as well.
