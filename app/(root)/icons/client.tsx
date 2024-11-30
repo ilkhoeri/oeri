@@ -14,7 +14,6 @@ import { FileIcon } from "@/modules/icons";
 import { Playground } from "@/source/ui/playground";
 import { toPascalCase, Tooltip } from "@/modules/index";
 import { Code } from "@/source/ui/code";
-import { sourceFile } from "@/source/utils";
 
 const FallbackComponent = (slug: string) => (
   <div>
@@ -99,7 +98,7 @@ export function LoadComponent({
                   <Code
                     code={content}
                     setInnerHTML={setInnerHTML}
-                    repo={`${sourceFile(segment)}/${file}`}
+                    repo={`${segment?.[segment?.length - 1]}/${file}`}
                     title={`<${toPascalCase(file.replace(".tsx", "Icon"))}/>`}
                     className="[&>h4]:font-geist-mono [&_code]:max-h-[300px] [&_code]:overflow-y-auto"
                   />

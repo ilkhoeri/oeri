@@ -73,7 +73,7 @@ export async function getContent(
         return {
           content: text.trimEnd()
             ? text
-            : await getRepo(`${git_raw}${basePath}`, ext),
+            : await getRepo(`${git_raw}${basePath}`, ".tsx"),
           extension: ext
         };
       } catch (error: any) {
