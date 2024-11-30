@@ -68,11 +68,11 @@ export async function getRawIcons(
       text = `\`\`\`${lang}\n${text}\n\`\`\``;
     }
 
-    return text.trimEnd()
-      ? process.env.NODE_ENV === "development"
+    return process.env.NODE_ENV === "development"
+      ? text.trimEnd()
         ? text
-        : await getRepo(`${git_raw}${basePath}`, "")
-      : null;
+        : null
+      : await getRepo(`${git_raw}${basePath}`, "");
   } catch (error: any) {
     log.error(error);
     return null;
