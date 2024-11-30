@@ -8,7 +8,7 @@ import { Playground } from "@/source/ui/playground";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { prefixName, getSlug, sourceFile } from "@/source/utils";
-import { getContent, getMdx } from "@/source/generated/fs-get-contents";
+import { getContent, getMdx, getRepo } from "@/source/generated/fs-get-contents";
 import {
   getFilesWithPrefix,
   readdirPrefix
@@ -48,8 +48,11 @@ export async function generateMetadata(
   });
 }
 
+const git_raw =
+  "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
 async function getCode(segment: string[], files: string[]) {
   const usageMap: { [key: string]: string | null } = {};
+  const resource = `/resource/docs/${sourceFile(segment)}`;
 
   for (const file of files) {
     const usage = await getContent(
@@ -63,19 +66,13 @@ async function getCode(segment: string[], files: string[]) {
   }
 
   return {
-    code: await getContent(`/resource/docs/${sourceFile(segment)}`, [
-      ".tsx",
-      ".ts"
-    ]),
-    css: await getContent(
-      `/resource/docs/${sourceFile(segment)}`,
-      [".css"],
-      undefined,
-      { lang: "css" }
-    ).then(res => res.content),
-    usages: !files.length
-      ? await getMdx(`/resource/docs/${sourceFile(segment)}`, "usage")
-      : usageMap
+    code:
+      (await getContent(resource, [".tsx", ".ts"])) ||
+      (await getRepo(`${git_raw}${resource}`, ".ts")),
+    css: await getContent(resource, [".css"], undefined, { lang: "css" }).then(
+      res => res.content
+    ),
+    usages: !files.length ? await getMdx(resource, "usage") : usageMap
   };
 }
 

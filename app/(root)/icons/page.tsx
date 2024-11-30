@@ -2,7 +2,7 @@ import { LoadComponent } from "./client";
 import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
-import { getContent } from "@/source/generated/fs-get-contents";
+import { getRawIcons } from "@/source/generated/fs-get-contents";
 // import { iconsPath } from "@/source/generated/older/fs-get-paths";
 // import fs from "fs-extra";
 import files from "./temporary-files.json";
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function Icons({ file }: { file: string }) {
   const segment = ["resource", "docs", "icons"];
-  const { content } = await getContent(`/${segment.join("/")}/${file}`, [""], {
+  const content = await getRawIcons(`/${segment.join("/")}/${file}`, {
     Icon: `${prefixName(segment, file.replace(".tsx", "Icon"))}`
   });
   return (

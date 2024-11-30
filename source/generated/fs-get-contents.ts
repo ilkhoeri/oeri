@@ -47,9 +47,37 @@ export async function getRepo(
   text = await filterContent(text, {});
   return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
 }
-
 const git_raw =
   "https://raw.githubusercontent.com/ilkhoeri/oeri/refs/heads/master";
+
+export async function getRawIcons(
+  basePath: string,
+  replace: Record<string, string> = {},
+  options: GetContentOptions = {}
+) {
+  const { lang = "tsx showLineNumbers", wrap = true } = options;
+  const ext: string = ".tsx";
+
+  try {
+    let text =
+      process.env.NODE_ENV === "development"
+        ? await fs.readFile(
+            path.join(process.cwd(), `${basePath}${ext}`),
+            "utf-8"
+          )
+        : await getRepo(`${git_raw}${basePath}`, "");
+
+    text = await filterContent(text, replace);
+    if (wrap) {
+      text = `\`\`\`${lang}\n${text}\n\`\`\``;
+    }
+
+    return text.trimEnd() ? text : null;
+  } catch (error: any) {
+    log.error(error);
+    return null;
+  }
+}
 
 export async function getContent(
   basePath: string,
@@ -61,11 +89,13 @@ export async function getContent(
 
   try {
     for (const ext of extensions) {
-      const fullPath = path.join(process.cwd(), `${basePath}${ext}`);
       try {
-        let text = await fs.readFile(fullPath, "utf-8");
-        text = await filterContent(text, replace);
+        let text = await fs.readFile(
+          path.join(process.cwd(), `${basePath}${ext}`),
+          "utf-8"
+        );
 
+        text = await filterContent(text, replace);
         if (wrap) {
           text = `\`\`\`${lang}\n${text}\n\`\`\``;
         }
@@ -79,10 +109,7 @@ export async function getContent(
         // Continue to the next extension if file is not found
       }
     }
-    return {
-      content: await getRepo(`${git_raw}${basePath}`, ""),
-      extension: ".ts"
-    }; // If none of the extensions matched
+    return { content: null, extension: null }; // If none of the extensions matched
   } catch (error: any) {
     log(error);
     return { content: null, extension: null };
