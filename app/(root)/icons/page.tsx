@@ -46,7 +46,6 @@ export default async function Page() {
         {files.map(i => (
           <Icons key={i} file={i} />
         ))}
-        {String(files)}
       </div>
       {/* {doc && <Mdx code={doc?.body?.code} />} */}
     </article>
