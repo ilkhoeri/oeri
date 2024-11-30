@@ -71,26 +71,22 @@ export async function getContent(
         }
 
         return {
-          content: text.trimEnd()
-            ? text
-            : await getRepo(`${git_raw}${basePath}`, ".tsx"),
+          content: text.trimEnd() ? text : null,
           extension: ext
         };
       } catch (error: any) {
         log.error(error);
+        return {
+          content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
+          extension: null
+        };
         // Continue to the next extension if file is not found
       }
     }
-    return {
-      content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
-      extension: ".tsx"
-    }; // If none of the extensions matched
+    return { content: null, extension: null }; // If none of the extensions matched
   } catch (error: any) {
     log(error);
-    return {
-      content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
-      extension: ".tsx"
-    };
+    return { content: null, extension: null };
   }
 }
 
