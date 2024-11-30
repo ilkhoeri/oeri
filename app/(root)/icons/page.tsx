@@ -1,5 +1,9 @@
 import { LoadComponent } from "./client";
+import { prefixName } from "@/source/utils";
+import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
+import { getContent } from "@/source/generated/fs-get-contents";
+import { getFilesDir } from "@/source/generated/older/fs-get-paths";
 
 import type { Metadata } from "next";
 
@@ -10,37 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description: siteConfig.description
   });
 }
-
-import path from "path";
-import fs from "fs";
-import { highlightCode } from "@/source/utils/escape-code";
-import { getContent } from "@/source/generated/fs-get-contents";
-import { prefixName } from "@/source/utils";
-
-/**
-function getFilesDir(): string[] {
-  const iconsDir = path.join(process.cwd(), "resource/docs/icons");
-  try {
-    const files = fs.readdirSync(iconsDir);
-    return files.filter(file => file.endsWith(".tsx"));
-  } catch (err) {
-    console.error("Error reading icons directory:", err);
-    return [];
-  }
-}
- */
-
- // with asynchronous
- async function getFilesDir(): Promise<string[]> {
-  const iconsDir = path.join(process.cwd(), "resource/docs/icons");
-  try {
-    const files = await fs.readdirSync(iconsDir);
-    return files.filter(file => file.endsWith(".tsx"));
-  } catch (err) {
-    console.error("Error reading directory:", err);
-    return [];
-  }
- }
 
 async function Icons({ file }: { file: string }) {
   const segment = ["resource", "docs", "icons"];

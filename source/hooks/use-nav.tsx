@@ -17,7 +17,7 @@ interface NavContextProps extends MediaQuery, ClickOpenOptions {
   onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => false | void;
   minQuery: boolean | undefined;
   maxQuery: boolean | undefined;
-  homeQuery: boolean | undefined;
+  rootSegment: boolean | undefined;
   pathname: string;
 }
 
@@ -40,7 +40,7 @@ export const NavProvider: React.FC<NavProviderProps> = ({
   const minQuery = useMediaQuery(`(min-width: ${mediaQuery}px)`);
   const maxQuery = useMediaQuery(`(max-width: ${mediaQuery - 1}px)`);
 
-  const homeQuery = pathname === "/" && minQuery;
+  const rootSegment = (pathname === "/" || pathname === "/icons") && minQuery;
 
   useEffect(() => {
     const body = document.body;
@@ -62,7 +62,7 @@ export const NavProvider: React.FC<NavProviderProps> = ({
     mediaQuery,
     minQuery,
     maxQuery,
-    homeQuery,
+    rootSegment,
     pathname,
     ...state
   };

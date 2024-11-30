@@ -83,7 +83,10 @@ const config: NextConfig = withContentlayer({
         ...config.resolve,
         fallback: {
           ...config.resolve.fallback,
-          fs: false
+          fs: false,
+          child_process: false,
+          worker_threads: false,
+          "builtin-modules": false
         }
       };
     }

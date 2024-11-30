@@ -6,15 +6,31 @@ import { getSlug } from "../../utils";
 import { log } from "../../log/development";
 
 import type { InnerRoutes, NestedRoute, SingleRoute } from "../../routes/index";
+import { capitalizeFirst, toCamelCase, toSource } from "@/source/utils/text-transform";
 
-export function toCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+/**
+function getFilesDir(): string[] {
+  const iconsDir = path.join(process.cwd(), "resource/docs/icons");
+  try {
+    const files = fs.readdirSync(iconsDir);
+    return files.filter(file => file.endsWith(".tsx"));
+  } catch (err) {
+    console.error("Error reading icons directory:", err);
+    return [];
+  }
 }
-function capitalizeFirst(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-function toSource(str: string[]): string {
-  return str.slice(1).join("/");
+ */
+
+// with asynchronous
+export async function getFilesDir(): Promise<string[]> {
+  const iconsDir = path.join(process.cwd(), "resource/docs/icons");
+  try {
+    const files = await fs.readdir(iconsDir);
+    return files.filter(file => file.endsWith(".tsx"));
+  } catch (err) {
+    console.error("Error reading directory:", err);
+    return [];
+  }
 }
 
 // Function to generate routes dynamically

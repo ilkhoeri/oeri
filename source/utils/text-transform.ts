@@ -28,6 +28,9 @@ export function capitalizeFirst(str: string | undefined): string {
   const first = capitalizedWords.join(" ");
   return capitalizeString(first);
 }
+// export function capitalizeFirst(str: string): string {
+//   return str.charAt(0).toUpperCase() + str.slice(1);
+// }
 
 /**
  * **`capitalizeWords`** : mengkapitalisasi huruf pertama dari string dan mengubah huruf sisanya menjadi huruf kecil.
@@ -313,3 +316,10 @@ export function toPascalCase(str: string) {
 // Contoh penggunaan
 // const kebabCaseString = "animation-text-spiral";
 // const pascalCaseString = toPascalCase(kebabCaseString);
+
+export function toCamelCase(str: string): string {
+  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+}
+export function toSource(str: string[]): string {
+  return str.slice(1).join("/");
+}

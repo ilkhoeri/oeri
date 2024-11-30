@@ -25,7 +25,7 @@ export function AsideLeft({
   routes?: (SingleRoute | NestedRoute)[] | null;
 }) {
   const {
-    homeQuery,
+    rootSegment,
     minQuery,
     maxQuery: query,
     open,
@@ -33,7 +33,7 @@ export function AsideLeft({
     toggle
   } = useNavContext();
 
-  if (homeQuery) {
+  if (rootSegment) {
     return null;
   }
 
