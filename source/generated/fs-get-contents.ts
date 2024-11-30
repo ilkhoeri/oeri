@@ -77,7 +77,7 @@ export async function getContent(
       } catch (error: any) {
         log.error(error);
         return {
-          content: await getRepo(`${git_raw}${basePath}`, ".tsx"),
+          content: await getRepo(`${git_raw}${basePath}`, ""),
           extension: null
         };
         // Continue to the next extension if file is not found
