@@ -29,12 +29,13 @@ async function Icons({ file }: { file: string }) {
   );
 }
 
+async function getFilesIcons(source: string) {
+  return (await fs.readdir(source)).filter(file => file.endsWith(".tsx"));
+}
+
 export default async function Page() {
   // const files = await iconsPath("resource/docs/icons");
-  const files = (await fs.readdir("resource/docs/icons")).filter(file =>
-    file.endsWith(".tsx")
-  );
-
+  const files = await getFilesIcons("resource/docs/icons");
   //log.warn(JSON.stringify(files));
 
   return (
@@ -43,6 +44,7 @@ export default async function Page() {
         {files.map(i => (
           <Icons key={i} file={i} />
         ))}
+        {String(files)}
       </div>
       {/* {doc && <Mdx code={doc?.body?.code} />} */}
     </article>
