@@ -38,25 +38,12 @@ export async function getFilesDir(): Promise<string[]> {
 }
 
 // Function to generate routes dynamically
-export async function iconsPath(
-  // sourcePath: string[],
-  basePath: string
-) {
-  const routes = [];
+export async function iconsPath(basePath: string) {
   try {
-    const files = (await fs.readdir(basePath)).filter(file =>
-      file.endsWith(".tsx")
-    );
-
-    for (const file of files) {
-      routes.push(file);
-      // const folderPath = path.join(basePath, folder);
-      // href: `/${toSource(sourcePath)}/${folder}`
-    }
+    return (await fs.readdir(basePath)).filter(file => file.endsWith(".tsx"));
   } catch (error) {
     log("Error reading directory:", error);
   }
-  return routes;
 }
 
 // Function to generate routes dynamically

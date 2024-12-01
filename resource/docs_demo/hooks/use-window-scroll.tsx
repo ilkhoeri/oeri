@@ -14,7 +14,8 @@ export function Demo() {
         role="button"
         onClick={scrollWindow}
         /* onClick={() => scrollTo({ y: 0 })} // use scrollTo() if you want to specify a scroll with a specific value */
-        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}>
+        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}
+      >
         Scroll to {bottom ? "top" : "bottom"}
       </button>
       <p className="text-sm">

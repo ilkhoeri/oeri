@@ -13,7 +13,8 @@ export function Demo() {
       aria-label="install pwa"
       /* hidden={!prompt} // set hidden when PWA already installed... */
       onClick={installer}
-      className={globalStyle({ button: "default", size: "sm" })}>
+      className={globalStyle({ button: "default", size: "sm" })}
+    >
       Install PWA
     </button>
   );

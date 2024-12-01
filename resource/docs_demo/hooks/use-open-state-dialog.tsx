@@ -14,7 +14,8 @@ export function Demo() {
         role="button"
         ref={state.refs.trigger}
         {...state.styleAt("trigger")}
-        className={globalStyle({ button: "default", size: "sm" })}>
+        className={globalStyle({ button: "default", size: "sm" })}
+      >
         Dialog
       </button>
 

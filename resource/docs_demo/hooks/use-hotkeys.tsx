@@ -16,7 +16,8 @@ export function Demo() {
         type="button"
         role="button"
         // prettier-ignore
-        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}>
+        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}
+      >
         {hotKeys} to {open ? "close" : "open"}
       </button>
 

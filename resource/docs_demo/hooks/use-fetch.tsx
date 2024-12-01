@@ -1,6 +1,6 @@
 "use client";
 import { useFetch } from "@/hooks/use-fetch";
-import { cnx } from "str-merge";
+import { cn } from "str-merge";
 import globalStyle from "@/source/styles/styles";
 
 type Data = {
@@ -33,10 +33,11 @@ export function Demo() {
   return (
     <div>
       <pre
-        className={cnx(
+        className={cn(
           "relative flex items-center justify-center overflow-hidden rounded-lg bg-muted",
           !uniqueUserData && "animate-pulse"
-        )}>
+        )}
+      >
         <code className="overflow-y-auto">
           <p className="h-[400px] min-h-[400px] w-[350px] min-w-[350px] p-4">
             {uniqueUserData
@@ -50,24 +51,20 @@ export function Demo() {
         type="button"
         role="button"
         onClick={refetch}
-        className={globalStyle(
-          { button: "constructive", size: "sm" },
-          "min-w-24 absolute top-4 left-4 z-20"
-        )}>
+        className={globalStyle({ button: "constructive", size: "sm" }, "min-w-24 absolute top-4 left-4 z-20")}
+      >
         Refetch
       </button>
       <button
         type="button"
         role="button"
         onClick={abort}
-        className={globalStyle(
-          { button: "destructive", size: "sm" },
-          "min-w-24 absolute top-16 left-4 z-20"
-        )}>
+        className={globalStyle({ button: "destructive", size: "sm" }, "min-w-24 absolute top-16 left-4 z-20")}
+      >
         Abort
       </button>
       <span
-        className={cnx(
+        className={cn(
           "absolute right-4 top-4 size-4 rounded-full",
           !uniqueUserData || loading ? "bg-destructive" : "bg-conservative"
         )}

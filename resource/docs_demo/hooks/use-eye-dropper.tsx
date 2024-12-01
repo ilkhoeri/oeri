@@ -20,7 +20,8 @@ export function Demo() {
         title="pick color"
         id="pick color"
         onClick={pickColor}
-        className={globalStyle({ button: "outline", size: "icon-sm" }, "z-9")}>
+        className={globalStyle({ button: "outline", size: "icon-sm" }, "z-9")}
+      >
         <PickColorIcon color={color} size={20} />
       </button>
       <SetProps.LabelOnly htmlFor="pick color">{message}</SetProps.LabelOnly>

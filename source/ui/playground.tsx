@@ -7,12 +7,13 @@ import { capitalizeWords } from "@/modules/ondevelopment/utils";
 import { TabsContent, TabsList, TabsTrigger } from "@/source/ui/tabs";
 
 enum MarkdownValue {
-  Edit = "edit",
-  Preview = "preview",
   Code = "code",
-  Tailwind = "tailwind",
+  Raw = "raw",
   Css = "css",
-  Usage = "usage"
+  Edit = "edit",
+  Usage = "usage",
+  Preview = "preview",
+  Tailwind = "tailwind",
 }
 enum Expands {
   "expand" = "expand",
@@ -70,7 +71,8 @@ function Resizer({
     <Button
       variant="outline"
       className={classes({ button: "resizer" })}
-      onClick={() => setExpand(nextValue(expand, EXPAND_VALUES))}>
+      onClick={() => setExpand(nextValue(expand, EXPAND_VALUES))}
+    >
       {capitalizeWords(expand)}
     </Button>
   );
@@ -89,7 +91,8 @@ export function Playground(_Play: PlaygroundType) {
     <>
       <TabsList
         id={undefined}
-        className="w-full flex justify-start bg-background border-b rounded-none p-0 pb-px">
+        className="w-full flex justify-start bg-background border-b rounded-none p-0 pb-px"
+      >
         {tabs.map(
           key =>
             childrens[key] && (
@@ -98,7 +101,8 @@ export function Playground(_Play: PlaygroundType) {
                 key={key}
                 value={key}
                 title={key}
-                className={classes({ button: "tabs" })}>
+                className={classes({ button: "tabs" })}
+              >
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </TabsTrigger>
             )
@@ -115,7 +119,8 @@ export function Playground(_Play: PlaygroundType) {
               className={classes({
                 card: "default",
                 ...(!omitTab(key) ? { statecard: expand, card: "resize" } : {})
-              })}>
+              })}
+            >
               {childrens[key]}
               {!omitTab(key) && (
                 <Resizer expand={expand} setExpand={setExpand} />

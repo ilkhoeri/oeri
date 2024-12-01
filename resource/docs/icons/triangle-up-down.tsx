@@ -3,8 +3,8 @@ import { Svg, type SvgProps } from "../components/web/svg";
 export function Icon({ ...props }: SvgProps) {
   return (
     <Svg {...props}>
-      <circle cx="12" cy="12" r="10" />
-      <path d="m4.93,4.93l14.14,14.14" />
+      <path d="m12,22L3,14.4h18l-9,7.6Z" />
+      <path d="m12,2l9,7.6H3L12,2Z" />
     </Svg>
   );
 }

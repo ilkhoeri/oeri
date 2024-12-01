@@ -24,7 +24,8 @@ export function Demo() {
             setStart(false); // ignore
           }, lifespan + 100); // ignore
         }}
-        className={globalStyle({ button: "default", size: "sm" })}>
+        className={globalStyle({ button: "default", size: "sm" })}
+      >
         Confetti
       </button>
 

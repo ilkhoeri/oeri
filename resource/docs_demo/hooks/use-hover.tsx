@@ -13,7 +13,8 @@ export function Demo() {
         ref={ref}
         type="button"
         role="button"
-        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}>
+        className={globalStyle({ button: "default", size: "sm" }, "min-w-24")}
+      >
         {hovered ? "Yey..." : "Hover me"}
       </button>
 

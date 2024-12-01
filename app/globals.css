@@ -390,6 +390,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
   --tw-ring-offset-color: hsl(var(--background));
   transition:
     color,
@@ -1717,6 +1718,7 @@ body [data-sheet="box"] {
     position: relative;
     margin: 0;
     cursor: pointer;
+    touch-action: manipulation;
     border: 1px solid var(--bc, var(--border));
     background: var(--b, var(--background));
     transition:

@@ -20,8 +20,9 @@
   "scripts": {
     "vercel": "vercel dev --listen 5005",
     "dev": "next dev",
-    "build": "next build",
+    "build": "bun run generated:icons && next build",
     "start": "next start",
+    "generated:icons": "node source/generated/generated.ts ",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "preview": "run preview && next start",
@@ -108,7 +109,7 @@
     "useTabs": false,
     "singleQuote": false,
     "bracketSpacing": true,
-    "jsxBracketSameLine": true,
+    "jsxBracketSameLine": false,
     "arrowParens": "avoid",
     "trailingComma": "none"
   }

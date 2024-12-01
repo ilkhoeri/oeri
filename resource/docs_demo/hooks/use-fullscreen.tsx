@@ -16,7 +16,8 @@ export function Demo() {
         id="fullscreen-toggle"
         onClick={toggle}
         title={fullscreen ? "Minimize" : "Maximize"}
-        className={globalStyle({ toggle: "item", size: "icon-sm" }, "border")}>
+        className={globalStyle({ toggle: "item", size: "icon-sm" }, "border")}
+      >
         {fullscreen ? (
           <MinimizeIcon strokeWidth={2.25} />
         ) : (

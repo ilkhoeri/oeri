@@ -22,11 +22,8 @@ export function Demo() {
         onClick={() => {
           if (text) copy(text);
         }}
-        className={globalStyle({
-          toggle: "item",
-          size: "icon-sm",
-          theme: "outline"
-        })}>
+        className={globalStyle({ toggle: "item", size: "icon-sm", theme: "outline" })}
+      >
         {copied ? <CheckIcon /> : <CopyIcon />}
       </button>
 

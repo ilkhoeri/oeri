@@ -1,11 +1,13 @@
-import { LoadComponent } from "./client";
+import { LayoutIconsPage, LoadComponent } from "./client";
 import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getRawIcons } from "@/source/generated/fs-get-contents";
 // import { iconsPath } from "@/source/generated/older/fs-get-paths";
+import { log } from "@/source/log/development";
+import files from "contentlayer/generated/resources/icons.json";
 // import fs from "fs-extra";
-import files from "./temporary-files.json";
+// import files from "./temporary-files.json";
 
 import type { Metadata } from "next";
 
@@ -17,14 +19,39 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+async function getRepo(url: string, options: { lang?: string } = {}) {
+  const { lang = "tsx" } = options;
+  try {
+    const response = await fetch(url);
+    const text = await response.text();
+    return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
+  } catch (error: any) {
+    log.error(error);
+  }
+}
+
+async function getRaw(file: string) {
+  const gitRaw = await getRepo(
+    `https://raw.githubusercontent.com/ilkhoeri/oericons/refs/heads/master/resource/svg/${file.replace(".tsx", ".svg")}`
+  );
+
+  return {
+    _raw: gitRaw,
+    content: !gitRaw?.includes("404: Not Found")
+      ? await highlightCode(gitRaw || null)
+      : undefined
+  };
+}
+
 async function Icons({ file }: { file: string }) {
   const segment = ["resource", "docs", "icons"];
   const content = await getRawIcons(`/${segment.join("/")}/${file}`, {
     Icon: `${prefixName(segment, file.replace(".tsx", "Icon"))}`
   });
+  const _raw = await getRaw(file);
   return (
     <LoadComponent
-      {...{ file, segment, content }}
+      {...{ file, segment, _raw, content }}
       setInnerHTML={await highlightCode(content)}
     />
   );
@@ -37,17 +64,15 @@ async function Icons({ file }: { file: string }) {
 export default async function Page() {
   // const files = await iconsPath("resource/docs/icons");
   // const files = await getFilesIcons("resource/docs/icons");
-  //log.warn(JSON.stringify(files));
+  // log.warn(JSON.stringify(files));
   // const files = await fs.readdir("resource/docs/icons");
 
   return (
-    <article className="relative mx-auto mt-20 min-h-screen w-full px-6 [--sz:24px] md:px-8 lg:px-10 xl:px-12 [&_svg]:transition-colors [&_svg]:sizer [&_svg]:[will-change:width,height,stroke-width,stroke]">
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(56px,1fr))] gap-4 pb-16 pt-10 sm:pt-11 md:pt-12">
-        {files.map(i => (
-          <Icons key={i} file={i} />
-        ))}
+    <LayoutIconsPage>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(56px,1fr))] gap-4 pb-16">
+        {files?.map(i => <Icons key={i} file={i} />)}
       </div>
       {/* {doc && <Mdx code={doc?.body?.code} />} */}
-    </article>
+    </LayoutIconsPage>
   );
 }

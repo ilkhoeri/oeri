@@ -14,7 +14,8 @@ export function Demo() {
       aria-label="reload"
       onClick={onReload}
       // prettier-ignore
-      className={globalStyle({ button: "outline", size: "icon-sm" }, { "text-constructive border-constructive": reload })}>
+      className={globalStyle({ button: "outline", size: "icon-sm" }, { "text-constructive border-constructive": reload })}
+    >
       <Svg size={32} className="transition-transform">
         <g className={reload ? "occure_load" : undefined}>
           <path d="m4,11c.6-4.4,4.7-7.5,9.1-6.9,2.8.4,5.3,2.3,6.4,4.9m.5-4v4h-4" />
