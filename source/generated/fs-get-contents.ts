@@ -56,11 +56,10 @@ export async function getRawIcons(
   options: GetContentOptions = {}
 ) {
   const { lang = "tsx showLineNumbers", wrap = true } = options;
-  const ext: string = ".tsx";
 
   try {
     let text = await fs.readFile(
-      path.join(process.cwd(), `${basePath}${ext}`),
+      path.join(process.cwd(), `${basePath}`),
       "utf-8"
     );
     text = await filterContent(text, replace);
