@@ -10,16 +10,16 @@ async function filterContent(
 ): Promise<string> {
   const lines = content.split("\n");
 
+  const filterLine = (line: string) =>
+    !line.includes("ignore") &&
+    !line.includes("import globalStyle") &&
+    !line.includes("className={globalStyle") &&
+    !line.includes("__set_props") &&
+    !line.includes("useSetProps") &&
+    !line.includes("SetProps");
+
   const filteredLines = lines
-    .filter(
-      line =>
-        !line.includes("ignore") &&
-        !line.includes("import globalStyle") &&
-        !line.includes("className={globalStyle") &&
-        !line.includes("__set_props") &&
-        !line.includes("useSetProps") &&
-        !line.includes("SetProps")
-    )
+    .filter(line => filterLine(line))
     .map(line => {
       for (const [key, value] of Object.entries(replace)) {
         const regex = new RegExp(`\\b${key}\\b`, "g");
@@ -42,7 +42,7 @@ export async function getRepo(
   replace: Record<string, string> = {},
   options: { ext?: string; lang?: string } = {}
 ): Promise<string> {
-  const { ext, lang = "tsx showLineNumbers" } = options;
+  const { ext = "", lang = "tsx showLineNumbers" } = options;
   const response = await fetch(`${raw}${ext}`);
   let text = await response.text();
   text = await filterContent(text, replace);
@@ -75,7 +75,6 @@ export async function getRawIcons(
       return null;
     }
   }
-
   return await getRepo(`${git_raw}${basePath}`, replace, {});
 }
 
