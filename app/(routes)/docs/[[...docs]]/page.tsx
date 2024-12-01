@@ -69,7 +69,7 @@ async function getCode(segment: string[], files: string[]) {
     usageMap[file] = usage.content;
   }
 
-  const content = await getContent(resource, [".tsx", ".ts"])
+  const content = await getContent(resource, [".tsx", ".ts"]);
 
   return {
     code: {
@@ -77,7 +77,8 @@ async function getCode(segment: string[], files: string[]) {
         content.content ||
         (await getRepo(
           `${git_raw}/resource/docs/${sourceFile(segment)}`,
-          ".ts"
+          undefined,
+          { ext: ".ts" }
         )),
       extension: content.extension || ".ts"
     },

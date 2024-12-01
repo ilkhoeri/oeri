@@ -39,12 +39,13 @@ export type GetContentOptions = {
 
 export async function getRepo(
   raw: string,
-  ext: string,
-  lang: string = "tsx showLineNumbers"
+  replace: Record<string, string> = {},
+  options: { ext?: string; lang?: string } = {}
 ): Promise<string> {
+  const { ext, lang = "tsx showLineNumbers" } = options;
   const response = await fetch(`${raw}${ext}`);
   let text = await response.text();
-  text = await filterContent(text, {});
+  text = await filterContent(text, replace);
   return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
 }
 const git_raw =
@@ -75,7 +76,7 @@ export async function getRawIcons(
     }
   }
 
-  return await getRepo(`${git_raw}${basePath}`, "");
+  return await getRepo(`${git_raw}${basePath}`, replace, {});
 }
 
 export async function getContent(
