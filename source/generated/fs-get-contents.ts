@@ -68,9 +68,7 @@ export async function getRawIcons(
     }
 
     return process.env.NODE_ENV === "development"
-      ? text.trimEnd()
-        ? text
-        : null
+      ? text
       : await getRepo(`${git_raw}${basePath}`, "");
   } catch (error: any) {
     log.error(error);
