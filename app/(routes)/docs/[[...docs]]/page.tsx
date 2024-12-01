@@ -78,7 +78,7 @@ async function getCode(segment: string[], files: string[]) {
         (await getRepo(
           `${git_raw}/resource/docs/${sourceFile(segment)}`,
           undefined,
-          { ext: ".ts" }
+          { ext: ".tsx" }
         )),
       extension: content.extension || ".ts"
     },
