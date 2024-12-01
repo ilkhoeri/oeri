@@ -8,7 +8,7 @@ import { Transform } from "@/modules/ondevelopment";
 import { sanitizedToParams } from "@/modules/ondevelopment/utils";
 import { useNextTheme } from "@/source/assets/theme";
 import {
-  BookOpen2Icon,
+  BookOpenIcon,
   BrandGithubIcon,
   ArrowsSquareIcon
 } from "@/modules/icons";
@@ -297,7 +297,7 @@ const links = [
   {
     title: "Docs",
     target: "_self",
-    icon: BookOpen2Icon,
+    icon: BookOpenIcon,
     url: "/docs"
   },
   {
