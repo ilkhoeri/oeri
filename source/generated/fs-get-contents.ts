@@ -57,23 +57,25 @@ export async function getRawIcons(
 ) {
   const { lang = "tsx showLineNumbers", wrap = true } = options;
 
-  try {
-    let text = await fs.readFile(
-      path.join(process.cwd(), `${basePath}`),
-      "utf-8"
-    );
-    text = await filterContent(text, replace);
-    if (wrap) {
-      text = `\`\`\`${lang}\n${text}\n\`\`\``;
-    }
+  if (process.env.NODE_ENV === "development") {
+    try {
+      let text = await fs.readFile(
+        path.join(process.cwd(), `${basePath}`),
+        "utf-8"
+      );
+      text = await filterContent(text, replace);
+      if (wrap) {
+        text = `\`\`\`${lang}\n${text}\n\`\`\``;
+      }
 
-    return process.env.NODE_ENV === "development"
-      ? text
-      : await getRepo(`${git_raw}${basePath}`, "");
-  } catch (error: any) {
-    log.error(error);
-    return null;
+      return text.trimEnd() ? text : null;
+    } catch (error: any) {
+      log.error(error);
+      return null;
+    }
   }
+
+  return await getRepo(`${git_raw}${basePath}`, "");
 }
 
 export async function getContent(
