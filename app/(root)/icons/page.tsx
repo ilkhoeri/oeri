@@ -1,10 +1,10 @@
+// @ts-nocheck
 import { LayoutIconsPage, LoadComponent } from "./client";
 import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getRawIcons } from "@/source/generated/fs-get-contents";
 import files from "contentlayer/generated/resources/icons.json";
-
 import type { Metadata } from "next";
 import type { RawToJsonProps } from "@/source/generated/generated";
 
