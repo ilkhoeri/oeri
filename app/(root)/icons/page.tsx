@@ -3,13 +3,10 @@ import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { getRawIcons } from "@/source/generated/fs-get-contents";
-// import { iconsPath } from "@/source/generated/older/fs-get-paths";
-import { log } from "@/source/log/development";
 import files from "contentlayer/generated/resources/icons.json";
-// import fs from "fs-extra";
-// import files from "./temporary-files.json";
 
 import type { Metadata } from "next";
+import type { RawToJsonProps } from "@/source/generated/generated";
 
 export async function generateMetadata(): Promise<Metadata> {
   return configMetadata({
@@ -19,60 +16,29 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-async function getRepo(url: string, options: { lang?: string } = {}) {
-  const { lang = "tsx" } = options;
-  try {
-    const response = await fetch(url);
-    const text = await response.text();
-    return `\`\`\`${lang}\n${text}\n\`\`\``.trimEnd();
-  } catch (error: any) {
-    log.error(error);
-  }
-}
-
-async function getRaw(file: string) {
-  const gitRaw = await getRepo(
-    `https://raw.githubusercontent.com/ilkhoeri/oericons/refs/heads/master/resource/svg/${file.replace(".tsx", ".svg")}`
-  );
-
-  return {
-    _raw: gitRaw,
-    content: !gitRaw?.includes("404: Not Found")
-      ? await highlightCode(gitRaw || null)
-      : undefined
-  };
-}
-
-async function Icons({ file }: { file: string }) {
+async function Icons({ files }: { files: RawToJsonProps }) {
   const segment = ["resource", "docs", "icons"];
-  const content = await getRawIcons(`/${segment.join("/")}/${file}`, {
-    Icon: `${prefixName(segment, file.replace(".tsx", "Icon"))}`
+  const content = await getRawIcons(`/${segment.join("/")}/${files.file}`, {
+    Icon: `${prefixName(segment, files.file.replace(".tsx", "Icon"))}`
   });
-  const _raw = await getRaw(file);
+  const _raw = {
+    raw: files.raw,
+    content: await highlightCode(`\`\`\`tsx\n${files.raw}\n\`\`\``.trimEnd())
+  };
   return (
     <LoadComponent
-      {...{ file, segment, _raw, content }}
+      {...{ files, segment, content, _raw }}
       setInnerHTML={await highlightCode(content)}
     />
   );
 }
 
-// async function getFilesIcons(source: string) {
-//   return (await fs.readdir(source)).filter(file => file.endsWith(".tsx"));
-// }
-
 export default async function Page() {
-  // const files = await iconsPath("resource/docs/icons");
-  // const files = await getFilesIcons("resource/docs/icons");
-  // log.warn(JSON.stringify(files));
-  // const files = await fs.readdir("resource/docs/icons");
-
   return (
     <LayoutIconsPage>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(56px,1fr))] gap-4 pb-16">
-        {files?.map(i => <Icons key={i} file={i} />)}
+        {files?.map(i => <Icons key={i.file} files={i} />)}
       </div>
-      {/* {doc && <Mdx code={doc?.body?.code} />} */}
     </LayoutIconsPage>
   );
 }

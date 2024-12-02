@@ -15,7 +15,10 @@ import { getHighlighter } from "@shikijs/compat";
 import rehypeStringify from "rehype-stringify";
 
 import moonlightTheme from "./source/md/moonlight.json" with { type: "json" };
-import { generateJson } from "./source/generated/generated";
+import {
+  generateRawToJson
+  // generateNameFilesToJson
+} from "./source/generated/generated";
 
 /**
  *- `URL`: https://example.com/blog/posts/article-1
@@ -248,7 +251,12 @@ export default makeSource({
   }
 });
 
-generateJson(
+// generateNameFilesToJson(
+//   "resource/docs/icons",
+//   ".contentlayer/generated/resources/icons.json"
+// );
+
+generateRawToJson(
   "resource/docs/icons",
   ".contentlayer/generated/resources/icons.json"
 );

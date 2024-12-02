@@ -8,12 +8,15 @@ import {
   BrandTypescriptFillIcon
 } from "@/modules/icons";
 
+type CustomizerOrigin = "title" | "content";
 type CodeCustomizer = {
   code?: string | null;
   setInnerHTML?: string | null;
   className?: string;
   title?: string;
   repo?: string | null;
+  href?: string;
+  classNames?: Partial<Record<CustomizerOrigin, string>>;
 };
 
 type ExtIconsType = { ext?: string | null };
@@ -26,7 +29,16 @@ export function ExtIcons({ ext }: ExtIconsType) {
 }
 
 export function Code(Text: CodeCustomizer & ExtIconsType) {
-  const { code, setInnerHTML, title, repo, className, ...rest } = Text;
+  const {
+    code,
+    setInnerHTML,
+    title,
+    repo,
+    href,
+    className,
+    classNames,
+    ...rest
+  } = Text;
 
   return (
     <>
@@ -37,12 +49,17 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         )}
       >
         {title && (
-          <h4 className="flex flex-row items-center gap-2 text-[13px] text-muted-foreground [&_svg]:size-4">
+          <h4
+            className={cn(
+              "flex flex-row items-center gap-2 text-[13px] text-muted-foreground [&_svg]:size-4",
+              classNames?.title
+            )}
+          >
             <ExtIcons {...rest} /> <span className="font-normal">{title}</span>
           </h4>
         )}
         <div className="ml-auto flex flex-row items-center gap-1">
-          {repo && <GetCodeButton repo={repo} />}{" "}
+          {repo && <GetCodeButton href={href} repo={repo} />}
           {code && <CopyButton value={code} />}
         </div>
       </div>
@@ -53,9 +70,12 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         className="scrollbar"
       >
         <pre
-          className="rounded-lg p-4 [&>code>[data-rehype-pretty-code-figure]]:pr-8"
           data-language="tsx"
           data-theme="default"
+          className={cn(
+            "rounded-lg p-4 [&>code>[data-rehype-pretty-code-figure]]:pr-8",
+            classNames?.content
+          )}
         >
           <code
             data-language="tsx"
@@ -80,9 +100,12 @@ export function Customizer(Text: CodeCustomizer) {
       data-rehype-customizer=""
       data-code-fragment=""
     >
-      {Text.title && <h4>{Text.title}</h4>}
+      {Text.title && <h4 className={Text?.classNames?.title}>{Text.title}</h4>}
       <div
-        className="mdx_customizer relative whitespace-pre-wrap"
+        className={cn(
+          "mdx_customizer relative whitespace-pre-wrap",
+          Text?.classNames?.content
+        )}
         data-language="tsx"
         data-theme="default"
         dangerouslySetInnerHTML={
@@ -104,7 +127,10 @@ export function Reference(Text: CodeCustomizer) {
       className={cn("-mt-4 text-base", Text.className)}
     >
       {Text.title && (
-        <h4 id={sanitizedToParams(Text.title)}>
+        <h4
+          id={sanitizedToParams(Text.title)}
+          className={Text?.classNames?.title}
+        >
           <a
             className="anchor_id"
             href={`#${sanitizedToParams(Text.title)}`}
@@ -117,7 +143,10 @@ export function Reference(Text: CodeCustomizer) {
       )}
 
       <div
-        className="relative mb-12 mt-4 flex flex-col gap-6 whitespace-pre-wrap"
+        className={cn(
+          "relative mb-12 mt-4 flex flex-col gap-6 whitespace-pre-wrap",
+          Text?.classNames?.content
+        )}
         data-block="body"
         dangerouslySetInnerHTML={
           Text.setInnerHTML ? { __html: Text.setInnerHTML } : undefined

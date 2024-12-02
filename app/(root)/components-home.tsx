@@ -25,7 +25,8 @@ export function PageHome() {
         className={cn(
           "relative flex h-[90vh] max-h-[42.5rem] w-full max-w-7xl flex-col items-center justify-around px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
           style.header_home
-        )}>
+        )}
+      >
         <i
           aria-hidden="true"
           className={cn(
@@ -38,7 +39,8 @@ export function PageHome() {
           <Transform
             el="h1"
             hold={0}
-            className="relative grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]">
+            className="relative grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]"
+          >
             <span className="z-9 select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">
               bring
             </span>
@@ -63,7 +65,8 @@ export function PageHome() {
               after: "translateY(0)",
               origin: "bottom center"
             }}
-            className="relative z-[+1] flex flex-col items-center justify-center text-center text-xs font-normal text-color md:text-sm xl:text-base">
+            className="relative z-[+1] flex flex-col items-center justify-center text-center text-xs font-normal text-color md:text-sm xl:text-base"
+          >
             <span>
               Construct and develop your web and mobile applications using
               straightforward dependencies
@@ -78,14 +81,16 @@ export function PageHome() {
               before: "translateY(9rem)",
               after: "translateY(0)",
               origin: "bottom center"
-            }}>
+            }}
+          >
             {links.map((i, index) => (
               <Link
                 key={index}
                 href={i.url}
                 target={i.target}
                 data-link={sanitizedToParams(i.title)}
-                className="relative flex h-[clamp(2.25rem,1.25rem+2dvw,2.75rem)] w-[clamp(10.375rem,1.25rem+2dvw,100%)] items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:ring-2 before:ring-offset-4 before:ring-offset-background before:transition before:duration-300 before:content-[''] hover:before:scale-105 active:duration-75 active:before:scale-95 data-[link=docs]:before:bg-color data-[link=repo]:before:bg-[#6e5494] data-[link=docs]:before:ring-color data-[link=repo]:before:ring-[#6e5494]">
+                className="relative flex h-[clamp(2.25rem,1.25rem+2dvw,2.75rem)] w-[clamp(10.375rem,1.25rem+2dvw,100%)] items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:ring-2 before:ring-offset-4 before:ring-offset-background before:transition before:duration-300 before:content-[''] hover:before:scale-105 active:duration-75 active:before:scale-95 data-[link=docs]:before:bg-color data-[link=repo]:before:bg-[#6e5494] data-[link=docs]:before:ring-color data-[link=repo]:before:ring-[#6e5494]"
+              >
                 <span className="relative z-[+1] flex-row gap-2 text-base font-semibold text-background centered">
                   <i.icon className="sizer [--sz:22px]" /> {i.title}
                 </span>
@@ -104,14 +109,16 @@ export function PageHome() {
             before: "scale(0)",
             after: "scale(1)",
             origin: "right center"
-          }}>
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 436 140"
             strokeLinecap="round"
             strokeLinejoin="round"
             stroke="hsl(var(--muted-foreground))"
-            strokeWidth="2">
+            strokeWidth="2"
+          >
             <circle
               cx="426.76"
               cy="9.5"
@@ -141,14 +148,16 @@ export function PageHome() {
             before: "scale(0)",
             after: "scale(1)",
             origin: "left center"
-          }}>
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 218 179"
             strokeLinecap="round"
             strokeLinejoin="round"
             stroke="hsl(var(--muted-foreground))"
-            strokeWidth="3">
+            strokeWidth="3"
+          >
             <circle cx="9" cy="9.04" r="7.5" fill="hsl(var(--background))" />
 
             <path
@@ -168,7 +177,8 @@ export function PageHome() {
 
       <section
         id="features"
-        className="relative mb-20 w-full min-w-full space-y-40">
+        className="relative mb-20 w-full min-w-full space-y-40"
+      >
         <i
           aria-hidden="true"
           className={cn(
@@ -183,7 +193,8 @@ export function PageHome() {
               width="64"
               height="64"
               className="size-10 text-color"
-              onContextMenu={e => e.preventDefault()}>
+              onContextMenu={e => e.preventDefault()}
+            >
               <use href="/images/icons.svg#stars" />
             </svg>
 
@@ -217,7 +228,8 @@ function CheckBox() {
         before: "translateX(7rem)",
         after: "translateX(0)",
         origin: "right"
-      }}>
+      }}
+    >
       <input
         checked={isDark}
         onChange={() =>
@@ -258,7 +270,8 @@ function FeaturesList({
               width="64"
               height="64"
               className="size-10 text-color"
-              onContextMenu={e => e.preventDefault()}>
+              onContextMenu={e => e.preventDefault()}
+            >
               <use href={i.image} />
             </svg>
 
@@ -277,7 +290,8 @@ function FeaturesList({
             {i?.slug && (
               <Link
                 href={i.slug}
-                className="!sr-only !hidden items-center justify-start gap-4 rounded-sm group-hover:text-color">
+                className="!sr-only !hidden items-center justify-start gap-4 rounded-sm group-hover:text-color"
+              >
                 <span className="text-sm">Read</span>
                 <ArrowsSquareIcon
                   square={false}

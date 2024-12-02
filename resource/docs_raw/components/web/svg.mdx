@@ -42,7 +42,7 @@ When `<svg/>` has a different viewbox size, you should pass the viewbox size bac
 ```tsx
 function LogoIcon({ viewBox = "0 0 94.2 24", ...props }: SvgProps) {
   return (
-    <Svg currentFill="fill" viewBox={viewBox} ratio={{ w: 3.925 }} {...props}>
+   <Svg currentFill="fill" ratio={{ w: 3.925 }} {...{viewBox, ...props}}>
       {/* child */}
     </Svg>
   );

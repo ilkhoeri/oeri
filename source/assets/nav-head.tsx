@@ -32,7 +32,8 @@ export function Headnav({
       className={twMerge(
         "h-[--navbar] flex items-center justify-between py-4 md:px-5 xl:px-6 border-0 border-b-[0.04rem] border-b-muted/75 fixed top-0 inset-x-0 z-[--z,88] w-[calc(100%-var(--has-scrollbar,0px))] max-w-var backdrop-blur bg-background/95 supports-[backdrop-filter]:bg-background/60 mr-[--has-scrollbar]",
         pathname === "/" && open && "[--z:0]"
-      )}>
+      )}
+    >
       <Element className="relative mx-auto flex w-full max-w-screen-3xl items-center px-4 3xl:px-20">
         <LinkHome
           open={open}
@@ -47,7 +48,8 @@ export function Headnav({
               role="button"
               className="h-6 cursor-pointer select-none rounded-sm px-2 py-1 text-muted-foreground transition-colors centered hover:text-color"
               onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}>
+              onMouseLeave={onMouseLeave}
+            >
               <span>{i.title}</span>
             </Link>
           ))}
@@ -73,7 +75,8 @@ export function Headnav({
           className={globalStyle(
             { toggle: "group" },
             "ml-auto [&_svg]:size-5 [&>:nth-child(1)]:mr-2"
-          )}>
+          )}
+        >
           <CommandDialog routes={routes} />
 
           <NavLinkItem
@@ -81,6 +84,7 @@ export function Headnav({
             target="_blank"
             aria-label="github repository"
             href="https://github.com/ilkhoeri/oeri"
+            classNames={{ icon: "[fill:currentColor]" }}
             className={globalStyle({ toggle: "item", size: "icon-xs" })}
           />
           <NavLinkItem
@@ -88,6 +92,7 @@ export function Headnav({
             target="_blank"
             aria-label="discord community"
             href="https://discord.gg/Xct5BBPDZ9"
+            classNames={{ icon: "[fill:currentColor]" }}
             className={globalStyle({ toggle: "item", size: "icon-xs" })}
           />
         </div>
@@ -120,7 +125,8 @@ export function LinkHome({
       className={twMerge(
         "rounded-lg gap-2 py-1 px-2 text-lg font-medium leading-none font-geist-mono",
         className
-      )}>
+      )}
+    >
       <BrandOeriIcon size={30} />
       <span>oeri</span>
     </Link>
@@ -150,7 +156,8 @@ export function ButtonAside({
       className={twMerge(
         "centered md:hidden md:sr-only relative z-10 scale-100 lg:scale-0 opacity-100 lg:opacity-0 [transition:all_0.5s_ease] rounded-[4px] focus-visible:outline-0",
         className
-      )}>
+      )}
+    >
       <LineMenuBarIcon
         data-state={open ? "open" : "closed"}
         className={twMerge(

@@ -72,7 +72,8 @@ export function NavLinkItem({
           classNames?.link,
           pathActive && classNames?.active
         )}
-        {...props}>
+        {...props}
+      >
         {image && (
           <Image
             alt=""

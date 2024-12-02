@@ -33,7 +33,8 @@ export const GetCodeButton = React.forwardRef<
       side="left"
       sideOffset={6}
       content={<span>Repository</span>}
-      contentProps={{ className: "min-w-[86px]" }}>
+      contentProps={{ className: "min-w-[86px]" }}
+    >
       <Link
         ref={ref}
         {...props}
@@ -42,8 +43,9 @@ export const GetCodeButton = React.forwardRef<
         href={href || `https://github.com/ilkhoeri/modules/blob/main/${repo}`}
         tabIndex={-1}
         title="Get Code"
-        className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}>
-        <BrandGithubIcon className="size-5" />
+        className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}
+      >
+        <BrandGithubIcon fill="currentColor" className="size-5" />
       </Link>
     </Tooltip>
   );
@@ -74,7 +76,8 @@ export const CopyButton = React.forwardRef<
       side="left"
       sideOffset={6}
       contentProps={{ className: "min-w-[86px] py-1" }}
-      content={<span>{clipboard.copied ? "Success" : "Copy"}</span>}>
+      content={<span>{clipboard.copied ? "Success" : "Copy"}</span>}
+    >
       {clipboard.copied ? (
         <CheckIcon className="size-5 animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" />
       ) : (

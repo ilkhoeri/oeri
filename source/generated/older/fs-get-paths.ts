@@ -42,7 +42,7 @@ export async function iconsPath(basePath: string) {
   try {
     return (await fs.readdir(basePath)).filter(file => file.endsWith(".tsx"));
   } catch (error) {
-    log("Error reading directory:", error);
+    log.error("Error reading directory:", error);
   }
 }
 
@@ -66,7 +66,7 @@ async function generatePath(
       }
     }
   } catch (error) {
-    log("Error reading directory:", error);
+    log.error("Error reading directory:", error);
   }
   return routes;
 }
@@ -84,7 +84,7 @@ export async function getPath(sourcePath: string[]): Promise<SingleRoute[]> {
       }
     ];
   } catch (error) {
-    log("Error generating routes:", error);
+    log.error("Error generating routes:", error);
     return [];
   }
 }

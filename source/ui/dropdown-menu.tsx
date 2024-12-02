@@ -3,7 +3,7 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import Link, { type LinkProps } from "next/link";
 
-import { CheckIcon, ChevronIcon, DotFillIcon } from "@/modules/icons";
+import { CheckIcon, ChevronIcon, DotIcon } from "@/modules/icons";
 import { twMerge } from "str-merge";
 
 type Unstyled = { unstyled?: boolean };
@@ -34,7 +34,8 @@ const DropdownMenuSubTrigger = React.forwardRef<
       !unstyled && inset && "pl-8",
       className
     )}
-    {...props}>
+    {...props}
+  >
     {children}
     <ChevronIcon chevron="right" className="ml-auto h-4 w-4" />
   </DropdownMenuPrimitive.SubTrigger>
@@ -130,13 +131,15 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       className
     )}
     checked={checked}
-    {...props}>
+    {...props}
+  >
     <span
       role="status"
       className={twMerge(
         !unstyled &&
           "absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
-      )}>
+      )}
+    >
       <DropdownMenuPrimitive.ItemIndicator>
         <CheckIcon className="h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -159,15 +162,17 @@ const DropdownMenuRadioItem = React.forwardRef<
         "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
-    {...props}>
+    {...props}
+  >
     <span
       role="status"
       className={twMerge(
         !unstyled &&
           "absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
-      )}>
+      )}
+    >
       <DropdownMenuPrimitive.ItemIndicator>
-        <DotFillIcon className="h-4 w-4 fill-current" />
+        <DotIcon className="h-4 w-4 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

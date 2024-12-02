@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { nextValue } from "../utils";
-import { cvx } from "str-merge";
+import { cn, cvx } from "str-merge";
 import { Button } from "@/source/ui/button";
 import { capitalizeWords } from "@/modules/ondevelopment/utils";
 import { TabsContent, TabsList, TabsTrigger } from "@/source/ui/tabs";
@@ -13,13 +13,14 @@ enum MarkdownValue {
   Edit = "edit",
   Usage = "usage",
   Preview = "preview",
-  Tailwind = "tailwind",
+  Tailwind = "tailwind"
 }
 enum Expands {
   "expand" = "expand",
   "expand-full" = "expand-full",
   "collapse" = "collapse"
 }
+type _PlayOrigin = "tablist" | "content" | "expand";
 
 type RecordNested<
   U extends string,
@@ -32,7 +33,11 @@ type PlaygroundType = RecordNested<
   "childrens",
   MarkdownValue,
   React.ReactNode
-> & { expand?: `${Expands}`; defaultState?: MarkdownValue };
+> & {
+  expand?: `${Expands}`;
+  defaultState?: MarkdownValue;
+  classNames?: Partial<Record<_PlayOrigin, string>>;
+};
 
 const classes = cvx({
   variants: {
@@ -62,15 +67,18 @@ const EXPAND_VALUES: `${Expands}`[] = Object.values(Expands);
 
 function Resizer({
   expand,
-  setExpand
+  setExpand,
+  className
 }: {
   expand: `${Expands}`;
   setExpand: (v: `${Expands}`) => void;
+  className?: string;
 }) {
   return (
     <Button
       variant="outline"
-      className={classes({ button: "resizer" })}
+      data-expand={expand}
+      className={cn(classes({ button: "resizer" }), className)}
       onClick={() => setExpand(nextValue(expand, EXPAND_VALUES))}
     >
       {capitalizeWords(expand)}
@@ -79,7 +87,7 @@ function Resizer({
 }
 
 export function Playground(_Play: PlaygroundType) {
-  const { childrens, expand: defaultExpand = "expand" } = _Play;
+  const { childrens, expand: defaultExpand = "expand", classNames } = _Play;
   const [expand, setExpand] = useState<`${Expands}`>(defaultExpand);
 
   const tabs = Object.values(MarkdownValue);
@@ -91,7 +99,10 @@ export function Playground(_Play: PlaygroundType) {
     <>
       <TabsList
         id={undefined}
-        className="w-full flex justify-start bg-background border-b rounded-none p-0 pb-px"
+        className={cn(
+          "w-full flex justify-start bg-background border-b rounded-none p-0 pb-px",
+          classNames?.tablist
+        )}
       >
         {tabs.map(
           key =>
@@ -116,14 +127,23 @@ export function Playground(_Play: PlaygroundType) {
               id={undefined}
               key={key}
               value={key}
-              className={classes({
-                card: "default",
-                ...(!omitTab(key) ? { statecard: expand, card: "resize" } : {})
-              })}
+              className={cn(
+                classes({
+                  card: "default",
+                  ...(!omitTab(key)
+                    ? { statecard: expand, card: "resize" }
+                    : {})
+                }),
+                classNames?.content
+              )}
             >
               {childrens[key]}
               {!omitTab(key) && (
-                <Resizer expand={expand} setExpand={setExpand} />
+                <Resizer
+                  expand={expand}
+                  setExpand={setExpand}
+                  className={classNames?.expand}
+                />
               )}
             </TabsContent>
           )

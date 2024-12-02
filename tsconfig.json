@@ -27,6 +27,7 @@
       "@/modules/*": ["./resource/docs/*"],
       "@/*": ["./*"],
       "#/*": ["source/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"],
       "contentlayer/*": ["./.contentlayer/*"]
     },
     "typeRoots": ["resource/docs/*", "./node_modules/@types"]

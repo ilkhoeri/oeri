@@ -10,12 +10,14 @@ import {
   SheetsContent,
   SheetsTrigger
 } from "@/modules/components/web";
-import { FileIcon, Svg } from "@/modules/icons";
+import { FileIcon, Svg, XIcon } from "@/modules/icons";
 import { Playground } from "@/source/ui/playground";
 import { toPascalCase, Tooltip } from "@/modules/index";
 import { Code } from "@/source/ui/code";
 import { Comp } from "@/source/ui/components";
 import { cn } from "str-merge";
+import { RawToJsonProps } from "@/source/generated/generated";
+import { cleanHTML } from "@/source/libs/dom-purify";
 // import { CopyButton } from "@/source/ui/toggle";
 
 const FallbackComponent = (slug: string) => (
@@ -31,23 +33,8 @@ const FallbackComponent = (slug: string) => (
   </div>
 );
 
-export function LoadComponent({
-  file,
-  _raw,
-  content,
-  segment,
-  setInnerHTML
-}: {
-  file: string;
-  content?: string | null;
-  setInnerHTML?: string | null;
-  segment: string[] | undefined;
-  _raw?: {
-    _raw: string | undefined;
-    content: string | undefined;
-  };
-}) {
-  const Component = dynamic(
+export const component = (file: string) =>
+  dynamic(
     () =>
       import(`@/resource/docs/icons/${file}`)
         .then(mod => mod.Icon)
@@ -63,42 +50,65 @@ export function LoadComponent({
     }
   );
 
+export function LoadComponent({
+  files,
+  _raw,
+  content,
+  segment,
+  setInnerHTML
+}: {
+  files: RawToJsonProps;
+  content?: string | null;
+  setInnerHTML?: string | null;
+  segment: string[] | undefined;
+  _raw?: {
+    raw: string | undefined;
+    content: string | undefined;
+  };
+}) {
+  // const Component = component(files.file);
   return (
     <Sheets variant="drawer" side="bottom">
       <Tooltip
         asChild
-        content={`<${toPascalCase(file.replace(".tsx", "Icon"))}/>`}
+        content={`<${toPascalCase(files.file.replace(".tsx", "Icon"))}/>`}
         classNames={{
           trigger:
-            "flex aspect-square cursor-pointer items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
+            "aspect-square cursor-pointer flex items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
           content: "font-geist-mono"
         }}
       >
-        <SheetsTrigger unstyled data-content>
-          <React.Suspense>
-            <Component />
-          </React.Suspense>
-        </SheetsTrigger>
+        <SheetsTrigger
+          unstyled
+          data-content
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: cleanHTML(String(files.raw))
+          }}
+        />
       </Tooltip>
 
       <SheetsContent className="pr-0">
-        <div className="flex size-full max-h-[76vh] flex-col gap-4 overflow-y-auto p-2 pr-8 webkit-scrollbar">
+        <div className="flex size-full max-h-[76vh] min-h-[76vh] flex-col gap-4 overflow-y-auto p-2 pr-8 webkit-scrollbar">
           <div className="">
-            <div
-              className="flex aspect-square items-center justify-center rounded-lg sizer [--sz:240px] [&>svg]:sizer"
-              {...{
-                style: {
-                  "--hex": "hsl(var(--muted-foreground)/0.7)",
-                  background:
-                    "0 5.2px / 20px 20px linear-gradient(0deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent), 4.8px 0 / 20px 20px linear-gradient(90deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent), 0px 10px / 10px 10px radial-gradient(var(--hex) .5px, #0000 .5px)",
-                  boxShadow: "0 0 0 0.3px var(--hex)"
-                } as React.CSSProperties
-              }}
-            >
-              <React.Suspense>
-                <Component />
-              </React.Suspense>
-            </div>
+            <React.Suspense>
+              <div
+                suppressHydrationWarning
+                dangerouslySetInnerHTML={{
+                  __html: cleanHTML(String(files.raw))
+                }}
+                {...{
+                  className:
+                    "flex aspect-square items-center justify-center rounded-lg sizer [--sz:240px] [&>svg]:sizer",
+                  style: {
+                    "--hex": "hsl(var(--muted-foreground)/0.7)",
+                    background:
+                      "0 5.2px / 20px 20px linear-gradient(0deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent), 4.8px 0 / 20px 20px linear-gradient(90deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent), 0px 10px / 10px 10px radial-gradient(var(--hex) .5px, #0000 .5px)",
+                    boxShadow: "0 0 0 0.3px var(--hex)"
+                  } as React.CSSProperties
+                }}
+              />
+            </React.Suspense>
 
             {/* {_raw?._raw && <CopyButton value={_raw?._raw || undefined} />} */}
           </div>
@@ -106,23 +116,31 @@ export function LoadComponent({
           <Tabs defaultValue="code" className="mb-12 w-full">
             <Playground
               expand="collapse"
+              classNames={{ expand: "hidden" }}
               childrens={{
                 code: (
                   <Code
                     code={content}
                     setInnerHTML={setInnerHTML}
-                    repo={`${segment?.[segment?.length - 1]}/${file}`}
-                    title={`<${toPascalCase(file.replace(".tsx", "Icon"))}/>`}
-                    className="[&>h4]:font-geist-mono [&_code]:max-h-[300px] [&_code]:overflow-y-auto"
+                    repo={`${segment?.[segment?.length - 1]}/${files.file}`}
+                    title={`<${toPascalCase(files.file.replace(".tsx", "Icon"))}/>`}
+                    classNames={{
+                      title: "font-geist-mono",
+                      content: "[&_code]:max-h-[300px] [&_code]:overflow-y-auto"
+                    }}
                   />
                 ),
                 raw: _raw && (
                   <Code
-                    code={_raw._raw}
+                    code={_raw.raw}
                     setInnerHTML={_raw.content}
-                    repo={`${segment?.[segment?.length - 1]}/${file}`}
-                    title={file.replace(".tsx", ".svg")}
-                    className="[&>h4]:font-geist-mono [&_code]:max-h-[300px] [&_code]:overflow-y-auto [&_code]:sizer [&_code]:![--sz-w:100%]"
+                    href={`https://github.com/ilkhoeri/oericons/blob/master/resource/svg/${files.file.replace(".tsx", ".svg")}`}
+                    title={files.file.replace(".tsx", ".svg")}
+                    classNames={{
+                      title: "font-geist-mono",
+                      content:
+                        "[&_code]:max-h-[300px] [&_code]:overflow-y-auto [&_code]:scrollbar [&_code]:!sizer [&_code]:[--sz-w:100%]"
+                    }}
                   />
                 )
               }}
@@ -136,6 +154,7 @@ export function LoadComponent({
 }
 
 export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = React.useState<boolean>(false);
   const [reset, setReset] = React.useState<boolean>(false);
   const [fill, setFill] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<string>("currentColor");
@@ -154,16 +173,28 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
 
   return (
     <Comp>
-      <aside className="inset-y-0 m-0 h-[--aside-h] max-h-[--aside-h] w-0 overflow-hidden bg-background [--aside-h:100dvh] [--aside-lx:calc(var(--aside)+0rem)] [transition:all_0.5s_ease] data-[state=open]:pl-6 max-md:fixed max-md:left-0 max-md:z-[111] max-md:border-0 max-md:border-r-[0.04rem] max-md:border-r-muted/75 max-md:data-[state=open]:w-[--aside-lx] max-md:data-[state=open]:min-w-[--aside-lx] max-md:data-[state=open]:max-w-[--aside-lx] max-md:data-[state=closed]:px-0 max-md:data-[state=closed]:opacity-0 md:sticky md:left-0 md:top-[calc(var(--navbar)+2rem)] md:mt-[2rem] md:w-[--aside-lx] md:min-w-[--aside-lx] md:max-w-[--aside-lx] md:pl-4 md:transition-none md:[--aside-h:calc(100dvh-2rem)]">
+      <aside
+        data-state={open ? "open" : "closed"}
+        className="inset-y-0 m-0 h-[--aside-h] max-h-[--aside-h] w-0 overflow-hidden bg-background pr-2 [--aside-h:100dvh] [--aside-lx:calc(var(--aside)+0rem)] [transition:all_0.5s_ease] data-[state=open]:pl-6 max-md:fixed max-md:left-0 max-md:z-[99] max-md:border-0 max-md:border-r-[0.04rem] max-md:border-r-muted/75 max-md:pr-6 max-md:data-[state=open]:w-[--aside-lx] max-md:data-[state=open]:min-w-[--aside-lx] max-md:data-[state=open]:max-w-[--aside-lx] max-md:data-[state=closed]:px-0 max-md:data-[state=closed]:opacity-0 md:sticky md:left-0 md:top-[calc(var(--navbar)+2rem)] md:mt-[2rem] md:w-[--aside-lx] md:min-w-[--aside-lx] md:max-w-[--aside-lx] md:pl-6 md:transition-none md:[--aside-h:calc(100dvh-2rem)]"
+      >
+        <button
+          className="mb-9 ml-[calc(100%-16px)] mt-6 inline-flex rounded-md border-0 bg-transparent p-0 md:!hidden"
+          type="button"
+          aria-label="closed"
+          title="Closed"
+          onClick={() => setOpen(false)}
+        >
+          <XIcon size={22} />
+        </button>
+
         <nav className="pt-8 [&_*]:font-geist-mono">
-          <div className="relative mb-6 grid grid-flow-row gap-8 rounded-lg border border-constructive bg-background p-6 pt-4">
+          <div className="relative mb-6 grid grid-flow-row gap-8 rounded-lg bg-background-box p-6 pt-4 ring ring-background ring-offset-2 ring-offset-constructive">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-base font-bold leading-4 text-muted-foreground">
-                {" "}
-                Customizer{" "}
+                Customizer
               </h2>
               <button
-                className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-105"
+                className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-110 [&>svg]:active:text-constructive"
                 type="button"
                 aria-label="reset"
                 title="Reset"
@@ -176,15 +207,26 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
               </button>
             </div>
 
-            <input
-              id="color"
-              title="color"
-              name="color"
-              type="color"
-              className="size-9 min-w-9"
-              value={color}
-              onChange={e => setColor(e.target.value)}
-            />
+            <div className="relative flex w-full flex-row items-center gap-4">
+              <input
+                id="color"
+                title="color"
+                name="color"
+                type="color"
+                className="size-9 min-w-9"
+                value={color}
+                onChange={e => setColor(e.target.value)}
+              />
+              <input
+                id="input-color"
+                title="input-color"
+                name="input-color"
+                type="text"
+                className="h-9 w-full rounded-md border px-3 text-sm"
+                value={color}
+                onChange={e => setColor(e.target.value)}
+              />
+            </div>
 
             <div className="relative flex w-full flex-row items-center justify-between">
               <label
@@ -210,7 +252,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
               </label>
 
               <label htmlFor="current-fill">
-                {fill ? "currentColor" : "default"}
+                {fill ? "currentColor" : "solidFill"}
               </label>
             </div>
 
@@ -255,7 +297,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
 
       <article
         className={cn(
-          "relative mx-auto mt-16 min-h-screen w-full px-6 [--sz:24px] md:px-8 lg:px-10 xl:px-12 [&_[data-content]>svg]:transition-all [&_[data-content]>svg]:sizer [&_[data-content]>svg]:[color:--clr] [&_[data-content]>svg]:[stroke-width:--str-w] [&_svg]:[will-change:width,height,stroke-width,stroke,color,fill]",
+          "relative mx-auto mt-16 min-h-screen w-full p-[0_var(--p)_var(--p)_calc(var(--p)-0.5rem)] [--p:1.5rem] [--sz:24px] lg:[--p:2rem] xl:[--p:2.5rem] [&_[data-content]>svg]:transition-all [&_[data-content]>svg]:sizer [&_[data-content]>svg]:[color:--clr] [&_[data-content]>svg]:[stroke-width:--str-w] [&_svg]:[will-change:width,height,stroke-width,stroke,color,fill]",
           {
             "[&_[data-content]>svg[stroke=none]]:[fill:--fill] [&_[data-content]>svg[stroke=none]_*]:[fill:--fill]":
               fill
@@ -270,6 +312,15 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
           } as React.CSSProperties
         }}
       >
+        <button
+          className="absolute bottom-[calc(100%+16px)] right-6 inline-flex rounded-md border-0 bg-background-box px-2 py-1 text-constructive ring ring-background ring-offset-2 ring-offset-constructive transition-transform active:scale-95 md:!hidden"
+          type="button"
+          aria-label="customizer"
+          title="Customizer"
+          onClick={() => setOpen(!open)}
+        >
+          Customizer
+        </button>
         {children}
       </article>
     </Comp>
