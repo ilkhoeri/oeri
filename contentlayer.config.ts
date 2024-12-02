@@ -20,6 +20,11 @@ import {
   // generateNameFilesToJson
 } from "./source/generated/generated";
 
+generateRawToJson(
+  "resource/docs/icons",
+  ".contentlayer/generated/resources/icons.json"
+);
+
 /**
  *- `URL`: https://example.com/blog/posts/article-1
  *- `Path`: /blog/posts/article-1
@@ -255,8 +260,3 @@ export default makeSource({
 //   "resource/docs/icons",
 //   ".contentlayer/generated/resources/icons.json"
 // );
-
-generateRawToJson(
-  "resource/docs/icons",
-  ".contentlayer/generated/resources/icons.json"
-);
