@@ -19,8 +19,7 @@ export function Demo() {
         disabled={start}
         onClick={() => {
           if (!start) setStart(true);
-          setTimeout(() => {
-            // ignore
+          setTimeout(() => { // ignore
             setStart(false); // ignore
           }, lifespan + 100); // ignore
         }}
@@ -30,19 +29,10 @@ export function Demo() {
       </button>
 
       {start && <Confetti lifespan={lifespan} className={position} />}
+      {/* prettier-ignore */}
       <SetProps.Wrapper>
-        <SetPropsRange
-          label="lifespan"
-          value={lifespan}
-          setNumb={props.setNumb}
-          min="5000"
-          max="15000"
-        />
-        <SetPropsSelect
-          values={["absolute", "fixed"]}
-          str={position}
-          setStr={props.setStr}
-        />
+        <SetPropsRange label="lifespan" value={lifespan} setNumb={props.setNumb} min="5000" max="15000" />
+        <SetPropsSelect label="Position" values={["absolute", "fixed"]} str={position} setStr={props.setStr} />
       </SetProps.Wrapper>
     </div>
   );

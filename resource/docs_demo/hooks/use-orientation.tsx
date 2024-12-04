@@ -21,9 +21,10 @@ export function Demo() {
     <Table
       wrap
       classNames={{
-        wrap: "border-0",
-        table: "w-96 min-w-[auto] max-w-[auto]"
-      }}>
+        wrap: "w-full min-w-[auto] max-w-[300px] [&>table]:min-w-[auto] [&>table]:max-w-[300px]",
+        table: "w-full"
+      }}
+    >
       <TableHeader>
         <TableRow>
           <TableHead>Property</TableHead>

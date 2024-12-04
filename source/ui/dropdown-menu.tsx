@@ -3,7 +3,7 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import Link, { type LinkProps } from "next/link";
 
-import { CheckIcon, ChevronIcon, DotIcon } from "@/modules/icons";
+import { CheckIcon, ChevronIcon, CircleDotIcon } from "@/modules/icons";
 import { twMerge } from "str-merge";
 
 type Unstyled = { unstyled?: boolean };
@@ -172,7 +172,7 @@ const DropdownMenuRadioItem = React.forwardRef<
       )}
     >
       <DropdownMenuPrimitive.ItemIndicator>
-        <DotIcon className="h-4 w-4 fill-current" />
+        <CircleDotIcon className="h-4 w-4 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

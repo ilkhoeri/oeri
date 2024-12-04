@@ -13,15 +13,15 @@ links:
 
 ### API
 
-| API               | Type                     | default     | Annotation                                          |
-| ----------------- | ------------------------ | ----------- | --------------------------------------------------- |
-| rating`?`         | number                   | `0`         | initial rating                                      |
-| totalStars`?`     | number                   | `5`         | total number of stars                               |
-| onRatingChange`?` | (rating: number) => void | `undefined` | callback to receive ratings from users              |
-| interactive`?`    | boolean                  | `false`     | if `true`, the star can be clicked to give a rating |
-| unstyled`?`       | boolean                  | `false`     | if `true`, all default styles will be removed       |
-| classNames`?`     | string                   | `undefined` | `{ wrap: "", inner: "" }`                           |
-| styles`?`         | CSSProperties            | `undefined` | `{ wrap: {}, inner: {} }`                           |
+| API               | Type                                              | default     | Annotation                                          |
+| ----------------- | ------------------------------------------------- | ----------- | --------------------------------------------------- |
+| rating`?`         | number                                            | `0`         | initial rating                                      |
+| totalStars`?`     | number                                            | `5`         | total number of stars                               |
+| onRatingChange`?` | (rating: number) => void                          | `undefined` | callback to receive ratings from users              |
+| interactive`?`    | boolean                                           | `false`     | if `true`, the star can be clicked to give a rating |
+| unstyled`?`       | boolean                                           | `false`     | if `true`, all default styles will be removed       |
+| classNames`?`     | \{ wrap?: string; inner?: string \}               | `undefined` | `classNames={{ wrap: "", inner: "" }}`              |
+| styles`?`         | \{ wrap?: CSSProperties; inner?: CSSProperties \} | `undefined` | `styles={{ wrap: {}, inner: {} }}`                  |
 
 ---
 

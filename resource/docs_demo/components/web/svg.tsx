@@ -1,6 +1,6 @@
 import { Svg, SvgProps } from "@/modules/components/web";
 import { getRandomColor } from "@/hooks/use-random-colors"; // ignore
-import { SetPropsSvg, useSetProps } from "../../__set_props";
+import { SetProps, SetPropsRange, SetPropsColor, useSetProps } from "../../__set_props";
 
 export function Demo() {
   const { numb: size, str: color, ...props } = useSetProps({ Str: getRandomColor(), Numb: 16 });
@@ -8,7 +8,10 @@ export function Demo() {
     <div className="flex flex-row items-center gap-4">
       <LogoIcon size={size} color={color} />
       <FileIcon size={size} color={color} arrow="top-right" />
-      <SetPropsSvg numb={size} str={color} {...props} />
+      <SetProps.Wrapper>
+      <SetPropsRange label="bulletRound" value={size} setNumb={props.setNumb} min="8" max="64" />
+      <SetPropsColor str={color} {...props} />
+      </SetProps.Wrapper>
     </div>
   );
 }

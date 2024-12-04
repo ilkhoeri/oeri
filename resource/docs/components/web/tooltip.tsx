@@ -35,8 +35,7 @@ const TooltipTrigger = React.forwardRef<
   React.ElementRef<typeof Primitive.Trigger>,
   Primitive.TooltipTriggerProps & { touch?: boolean }
 >(function TooltipTrigger({ touch, ...props }, ref) {
-  console.log("touch: is", touch);
-  return <Primitive.Trigger {...{ ref, ...props }} />;
+  return <Primitive.Trigger {...{ ref, "data-touch": `${touch}`, ...props }} />;
 });
 TooltipTrigger.displayName = Primitive.TooltipTrigger.displayName;
 
@@ -60,7 +59,8 @@ const TooltipContent = React.forwardRef<
           className
         ),
         ...props
-      }}>
+      }}
+    >
       {children}
 
       {withArrow && (
@@ -71,7 +71,8 @@ const TooltipContent = React.forwardRef<
           data-side={side}
           data-align={align}
           data-tooltip="arrow"
-          className={arrow}>
+          className={arrow}
+        >
           <path d="m.7.4c.4,0,.8.2,1.1.5l4,4.1c.5.5,1.1.7,1.7.7s1.2-.2,1.7-.7L13.2.9c.3-.3.7-.5,1.1-.5s.4-.2.4-.4H.3c0,.2.2.4.4.4Z" />
           <path
             data-arrow="border"
@@ -118,7 +119,8 @@ const Tooltip = React.forwardRef<
           defaultOpen,
           delayDuration,
           disableHoverableContent
-        }}>
+        }}
+      >
         <TooltipTrigger
           {...{
             ref,
@@ -138,7 +140,8 @@ const Tooltip = React.forwardRef<
               className: cn(classNames?.content, contentProps?.className),
               style: { ...styles?.content, ...contentProps?.style }
             }}
-            {...contentProps}>
+            {...contentProps}
+          >
             {content}
           </TooltipContent>
         )}

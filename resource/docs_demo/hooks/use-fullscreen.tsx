@@ -37,9 +37,8 @@ export function Demo() {
       <span className="mt-4 text-sm font-medium">
         use with ref, click image to view fullscreen
       </span>
-      <SetProps.LabelOnly htmlFor="fullscreen-toggle">
-        {fullscreen ? "Click to Minimize" : "Click to Maximize"}
-      </SetProps.LabelOnly>
+      {/* prettier-ignore */}
+      <SetProps.LabelOnly htmlFor="fullscreen-toggle">{fullscreen ? "Click to Minimize" : "Click to Maximize"}</SetProps.LabelOnly>
     </div>
   );
 }

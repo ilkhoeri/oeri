@@ -9,7 +9,7 @@ import { sanitizedToParams } from "@/modules/ondevelopment/utils";
 import { useNextTheme } from "@/source/assets/theme";
 import {
   BookOpenIcon,
-  BrandGithubIcon,
+  BrandGithubFillIcon,
   ArrowsSquareIcon
 } from "@/modules/icons";
 
@@ -49,7 +49,7 @@ export function PageHome() {
               withCursor
               duration={{ break: 2500 }}
               placeholders={TYPING_DEFAULT}
-              className="z-9 ml-[12dvw] h-[--sz] select-none bg-clip-text leading-none [--cursor-color:#6e5494] [--cursor-h:68px] [background:--bg] [display:flex] [text-shadow:--t-sh]"
+              className="z-9 ml-[12dvw] h-[--sz] select-none bg-clip-text leading-none [--cursor-color:#6e5494] [--cursor-h:calc(var(--sz))] [background:--bg] [display:flex] [text-shadow:--t-sh]"
             />
             <span className="z-9 ml-[24dvw] select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">
               together
@@ -317,7 +317,7 @@ const links = [
   {
     title: "Repo",
     target: "_blank",
-    icon: BrandGithubIcon,
+    icon: BrandGithubFillIcon,
     url: "https://github.com/ilkhoeri/modules"
   }
 ];

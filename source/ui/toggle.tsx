@@ -10,7 +10,7 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
 import {
   ChevronDownSquareIcon,
-  BrandGithubIcon,
+  BrandGithubFillIcon,
   CheckIcon,
   CopyIcon
 } from "@/modules/icons";
@@ -45,7 +45,7 @@ export const GetCodeButton = React.forwardRef<
         title="Get Code"
         className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}
       >
-        <BrandGithubIcon fill="currentColor" className="size-5" />
+        <BrandGithubFillIcon fill="currentColor" className="size-5" />
       </Link>
     </Tooltip>
   );

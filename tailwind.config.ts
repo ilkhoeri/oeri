@@ -299,6 +299,121 @@ export default {
             }
           }
         },
+        ".timeline": {
+          "--offset":
+            "calc(var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2)",
+          "&:where([data-align=left])": {
+            // paddingInlineStart: "var(--pl ,var(--offset))",
+            "& [data-tli=bullet]": {
+              right: "auto",
+              left: "calc((var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2) * -1)"
+            },
+            "& [data-tli=body]": {
+              paddingLeft: "var(--offset)"
+            },
+            "& [data-tl=item]": {
+              textAlign: "var(--tli-text-align, left)",
+              paddingLeft: "var(--offset)",
+              "&::before": {
+                "--tli-line-right": "auto",
+                "--tli-line-left": "calc(var(--tl-line-width) * -1)"
+              }
+            }
+          },
+          "&:where([data-align=right])": {
+            // paddingInlineEnd: "var(--pr ,var(--offset))",
+            "& [data-tli=bullet]": {
+              left: "auto",
+              right:
+                "calc((var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2) * -1)"
+            },
+            "& [data-tli=body]": {
+              paddingRight: "var(--offset)"
+            },
+            "& [data-tl=item]": {
+              textAlign: "var(--tli-text-align, right)",
+              paddingRight: "var(--offset)",
+              "&::before": {
+                "--tli-line-left": "auto",
+                "--tli-line-right": "calc(var(--tl-line-width) * -1)"
+              }
+            }
+          }
+        },
+        ".timeline-item": {
+          "--tli-line":
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-line-active-style, var(--tl-line-style)) var(--tli-line-clr, var(--tl-line-clr))",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: "var(--tli-line-top, 0)",
+            left: "var(--tli-line-left, 0)",
+            right: "var(--tli-line-right, 0)",
+            bottom: "var(--tli-line-bottom, -2rem)",
+            display: "var(--tli-line-display, none)",
+            borderInlineStart: "var(--tli-line)",
+            pointerEvents: "none"
+          },
+          "&:where(:not(:first-of-type))": {
+            marginTop: "2rem"
+          },
+          "&:where(:not(:last-of-type))": {
+            "--tli-line-display": "block"
+          },
+          "&:where([data-active]:has(+ [data-active]))": {
+            "--tli-has-line-active-style": "var(--tli-line-style)",
+            "&::before": {
+              borderColor:
+                "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+            }
+          }
+        },
+        ".timeline-item-bullet": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: "-1px",
+          width: "var(--tl-bullet-size)",
+          height: "var(--tl-bullet-size)",
+          borderRadius: "var(--tl-bullet-round)",
+          border:
+            "solid var(--tli-line-width, var(--tl-line-width)) var(--tli-line-clr, var(--tl-line-clr))",
+          "&[data-active]": {
+            borderColor:
+              "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+          },
+          "&[data-bullet]": {
+            "&[data-active]": {
+              backgroundColor:
+                "var(--active-bg, var(--tli-active-bg, var(--tl-line-clr)))",
+              "& *": {
+                color: "var(--active-clr, var(--tli-active-clr))"
+              }
+            },
+            "& svg": {
+              flexShrink: "0",
+              pointerEvents: "none"
+            }
+          },
+          "&[data-notice]": {
+            "--inset-tr":
+              "calc(var(--tli-line-width, var(--tl-line-width)) * -0.75)",
+            "&::after": {
+              content: '""',
+              zIndex: "0",
+              position: "absolute",
+              width: "33.333333%",
+              height: "33.333333%",
+              top: "var(--inset-tr)",
+              right: "var(--inset-tr)",
+              borderRadius: "inherit",
+              backgroundColor: "var(--notice-clr, var(--tli-notice-clr))",
+              boxShadow:
+                "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notice-clr, var(--tli-notice-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notice-ring, var(--tli-notice-ring))"
+            }
+          }
+        },
         ".sizer": {
           width: "var(--sz--w, var(--sz-w, var(--sz)))",
           minWidth: "var(--sz-miw, var(--sz-min, var(--sz-w, var(--sz))))",

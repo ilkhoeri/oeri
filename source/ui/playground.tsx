@@ -11,8 +11,8 @@ enum MarkdownValue {
   Raw = "raw",
   Css = "css",
   Edit = "edit",
-  Usage = "usage",
   Preview = "preview",
+  Usage = "usage",
   Tailwind = "tailwind"
 }
 enum Expands {

@@ -5,22 +5,19 @@ import { SetProps, SetPropsSelect, useSetProps } from "../../__set_props";
 
 export function Demo() {
   const props = useSetProps({ Str: "single" });
-  const data = props.str === "single" ? dataSingle : dataGroup; // prettier-ignore
+  const typeData = props.str === "single" ? dataSingle : dataGroup; // prettier-ignore
   return (
-    <div data-ignore>
-      <Command
-        modal={false}
-        defaultOpen
-        actions={data}
-        nothingFound="Oops..."
-        searchProps={{ autoFocus: false }}
-      />
+    <div data-ignore="" className="mt-8">
+    <Command
+      modal={false}
+      defaultOpen
+      actions={typeData}
+      nothingFound="Oops..."
+      searchProps={{ autoFocus: false }}
+    />
       <SetProps.Wrapper>
-        <SetPropsSelect
-          values={["single", "group"]}
-          str={props.str}
-          setStr={props.setStr}
-        />
+        {/* prettier-ignore */}
+        <SetPropsSelect label="Type Data" values={["single", "group"]} str={props.str} setStr={props.setStr} />
       </SetProps.Wrapper>
     </div> // ignore
   );

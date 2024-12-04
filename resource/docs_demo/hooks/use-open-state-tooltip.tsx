@@ -43,12 +43,9 @@ export function Demo() {
           <span>Lorem ipsum...</span>
         </div>
       </state.Portal>
+      {/* prettier-ignore */}
       <SetProps.Wrapper>
-        <SetPropsSelect
-          values={Object.values(DataSide)}
-          str={side}
-          setStr={setSide}
-        />
+        <SetPropsSelect label="Side" values={Object.values(DataSide)} str={side} setStr={setSide} />
       </SetProps.Wrapper>
     </>
   );

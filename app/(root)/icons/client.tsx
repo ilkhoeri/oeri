@@ -71,7 +71,7 @@ export function LoadComponent({
     <Sheets variant="drawer" side="bottom">
       <Tooltip
         asChild
-        content={`<${toPascalCase(files.file.replace(".tsx", "Icon"))}/>`}
+        content={`${toPascalCase(files.file.replace(".tsx", "Icon"))}`}
         classNames={{
           trigger:
             "aspect-square cursor-pointer flex items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
@@ -157,14 +157,14 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [reset, setReset] = React.useState<boolean>(false);
   const [fill, setFill] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>("currentColor");
+  const [color, setColor] = React.useState<string>("currentcolor");
   const [stroke, setStroke] = React.useState<number>(20);
   const [size, setSize] = React.useState<number>(24);
 
   React.useEffect(() => {
     if (reset) {
       setFill(false);
-      setColor("currentColor");
+      setColor("currentcolor");
       setStroke(20);
       setSize(24);
       setReset(false); // Matikan reset agar tidak terus berjalan
@@ -214,7 +214,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                 name="color"
                 type="color"
                 className="size-9 min-w-9"
-                value={color}
+                value={color === "currentcolor" ? "#000000" : color}
                 onChange={e => setColor(e.target.value)}
               />
               <input

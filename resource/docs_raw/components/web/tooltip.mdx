@@ -37,17 +37,15 @@ You can use several ways to use Tooltip.
 export function MyToggle() {
   return (
     <TooltipProvider>
-      <TooltipRoot>
-        <TooltipTrigger asChild>
-          <button>
-            <BrandGithubIcon className="size-5" />
-          </button>
-        </TooltipTrigger>
+      <TooltipTrigger asChild>
+        <button>
+          <BrandGithubFillIcon className="size-5" />
+        </button>
+      </TooltipTrigger>
 
-        <TooltipContent side="left" sideOffset={6} className="min-w-[86px]">
-          <span>Lorem...</span>
-        </TooltipContent>
-      </TooltipRoot>
+      <TooltipContent side="left" sideOffset={6} className="min-w-[86px]">
+        <span>Lorem...</span>
+      </TooltipContent>
     </TooltipProvider>
   );
 }
@@ -103,7 +101,7 @@ MyToggle.displayName = "MyToggle";
 
 ## API References
 
-- [`@radix-ui/react-tooltip`](https://www.radix-ui.com/primitives/docs/components/tooltip#api-reference)
+{/* - [`@radix-ui/react-tooltip`](https://www.radix-ui.com/primitives/docs/components/tooltip#api-reference) */}
 
 ### Tooltip API
 

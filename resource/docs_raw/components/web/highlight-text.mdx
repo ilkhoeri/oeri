@@ -18,13 +18,13 @@ links:
 
 ### API
 
-| API           | Type              | default     | Annotation                                 |
-| ------------- | ----------------- | ----------- | ------------------------------------------ |
-| text          | string            | -           | define text to process the entire string   |
-| highlight`?`  | string            | -           | define the text to be highlighted          |
-| el`?`         | React.ElementType | `<p>`       | element that will wrap the entire text     |
-| classNames`?` | string            | `undefined` | `classNames={{ text: "", highlight: "" }}` |
-| styles`?`     | CSSProperties     | `undefined` | `styles={{ text: {}, highlight: {} }}`     |
+| API           | Type                                                  | default     | Annotation                                 |
+| ------------- | ----------------------------------------------------- | ----------- | ------------------------------------------ |
+| text          | string                                                | -           | define text to process the entire string   |
+| highlight`?`  | string                                                | -           | define the text to be highlighted          |
+| el`?`         | React.ElementType                                     | `<p>`       | element that will wrap the entire text     |
+| classNames`?` | \{ text?: string; highlight?: string \}               | `undefined` | `classNames={{ text: "", highlight: "" }}` |
+| styles`?`     | \{ text?: CSSProperties; highlight?: CSSProperties \} | `undefined` | `styles={{ text: {}, highlight: {} }}`     |
 
 ---
 

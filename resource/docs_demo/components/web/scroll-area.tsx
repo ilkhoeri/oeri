@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/modules/components/web";
 import { FileIcon } from "@/modules/icons";
-import { SetProps, SetPropsRadio, useSetProps } from "../../__set_props";
+import { SetProps, SetPropsButtonSelect, useSetProps } from "../../__set_props";
 
 export function Demo() {
   const { str: overflow, ...rest } = useSetProps({ Str: "y" });
@@ -28,7 +28,7 @@ export function Demo() {
         </ScrollArea>
       </section>
       {/* prettier-ignore */}
-      <SetProps.Wrapper><SetPropsRadio str={overflow} label="overflow" values={["x", "y"]} {...rest} /></SetProps.Wrapper>
+      <SetProps.Wrapper><SetPropsButtonSelect str={overflow} label="Overflow" values={["x", "y"]} {...rest} /></SetProps.Wrapper>
     </div>
   );
 }

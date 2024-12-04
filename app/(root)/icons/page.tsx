@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { LayoutIconsPage, LoadComponent } from "./client";
 import { prefixName } from "@/source/utils";
 import { highlightCode } from "@/source/utils/escape-code";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Element from "@/source/ui/element";
 import {
   BrandDiscordFillIcon,
-  BrandGithubIcon,
+  BrandGithubFillIcon,
   BrandOeriIcon,
   LineMenuBarIcon
 } from "@/modules/icons";
@@ -80,7 +80,7 @@ export function Headnav({
           <CommandDialog routes={routes} />
 
           <NavLinkItem
-            icon={BrandGithubIcon}
+            icon={BrandGithubFillIcon}
             target="_blank"
             aria-label="github repository"
             href="https://github.com/ilkhoeri/oeri"

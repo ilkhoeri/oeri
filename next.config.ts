@@ -15,8 +15,17 @@ const config: NextConfig = withContentlayer({
   // output: "export", // must be exported function "generateStaticParams()", which is required with "output: export" config
   // poweredByHeader: false,
   // swcMinify: true,
-  experimental: {},
   reactStrictMode: true,
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js"
+        }
+      }
+    }
+  },
   async rewrites() {
     return [];
   },
@@ -77,7 +86,12 @@ const config: NextConfig = withContentlayer({
       }
     ]
   },
-  webpack: (config, { isServer }) => {
+  webpack(config, { isServer }) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"]
+    });
     if (!isServer) {
       config.resolve = {
         ...config.resolve,
