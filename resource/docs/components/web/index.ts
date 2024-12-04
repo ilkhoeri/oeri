@@ -61,5 +61,5 @@ export {
   TimelineItem,
   TimelineList,
   TimelineProvider,
-  useTimelineContext
+  useTimelineCtx
 } from "./timeline";
