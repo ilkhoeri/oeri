@@ -11,7 +11,7 @@ import { displayName, sourceFiles } from "@/source/utils";
 import { sanitizedToParams } from "@/modules/ondevelopment/utils";
 
 import { FileIcon } from "@/modules/icons";
-import { Spinner } from "@/source/assets/loader";
+import { LoaderSpinner } from "@/modules/index";
 import { readdirPrefix } from "@/source/generated/fs-get-demos";
 
 import type { SingleRoute, NestedRoute } from "@/source/routes";
@@ -143,12 +143,12 @@ export function LoadComponent({ segment, file }: Segment & { file: string }) {
         }),
     {
       ssr: true,
-      loading: () => <Spinner size={22} classNames={{ root: "my-auto" }} />
+      loading: () => <LoaderSpinner size={22} classNames={{ root: "my-auto" }} />
     }
   );
   return (
     <React.Suspense
-      fallback={<Spinner size={22} classNames={{ root: "my-auto" }} />}>
+      fallback={<LoaderSpinner size={22} classNames={{ root: "my-auto" }} />}>
       <Component />
     </React.Suspense>
   );

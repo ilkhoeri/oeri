@@ -44,7 +44,8 @@ export {
   desanitizeFromParams,
   desanitizeParams,
   kebabToCamelCase,
-  toPascalCase
+  toPascalCase,
+  removeTrailingDash
 } from "./text-transform";
 
 export { convertBytesToMB } from "./bytes";

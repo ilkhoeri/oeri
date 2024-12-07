@@ -1,8 +1,10 @@
 import React from "react";
 import { Sheets, SheetsContent, SheetsTrigger } from "@/modules/components/web";
+// prettier-ignore
 import { SetProps, SetPropsBoolean, SetPropsRange, SetPropsSideAlign, useSetProps } from "../../__set_props";
 
 export function Demo() {
+  // prettier-ignore
   const { boo: clickOutsideToClose, numb: offset, align, side, ...props } = useSetProps({ Numb: 0 });
   return (
     <SetProps.Div>
@@ -11,7 +13,8 @@ export function Demo() {
         align={align}
         sideOffset={offset}
         clickOutsideToClose={clickOutsideToClose}
-        variant="dropdown">
+        variant="dropdown"
+      >
         <SheetsTrigger id="dropdown">
           <span
             data-labelopen="Dropdown"
@@ -30,6 +33,7 @@ export function Demo() {
           </div>
         </SheetsContent>
       </Sheets>
+      {/* prettier-ignore */}
       <SetProps.Wrapper>
         <SetProps.LabelOnly htmlFor="dropdown" className="relative left-auto top-auto leading-none">Dropdown</SetProps.LabelOnly>
         <SetPropsRange label="sideOffset" value={offset} setNumb={props.setNumb} />

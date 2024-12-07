@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { cn } from "str-merge";
-import { Button, ButtonProps } from "../ui/button";
+import { Button, ButtonProps } from "../../resource/docs/components/web/button";
 import { CheckIcon, ClipboardCheckIcon } from "@/modules/icons";
 
 type SizeImage = number | `${number}`;
@@ -47,7 +47,8 @@ export function Figure({
       {...{
         className: cn("relative", className, classNames?.figure),
         ...props
-      }}>
+      }}
+    >
       <Image
         src={data.src}
         alt={data.name}
@@ -96,7 +97,8 @@ export function CopyButton({ text, className, ...props }: CopyButtonProps) {
       disabled={isCopied}
       onClick={copy}
       aria-label="Copy"
-      {...props}>
+      {...props}
+    >
       <span className="sr-only">Copy</span>
       {isCopied ? (
         <CheckIcon className="text-green-400" />

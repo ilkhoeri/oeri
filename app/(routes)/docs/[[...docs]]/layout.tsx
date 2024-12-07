@@ -38,8 +38,14 @@ export default async function Layout({ children, params }: DocsParams) {
 
   const utility = docFilterBySegment(docsRoutes, "utility").single;
   const hooks = docFilterBySegment(docsRoutes, "hooks").single;
-  const nested = docFilterBySegment(docsRoutes, "components").nested;
-  const components = nested.map(i => i.data).flat();
+
+  const components = docFilterBySegment(docsRoutes, "components").nested;
+  const componentsIsSinggle = components.map(i => i.data).flat();
+  const configurations = docFilterBySegment(
+    docsRoutes,
+    "configurations"
+  ).nested;
+  const configurationsIsSinggle = configurations.map(i => i.data).flat();
 
   const toc = await getTableOfContents(doc?.body?.raw || "");
 
@@ -50,7 +56,14 @@ export default async function Layout({ children, params }: DocsParams) {
         <Comp el="section">
           <NavigationBreadcrumb />
           {children}
-          <NavBottom routes={[...utility, ...components, ...hooks]} />
+          <NavBottom
+            routes={[
+              ...configurationsIsSinggle,
+              ...utility,
+              ...componentsIsSinggle,
+              ...hooks
+            ]}
+          />
         </Comp>
         <TableOfContents toc={toc} sub={5} />
       </Comp>
@@ -63,9 +76,10 @@ export default async function Layout({ children, params }: DocsParams) {
 
   if (slug.length === 1) {
     const routesMap: { [key: string]: any } = {
-      components: nested,
-      utility: utility,
-      hooks: hooks
+      configurations,
+      utility,
+      components,
+      hooks
     };
     const slugMap = routesMap[slug[0]];
     return (
@@ -76,7 +90,8 @@ export default async function Layout({ children, params }: DocsParams) {
   }
 
   const matchingRoutes = findMatchingRoute(slug, [
-    ...components,
+    ...configurationsIsSinggle,
+    ...componentsIsSinggle,
     ...utility,
     ...hooks
   ]);

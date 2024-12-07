@@ -8,17 +8,14 @@ import { Playground } from "@/source/ui/playground";
 import { highlightCode } from "@/source/utils/escape-code";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { prefixName, getSlug, sourceFile } from "@/source/utils";
-import {
-  getContent,
-  getMdx,
-  getRepo
-} from "@/source/generated/fs-get-contents";
+import { getContent, getRepo } from "@/source/generated/fs-get-contents";
 import {
   getFilesWithPrefix,
   readdirPrefix
 } from "@/source/generated/fs-get-demos";
 
 import type { Metadata, ResolvingMetadata } from "next";
+import { removeTrailingDash } from "@/modules/ondevelopment/utils";
 
 interface DocsParams {
   params: Promise<{
@@ -63,7 +60,7 @@ async function getCode(segment: string[], files: string[]) {
       `resource/docs_demo/${readdirPrefix("readdir", segment)}/${file}`,
       undefined,
       {
-        Demo: `${prefixName(segment, file)}Demo`
+        Demo: `${prefixName(segment, removeTrailingDash(file))}Demo`
       }
     );
     usageMap[file] = usage.content;
@@ -85,7 +82,7 @@ async function getCode(segment: string[], files: string[]) {
     css: await getContent(resource, [".css"], undefined, { lang: "css" }).then(
       res => res.content
     ),
-    usages: !files.length ? await getMdx(resource, "usage") : usageMap
+    usages: usageMap
   };
 }
 

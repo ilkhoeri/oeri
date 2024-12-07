@@ -2,17 +2,11 @@ import { bodyConfig } from "./fonts";
 import { ScrollToggle } from "@/source/ui/toggle";
 import { FootNav } from "@/source/assets/nav-foot";
 import { NavProvider } from "@/source/hooks/use-nav";
-import { AppProvider } from "@/source/context/app";
-import { cookiesValues } from "@/source/server/cookies";
+import { AppProvider } from "@/modules/configurations/web/context-provider";
+import { cookiesValues } from "@/modules/configurations/web/config-cookies";
+import { ThemeProvider } from "@/modules/configurations/web/themes";
 import { Headnav } from "@/source/assets/nav-head";
-import { ThemeStateHidden, ThemeProvider } from "@/source/assets/theme";
-import {
-  META_THEME_COLORS,
-  SEO_VERIFICATION,
-  siteConfig,
-  iconsConfig,
-  linksConfig
-} from "./site/config";
+import { META_THEME_COLORS, SEO_VERIFICATION, siteConfig, iconsConfig, linksConfig } from "./site/config";
 
 import type { Metadata } from "next";
 
@@ -135,23 +129,19 @@ export default async function RootLayout({
         data-fontid="inter"
         data-themeid-light="default"
         data-themeid-dark="default"
-        data-theme="default">
+        data-theme="default"
+      >
         <head>
           <link rel="icon" sizes="any" href="/favicon.ico" />
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>
         <body {...bodyConfig()}>
-          <ThemeProvider
-            enableSystem
-            attribute="class"
-            defaultTheme="system"
-            disableTransitionOnChange>
+          <ThemeProvider>
             <NavProvider>
               <Headnav />
               {children}
               <FootNav />
             </NavProvider>
-            <ThemeStateHidden />
             <ScrollToggle />
           </ThemeProvider>
         </body>

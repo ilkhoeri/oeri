@@ -98,5 +98,11 @@ export function docFilterBySegment(
 const routes = allDocs.map(i => i.url);
 const utility = docFilterBySegment(routes, "utility").single;
 const hooks = docFilterBySegment(routes, "hooks").single;
-const nested = docFilterBySegment(routes, "components").nested;
-export const docsRoutes = [...utility, ...nested, ...hooks];
+const components = docFilterBySegment(routes, "components").nested;
+const configurations = docFilterBySegment(routes, "configurations").nested;
+export const docsRoutes = [
+  ...configurations,
+  ...utility,
+  ...components,
+  ...hooks
+];

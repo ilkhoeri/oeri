@@ -40,7 +40,8 @@ export function retitled(
 export function prefixName(docs: string[] | undefined, name: string): string {
   if (!docs) return "";
 
-  const prefix = docs[docs.length - 1];
+  // const prefix = docs[docs.length - 1];
+  const prefix = docs[docs.length];
   let strippedName = name;
 
   if (name.startsWith(prefix)) {

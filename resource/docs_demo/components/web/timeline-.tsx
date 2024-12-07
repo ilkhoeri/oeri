@@ -1,13 +1,8 @@
 import React from "react";
 import { Timeline } from "@/modules/components/web";
 // prettier-ignore
+import { GitBranchIcon, GitCommitIcon, GitPullRequestDraftIcon, GitPullRequestIcon } from "@/modules/icons";
 import { SetProps, SetPropsButtonSelect, SetPropsSelect, SetPropsColor, SetPropsRange, useSetProps } from "../../__set_props";
-import {
-  GitBranchIcon,
-  GitCommitIcon,
-  GitPullRequestDraftIcon,
-  GitPullRequestIcon
-} from "@/modules/icons";
 
 export function Demo() {
   // prettier-ignore
@@ -16,31 +11,30 @@ export function Demo() {
   const { numb: lineWidth, str: lineVariant, ...prop } = useSetProps({ Numb: 2, Str: "solid" });
   // prettier-ignore
   const { numb: bulletRound, str: lineColor, ...props } = useSetProps({ Numb: 8, Str: "currentcolor" });
-
   return (
     <div data-ignore="" className="pl-[124px] pr-1">
-      <Timeline.List
-        // @ts-ignore
-        align={align}
-        bulletStyle={{ round: bulletRound, size: bulletSize }}
-        lineStyle={{ width: lineWidth, clr: lineColor, variant: lineVariant }}
-        className="max-w-5xl py-12 pl-20 pr-4 md:pl-16"
-      >
-        {data.map(i => (
-          <Timeline.Item
-            key={i.id}
-            active={["1", "2", "4"].includes(i.id)}
-            notice={["2", "3"].includes(i.id)}
-            bullet={i.icons}
-            title={i.title}
-          >
-            <p className="mt-2 text-xs">{i.description}</p>
-            <time dateTime={String(i.createdAt)} className="mt-2 text-xs">
-              {String(i.createdAt)}
-            </time>
-          </Timeline.Item>
-        ))}
-      </Timeline.List>
+    <Timeline.List
+      // @ts-ignore
+      align={align}
+      bulletStyle={{ round: bulletRound, size: bulletSize }}
+      lineStyle={{ width: lineWidth, clr: lineColor, variant: lineVariant }}
+      className="max-w-5xl py-12 pl-20 pr-4 md:pl-16"
+    >
+      {data.map(i => (
+        <Timeline.Item
+          key={i.id}
+          active={["1", "2", "4"].includes(i.id)}
+          notice={["2", "3"].includes(i.id)}
+          bullet={i.icons}
+          title={i.title}
+        >
+          <p className="mt-2 text-xs text-muted-foreground">{i.description}</p>
+          <time dateTime={String(i.createdAt)} className="mt-2 text-xs text-muted-foreground">
+            {String(i.createdAt)}
+          </time>
+        </Timeline.Item>
+      ))}
+    </Timeline.List>
       {/* prettier-ignore */}
       <SetProps.Wrapper>
       <SetPropsRange label="bulletSize" value={bulletSize} setNumb={pro.setNumb} min="16" max="40" />

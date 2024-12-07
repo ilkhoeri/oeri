@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { nextValue } from "../utils";
 import { cn, cvx } from "str-merge";
-import { Button } from "@/source/ui/button";
+import { Button } from "@/modules/components/web/button";
 import { capitalizeWords } from "@/modules/ondevelopment/utils";
 import { TabsContent, TabsList, TabsTrigger } from "@/source/ui/tabs";
 

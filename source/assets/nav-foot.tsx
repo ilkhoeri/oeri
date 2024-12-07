@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ThemeToggle } from "./theme";
+import { ThemeToggle } from "../../resource/docs/configurations/web/themes";
 
 import Element from "@/source/ui/element";
 import { NavLinkItem } from "@/source/ui/link-nav";
@@ -35,12 +35,14 @@ export async function FootNav() {
     <footer className={Styles({ as: "footer" })}>
       <Element
         el="section"
-        className={Styles({ as: "section", section: "top" })}>
+        className={Styles({ as: "section", section: "top" })}
+      >
         <div className="col-span-1 w-max lg:col-span-2">
           <Link
             href="/"
             className="flex flex-initial items-center rounded-lg font-semibold text-muted-foreground hover:text-color"
-            aria-label="HOME">
+            aria-label="HOME"
+          >
             <BrandOeriIcon className="mr-2 flex h-[36px] w-[36px] flex-none items-center justify-center rounded-xl border bg-background p-1" />
           </Link>
         </div>
@@ -51,7 +53,8 @@ export async function FootNav() {
               <li
                 key={index}
                 role="listitem"
-                className={Styles({ as: "listitem" })}>
+                className={Styles({ as: "listitem" })}
+              >
                 <NavLinkItem
                   href={i.href}
                   title={i.title}
@@ -65,7 +68,8 @@ export async function FootNav() {
 
       <Element
         el="section"
-        className="relative flex w-full flex-row flex-nowrap justify-end gap-px border-b border-b-muted px-4 pb-4 pt-2 text-muted-foreground">
+        className="relative flex w-full flex-row flex-nowrap justify-end gap-px border-b border-b-muted px-4 pb-4 pt-2 text-muted-foreground"
+      >
         <ThemeToggle
           unstyled={{ wrapper: true, buttons: true }}
           classNames={{
@@ -83,7 +87,8 @@ export async function FootNav() {
 
       <Element
         el="section"
-        className={Styles({ as: "section", section: "bottom" })}>
+        className={Styles({ as: "section", section: "bottom" })}
+      >
         <div className="flex flex-col items-center gap-x-4 sm:flex-row">
           <p>&copy; {currentYear} oeri rights MIT</p>
           <hr className="hidden h-4 w-[1px] border-l border-l-neutral-400 sm:inline-block" />
@@ -98,7 +103,8 @@ export async function FootNav() {
             target="_blank"
             href="https://github.com/ilkhoeri"
             aria-label="Vercel.com Link"
-            className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color">
+            className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color"
+          >
             <BrandOeriIcon
               size={28}
               aria-label="oeri Logo"

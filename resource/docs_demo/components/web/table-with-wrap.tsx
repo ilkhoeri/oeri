@@ -1,11 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableData,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/modules/components/web";
+import { Table, TableBody, TableData, TableHead, TableHeader, TableRow } from "@/modules/components/web";
 import { typeToJson } from "@/modules/utility/text-parser";
 
 export function Demo() {

@@ -23,7 +23,12 @@ interface TimelineListProps
       HTMLDivElement
     > {
   align?: "left" | "right";
-  bulletStyle?: { size?: number; round?: number; ring?: Colors };
+  bulletStyle?: {
+    size?: number;
+    round?: number;
+    ring?: Colors;
+    variant?: LineVariant;
+  };
 }
 
 export const TimelineList = React.forwardRef<HTMLDivElement, TimelineListProps>(
@@ -45,7 +50,8 @@ export const TimelineList = React.forwardRef<HTMLDivElement, TimelineListProps>(
     const {
       ring = "var(--tl-line-clr)",
       round = 9999,
-      size = 24
+      size = 24,
+      variant: bulletVarian = "solid"
     } = bulletStyle;
     return (
       <TimelineProvider {...{ align }}>
@@ -59,6 +65,7 @@ export const TimelineList = React.forwardRef<HTMLDivElement, TimelineListProps>(
               "--tl-bullet-size": `${size}px`,
               "--tl-bullet-round": `${round}px`,
               "--tl-bullet-ring": ring,
+              "--tl-bullet-style": bulletVarian,
               "--tl-line-clr": clr,
               "--tl-line-width": `${width}px`,
               "--tl-line-style": variant,
@@ -177,7 +184,7 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemType>(
             <h4
               {...{
                 className: cn(
-                  "font-medium leading-none mb-1.5",
+                  "font-medium leading-none mb-1.5 text-color",
                   classNames?.title
                 )
               }}
@@ -186,7 +193,11 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemType>(
             </h4>
           )}
           {!children && content ? (
-            <div {...{ className: cn("", classNames?.content) }}>{content}</div>
+            <div
+              {...{ className: cn("text-muted-foreground", classNames?.content) }}
+            >
+              {content}
+            </div>
           ) : (
             children
           )}

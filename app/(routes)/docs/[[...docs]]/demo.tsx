@@ -6,7 +6,7 @@ import { Title } from "@/source/ui/components";
 import { Playground } from "@/source/ui/playground";
 import { Code, Customizer } from "@/source/ui/code";
 import { highlightCode } from "@/source/utils/escape-code";
-import { sanitizedToParams } from "@/modules/ondevelopment/utils";
+import { removeTrailingDash, sanitizedToParams } from "@/modules/ondevelopment/utils";
 import { LoadComponent } from "./client";
 import { Doc } from "@/.contentlayer/generated";
 import { compareWords } from "@/modules/utility";
@@ -71,7 +71,8 @@ export async function Demos(_props: DemosProps) {
         return (
           <div
             key={file}
-            className="mt-12 border-t pt-8 first:mt-6 first:border-t-0 first:pt-0">
+            className="mt-12 border-t pt-8 first:mt-6 first:border-t-0 first:pt-0"
+          >
             {!compareWords(doc?.title, retitled(file)) && (
               <Title
                 size="h1"
@@ -84,21 +85,23 @@ export async function Demos(_props: DemosProps) {
             <LinksFields fields={doc?.links?.related} />
 
             <Tabs
-              id={`usage-${sanitizedToParams(file)}`}
+              id={`usage-${sanitizedToParams(removeTrailingDash(file))}`}
               defaultValue="preview"
-              className="mb-12 w-full">
+              className="mb-12 w-full"
+            >
               <Playground
                 childrens={{
                   preview: (
                     <article
                       data-rehype-pretty-code-fragment=""
-                      className="relative mx-auto flex size-full min-h-[32rem] flex-col items-center justify-center">
+                      className="relative mx-auto flex size-full min-h-[32rem] flex-col items-center justify-center"
+                    >
                       <LoadComponent segment={segment} file={file} />
                     </article>
                   ),
                   usage: usages && typeof usages === "object" && (
                     <Code
-                      title={`${file}-demo.tsx`}
+                      title={`${removeTrailingDash(file)}-demo.tsx`}
                       ext=".tsx"
                       code={usages[file]}
                       setInnerHTML={await highlightCode(usages[file])}

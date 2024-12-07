@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Sheets,
-  SheetsItem,
-  SheetsContent,
-  SheetsTrigger
-} from "@/modules/components/web";
+import { Sheets, SheetsItem, SheetsContent, SheetsTrigger } from "@/modules/components/web";
 import { SetProps, SetPropsBoolean, useSetProps } from "../../__set_props";
 import { ChevronIcon } from "@/modules/icons";
 
@@ -12,21 +7,21 @@ export function Demo() {
   const { boo: multipleOpen, ...props } = useSetProps();
   return (
     <SetProps.Div className="gap-10">
-      <Sheets multipleOpen={multipleOpen} className="w-80">
-        {data.map((i, index) => (
-          <SheetsItem key={index}>
-            <SheetsTrigger
-              id={String(i.title.toLowerCase().replace(/\s/g, "-"))}>
-              {i.title}
-              <ChevronIcon chevron="down" data-origin="arrow-collapse" />
-            </SheetsTrigger>
+    <Sheets multipleOpen={multipleOpen} className="w-80">
+      {data.map((i, index) => (
+        <SheetsItem key={index}>
+          <SheetsTrigger
+            id={String(i.title.toLowerCase().replace(/\s/g, "-"))}>
+            {i.title}
+            <ChevronIcon chevron="down" data-origin="arrow-collapse" />
+          </SheetsTrigger>
 
-            <SheetsContent className="text-sm" id={String(index)}>
-              <p className="pb-4">{i.description}</p>
-            </SheetsContent>
-          </SheetsItem>
-        ))}
-      </Sheets>
+          <SheetsContent className="text-sm" id={String(index)}>
+            <p className="pb-4">{i.description}</p>
+          </SheetsContent>
+        </SheetsItem>
+      ))}
+    </Sheets>
       <SetProps.Wrapper>
         <SetPropsBoolean
           label="multipleOpen"

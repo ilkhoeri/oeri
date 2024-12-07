@@ -362,6 +362,7 @@ export default {
           },
           "&:where([data-active]:has(+ [data-active]))": {
             "--tli-has-line-active-style": "var(--tli-line-style)",
+            "--tli-has-bullet-active-style": "solid",
             "&::before": {
               borderColor:
                 "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
@@ -378,7 +379,7 @@ export default {
           height: "var(--tl-bullet-size)",
           borderRadius: "var(--tl-bullet-round)",
           border:
-            "solid var(--tli-line-width, var(--tl-line-width)) var(--tli-line-clr, var(--tl-line-clr))",
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-line-clr))",
           "&[data-active]": {
             borderColor:
               "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"

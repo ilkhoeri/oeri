@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Confetti } from "@/modules/components/web";
-import {
-  SetProps,
-  SetPropsRange,
-  SetPropsSelect,
-  useSetProps
-} from "../../__set_props";
+// prettier-ignore
+import { SetProps, SetPropsRange, SetPropsSelect, useSetProps} from "../../__set_props";
 import globalStyle from "@/source/styles/styles";
 
 export function Demo() {
   const [start, setStart] = useState(false);
+  // prettier-ignore
   const { numb: lifespan, str: position, ...props } = useSetProps({ Numb: 5000, Str: "absolute" });
 
   return (
@@ -19,6 +16,7 @@ export function Demo() {
         disabled={start}
         onClick={() => {
           if (!start) setStart(true);
+          // prettier-ignore
           setTimeout(() => { // ignore
             setStart(false); // ignore
           }, lifespan + 100); // ignore

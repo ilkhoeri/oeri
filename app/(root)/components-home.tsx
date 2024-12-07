@@ -6,7 +6,7 @@ import { cn } from "str-merge";
 import { TypingWords } from "@/modules/components/web";
 import { Transform } from "@/modules/ondevelopment";
 import { sanitizedToParams } from "@/modules/ondevelopment/utils";
-import { useNextTheme } from "@/source/assets/theme";
+import { useNextTheme } from "@/modules/configurations/web/themes";
 import {
   BookOpenIcon,
   BrandGithubFillIcon,

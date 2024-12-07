@@ -13,9 +13,9 @@ links:
 
 ### @tailwind utilities
 
-The [`accordion`](/docs/components/web/sheets#sheets-accordion) and [`collapsible`](/docs/components/web/sheets#sheets-collapsible) variant components use keyframe animation which by default is set using the tailwindcss class.
+By default, styles set using the tailwindcss class.
 
-Add the following [`animation`](https://tailwindcss.com/docs/animation#customizing-your-theme) to your [`tailwind.config.js`](https://tailwindcss.com/docs/configuration) file:
+Add the following [`plugins`](https://tailwindcss.com/docs/plugins#overview) to your [`tailwind.config.js`](https://tailwindcss.com/docs/configuration) file:
 
 ```ts
 import { PluginAPI, type Config } from "tailwindcss/types/config";
@@ -93,6 +93,7 @@ export default {
           },
           "&:where([data-active]:has(+ [data-active]))": {
             "--tli-has-line-active-style": "var(--tli-line-style)",
+            "--tli-has-bullet-active-style": "solid",
             "&::before": {
               borderColor:
                 "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
@@ -109,7 +110,7 @@ export default {
           height: "var(--tl-bullet-size)",
           borderRadius: "var(--tl-bullet-round)",
           border:
-            "solid var(--tli-line-width, var(--tl-line-width)) var(--tli-line-clr, var(--tl-line-clr))",
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-line-clr))",
           "&[data-active]": {
             borderColor:
               "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
@@ -151,7 +152,7 @@ export default {
 } satisfies Config;
 ```
 
-## Alternative
+### Alternative
 
 You can use several ways to use `<Timeline/>`.
 
@@ -173,8 +174,6 @@ export function MyComponent() {
 ```
 
 2. Using with `<Timeline/>` origin of for use client component.
-
-- without `asChild` property
 
 ```tsx showLineNumbers
 "use client";
@@ -201,26 +200,26 @@ export function MyComponent() {
 
 `TimelineItemOrigin = "list" | "bullet" | "body" | "title" | "content";`
 
-| API            | Type                                                     | default                                                         | Annotation                                                             |
-| -------------- | -------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| align`?`       | "left" \| "right"                                        | `"left"`                                                        | timeline align position                                                |
-| bulletStyle`?` | \{size`?`: number; round`?`: number; ring`?`: Colors\}   | `{size: 24, round`?`: 9999, ring: "var(--tl-line-clr)"}`        | bulletStyle=\{\{ size: number, round: number, ring: Colors \}\}        |
-| lineStyle`?`   | \{width?: number; variant?: LineVariant; clr?: Colors;\} | `{width: 2, variant: "solid", clr: "hsl(var(--constructive))"}` | bulletStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\} |
+| API            | Type                                                                           | default                                                                     | Annotation                                                                             |
+| -------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| align`?`       | "left" \| "right"                                                              | `"left"`                                                                    | timeline align position                                                                |
+| bulletStyle`?` | \{size`?`: number; round`?`: number; ring`?`: Colors; variant?: LineVariant;\} | `{size: 24, round`?`: 9999, ring: "var(--tl-line-clr)", variant?: "solid"}` | bulletStyle=\{\{ size: number, round: number, ring: Colors, variant?: LineVariant \}\} |
+| lineStyle`?`   | \{width?: number; variant?: LineVariant; clr?: Colors;\}                       | `{width: 2, variant: "solid", clr: "hsl(var(--constructive))"}`             | lineStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\}                   |
 
 #### TimelineItem
 
 | API            | Type                                                                                | default       | Annotation                                                                |
 | -------------- | ----------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------- |
-| lineStyle`?`   | \{width?: number; variant?: LineVariant; clr?: Colors;\}                            | `undefined`   | bulletStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\}    |
+| lineStyle`?`   | \{width?: number; variant?: LineVariant; clr?: Colors;\}                            | `undefined`   | lineStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\}      |
 | bullet`?`      | React.ReactNode                                                                     | `null`        | components inside bullet, usually for `<Icons>`                           |
 | title`?`       | React.ReactNode                                                                     | `null`        | title declaration to be wrapped in `<h4>`                                 |
 | content`?`     | React.ReactNode                                                                     | `null`        |                                                                           |
 | classNames`?`  | `Partial<Record<TimelineItemOrigin, string>>`                                       | `undefined`   | `classNames={{ list: ""; bullet: ""; body: ""; title: ""; content: "" }}` |
 | styles`?`      | `Partial<Record<TimelineItemOrigin, React.CSSProperties & { [key: string]: any;}>>` | `undefined`   | `styles={{ list: {}; bullet: {}; body: {}; title: {}; content: {} }}`     |
 | active`?`      | boolean                                                                             | `false`       |                                                                           |
-| activeStyle`?` | \{bg?: Colors; clr?: Colors; line?: string;\}                                       | `activeStyle` | bulletStyle=\{\{ bg: "", clr: "", line: "" \}\}                           |
+| activeStyle`?` | \{bg?: Colors; clr?: Colors; line?: string;\}                                       | `activeStyle` | activeStyle=\{\{ bg: "", clr: "", line: "" \}\}                           |
 | notice`?`      | boolean                                                                             | `false`       |                                                                           |
-| noticeStyle`?` | \{clr?: Colors; ring?: Colors;\}                                                    | `undefined`   | bulletStyle=\{\{ clr: "", ring: "" \}\}                                   |
+| noticeStyle`?` | \{clr?: Colors; ring?: Colors;\}                                                    | `undefined`   | noticeStyle=\{\{ clr: "", ring: "" \}\}                                   |
 
 ---
 

@@ -208,6 +208,10 @@ export function desanitizeParams(sanitizedTitle: string): string {
     .join(" ");
 }
 
+export function removeTrailingDash(input: string): string {
+  return input.endsWith("-") ? input.slice(0, -1) : input;
+}
+
 export function sanitizedToTag(str: string | undefined): string {
   const string = str ?? ")*&^^(";
   const replaced = string.replace(/\s/g, "_");

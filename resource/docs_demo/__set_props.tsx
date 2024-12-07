@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DataAlign, DataSide, sanitizedToParams } from "@/modules/index";
+import { DataAlign, DataSide, Input, sanitizedToParams } from "@/modules/index";
 import { PolymorphicWithoutRef } from "@/source/ui/element";
 import { twMerge, cvx, InferTypes, VariantsType } from "str-merge";
 
@@ -13,7 +13,7 @@ export const styles = cvx({
   variants: {
     as: {
       wrapper:
-        "absolute top-4 left-4 flex flex-col items-start gap-3 [&_span]:font-mono [&_span]:text-nowrap",
+        "absolute top-4 left-4 flex flex-col max-w-[154px] items-start gap-2 [&_span]:font-mono [&_span]:text-nowrap",
       wrapp: "w-full grid grid-flow-row",
       button:
         "w-full justify-start rounded-md border px-2 py-1 text-sm bg-background cursor-pointer ring-offset-constructive/35 focus-visible:border-constructive transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-transparent focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -59,11 +59,11 @@ export const SetProps = {
   LabelOnly: React.forwardRef<HTMLLabelElement, PolymorphicWithoutRef<"label">>(({ className, ...props }, ref) => (
     <label ref={ref} aria-label="label" {...classes("labelOnly", className)} {...props} />
   )),
-  Label: React.forwardRef<HTMLLabelElement, PolymorphicWithoutRef<"label">>(({ className, ...props }, ref) => (
-    <label ref={ref} aria-label="label" className={className} {...props} />
+  Label: React.forwardRef<HTMLLabelElement, PolymorphicWithoutRef<"label">>(({ ...props }, ref) => (
+    <label ref={ref} aria-label="label" {...props} />
   )),
-  Range: React.forwardRef<HTMLInputElement, PolymorphicWithoutRef<"input">>(({ className, ...props }, ref) => (
-    <input ref={ref} type="range" aria-label="range" className={className} {...props} />
+  Range: React.forwardRef<HTMLInputElement, PolymorphicWithoutRef<"input">>(({ ...props }, ref) => (
+    <Input ref={ref} type="range" aria-label="range" {...props} />
   )),
   Radio: React.forwardRef<HTMLInputElement, PolymorphicWithoutRef<"input">>(({ className, ...props }, ref) => (
     <input ref={ref} type="radio" aria-label="radio" className={className} {...props} />
@@ -128,27 +128,7 @@ export function SetPropsText(X: { str: string; setStr: (v: string) => void }) {
   );
 }
 
-/**
 
-      <SetProps.Wrapp>
-        <label htmlFor="sideOffset" {...classes("button", { size: "36" })}>
-          <SetProps.Nameprops>sideOffset=</SetProps.Nameprops>
-          <span>&#123;{numb}&#125;</span>
-        </label>
-
-        <input
-          type="range"
-          name="sideOffset"
-          id="sideOffset"
-          aria-label="sideOffset"
-          min="0"
-          max="100"
-          value={numb}
-          onChange={(e) => setNumb(Number(e.target.value))}
-          className="w-40"
-        />
-      </SetProps.Wrapp>
- */
 
 export function SetPropsRange(
   X: { setNumb: (e: number) => void } & PolymorphicWithoutRef<"input"> & {
@@ -248,7 +228,7 @@ export function SetPropsSelect(X: {
         name={sanitizedToParams(label)}
         title={label}
         aria-label={label}
-        {...classes("button", undefined, { size: "36" })}
+        {...classes("button", "scrollbar max-h-40 font-inter cursor-pointer", { size: "36" })}
         value={str}
         onChange={e => setStr(e.target.value)}
       >
@@ -288,7 +268,7 @@ export function SetPropsColor(X: { str: string; setStr: (e: string) => void }) {
 
   return (
     <SetProps.Wrapp className="flex flex-row items-center gap-2">
-      <input
+      <Input
         id="set-color"
         title="set color"
         name="set-color"
@@ -319,7 +299,7 @@ export function SetPropsSideAlign(X: {
   const { side, align, setAlign, setSide } = X;
   if (!side && !align) return null;
   return (
-    <SetProps.Wrapp>
+    <SetProps.Wrapp className="gap-2">
       {setSide && side && (
         <SetProps.Button onClick={() => setSide(nextValue(side, dataSide))}>
           <SetProps.Nameprops>side=</SetProps.Nameprops>

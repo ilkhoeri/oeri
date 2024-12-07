@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { setCookies } from "../server/cookies";
-import { Cookies } from "../server/cookies/config";
+import { setCookies } from "./config-cookies";
+import { Cookies } from "./config-types";
 
 export enum Booleanish {
   true = "true",
@@ -10,8 +10,8 @@ export enum Booleanish {
 }
 export const dataBooleanish: `${Booleanish}`[] = Object.values(Booleanish);
 
-type __V = "isOpenAside" | "theme";
-type IntrinsicAppProvider = Record<__V, string | undefined> & {};
+type __T = "isOpenAside" | "theme";
+type IntrinsicAppProvider = Record<__T, string | undefined> & {};
 
 type UseAppContextProps = IntrinsicAppProvider & {};
 

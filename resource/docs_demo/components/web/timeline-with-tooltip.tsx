@@ -1,47 +1,41 @@
-"use client";
+import { GitBranchIcon, GitCommitIcon, GitPullRequestDraftIcon, GitPullRequestIcon } from "@/modules/icons";
 import { Timeline, Tooltip } from "@/modules/components/web";
-import {
-  GitBranchIcon,
-  GitCommitIcon,
-  GitPullRequestDraftIcon,
-  GitPullRequestIcon
-} from "@/modules/icons";
 import { cnx } from "str-merge";
 
 export function Demo() {
   return (
     <div data-ignore>
-      <Timeline.List
-        align="left"
-        bulletStyle={{ size: 25 }}
-        lineStyle={{ width: 3, variant: "double" }}
-        className="max-w-5xl py-12 pl-20 pr-4 md:pl-16"
-      >
-        {data.map(i => {
-          const isActive = ["1", "2", "4"].includes(i.id);
-          return (
-            <Timeline.Item
-              key={i.id}
-              active={isActive}
-              lineStyle={{ variant: cnx({ dotted: isActive }) }}
-              bullet={
-                <Tooltip touch withArrow side="top" content={i.title}>
-                  {i.icons}
-                </Tooltip>
-              }
-              title={i.title}
-              content={
-                <>
-                  <p className="mt-2 text-xs">{i.description}</p>
-                  <time dateTime={String(i.createdAt)} className="mt-2 text-xs">
-                    {String(i.createdAt)}
-                  </time>
-                </>
-              }
-            />
-          );
-        })}
-      </Timeline.List>
+    <Timeline.List
+      align="left"
+      bulletStyle={{ size: 25 }}
+      lineStyle={{ width: 3, variant: "double" }}
+      className="max-w-5xl py-12 pl-20 pr-4 md:pl-16"
+    >
+      {data.map(i => {
+        const isActive = ["1", "2", "4"].includes(i.id);
+        return (
+          <Timeline.Item
+            key={i.id}
+            active={isActive}
+            lineStyle={{ variant: cnx({ dotted: isActive }) }}
+            bullet={
+              <Tooltip touch withArrow side="top" content={i.title}>
+                {i.icons}
+              </Tooltip>
+            }
+            title={i.title}
+            content={
+              <>
+                <p className="mt-2 text-xs">{i.description}</p>
+                <time dateTime={String(i.createdAt)} className="mt-2 text-xs">
+                  {String(i.createdAt)}
+                </time>
+              </>
+            }
+          />
+        );
+      })}
+    </Timeline.List>
     </div> // ignore
   );
 }

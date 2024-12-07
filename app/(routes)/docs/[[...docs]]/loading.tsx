@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 
-import { Spinner } from "@/source/assets/loader";
+import { LoaderSpinner } from "@/modules/index";
 
 export default function Loading() {
   return (
     <main className="relative flex h-screen min-h-screen w-full items-center justify-center bg-background">
-      <Spinner size={24} />
+      <LoaderSpinner size={24} />
     </main>
   );
 }

@@ -4,10 +4,9 @@ import * as React from "react";
 import { Link } from "./link";
 import { tocopy } from "../utils";
 import { twMerge } from "str-merge";
-import { UnstyledButton } from "./button";
-import { Tooltip } from "@/modules/components/web";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
+import { UnstyledButton, Tooltip } from "@/modules/components/web";
 import {
   ChevronDownSquareIcon,
   BrandGithubFillIcon,

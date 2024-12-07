@@ -4,7 +4,8 @@ import {
   WebHookIcon,
   UtilityIcon,
   CommandIcon,
-  IconsIcon
+  IconsIcon,
+  AppsIcon
 } from "@/modules/icons";
 
 export type InnerRoutes = { title: string; href: string };
@@ -37,6 +38,11 @@ export const appRoutes = {
         title: "Getting Started",
         href: "/docs",
         icon: CommandIcon
+      },
+      {
+        title: "Configurations",
+        href: "/docs/configurations",
+        icon: AppsIcon
       },
       {
         title: "Utility",

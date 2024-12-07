@@ -149,6 +149,7 @@ const components = {
 
         <CopyButton
           value={__rawString__}
+          data-rehype-pretty-code-copy=""
           className="absolute right-1 top-1 shadow"
         />
       </>
@@ -258,7 +259,8 @@ export function Mdx({ code }: MdxProps) {
     <div
       data-code-fragment="true"
       className="mdx_customizer"
-      data-rehype-customizer="true">
+      data-rehype-customizer="true"
+    >
       <Component components={components} />
     </div>
   );

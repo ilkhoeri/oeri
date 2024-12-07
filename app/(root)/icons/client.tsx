@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { Tabs } from "@/source/ui/tabs";
 import { log } from "@/source/log/development";
 import {
+  Input,
   Sheets,
   SheetsClosed,
   SheetsContent,
@@ -175,24 +176,15 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
     <Comp>
       <aside
         data-state={open ? "open" : "closed"}
-        className="inset-y-0 m-0 h-[--aside-h] max-h-[--aside-h] w-0 overflow-hidden bg-background pr-2 [--aside-h:100dvh] [--aside-lx:calc(var(--aside)+0rem)] [transition:all_0.5s_ease] data-[state=open]:pl-6 max-md:fixed max-md:left-0 max-md:z-[99] max-md:border-0 max-md:border-r-[0.04rem] max-md:border-r-muted/75 max-md:pr-6 max-md:data-[state=open]:w-[--aside-lx] max-md:data-[state=open]:min-w-[--aside-lx] max-md:data-[state=open]:max-w-[--aside-lx] max-md:data-[state=closed]:px-0 max-md:data-[state=closed]:opacity-0 md:sticky md:left-0 md:top-[calc(var(--navbar)+2rem)] md:mt-[2rem] md:w-[--aside-lx] md:min-w-[--aside-lx] md:max-w-[--aside-lx] md:pl-6 md:transition-none md:[--aside-h:calc(100dvh-2rem)]"
+        className="top-0 m-0 h-[--aside-h] max-h-[--aside-h] w-0 overflow-hidden pr-2 [--aside-h:100dvh] [--aside-lx:calc(var(--aside)+0rem)] [transition:all_0.5s_ease] data-[state=open]:pl-6 max-md:fixed max-md:left-0 max-md:z-[99] max-md:border-0 max-md:data-[state=open]:w-[--aside-lx] max-md:data-[state=open]:min-w-[--aside-lx] max-md:data-[state=open]:max-w-[--aside-lx] max-md:data-[state=closed]:px-0 max-md:data-[state=closed]:opacity-0 md:sticky md:left-0 md:top-[calc(var(--navbar)+2rem)] md:mt-[2rem] md:w-[--aside-lx] md:min-w-[--aside-lx] md:max-w-[--aside-lx] md:pl-6 md:transition-none md:[--aside-h:calc(100dvh-2rem)]"
       >
-        <button
-          className="mb-9 ml-[calc(100%-16px)] mt-6 inline-flex rounded-md border-0 bg-transparent p-0 md:!hidden"
-          type="button"
-          aria-label="closed"
-          title="Closed"
-          onClick={() => setOpen(false)}
-        >
-          <XIcon size={22} />
-        </button>
-
         <nav className="pt-8 [&_*]:font-geist-mono">
           <div className="relative mb-6 grid grid-flow-row gap-8 rounded-lg bg-background-box p-6 pt-4 ring ring-background ring-offset-2 ring-offset-constructive">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-base font-bold leading-4 text-muted-foreground">
+            <div className="mb-3 flex items-center justify-center">
+              <h2 className="mr-auto text-base font-bold leading-4 text-muted-foreground">
                 Customizer
               </h2>
+
               <button
                 className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-110 [&>svg]:active:text-constructive"
                 type="button"
@@ -205,10 +197,20 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                   <path d="M21 3v5h-5"></path>
                 </Svg>
               </button>
+
+              <button
+                className="ml-4 flex items-center justify-center rounded-md border-0 bg-transparent p-0 text-destructive md:!hidden"
+                type="button"
+                aria-label="closed"
+                title="Closed"
+                onClick={() => setOpen(false)}
+              >
+                <XIcon size={22} />
+              </button>
             </div>
 
             <div className="relative flex w-full flex-row items-center gap-4">
-              <input
+              <Input
                 id="color"
                 title="color"
                 name="color"
@@ -244,8 +246,8 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                     onChange={() => setFill(!fill)}
                     className="peer sr-only hidden"
                   />
-                  <div className="h-5 w-14 rounded-full bg-muted shadow-inner ring-2 ring-inset ring-color" />
-                  <div className="absolute -top-1 left-0 flex size-7 items-center justify-center rounded-full bg-color shadow-md transition peer-checked:translate-x-full peer-checked:bg-constructive peer-checked:[&>span]:bg-white">
+                  <div className="h-5 w-14 rounded-full bg-muted shadow-inner ring-2 ring-inset ring-transparent focus-visible:ring-constructive/60 peer-checked:bg-color" />
+                  <div className="absolute -top-1 left-0 flex size-7 items-center justify-center rounded-full bg-color shadow-md transition peer-checked:translate-x-full peer-checked:bg-white peer-checked:[&>span]:bg-constructive">
                     <span className="size-4 rounded-full bg-muted-foreground shadow-sm" />
                   </div>
                 </div>
@@ -263,7 +265,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
               >
                 <span>strokeWidth</span> <span>&#123;{stroke / 10}&#125;</span>
               </label>
-              <input
+              <Input
                 type="range"
                 name="set-stroke-width"
                 id="set-stroke-width"
@@ -281,7 +283,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
               >
                 <span>size</span> <span>&quot;{size}px&quot;</span>
               </label>
-              <input
+              <Input
                 type="range"
                 name="set-size"
                 id="set-size"

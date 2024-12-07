@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { Cookies } from "./config";
+import { Cookies } from "./config-types";
 
 export async function setCookies(name: string, value: string) {
   (await cookies()).set({
@@ -11,7 +11,7 @@ export async function setCookies(name: string, value: string) {
     httpOnly: true,
     path: "/",
     sameSite: "strict",
-    maxAge: 60 * 60 * 24 * 365 // Nilai Cookie berlaku selama satu tahun
+    maxAge: 60 * 60 * 24 * 365 // Cookie values ​​are valid for one year
   });
 }
 
