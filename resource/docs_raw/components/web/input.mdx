@@ -142,20 +142,17 @@ Add the following style to your global.css file.
       }
 
       &:where([type="range"]) {
-        @apply overflow-x-hidden rounded-full [--thumb-size:--thumb-sz,1rem] [--track-height:calc(var(--thumb-size)/2)] [--thumb-inner-color:--track-color-active]
-        [--thumb-outer-color:hsl(var(--pure-white))] [--track-color:hsl(var(--muted))] [--track-color-active:hsl(var(--constructive))] [--clip-edges:5.5px] [--clip-top:3.5px] [--clip-bottom:12.5px] [--clip-further:calc(100%+6px)] [--is-track-clip:polygon(100%_0px,var(--clip-edges)_0px,0px_var(--clip-top),-100vmax_var(--clip-top),-100vmax_var(--clip-bottom),0px_var(--clip-bottom),var(--clip-edges)_100%,var(--clip-further)_var(--clip-further))] [--is-track-fill:calc(-100vmax-var(--thumb-size))_0_0_calc(100vmax+(var(--thumb-size)/3.5))_var(--track-color-active)] [--is-thumb-fill:radial-gradient(circle,var(--thumb-inner-color),calc(var(--thumb-size)/3.5),var(--thumb-outer-color)_calc(var(--thumb-size)/3.5))];
+        @apply [--is-thumb-fill:radial-gradient(circle,var(--thumb-inner-color),var(--thumb-border),var(--thumb-outer-color)_var(--thumb-border))];
+
+        &:not(.slider-range) {
+          @apply [--track-color:hsl(var(--muted))] [--clip-edges:5.5px] [--clip-top:3.5px] [--clip-bottom:12.5px] [--clip-further:calc(100%+6px)] [--is-track-clip:polygon(100%_0px,var(--clip-edges)_0px,0px_var(--clip-top),-100vmax_var(--clip-top),-100vmax_var(--clip-bottom),0px_var(--clip-bottom),var(--clip-edges)_100%,var(--clip-further)_var(--clip-further))] [--is-track-fill:calc(-100vmax-var(--thumb-size))_0_0_calc(100vmax+(var(--thumb-size)/3.5))_var(--track-color-active)];
+        }
 
         &::-webkit-slider-thumb {
-          @apply size-[--thumb-size] rounded-full relative cursor-grab appearance-none transition-all [background:--is-thumb-fill] [box-shadow:--is-track-fill] [clip-path:--is-track-clip];
+          @apply size-[--thumb-size] rounded-full relative cursor-pointer appearance-none transition-all [background:--is-thumb-fill] [box-shadow:--is-track-fill] [clip-path:--is-track-clip];
         }
         &::-moz-range-thumb {
-          @apply size-[--thumb-size] rounded-full relative cursor-grab appearance-none transition-all [background:--is-thumb-fill];
-        }
-        &:active::-webkit-slider-thumb {
-          @apply cursor-grabbing;
-        }
-        &:active::-moz-range-thumb {
-          @apply cursor-grabbing;
+          @apply size-[--thumb-size] rounded-full relative cursor-pointer appearance-none transition-all [background:--is-thumb-fill];
         }
         &::-webkit-slider-runnable-track {
           @apply size-full rounded-full appearance-none transition-all [background:linear-gradient(var(--track-color)_0_0)_scroll_no-repeat_center/100%_var(--track-height)];

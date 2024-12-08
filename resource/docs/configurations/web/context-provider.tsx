@@ -10,8 +10,8 @@ export enum Booleanish {
 }
 export const dataBooleanish: `${Booleanish}`[] = Object.values(Booleanish);
 
-type __T = "isOpenAside" | "theme";
-type IntrinsicAppProvider = Record<__T, string | undefined> & {};
+type __T_ = "isOpenAside" | "theme";
+type IntrinsicAppProvider = Record<__T_, string | undefined> & {};
 
 type UseAppContextProps = IntrinsicAppProvider & {};
 
