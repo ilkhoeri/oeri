@@ -23,7 +23,11 @@
     "plugins": [{ "name": "next" }],
     "noEmitOnError": true,
     "paths": {
-      "@/hooks/*": ["./resource/docs/hooks/*"],
+      "@/hooks/*": ["./resource/docs/web/hooks/*"],
+      "@/icons/*": ["./resource/icons"],
+      "@/ui/*": ["./resource/docs/web/components/*"],
+      "@/config/*": ["./resource/docs/web/configurations/*"],
+      "@/utility/*": ["./resource/docs/web/utility/*"],
       "@/modules/*": ["./resource/docs/*"],
       "@/*": ["./*"],
       "#/*": ["source/*"],

@@ -1,0 +1,306 @@
+---
+title: Text Parser
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### String Utilities
+
+#### Overview
+
+This library provides a comprehensive set of functions for string manipulation. It includes methods to transform, sanitize, truncate, and format strings, making it versatile for various text processing tasks in web and application development.
+
+---
+
+### Functions
+
+#### transform
+
+Transforms a string based on the specified transformation type.
+
+**Parameters:**
+
+1. `transform: "uppercase" | "capitalize-first" | "capitalize" | "lowercase"`
+   Defines the type of transformation.
+2. `words: string | undefined`
+   The input string to be transformed.
+
+**Returns:** A transformed string.
+
+**Example:**
+
+```ts
+transform("uppercase", "hello-world");
+// "HELLO WORLD"
+
+transform("capitalize", "hello-world");
+// "Hello World"
+```
+
+---
+
+#### truncate
+
+Truncates a string to a specified maximum length, preserving word boundaries and adding an ellipsis if truncated.
+
+**Parameters:**
+
+1. `word: string`
+   The string to truncate.
+2. `maxWord: number (default: 30)`
+   The maximum length of the string.
+
+**Returns:** A truncated string.
+
+**Example:**
+
+```ts
+truncate("This is a long sentence that needs truncating.", 20);
+// "This is a long..."
+```
+
+---
+
+#### lowerCasePunctuation
+
+Converts a string to lowercase, removes punctuation, and replaces spaces with hyphens.
+
+**Parameters:**
+
+1. `str: string`
+   The input string.
+
+**Returns:** A sanitized and formatted string.
+
+**Example:**
+
+```ts
+lowerCasePunctuation("Hello, World!");
+// "hello-world"
+```
+
+---
+
+#### sanitizedWord
+
+Sanitizes a string by converting to lowercase, removing special characters, and replacing spaces with hyphens.
+
+**Parameters:**
+
+1. `words: string | undefined`
+   The input string to sanitize.
+
+**Returns:** A sanitized string.
+
+**Example:**
+
+```ts
+sanitizedWord("Hello, World!");
+// "hello-world"
+```
+
+---
+
+#### desanitizeWord
+
+Converts a sanitized string back to a readable format, capitalizing words while preserving conjunctions.
+
+**Parameters:**
+
+1. `words: string | undefined`
+   The input string to desanitize.
+
+2. `separator: string | RegExp (default: " " )`
+   The word separator in the input string.
+
+**Returns:** A desanitized string.
+
+**Example:**
+
+```ts
+desanitizeWord("hello-world");
+// "Hello World"
+```
+
+---
+
+#### compareWords
+
+Compares two strings for equality, ignoring case and special characters.
+
+**Parameters:**
+
+1. `word1: string | undefined | null`
+2. `word2: string | undefined | null`
+
+**Returns:** boolean - Whether the strings are equal.
+
+**Example:**
+
+```ts
+compareWords("Hello!", "hello");
+// true
+```
+
+---
+
+#### getFirstString
+
+Extracts the first word from a string, split by spaces, hyphens, or tildes.
+
+**Parameters:**
+
+1. `name: string`
+   The input string.
+
+**Returns:** The first word in the string.
+
+**Example:**
+
+```ts
+getFirstString("John-Doe");
+// "John"
+```
+
+---
+
+#### camelToKebab
+
+Converts a camelCase string to kebab-case or snake_case.
+
+**Parameters:**
+
+1. `words: string`
+   The input camelCase string.
+
+2. `kebab: "underscores" | "hyphens" (default: "hyphens")`
+   The desired output style.
+
+**Returns:** A kebab-case or snake_case string.
+
+**Example:**
+
+```ts
+camelToKebab("helloWorld");
+// "hello-world"
+camelToKebab("helloWorld", "underscores");
+// "hello_world"
+```
+
+---
+
+#### kebabToCamel
+
+Converts a kebab-case string to camelCase.
+
+**Parameters:**
+
+1. `words: string`
+
+The input kebab-case string.
+
+**Returns:** A camelCase string.
+
+**Example:**
+
+```ts
+kebabToCamel("hello-world");
+// "helloWorld"
+```
+
+---
+
+#### toPascal
+
+Converts a kebab-case string to PascalCase.
+
+**Parameters:**
+
+1. `words: string`
+   The input kebab-case string.
+
+**Returns:** A PascalCase string.
+
+**Example:**
+
+```ts
+toPascal("hello-world");
+// "HelloWorld"
+```
+
+---
+
+#### formatedProgress
+
+Formats a numeric input as a string. Returns the input unchanged if it contains non-numeric characters.
+
+**Parameters:**
+
+1. `input: string | undefined`
+   The input string.
+
+**Returns:** A formatted string or null if input is undefined.
+
+**Example:**
+
+```ts
+formatedProgress("42");
+// "42"
+```
+
+---
+
+#### splitWordsToArray
+
+Splits a string into an array of objects, each containing a word as text.
+
+**Parameters:**
+
+1. `words: string`
+   The input string.
+
+**Returns:** An array of objects with the structure `{ text: string }`.
+
+**Example:**
+
+```ts
+splitWordsToArray("hello world");
+// [{ text: "hello" }, { text: "world" }]
+```
+
+---
+
+#### Helper Functions
+
+1. toUpper
+   Converts the first letter of a string to uppercase.
+2. toLower
+   Converts the first letter of a string to lowercase.
+3. removePunctuation
+   Removes punctuation from a string.
+4. combineConsecutiveHyphens
+   Replaces multiple consecutive hyphens with a single hyphen.
+
+---
+
+#### HTML Character Entities
+
+Provides a list of mappings for HTML character entities.
+
+**Example:**
+
+```ts
+htmlCharacterEntities.find(entity => entity.char === "<");
+// { char: "<", entity: "&lt;" }
+```
+
+---
+
+### Code

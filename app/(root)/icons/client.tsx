@@ -2,22 +2,19 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { Tabs } from "@/source/ui/tabs";
-import { log } from "@/source/log/development";
-import {
-  Input,
-  Sheets,
-  SheetsClosed,
-  SheetsContent,
-  SheetsTrigger
-} from "@/modules/components/web";
-import { FileIcon, Svg, XIcon } from "@/modules/icons";
-import { Playground } from "@/source/ui/playground";
-import { toPascalCase, Tooltip } from "@/modules/index";
-import { Code } from "@/source/ui/code";
-import { Comp } from "@/source/ui/components";
+import { Tabs } from "@/ui/tabs";
+import { log } from "@/resource/log/development";
+import { Sheets, SheetsClosed, SheetsContent, SheetsTrigger } from "@/ui/sheets";
+import { Input } from "@/ui/input";
+import { FileIcon, Svg, XIcon } from "@/icons/*";
+import { PlayTabs } from "@/source/assets/playtabs";
+import { Tooltip } from "@/ui/tooltip";
+import { toPascal } from "@/utility/text-parser";
+import { useStringToHEx } from "@/hooks/use-random-colors";
+import { Code } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
+import { Comp } from "@/source/assets/components";
 import { cn } from "str-merge";
-import { RawToJsonProps } from "@/source/generated/generated";
+import { RawToJsonProps } from "@/scripts/generated-icons";
 import { cleanHTML } from "@/source/libs/dom-purify";
 // import { CopyButton } from "@/source/ui/toggle";
 
@@ -37,7 +34,7 @@ const FallbackComponent = (slug: string) => (
 export const component = (file: string) =>
   dynamic(
     () =>
-      import(`@/resource/docs/icons/${file}`)
+      import(`@/resource/icons/${file}`)
         .then(mod => mod.Icon)
         .catch(err => {
           log("Error loading component:", err);
@@ -45,9 +42,7 @@ export const component = (file: string) =>
         }),
     {
       ssr: false,
-      loading: () => (
-        <div className="size-full animate-pulse rounded-sm bg-muted" />
-      )
+      loading: () => <div className="size-full animate-pulse rounded-sm bg-muted" />
     }
   );
 
@@ -72,7 +67,7 @@ export function LoadComponent({
     <Sheets variant="drawer" side="bottom">
       <Tooltip
         asChild
-        content={`${toPascalCase(files.file.replace(".tsx", "Icon"))}`}
+        content={`${toPascal(files.file.replace(".tsx", "Icon"))}`}
         classNames={{
           trigger:
             "aspect-square cursor-pointer flex items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
@@ -99,8 +94,7 @@ export function LoadComponent({
                   __html: cleanHTML(String(files.raw))
                 }}
                 {...{
-                  className:
-                    "flex aspect-square items-center justify-center rounded-lg sizer [--sz:240px] [&>svg]:sizer",
+                  className: "flex aspect-square items-center justify-center rounded-lg sizer [--sz:240px] [&>svg]:sizer",
                   style: {
                     "--hex": "hsl(var(--muted-foreground)/0.7)",
                     background:
@@ -110,13 +104,13 @@ export function LoadComponent({
                 }}
               />
             </React.Suspense>
-
             {/* {_raw?._raw && <CopyButton value={_raw?._raw || undefined} />} */}
           </div>
 
           <Tabs defaultValue="code" className="mb-12 w-full">
-            <Playground
-              expand="collapse"
+            <PlayTabs
+              defaultExpanded="collapse"
+              defaultValue="code"
               classNames={{ expand: "hidden" }}
               childrens={{
                 code: (
@@ -124,7 +118,7 @@ export function LoadComponent({
                     code={content}
                     setInnerHTML={setInnerHTML}
                     repo={`${segment?.[segment?.length - 1]}/${files.file}`}
-                    title={`<${toPascalCase(files.file.replace(".tsx", "Icon"))}/>`}
+                    title={`<${toPascal(files.file.replace(".tsx", "Icon"))}/>`}
                     classNames={{
                       title: "font-geist-mono",
                       content: "[&_code]:max-h-[300px] [&_code]:overflow-y-auto"
@@ -139,8 +133,7 @@ export function LoadComponent({
                     title={files.file.replace(".tsx", ".svg")}
                     classNames={{
                       title: "font-geist-mono",
-                      content:
-                        "[&_code]:max-h-[300px] [&_code]:overflow-y-auto [&_code]:scrollbar [&_code]:!sizer [&_code]:[--sz-w:100%]"
+                      content: "[&_code]:max-h-[300px] [&_code]:overflow-y-auto [&_code]:scrollbar [&_code]:!sizer [&_code]:[--sz-w:100%]"
                     }}
                   />
                 )
@@ -158,19 +151,19 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [reset, setReset] = React.useState<boolean>(false);
   const [fill, setFill] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>("currentcolor");
   const [stroke, setStroke] = React.useState<number>(20);
   const [size, setSize] = React.useState<number>(24);
+  const ctx = useStringToHEx({ defaultValue: "currentcolor" });
 
   React.useEffect(() => {
     if (reset) {
       setFill(false);
-      setColor("currentcolor");
+      ctx.setColor("currentcolor");
       setStroke(20);
       setSize(24);
       setReset(false); // Matikan reset agar tidak terus berjalan
     }
-  }, [reset]);
+  }, [reset, ctx]);
 
   return (
     <Comp>
@@ -181,9 +174,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
         <nav className="pt-8 [&_*]:font-geist-mono">
           <div className="relative mb-6 grid grid-flow-row gap-8 rounded-lg bg-background-box p-6 pt-4 ring ring-background ring-offset-2 ring-offset-constructive">
             <div className="mb-3 flex items-center justify-center">
-              <h2 className="mr-auto text-base font-bold leading-4 text-muted-foreground">
-                Customizer
-              </h2>
+              <h2 className="mr-auto text-base font-bold leading-4 text-muted-foreground">Customizer</h2>
 
               <button
                 className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-110 [&>svg]:active:text-constructive"
@@ -216,8 +207,8 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                 name="color"
                 type="color"
                 className="size-9 min-w-9"
-                value={color === "currentcolor" ? "#000000" : color}
-                onChange={e => setColor(e.target.value)}
+                value={ctx.hexColor}
+                onChange={e => ctx.setColor(e.target.value)}
               />
               <input
                 id="input-color"
@@ -225,16 +216,13 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                 name="input-color"
                 type="text"
                 className="h-9 w-full rounded-md border px-3 text-sm"
-                value={color}
-                onChange={e => setColor(e.target.value)}
+                value={ctx.color}
+                onChange={e => ctx.setColor(e.target.value)}
               />
             </div>
 
             <div className="relative flex w-full flex-row items-center justify-between">
-              <label
-                htmlFor="current-fill"
-                className="flex cursor-pointer select-none items-center"
-              >
+              <label htmlFor="current-fill" className="flex cursor-pointer select-none items-center">
                 <div className="relative">
                   <input
                     aria-label="fill"
@@ -253,16 +241,11 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
                 </div>
               </label>
 
-              <label htmlFor="current-fill">
-                {fill ? "currentColor" : "solidFill"}
-              </label>
+              <label htmlFor="current-fill">{fill ? "currentColor" : "solidFill"}</label>
             </div>
 
             <div className="relative w-full gap-3">
-              <label
-                htmlFor="set-stroke-width"
-                className="inline-flex w-full items-center justify-between"
-              >
+              <label htmlFor="set-stroke-width" className="inline-flex w-full items-center justify-between">
                 <span>strokeWidth</span> <span>&#123;{stroke / 10}&#125;</span>
               </label>
               <Input
@@ -277,21 +260,10 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="relative w-full gap-3">
-              <label
-                htmlFor="set-size"
-                className="inline-flex w-full items-center justify-between"
-              >
+              <label htmlFor="set-size" className="inline-flex w-full items-center justify-between">
                 <span>size</span> <span>&quot;{size}px&quot;</span>
               </label>
-              <Input
-                type="range"
-                name="set-size"
-                id="set-size"
-                min="16"
-                max="48"
-                value={size}
-                onChange={e => setSize(Number(e.target.value))}
-              />
+              <Input type="range" name="set-size" id="set-size" min="16" max="48" value={size} onChange={e => setSize(Number(e.target.value))} />
             </div>
           </div>
         </nav>
@@ -301,16 +273,15 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
         className={cn(
           "relative mx-auto mt-16 min-h-screen w-full p-[0_var(--p)_var(--p)_calc(var(--p)-0.5rem)] [--p:1.5rem] [--sz:24px] lg:[--p:2rem] xl:[--p:2.5rem] [&_[data-content]>svg]:transition-all [&_[data-content]>svg]:sizer [&_[data-content]>svg]:[color:--clr] [&_[data-content]>svg]:[stroke-width:--str-w] [&_svg]:[will-change:width,height,stroke-width,stroke,color,fill]",
           {
-            "[&_[data-content]>svg[stroke=none]]:[fill:--fill] [&_[data-content]>svg[stroke=none]_*]:[fill:--fill]":
-              fill
+            "[&_[data-content]>svg[stroke=none]]:[fill:--fill] [&_[data-content]>svg[stroke=none]_*]:[fill:--fill]": fill
           }
         )}
         {...{
           style: {
             "--str-w": `${stroke / 10}px`,
-            "--clr": `${color}`,
+            "--clr": `${ctx.color}`,
             "--sz": `${size}px`,
-            "--fill": fill ? `${color}` : undefined
+            "--fill": fill ? `${ctx.color}` : undefined
           } as React.CSSProperties
         }}
       >

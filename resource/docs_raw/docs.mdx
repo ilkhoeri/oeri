@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 description: Create your project and compactness the required dependencies.
-date: 2024-11-28
+date: 2025-01-05
 summary: Ringkasan
 component: true
 links:
@@ -37,11 +37,12 @@ This lets you install packages and run commands in one step. You can use the fol
             <span className="font-geist-mono">Terminal</span>
           </div>
         </div>
-        <div className="relative flex flex-col overflow-x-auto whitespace-nowrap rounded-b-md border border-transparent bg-background py-8 pl-4 pr-2 leading-[19px] text-color webkit-scrollbar">
-          <div className="relative box-border flex w-max flex-row items-center overflow-hidden whitespace-pre text-nowrap border-none bg-transparent leading-normal text-color">
-            <span className="text-muted-foreground font-geist-mono">
-              -&nbsp;
-            </span>
+        <div className="relative flex flex-col rtl:items-end overflow-x-auto whitespace-nowrap rounded-b-md border border-transparent bg-background py-8 pl-4 pr-2 leading-[19px] text-color webkit-scrollbar">
+          <div
+            dir="ltr"
+            className="relative box-border flex w-max flex-row items-center overflow-hidden whitespace-pre text-nowrap border-none bg-transparent leading-normal text-color"
+          >
+            <span className="text-muted-foreground font-geist-mono">-&nbsp;</span>
             <span className="text-[#e34ba9] font-geist-mono">npx&nbsp;</span>
             <TypingWords
               el="span"
@@ -67,7 +68,7 @@ This lets you install packages and run commands in one step. You can use the fol
 
 Once the installation completes, you can add some [`tailwindcss`](https://tailwindcss.com) class utilities like [`tailwind-merge`](https://www.npmjs.com/package/tailwind-merge) and [`tailwindcss-animate`](https://www.npmjs.com/package/tailwindcss-animate), then run `http://localhost:3000` with your browser to start editing the project and using the oeri module utilities.
 
-## Learn![learn](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMy4yNCw1Ljc3bDguNzYsNC42NCw4Ljc2LTQuNjRjLjIzLS4xMi40OS0uMTguNzQtLjE5LS4wNS0uMDMtLjEtLjA4LS4xNS0uMTFMMTMuNjUsMS40MWMtMS4wMi0uNTQtMi4yOC0uNTQtMy4zLDBMMi42NSw1LjQ3Yy0uMDUuMDMtLjEuMDctLjE1LjEuMjUuMDEuNS4wNy43NC4xOVoiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0xMC4zNSwyMi4zM3YtOS4yN0wxLjYsOC40MWMtLjI0LS4xMy0uNDMtLjMxLS41Ny0uNTEsMCwuMDctLjAzLjE0LS4wMy4yMXY4LjEzYzAsMS4wOC42MywyLjA5LDEuNjUsMi42NGw3LjcsNC4wNmMuMDYuMDMuMTIuMDQuMTguMDctLjExLS4yLS4xOC0uNDMtLjE4LS42N1oiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0yMi40LDguNDFsLTguNzUsNC42NHY5LjI3YzAsLjI0LS4wNy40Ny0uMTguNjcuMDYtLjAzLjEyLS4wNC4xNy0uMDdsNy43LTQuMDdjMS4wMi0uNTQsMS42NS0xLjU1LDEuNjUtMi42NGgwdi04LjEzYzAtLjA3LS4wMi0uMTQtLjAzLS4yLS4xNC4yLS4zMy4zOC0uNTcuNTFaIiBmaWxsPSIjNThjNGRjIiBzdHJva2Utd2lkdGg9IjAiLz48L3N2Zz4=)
+### Learn![learn](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMy4yNCw1Ljc3bDguNzYsNC42NCw4Ljc2LTQuNjRjLjIzLS4xMi40OS0uMTguNzQtLjE5LS4wNS0uMDMtLjEtLjA4LS4xNS0uMTFMMTMuNjUsMS40MWMtMS4wMi0uNTQtMi4yOC0uNTQtMy4zLDBMMi42NSw1LjQ3Yy0uMDUuMDMtLjEuMDctLjE1LjEuMjUuMDEuNS4wNy43NC4xOVoiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0xMC4zNSwyMi4zM3YtOS4yN0wxLjYsOC40MWMtLjI0LS4xMy0uNDMtLjMxLS41Ny0uNTEsMCwuMDctLjAzLjE0LS4wMy4yMXY4LjEzYzAsMS4wOC42MywyLjA5LDEuNjUsMi42NGw3LjcsNC4wNmMuMDYuMDMuMTIuMDQuMTguMDctLjExLS4yLS4xOC0uNDMtLjE4LS42N1oiIGZpbGw9IiM1OGM0ZGMiIHN0cm9rZS13aWR0aD0iMCIvPjxwYXRoIGQ9Im0yMi40LDguNDFsLTguNzUsNC42NHY5LjI3YzAsLjI0LS4wNy40Ny0uMTguNjcuMDYtLjAzLjEyLS4wNC4xNy0uMDdsNy43LTQuMDdjMS4wMi0uNTQsMS42NS0xLjU1LDEuNjUtMi42NGgwdi04LjEzYzAtLjA3LS4wMi0uMTQtLjAzLS4yLS4xNC4yLS4zMy4zOC0uNTcuNTFaIiBmaWxsPSIjNThjNGRjIiBzdHJva2Utd2lkdGg9IjAiLz48L3N2Zz4=)
 
 ---
 
@@ -131,18 +132,8 @@ A modern bundling tool that supports various frameworks including React, Svelte,
   </LinkedCard>
 </GridCard>
 
-## TypeScript![typeScript](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMTkuNywxSDQuM2MtMS44MywwLTMuMywxLjQ3LTMuMywzLjN2MTUuNGMwLDEuODMsMS40NywzLjMsMy4zLDMuM2gxNS40YzEuODMsMCwzLjMtMS40NywzLjMtMy4zVjQuM2MwLTEuODMtMS40Ny0zLjMtMy4zLTMuM1ptLTUuOTQsMTIuMmgtMi43NXY3Ljg2aC0yLjE5di03Ljg2aC0yLjc1di0xLjc2aDcuNjl2MS43NlptNy4wOSw2LjQ1Yy0uMTguMzktLjQ3LjY3LS44MS45LS4zNC4yMS0uNzMuMzctMS4yLjQ3cy0uOTUuMTQtMS40Ni4xNC0xLjAzLS4wNC0xLjUxLS4xMy0uOS0uMjItMS4yNC0uNDF2LTIuMDdjLjMxLjI1Ljc0LjUsMS4yMS42Ni40My4xNi45LjI0LDEuMzguMjQuMywwLC41My0uMDIuNzMtLjA4LjIxLS4wNS4zNy0uMTIuNTItLjIxcy4yNC0uMTkuMzEtLjMxYy4wNy0uMTIuMS0uMjUuMS0uMzksMC0uMi0uMDUtLjM3LS4xNi0uNTItLjEtLjE0LS4yNC0uMjktLjQzLS40MS0uMTgtLjEyLS4zOS0uMjQtLjY1LS4zNi0uMjUtLjEyLS41Mi0uMjMtLjgxLS4zNS0uNzMtLjM0LTEuMzEtLjY4LTEuNjctMS4xNi0uMzctLjQzLS41Ni0uOTktLjU2LTEuNjMsMC0uNTIuMS0uOTIuMy0xLjI5LjIyLS4zOS40Ny0uNjcuODEtLjkuMzQtLjIzLjczLS40MSwxLjItLjUycy45NS0uMTYsMS40Ni0uMTYuOTUuMDMsMS4zMy4wOWMuMzkuMDYuNzUuMTUsMS4wOC4yN3YyLjAyYy0uMTUtLjExLS4zMy0uMjEtLjUyLS4zLS4yLS4wOS0uNC0uMTUtLjYtLjIxcy0uNDEtLjEtLjYtLjEyYy0uMTktLjAyLS4zNy0uMDQtLjU2LS4wNC0uMjYsMC0uNDguMDItLjY4LjA3LS4yMS4wNC0uMzcuMTEtLjUyLjJzLS4yNC4xOS0uMzIuMzEtLjEyLjI1LS4xMi40YzAsLjE1LjA0LjMuMTMuNDMuMDkuMTIuMjEuMjQuMzYuMzYuMTQuMTEuMzMuMjIuNTYuMzMuMjUuMTEuNS4yMi43Ny4zNC4zOS4xNi43My4zNCwxLjAzLjUycy41NS4zNy43Ny42MWMuMjMuMjIuNC40Ny41Mi43N3MuMTguNjQuMTgsMS4wM2MwLC41Ni0uMTMuOTktLjMxLDEuMzhoLjAxWiIgc3R5bGU9ImZpbGw6IzMxNzhjNjsgc3Ryb2tlLXdpZHRoOjBweDsiLz48L3N2Zz4=)
+### TypeScript![typeScript](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHdpZHRoPSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJtMTkuNywxSDQuM2MtMS44MywwLTMuMywxLjQ3LTMuMywzLjN2MTUuNGMwLDEuODMsMS40NywzLjMsMy4zLDMuM2gxNS40YzEuODMsMCwzLjMtMS40NywzLjMtMy4zVjQuM2MwLTEuODMtMS40Ny0zLjMtMy4zLTMuM1ptLTUuOTQsMTIuMmgtMi43NXY3Ljg2aC0yLjE5di03Ljg2aC0yLjc1di0xLjc2aDcuNjl2MS43NlptNy4wOSw2LjQ1Yy0uMTguMzktLjQ3LjY3LS44MS45LS4zNC4yMS0uNzMuMzctMS4yLjQ3cy0uOTUuMTQtMS40Ni4xNC0xLjAzLS4wNC0xLjUxLS4xMy0uOS0uMjItMS4yNC0uNDF2LTIuMDdjLjMxLjI1Ljc0LjUsMS4yMS42Ni40My4xNi45LjI0LDEuMzguMjQuMywwLC41My0uMDIuNzMtLjA4LjIxLS4wNS4zNy0uMTIuNTItLjIxcy4yNC0uMTkuMzEtLjMxYy4wNy0uMTIuMS0uMjUuMS0uMzksMC0uMi0uMDUtLjM3LS4xNi0uNTItLjEtLjE0LS4yNC0uMjktLjQzLS40MS0uMTgtLjEyLS4zOS0uMjQtLjY1LS4zNi0uMjUtLjEyLS41Mi0uMjMtLjgxLS4zNS0uNzMtLjM0LTEuMzEtLjY4LTEuNjctMS4xNi0uMzctLjQzLS41Ni0uOTktLjU2LTEuNjMsMC0uNTIuMS0uOTIuMy0xLjI5LjIyLS4zOS40Ny0uNjcuODEtLjkuMzQtLjIzLjczLS40MSwxLjItLjUycy45NS0uMTYsMS40Ni0uMTYuOTUuMDMsMS4zMy4wOWMuMzkuMDYuNzUuMTUsMS4wOC4yN3YyLjAyYy0uMTUtLjExLS4zMy0uMjEtLjUyLS4zLS4yLS4wOS0uNC0uMTUtLjYtLjIxcy0uNDEtLjEtLjYtLjEyYy0uMTktLjAyLS4zNy0uMDQtLjU2LS4wNC0uMjYsMC0uNDguMDItLjY4LjA3LS4yMS4wNC0uMzcuMTEtLjUyLjJzLS4yNC4xOS0uMzIuMzEtLjEyLjI1LS4xMi40YzAsLjE1LjA0LjMuMTMuNDMuMDkuMTIuMjEuMjQuMzYuMzYuMTQuMTEuMzMuMjIuNTYuMzMuMjUuMTEuNS4yMi43Ny4zNC4zOS4xNi43My4zNCwxLjAzLjUycy41NS4zNy43Ny42MWMuMjMuMjIuNC40Ny41Mi43N3MuMTguNjQuMTgsMS4wM2MwLC41Ni0uMTMuOTktLjMxLDEuMzhoLjAxWiIgc3R5bGU9ImZpbGw6IzMxNzhjNjsgc3Ryb2tlLXdpZHRoOjBweDsiLz48L3N2Zz4=)
 
 ---
 
 This project and the components are written in TypeScript. We recommend using TypeScript for your project as well.
-
-<br />
-
-# Configuration
-
----
-
-## Theme
-
-Next, configuration for some things like [`themes`](/docs/configurations/themes) and other [`utilities`](/docs/utility/cnx).

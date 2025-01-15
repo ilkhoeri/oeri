@@ -1,0 +1,76 @@
+---
+title: Rating
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<RatingDemosUsage />
+
+## Properties
+
+<RatingDemosConfigurator />
+
+## Custom Symbol
+
+<RatingDemosCustomSymbol />
+
+## Custom Fractions
+
+<RatingDemosCustomFractions />
+
+## Controlled
+
+```tsx showLineNumbers
+"use client";
+import { useState } from "react";
+import { Rating } from "@/ui/rating";
+
+function RatingDemo() {
+  const [value, setValue] = useState(0);
+  return <Rating value={value} onChange={setValue} />;
+}
+```
+
+## Read only
+
+```tsx showLineNumbers
+import { Rating } from "@/ui/rating";
+
+function RatingDemo() {
+  return <Rating value={3.5} fractions={2} readOnly />;
+}
+```
+
+---
+
+## API References
+
+### Styles API
+
+| Styles API    | Type                                              | Default     | Annotation                                    |
+| ------------- | ------------------------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `boolean`                                         | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `{ wrap?: string; inner?: string }`               | `undefined` | `classNames={{ wrap: "", inner: "" }}`        |
+| styles`?`     | `{ wrap?: CSSProperties; inner?: CSSProperties }` | `undefined` | `styles={{ wrap: {}, inner: {} }}`            |
+
+### Props API
+
+| Props API         | Type                       | Default     | Annotation                                          |
+| ----------------- | -------------------------- | ----------- | --------------------------------------------------- |
+| rating`?`         | `number`                   | `0`         | initial rating                                      |
+| totalStars`?`     | `number`                   | `5`         | total number of stars                               |
+| onRatingChange`?` | `(rating: number) => void` | `undefined` | callback to receive ratings from users              |
+| interactive`?`    | `boolean`                  | `false`     | if `true`, the star can be clicked to give a rating |
+
+---
+
+## Code

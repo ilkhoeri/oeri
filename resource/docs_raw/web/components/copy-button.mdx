@@ -1,0 +1,34 @@
+---
+title: CopyButton
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CopyButtonDemosUsage />
+
+## Properties
+
+<CopyButtonDemosConfigurator />
+
+## API References
+
+### Props API
+
+| Props API   | Type                                                                  | Default | Annotation                                                                  |
+| ----------- | --------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------- |
+| children`?` | `(payload: { copied: boolean; copy: () => void }) => React.ReactNode` |         | Children callback, provides current status and copy function as an argument |
+| value`?`    | `string`                                                              |         | Value that will be copied to the clipboard when the button is clicked       |
+| timeout`?`  | `number`                                                              | `1000`  | Copied status timeout in ms                                                 |
+
+---
+
+## Code

@@ -1,12 +1,12 @@
 import {
   ComponentsIcon,
   Components2Icon,
-  WebHookIcon,
+  WebhookIcon,
   UtilityIcon,
   CommandIcon,
   IconsIcon,
   AppsIcon
-} from "@/modules/icons";
+} from "@/icons/*";
 
 export type InnerRoutes = { title: string; href: string };
 export type SingleRoute = { title: string; data: InnerRoutes[] };
@@ -57,7 +57,7 @@ export const appRoutes = {
       {
         title: "Hooks",
         href: "/docs/hooks",
-        icon: WebHookIcon
+        icon: WebhookIcon
       },
       {
         title: "Icons",
@@ -78,11 +78,15 @@ export const appRoutes = {
     },
     {
       title: "Components",
-      href: "/docs/components"
+      href: "/docs/web/components"
     },
     {
       title: "Hooks",
-      href: "/docs/hooks"
+      href: "/docs/web/hooks"
+    },
+    {
+      title: "Configurations",
+      href: "/docs/web/configurations"
     },
     {
       title: "Icons",
@@ -91,6 +95,10 @@ export const appRoutes = {
     {
       title: "Examples",
       href: "/examples"
+    },
+    {
+      title: "Contributors",
+      href: "/contributors"
     }
   ]
 };

@@ -1,14 +1,8 @@
 "use client";
-
-import React, { Fragment } from "react";
+import React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator
-} from "../ui/breadcrumb";
+import { Breadcrumb } from "@/ui/breadcrumb";
 import { displayName } from "../utils";
 
 export interface BreadcrumbDropdownProps {
@@ -20,29 +14,28 @@ export function NavigationBreadcrumb() {
   // Memecah pathname menjadi bagian-bagian yang dipisahkan oleh '/'
   // const path = pathname.split("/").filter((part) => part !== ""); // Filter untuk menghapus bagian yang kosong
   const paths = pathname.split("/").filter(Boolean);
+  const active = (index: number) => index === paths.length - 1 || undefined;
+  const links = (index: number) =>
+    active(index) ? "" : `/${paths.slice(0, index + 1).join("/")}`;
+
+  const items = paths.map((path, index) => (
+    <Link
+      key={path}
+      href={links(index)}
+      aria-disabled={paths[1] === path || active(index)}
+    >
+      {displayName(path)}
+    </Link>
+  ));
 
   return (
-    <Breadcrumb className="mb-8">
-      <BreadcrumbList className="flex-nowrap">
-        {paths.map((path, index) => {
-          const active = index === paths.length - 1;
-          const href = active ? "" : `/${paths.slice(0, index + 1).join("/")}`;
-          return (
-            <Fragment key={path}>
-              <BreadcrumbItem>
-                <BreadcrumbLink
-                  href={href}
-                  active={active}
-                  aria-disabled="true">
-                  {displayName(path)}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-
-              {index < paths.length - 1 && <BreadcrumbSeparator />}
-            </Fragment>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
+    <Breadcrumb
+      items={items}
+      separator={<Breadcrumb.Icons icon="chevron" />}
+      classNames={{
+        root: "mb-8",
+        breadcrumb: "[font-size:clamp(0.75rem,0.35rem+0.8vw,1rem)]"
+      }}
+    />
   );
 }

@@ -35,16 +35,21 @@ export default {
       spacing: {
         26: "104px"
       },
+      letterSpacing: {
+        px: "-.0625rem",
+        "0.5": "-.03125rem"
+      },
       maxWidth: {
         var: "var(--max-w, var(--max-w1, var(--max-w2, var(--max-w3))))"
       },
       borderRadius: {
         "4xl": "2rem",
-        "2xl": "calc(var(--radius) + 4px)",
-        xl: "calc(var(--radius) + 2px)",
+        "3xl": "calc(var(--radius) + .5rem)",
+        "2xl": "calc(var(--radius) + .25rem)",
+        xl: "calc(var(--radius) + .125rem)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)"
+        md: "calc(var(--radius) - .125rem)",
+        sm: "calc(var(--radius) - .25rem)"
       },
       colors: {
         code: "hsl(var(--code))",
@@ -172,8 +177,7 @@ export default {
         }
       },
       animation: {
-        "cursor-bar":
-          "cursor-bar 0.5s step-end infinite alternate, cursor-blink 0.5s infinite",
+        "cursor-bar": "cursor-bar 0.5s step-end infinite alternate, cursor-blink 0.5s infinite",
         "collapse-open": "collapse-open 0.2s ease forwards",
         "collapse-closed": "collapse-closed 0.2s ease forwards",
         "fade-in": "fade-in ease-in forwards",
@@ -247,8 +251,7 @@ export default {
       addBase({});
       addUtilities({
         ".scrollbar": {
-          scrollbarColor:
-            "var(--scroll-color, #adb3bd) var(--scroll-bg, #0000)",
+          scrollbarColor: "var(--scroll-color, #adb3bd) var(--scroll-bg, #0000)",
           scrollbarWidth: "var(--scroll-w, thin)",
           scrollbarGutter: "auto"
         },
@@ -269,8 +272,7 @@ export default {
             },
             "&:hover": {
               "&::-webkit-scrollbar-thumb": {
-                background:
-                  "var(--scroll-color-hover, var(--scroll-color, #0000))"
+                background: "var(--scroll-color-hover, var(--scroll-color, #0000))"
               }
             }
           }
@@ -278,37 +280,49 @@ export default {
         ".underline-hover": {
           position: "relative",
           touchAction: "manipulation",
-          "@media (hover: hover)": {
-            "&:hover": {
-              "&::before": {
-                transform: "scaleX(1)",
-                transformOrigin: "left center"
-              }
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            bottom: "var(--underline-offset, 2px)",
+            backgroundColor: "currentColor",
+            height: "1px"
+          },
+          "@media (hover: none)": {
+            "&::after": {
+              width: "0"
             },
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              bottom: "var(--underline-offset, 2px)",
+            "&:hover": {
+              "&::after": {
+                animation: "underlinehover 0.75s cubic-bezier(0.86, 0, 0.07, 1)"
+              }
+            }
+          },
+          "@media not all and (hover: hover) and (pointer: fine)": {
+            "&::after": {
               left: "0",
               width: "100%",
-              backgroundColor: "currentColor",
-              height: "1px",
               transform: "scaleX(0)",
               transformOrigin: "right center",
               transition: "transform .45s cubic-bezier(0.86, 0, 0.07, 1)"
+            },
+            "&:hover": {
+              "&::after": {
+                transform: "scaleX(1)",
+                transformOrigin: "left center",
+                animation: "none"
+              }
             }
           }
         },
         ".timeline": {
-          "--offset":
-            "calc(var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2)",
+          "--offset": "calc(var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2)",
           "&:where([data-align=left])": {
             // paddingInlineStart: "var(--pl ,var(--offset))",
-            "& [data-tli=bullet]": {
+            "& [data-tl=bullet]": {
               right: "auto",
               left: "calc((var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2) * -1)"
             },
-            "& [data-tli=body]": {
+            "& [data-tl=body]": {
               paddingLeft: "var(--offset)"
             },
             "& [data-tl=item]": {
@@ -322,12 +336,11 @@ export default {
           },
           "&:where([data-align=right])": {
             // paddingInlineEnd: "var(--pr ,var(--offset))",
-            "& [data-tli=bullet]": {
+            "& [data-tl=bullet]": {
               left: "auto",
-              right:
-                "calc((var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2) * -1)"
+              right: "calc((var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2) * -1)"
             },
-            "& [data-tli=body]": {
+            "& [data-tl=body]": {
               paddingRight: "var(--offset)"
             },
             "& [data-tl=item]": {
@@ -364,8 +377,7 @@ export default {
             "--tli-has-line-active-style": "var(--tli-line-style)",
             "--tli-has-bullet-active-style": "solid",
             "&::before": {
-              borderColor:
-                "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+              borderColor: "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
             }
           }
         },
@@ -374,20 +386,18 @@ export default {
           alignItems: "center",
           justifyContent: "center",
           position: "absolute",
-          top: "-1px",
+          top: "var(--tl-bullet-top, calc(var(--tl-bullet-size) * (-16.667 / 100)))",
           width: "var(--tl-bullet-size)",
           height: "var(--tl-bullet-size)",
           borderRadius: "var(--tl-bullet-round)",
-          border:
+          outline:
             "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-line-clr))",
           "&[data-active]": {
-            borderColor:
-              "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+            outlineColor: "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
           },
           "&[data-bullet]": {
             "&[data-active]": {
-              backgroundColor:
-                "var(--active-bg, var(--tli-active-bg, var(--tl-line-clr)))",
+              backgroundColor: "var(--active-bg, var(--tli-active-bg, var(--tl-line-clr)))",
               "& *": {
                 color: "var(--active-clr, var(--tli-active-clr))"
               }
@@ -398,8 +408,7 @@ export default {
             }
           },
           "&[data-notice]": {
-            "--inset-tr":
-              "calc(var(--tli-line-width, var(--tl-line-width)) * -0.75)",
+            "--inset-tr": "calc(var(--tli-line-width, var(--tl-line-width)) * -0.75)",
             "&::after": {
               content: '""',
               zIndex: "0",

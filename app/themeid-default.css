@@ -3,7 +3,7 @@
   --background-nav: var(--pure-white);
   --background-box: var(--concrete);
 
-  --primitive: var(--mischka);
+  --primitive: 215 15% 95%;
   --primitive-foreground: var(--geyser);
   --primitive-emphasis: var(--bali-hai);
 
@@ -32,7 +32,7 @@ html[class="dark"][data-themeid-dark="default"]:root {
   --background-nav: var(--pure-black);
   --background-box: var(--woodsmoke-secondary);
 
-  --primitive: var(--shark-primary);
+  --primitive: 225 10% 8%;
   --primitive-foreground: var(--shark-secondary);
   --primitive-emphasis: var(--shark-tertiary);
 

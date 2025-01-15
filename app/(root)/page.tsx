@@ -1,5 +1,5 @@
 import { PageHome } from "./components-home";
-import Element from "@/source/ui/element";
+import { Polymorphic } from "@/ui/polymorphic-slot";
 import { cn } from "str-merge";
 
 import style from "@/source/styles/.module.css";
@@ -10,10 +10,8 @@ import style from "@/source/styles/.module.css";
 
 export default function Home() {
   return (
-    <Element
-      el="main"
-      className={cn(style.main_home, "[--hex:#f2f2f2] dark:[--hex:#171717]")}>
+    <Polymorphic el="main" className={cn(style.main_home, "[--hex:#f2f2f2] dark:[--hex:#171717]")}>
       <PageHome />
-    </Element>
+    </Polymorphic>
   );
 }

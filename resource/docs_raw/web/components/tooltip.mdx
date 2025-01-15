@@ -1,0 +1,146 @@
+---
+title: Tooltip
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<TooltipDemosUsage />
+
+## Peer Dependencies
+
+```bash
+npm install str-merge@latest @radix-ui/react-tooltip
+```
+
+## Properties
+
+<TooltipDemosConfigurator />
+
+### Tooltip Inline
+
+<TooltipDemosInline />
+
+## Anatomy
+
+Tooltip requires a trigger as an `content` anchors, you can provide children strings, fragments, numbers, and several elements/components which will later be wrapped in a `<button>`.
+In contrast, when you use `asChild` props, use an element or component as a single child – providing strings, fragments, numbers, and multiple elements/components will cause errors.
+
+The `content` property is `ReactNode`, its will pass children to the tooltip content. Use `contentProps` to change style, attributes, and pass all properties to the content body.
+
+## Alternative
+
+You can use several ways to use Tooltip.
+
+1. Using with `TooltipProvider` and `Origin/Trees` Tooltip will provide full flexibility in customization.
+
+```tsx showLineNumbers
+export function MyToggle() {
+  return (
+    <TooltipProvider>
+      <TooltipTrigger asChild>
+        <button>
+          <BrandGithubFillIcon className="size-5" />
+        </button>
+      </TooltipTrigger>
+
+      <TooltipContent side="left" sideOffset={6} className="min-w-[86px]">
+        <span>Lorem...</span>
+      </TooltipContent>
+    </TooltipProvider>
+  );
+}
+```
+
+2. Using inline components will make your writing more concise.
+
+- without `asChild` property
+
+```tsx showLineNumbers
+export function MyToggle() {
+  return (
+    <Tooltip side="left" sideOffset={6} content="React.ReactNode">
+      Button
+    </Tooltip>
+  );
+}
+```
+
+- with asChild property
+
+```tsx showLineNumbers
+export function MyToggle() {
+  return (
+    <Tooltip asChild side="left" sideOffset={6} content={<span>Lorem...</span>}>
+      <a href="">
+        <Icon className="size-5" />
+      </a>
+    </Tooltip>
+  );
+}
+```
+
+3. Using ref in the trigger component.
+
+```tsx showLineNumbers
+export const MyToggle = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(({ ...props }, ref) => {
+  return (
+    <Tooltip asChild side="left" sideOffset={6} content={<span>Lorem...</span>}>
+      <a ref={ref} href="">
+        <Icon className="size-5" />
+      </a>
+    </Tooltip>
+  );
+});
+MyToggle.displayName = "MyToggle";
+```
+
+---
+
+## API References
+
+- [`docs @radix`](https://www.radix-ui.com/primitives/docs/components/tooltip#api-reference)
+
+[![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+[![@radix-ui/react-tooltip](https://badgen.net/npm/v/@radix-ui/react-tooltip/?icon=npm)](https://www.npmjs.com/package/@radix-ui/react-tooltip)
+
+### Styles API
+
+| Styles API  | Type      | Default | Annotation                                    |
+| ----------- | --------- | ------- | --------------------------------------------- |
+| unstyled`?` | `boolean` | `false` | if `true`, all default styles will be removed |
+
+### Tooltip API
+
+| Props API Tooltip | Type                                     | Default     | Annotation                                                               |
+| ----------------- | ---------------------------------------- | ----------- | ------------------------------------------------------------------------ |
+| asChild`?`        | `false`                                  | -           | pass the `triggerRef` props to an element or component as a single child |
+| content`?`        | `React.ReactNode`                        | `null`      | pass children to `TooltipContent` as `React.ReactNode`                   |
+| contentProps`?`   | `DetailedHTMLProps Content`              | `"div"`     | pass all attribute `TooltipContent`                                      |
+| open`?`           | `boolean`                                | `false`     | change the original `open` and `onOpenChange` state with own approach    |
+| onOpenChange`?`   | `(value: boolean) => void `              | `openState` | change the original `open` and `onOpenChange` state with own approach    |
+| sideOffset`?`     | `number`                                 | `0`         | distance between `TooltipTrigger` and `TooltipContent`                   |
+| withArrow`?`      | `boolean`                                | `false`     | add arrow on `TooltipContent`                                            |
+| touch`?`          | `boolean`                                | `false`     | allows `TooltipContent` to open when receiving a touch                   |
+| align`?`          | `"center" \| "start" \| "end"`           | `"center"`  | only available on `"dropdown"` variant                                   |
+| side`?`           | `"top" \| "right" \| "bottom" \| "left"` | `"bottom"`  | only available on `["dropdown", "drawer"]` variant                       |
+
+---
+
+### TooltipTrigger API
+
+| Props API TooltipTrigger | Type    | Default | Annotation                                                               |
+| ------------------------ | ------- | ------- | ------------------------------------------------------------------------ |
+| asChild`?`               | `false` | -       | pass the `triggerRef` props to an element or component as a single child |
+
+---
+
+## Code

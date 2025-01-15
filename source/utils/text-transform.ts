@@ -169,11 +169,12 @@ export function sanitizedName(str: string | undefined): string {
   const string = str ?? ")*&^^(";
   const replaced = string.toLowerCase();
   const sanitized = replaced
-    .replace(/[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!_+=]/g, "")
-    .replace(/\s{2,}/g, "-")
-    .replace(/-{2,}/g, "-")
-    .replace(/-\s/g, "-")
-    .replace(/\s-/g, "-");
+    .replace(/[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!_+=]/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/-{2,}/g, " ")
+    .replace(/-\s/g, " ")
+    .replace(/\s-/g, " ")
+    .replace(/\s/g, " ");
   return sanitized;
 }
 

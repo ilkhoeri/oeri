@@ -54,6 +54,7 @@ const config: NextConfig = withContentlayer({
     formats: ["image/avif", "image/webp"],
     domains: [
       "api.microlink.io",
+      "api.dicebear.com",
       "img.clerk.com",
       "lh3.googleusercontent.com",
       "cdn-icons-png.flaticon.com",

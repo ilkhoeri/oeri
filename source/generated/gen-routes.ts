@@ -1,7 +1,5 @@
-import { capitalizeWords } from "@/modules/ondevelopment/utils";
-
 import { allDocs } from "contentlayer/generated";
-import { compareWords } from "@/modules/utility";
+import { compareWords } from "@/utility/text-parser";
 import type { NestedRoute, SingleRoute } from "../routes/index";
 
 export function getSlug(segment: string | undefined) {
@@ -33,20 +31,20 @@ function groupBy<T>(array: T[], keyFn: (item: T) => string) {
     {} as Record<string, T[]>
   );
 }
- */
-// Function to map routes
 
 function toCamelCase(str: string): string {
   return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }
 
+ */
+// Function to map routes
 // Function to generate routes dynamically
 export function docsToRoutes(docs: string[]) {
   const singleRoutes: SingleRoute[] = [];
   const nestedRoutes: NestedRoute[] = [];
 
   docs.forEach(path => {
-    const segments = path.split("/").slice(2).filter(Boolean);
+    const segments = path.split("/").slice(3).filter(Boolean);
 
     if (segments.length === 2) {
       // Contoh: /utility/cnx
@@ -58,7 +56,7 @@ export function docsToRoutes(docs: string[]) {
         singleRoutes.push(route);
       }
 
-      route.data.push({ title: toCamelCase(child), href: path });
+      route.data.push({ title: child, href: path });
     } else if (segments.length === 3) {
       // Contoh: /components/native/popover
       const [parent, subParent, child] = segments;
@@ -74,7 +72,7 @@ export function docsToRoutes(docs: string[]) {
         route.data.push(subRoute);
       }
 
-      subRoute.data.push({ title: capitalizeWords(child), href: path });
+      subRoute.data.push({ title: child, href: path });
     }
   });
 
@@ -90,7 +88,7 @@ export function docFilterBySegment(
 ): { single: SingleRoute[]; nested: NestedRoute[] } {
   // Filter berdasarkan segmen pertama
   const filteredDocs = allDocs.filter(path => {
-    const [firstSegment] = path.split("/").slice(2).filter(Boolean); // Ambil segmen pertama
+    const [firstSegment] = path.split("/").slice(3).filter(Boolean); // Ambil segmen pertama
     return compareWords(firstSegment, targetSegment); // Cocokkan dengan target
   });
   return docsToRoutes(filteredDocs); // Gunakan fungsi docsToRoutes untuk memetakan hasil filter
@@ -98,11 +96,18 @@ export function docFilterBySegment(
 const routes = allDocs.map(i => i.url);
 const utility = docFilterBySegment(routes, "utility").single;
 const hooks = docFilterBySegment(routes, "hooks").single;
-const components = docFilterBySegment(routes, "components").nested;
-const configurations = docFilterBySegment(routes, "configurations").nested;
+const components = docFilterBySegment(routes, "components").single;
+const configurations = docFilterBySegment(routes, "configurations").single;
+
 export const docsRoutes = [
   ...configurations,
   ...utility,
   ...components,
   ...hooks
 ];
+export const resRoutes = {
+  configurations,
+  utility,
+  components,
+  hooks
+};

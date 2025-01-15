@@ -62,11 +62,7 @@
   &::before,
   &::after {
     @apply content-[''] absolute rounded-full;
-    background: conic-gradient(
-      from 180deg at 50% 50%,
-      var(--conic-0, hsl(var(--background))) 0deg,
-      var(--conic-1, hsl(var(--background))) 1turn
-    );
+    background: conic-gradient(from 180deg at 50% 50%, var(--conic-0, hsl(var(--background))) 0deg, var(--conic-1, hsl(var(--background))) 1turn);
     mix-blend-mode: normal;
     filter: blur(75px);
     will-change: filter;
@@ -115,10 +111,8 @@
     animation: borderAnimation 1.5s infinite linear;
   }
 
-  & .line_top {
-    @apply max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max;
+  & [data-linetop] {
     & svg {
-      @apply size-full overflow-visible z-9;
       & circle[cy="130.5"] {
         animation: progress 6s infinite linear;
       }
@@ -312,8 +306,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  width: calc(var(--w-switch) + calc(var(--p) * 1));
-  height: calc(var(--h-switch) + calc(var(--p) * 1));
+  width: calc(var(--w-switch) + (var(--p) * 1));
+  height: calc(var(--h-switch) + (var(--p) * 1));
   box-shadow:
     hsla(var(--pure-black), 0.15) 2px -5px 4px inset,
     hsla(var(--pure-black), 0.25) 0px 2px 5px -1px,
@@ -323,10 +317,10 @@
   --pure-white: 0, 0%, 100%;
   --scale-x: calc(1.35 * var(--round));
   --p: calc(calc(6.25 / 100) * var(--round));
-  --checked: calc(100% - calc(var(--round) + var(--p)));
-  --sz-marbles: calc(var(--w-switch) + calc(var(--p) * 1));
-  --h-switch: calc(var(--round) + calc(var(--p) * 2));
-  --w-switch: calc(calc(var(--round) * 2) + calc(var(--p) * 2));
+  --checked: calc(100% - (var(--round) + var(--p)));
+  --sz-marbles: calc(var(--w-switch) + (var(--p) * 1));
+  --h-switch: calc(var(--round) + (var(--p) * 2));
+  --w-switch: calc(calc(var(--round) * 2) + (var(--p) * 2));
   --bg-switch: var(--pure-black);
   --box: var(--pure-white);
 }
@@ -354,18 +348,12 @@
   border-width: 0px;
   transition: all linear 300ms;
   box-shadow: var(--shadow);
-  --switch-shadow-light: hsla(var(--pure-black), 0.4) 0 2px 4px,
-    hsla(var(--pure-black), 0.3) 0 7px 13px -3px,
-    hsla(var(--pure-black), 0.25) -2px -5px 4px inset,
+  --switch-shadow-light: hsla(var(--pure-black), 0.4) 0 2px 4px, hsla(var(--pure-black), 0.3) 0 7px 13px -3px, hsla(var(--pure-black), 0.25) -2px -5px 4px inset,
     hsla(var(--pure-black), 0.2) 0 0 0 1px inset;
-  --switch-shadow-dark: hsla(var(--pure-black), 0.4) 0 2px 4px,
-    hsla(var(--pure-black), 0.35) 0 7px 13px -3px,
-    hsla(var(--pure-black), 0.5) 2px -5px 4px inset,
+  --switch-shadow-dark: hsla(var(--pure-black), 0.4) 0 2px 4px, hsla(var(--pure-black), 0.35) 0 7px 13px -3px, hsla(var(--pure-black), 0.5) 2px -5px 4px inset,
     hsla(var(--pure-black), 0.25) 0 0 0 1px inset;
-  --switch-shadow-active: hsla(var(--pure-black), 0.4) 0 2px 4px,
-    hsla(var(--pure-black), 0.3) 0 7px 13px -3px,
-    hsla(var(--pure-black), 0.25) 0px -2px 8px 6px inset,
-    hsla(var(--pure-black), 0.25) 0 0 0 1px inset;
+  --switch-shadow-active: hsla(var(--pure-black), 0.4) 0 2px 4px, hsla(var(--pure-black), 0.3) 0 7px 13px -3px,
+    hsla(var(--pure-black), 0.25) 0px -2px 8px 6px inset, hsla(var(--pure-black), 0.25) 0 0 0 1px inset;
   --switch-ml-dark: calc(calc(var(--checked) - var(--scale-x)) - var(--p));
   --light: var(--p);
   --dark: var(--checked);

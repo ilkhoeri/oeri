@@ -1,0 +1,60 @@
+---
+title: Input
+description: Handle style changes and onChange based on input type.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<InputDemosUsage />
+
+## Properties
+
+<InputDemosConfigurator />
+
+## indeterminate
+
+- The indeterminate function is usually used on checkbox elements to indicate a state that is not fully selected.
+- When the `indeterminate` property is `true`, the `checkbox` will be in a neutral state.
+- This property is only relevant for inputs with `type="checkbox"`
+
+---
+
+Handle style changes and onChange based on input type
+
+---
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
+- [`Prefix input styles`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
+
+### Styles API
+
+```ts
+type Size = (number | (string & {})) | { h?: React.CSSProperties["height"]; w?: React.CSSProperties["width"] };
+```
+
+| Styles API  | Type                           | Default              | Annotation                                    |
+| ----------- | ------------------------------ | -------------------- | --------------------------------------------- |
+| unstyled`?` | `boolean`                      | `false`              | if `true`, all default styles will be removed |
+| variant`?`  | `React.HTMLInputTypeAttribute` | `text`               | same with input type                          |
+| size`?`     | `Size`                         | `{h: 36, w: "100%"}` | numbers are converted to rem                  |
+
+### Props API
+
+| Props API        | Type                     | Default     | Annotation                                                                                                                    |
+| ---------------- | ------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| type`?`          | `HTMLInputTypeAttribute` | `text`      | Handle style changes and onChange based on input type                                                                         |
+| indeterminate`?` | `boolean`                | `undefined` | Allows the checkbox to have a neutral state (neither checked nor unchecked). Useful if you want to use it on a checkbox type. |
+
+---
+
+## Code

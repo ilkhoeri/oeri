@@ -1,0 +1,112 @@
+---
+title: Anchor
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<AnchorDemosUsage />
+
+## Decoration
+
+<AnchorDemosDecoration />
+
+## With Button Variant
+
+<AnchorDemosButtonVariant />
+
+## Properties
+
+<AnchorDemosConfigurator />
+
+---
+
+## Styles
+
+### Tailwind utilities
+
+Add the following [`utilities css`](https://tailwindcss.com/docs/) to your [`tailwind.config.js`](https://tailwindcss.com/docs/configuration) file:
+
+```ts
+import { PluginAPI, type Config } from "tailwindcss/types/config";
+import plugin from "tailwindcss/plugin";
+
+export default {
+  theme: {
+    extend: {}
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(({ addBase, addUtilities }: PluginAPI) => {
+      addBase({});
+      addUtilities({
+        ".underline-hover": {
+          position: "relative",
+          touchAction: "manipulation",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            bottom: "var(--underline-offset, 2px)",
+            backgroundColor: "currentColor",
+            height: "1px"
+          },
+          "@media (hover: none)": {
+            "&::after": {
+              width: "0"
+            },
+            "&:hover": {
+              "&::after": {
+                animation: "underlinehover 0.75s cubic-bezier(0.86, 0, 0.07, 1)"
+              }
+            }
+          },
+          "@media not all and (hover: hover) and (pointer: fine)": {
+            "&::after": {
+              left: "0",
+              width: "100%",
+              transform: "scaleX(0)",
+              transformOrigin: "right center",
+              transition: "transform .45s cubic-bezier(0.86, 0, 0.07, 1)"
+            },
+            "&:hover": {
+              "&::after": {
+                transform: "scaleX(1)",
+                transformOrigin: "left center",
+                animation: "none"
+              }
+            }
+          }
+        }
+      });
+    })
+  ]
+} satisfies Config;
+```
+
+### Globals CSS
+
+Remember to add keyframes styles to your global.css file.
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)
+
+### Styles API
+
+| Styles API   | Type                             | Default     | Annotation                                    |
+| ------------ | -------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`  | `boolean`                        | `false`     | if `true`, all default styles will be removed |
+| underline`?` | `"always" \| "hover" \| "never"` | `never`     |                                               |
+| role`?`      | `"anchor" \| AriaRole`           | `undefined` | if `role="anchor"`, add blue color style      |
+
+---
+
+## Code

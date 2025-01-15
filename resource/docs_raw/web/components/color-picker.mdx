@@ -1,0 +1,65 @@
+---
+title: Color Picker
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<ColorPickerDemosUsage />
+
+## Properties
+
+<ColorPickerDemosConfigurator />
+
+---
+
+## API References
+
+### Styles API
+
+```ts
+type T = "saturation" | "body" | "slider" | "root" | "sliders" | "sliderOverlay" | "thumb" | "saturationOverlay" | "swatches" | "swatch" | "preview" | "alphaOverlay" | "shadowOverlay" | "colorOverlay" | "childrenOverlay";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                    |
+| ------------- | ----------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` | Set className for `T`                         |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` | Set style for `T`                             |
+
+### Props API
+
+```ts
+type ColorFormat = "hex" | "hexa" | "rgba" | "rgb" | "hsl" | "hsla";
+```
+
+| Props API             | Type                      | Default     | Annotation                                                                                               |
+| --------------------- | ------------------------- | ----------- | -------------------------------------------------------------------------------------------------------- |
+| defaultValue`?`       | `string`                  | `undefined` | Uncontrolled component default value                                                                     |
+| value`?`              | `string`                  | `undefined` | Controlled component value                                                                               |
+| format`?`             | `ColorFormat`             | `hex`       | Color format                                                                                             |
+| withPicker`?`         | `boolean`                 | `true`      | Determines whether the color picker should be displayed                                                  |
+| swatches`?`           | `string[]`                | `undefined` | An array of colors in one of the supported formats. Used to render swatches list below the color picker. |
+| swatchPerRow`?`       | `number`                  | `7`         | Number of swatches per row                                                                               |
+| focusable`?`          | `boolean`                 | `true`      | Determines whether interactive elements (sliders thumbs and swatches) should be focusable                |
+| size`?`               | `string \| number`        |             | Controls size of hue, alpha and saturation sliders                                                       |
+| alphaLabel`?`         | `string`                  |             | Alpha slider `aria-label` prop                                                                           |
+| hueLabel`?`           | `string`                  |             | Hue slider `aria-label` prop                                                                             |
+| saturationLabel`?`    | `string`                  |             | Saturation slider `aria-label` prop                                                                      |
+| withShadow`?`         | `boolean`                 | `true`      | Add style shadow for swatches                                                                            |
+| withClipboard`?`      | `boolean`                 | `false`     | When to copy color values                                                                                |
+| onChange`?`           | `(value: string) => void` | `undefined` | Called when value changes                                                                                |
+| onChangeEnd`?`        | `(value: string) => void` | `undefined` | Called when the user stops dragging one of the sliders or changes the value with arrow keys              |
+| onColorSwatchClick`?` | `(color: string) => void` | `undefined` | Called when one of the color swatches is clicked                                                         |
+
+---
+
+## Code

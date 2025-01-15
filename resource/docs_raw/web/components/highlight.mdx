@@ -1,0 +1,52 @@
+---
+title: Highlight Text
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label:
+  #     link:
+---
+
+## Usage
+
+<HighlightDemosUsage />
+
+## Properties
+
+<HighlightDemosConfigurator />
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark)
+- [`web.dev`](https://web.dev/articles/light-dark#practical_application)
+
+### Styles API
+
+```ts
+type T = "root" | "highlight";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                   |
+| ------------- | ----------------------------------- | ----------- | -------------------------------------------- |
+| className`?`  | `string`                            | `undefined` | pass to root component `<p>`                 |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                              |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<p>`                 |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                              |
+| color         | `Property.Color`                    | `yellow`    | Key of CSS color, passed to `mark` component |
+
+### Props API
+
+| Props API    | Type                 | Default | Annotation                                                                  |
+| ------------ | -------------------- | ------- | --------------------------------------------------------------------------- |
+| text`?`      | `string`             | -       | Define text to process the entire string                                    |
+| children`?`  | `string`             | -       | Define text to process the entire string                                    |
+| highlight`?` | `string \| string[]` |         | Substring or an array of substrings to highlight in `children` or `text=""` |
+| el`?`        | `ElementType`        | `<p>`   | element that will wrap the entire text                                      |
+
+---
+
+## Code

@@ -1,0 +1,62 @@
+---
+title: Times
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<TimesDemosUsage />
+
+## Properties
+
+<TimesDemosConfigurator />
+
+## API References
+
+### Styles API
+
+- `<TimesPosted />`
+
+```ts
+type T = "root" | "createdAt" | "updatedAt" | "interval";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+- `<Times />`
+
+| Props API  | Type                | Default     | Annotation |
+| ---------- | ------------------- | ----------- | ---------- |
+| time`?`    | `string \| Date;`   | `undefined` |            |
+| diff`?`    | `Format["diff"]`    | `short`     |            |
+| locales`?` | `Format["locales"]` | `en-US`     |            |
+
+- `<TimesPosted />`
+
+| Props API       | Type                                                         | Default     | Annotation |
+| --------------- | ------------------------------------------------------------ | ----------- | ---------- |
+| `?`             | ``                                                           | ``          |            |
+| diff`?`         | `Format["diff"]`                                             | `short`     |            |
+| locales`?`      | `Format["locales"]`                                          | `en-US`     |            |
+| withInterval`?` | `boolean`                                                    | `false`     |            |
+| times`?`        | `{ createdAt?: string \| Date; updatedAt?: string \| Date }` | `undefined` |            |
+
+---
+
+## Code

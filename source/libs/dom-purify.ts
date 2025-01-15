@@ -21,10 +21,14 @@ const config = {
    ```
 */
 export function cleanHTML(html: string): string {
-  if (typeof window !== "undefined") {
-    return DOMPurify.sanitize(html, config);
-  }
+  if (typeof window !== "undefined") return DOMPurify.sanitize(html, config);
   return html;
+}
+
+export function purify(text: string | null | undefined): string {
+  if (!text) return "";
+  if (typeof window !== "undefined") return DOMPurify.sanitize(text);
+  return text;
 }
 
 export function markdownInsertHTML(html: string): { __html: string } {
@@ -82,12 +86,7 @@ export function markdownHTML(html: string) {
 // });
 
 export function escapeHtml(unsafe: string) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 // export function stripHtml(html: string) {
@@ -118,11 +117,6 @@ export function strippedHtml(html: string) {
     .replace(/\*/g, "")
     .replace(/\_/g, "")
     .replace(/\n/g, " ");
-  const strip = stripped
-    .replace("&amp;", "")
-    .replace("&lt;", "")
-    .replace("&gt;", "")
-    .replace("&quot;", "")
-    .replace("&#039;", "");
+  const strip = stripped.replace("&amp;", "").replace("&lt;", "").replace("&gt;", "").replace("&quot;", "").replace("&#039;", "");
   return strip;
 }

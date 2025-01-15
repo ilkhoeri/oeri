@@ -1,131 +1,149 @@
 "use client";
-
+import { useState } from "react";
 import Link from "next/link";
-import Element from "@/source/ui/element";
-import {
-  BrandDiscordFillIcon,
-  BrandGithubFillIcon,
-  BrandOeriIcon,
-  LineMenuBarIcon
-} from "@/modules/icons";
-import { useHoveredElement } from "@/source/hooks/use-hovered-element";
 import { useNavContext } from "../hooks/use-nav";
 import { CommandDialog } from "./command-dialog";
 import { appRoutes } from "@/source/routes";
-import { NavLinkItem } from "@/source/ui/link-nav";
-import { twMerge } from "str-merge";
+import { NavLinkItem } from "@/source/assets/navlink";
+import { merge } from "str-merge";
+import { Polymorphic } from "@/ui/polymorphic-slot";
+import { FloatingIndicator } from "@/ui/floating-indicator";
+import { BrandDiscordFillIcon, BrandGithubFillIcon, BrandOeriIcon, HeartIcon, TextDirectionIcon } from "@/icons/*";
 import type { SingleRoute, NestedRoute } from "@/source/routes";
 
 import globalStyle from "../styles/styles";
+import { Burger } from "@/ui/burger";
+import { Button } from "@/ui/button";
+import { useApp } from "@/config/app-context";
 
-export function Headnav({
-  routes
-}: {
-  routes?: (SingleRoute | NestedRoute)[] | null;
-}) {
-  const { minQuery, toggle, pathname, open } = useNavContext();
+export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | null }) {
+  const { toggleDirection, dir } = useApp();
+  const { minQuery, toggle, pathname, open, setOpen } = useNavContext();
 
-  const { hovered, onMouseEnter, onMouseLeave } = useHoveredElement();
+  const [parentRef, setParentRef] = useState<HTMLDivElement | null>(null);
+  const [controlsRefs, setControlsRefs] = useState<Record<string, HTMLAnchorElement | null>>({});
+  const [active, setActive] = useState<string>(`/${pathname.split("/").filter(Boolean)[0] || "docs"}`);
+  const [hover, setHover] = useState<string | null>(null);
+
+  const setControlRef = (key: string) => (node: HTMLAnchorElement) => {
+    controlsRefs[key] = node;
+    setControlsRefs(controlsRefs);
+  };
+  const isActive = (key: string) => (active === key ? "true" : undefined);
 
   return (
     <header
-      className={twMerge(
-        "h-[--navbar] flex items-center justify-between py-4 md:px-5 xl:px-6 border-0 border-b-[0.04rem] border-b-muted/75 fixed top-0 inset-x-0 z-[--z,88] w-[calc(100%-var(--has-scrollbar,0px))] max-w-var backdrop-blur bg-background/95 supports-[backdrop-filter]:bg-background/60 mr-[--has-scrollbar]",
+      dir={dir}
+      className={merge(
+        "fixed inset-x-0 top-0 z-[--z,88] mr-[--has-scrollbar] flex h-[--navbar] w-[calc(100%-var(--has-scrollbar,0px))] max-w-var items-center justify-between border-0 border-b-[0.04rem] border-b-muted/75 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-5 xl:px-6",
         pathname === "/" && open && "[--z:0]"
       )}
     >
-      <Element className="relative mx-auto flex w-full max-w-screen-3xl items-center px-4 3xl:px-20">
-        <LinkHome
-          open={open}
-          className="[transition:all_0.5s_ease] max-md:data-[state=open]:translate-x-[-32px] max-md:data-[state=open]:opacity-0"
-        />
+      <Polymorphic dir={dir} className="relative mx-auto flex w-full max-w-screen-3xl items-center 3xl:px-12">
+        <LinkHome open={open} className="[transition:all_0.5s_ease] max-md:data-[state=open]:translate-x-[-32px] max-md:data-[state=open]:opacity-0" />
 
-        <div className="relative ml-10 mr-auto hidden h-full items-center justify-between overflow-hidden rounded-sm text-sm font-medium md:flex">
-          {appRoutes["services"].map((i, index) => (
-            <Link
-              key={index}
-              href={i.href}
-              role="button"
-              className="h-6 cursor-pointer select-none rounded-sm px-2 py-1 text-muted-foreground transition-colors centered hover:text-color"
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-            >
-              <span>{i.title}</span>
-            </Link>
-          ))}
-
-          {hovered && (
-            <Element
-              el="span"
-              className="absolute -z-1 animate-fade-in rounded-sm bg-muted fade-in-0 zoom-in-90 [animation-duration:90ms]"
-              style={{
-                transition:
-                  "background-color 180ms, transform 180ms, width 90ms",
-                height: `${hovered.height}px`,
-                width: `${hovered.width}px`,
-                transform: `translateX(calc(${hovered.x}px - var(--tolerance)))`,
-                "--tolerance": "176.5px"
-                // transform: `translateY(${hovered?.y - ((minQuery ? 72 : 64) - scrollPosition - (scrollBody >= 1930 ? scrollBody - 1930 : 0))}px)`,
-              }}
+        {minQuery && (
+          <div
+            dir={dir}
+            ref={setParentRef}
+            className="relative hidden h-full items-center justify-between rounded-sm text-sm font-medium md:flex ltr:ml-10 ltr:mr-auto rtl:ml-auto rtl:mr-10"
+          >
+            {appRoutes["services"].map(i => (
+              <Link
+                key={i.href}
+                ref={setControlRef(i.href)}
+                href={i.href}
+                role="button"
+                onClick={() => setActive(i.href)}
+                data-active={isActive(i.href)}
+                className="h-6 cursor-pointer select-none rounded-sm text-muted-foreground transition-colors centered hover:text-color data-[active]:text-color"
+              >
+                <span className="relative z-1 px-2 py-1" onMouseEnter={() => setHover(i.href)} onMouseLeave={() => setHover(null)}>
+                  {i.title}
+                </span>
+              </Link>
+            ))}
+            <FloatingIndicator
+              target={controlsRefs[hover ?? active]}
+              parent={parentRef}
+              transitionDuration={450}
+              className="rounded-md border bg-background/15 shadow-md"
             />
-          )}
-        </div>
+          </div>
+        )}
 
-        <div
-          className={globalStyle(
-            { toggle: "group" },
-            "ml-auto [&_svg]:size-5 [&>:nth-child(1)]:mr-2"
-          )}
-        >
+        <div dir={dir} className={globalStyle({ toggle: "group" }, "ltr:ml-auto rtl:mr-auto [&_svg]:size-[1.375rem] gap-1.5")}>
           <CommandDialog routes={routes} />
-
-          <NavLinkItem
-            icon={BrandGithubFillIcon}
-            target="_blank"
-            aria-label="github repository"
-            href="https://github.com/ilkhoeri/oeri"
-            classNames={{ icon: "[fill:currentColor]" }}
-            className={globalStyle({ toggle: "item", size: "icon-xs" })}
-          />
-          <NavLinkItem
-            icon={BrandDiscordFillIcon}
-            target="_blank"
-            aria-label="discord community"
-            href="https://discord.gg/Xct5BBPDZ9"
-            classNames={{ icon: "[fill:currentColor]" }}
-            className={globalStyle({ toggle: "item", size: "icon-xs" })}
-          />
+          <div className="grid grid-flow-col gap-0.5">
+            <LinksSection />
+            <Button size="icon" variant="outline" onClick={toggleDirection} className="max-md:hidden">
+              <TextDirectionIcon dir={dir} stroke={1.5} />
+            </Button>
+          </div>
         </div>
 
         <ButtonAside
-          open={open}
-          onClick={toggle}
-          hidden={
-            minQuery || pathname.split("/").filter(Boolean).includes("examples")
-          }
-          className="max-md:ml-[26px] max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0"
+          {...{ open, setOpen, onClick: toggle }}
+          hidden={minQuery || pathname.split("/").filter(Boolean).includes("examples")}
+          className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]"
         />
-      </Element>
+      </Polymorphic>
     </header>
   );
 }
 
-export function LinkHome({
-  open,
-  className
-}: {
-  open?: boolean;
-  className?: string;
-}) {
+const sections = [
+  {
+    label: "Github Repository",
+    href: "https://github.com/ilkhoeri/oeri",
+    icon: BrandGithubFillIcon,
+    color: "#6e5494"
+  },
+  {
+    label: "Discord Community",
+    href: "https://discord.gg/Xct5BBPDZ9",
+    icon: BrandDiscordFillIcon,
+    color: "#436ab2"
+  },
+  {
+    label: "Open Collective",
+    href: "https://opencollective.com/oeridev",
+    icon: HeartIcon,
+    color: "#b11c66"
+  }
+];
+
+function LinksSection() {
+  return sections.map((i, __i) => (
+    <NavLinkItem
+      key={__i}
+      icon={i.icon}
+      target="_blank"
+      aria-label={i.label}
+      href={i.href}
+      iconProps={{
+        currentFill: i.label.includes("Collective") ? "fill-stroke" : "fill",
+        fill: "white",
+        stroke: "white"
+      }}
+      className={globalStyle(
+        { toggle: "item", size: "icon-xs" },
+        "bg-[--color] border border-background focus-visible:ring-[--color] [&_svg]:hover:text-white hover:bg-[--color] [@media(hover:hover)]:hover:bg-[--color] max-md:hidden max-md:last-of-type:flex"
+      )}
+      style={{
+        "--color": i.color
+      }}
+    />
+  ));
+}
+
+export function LinkHome({ open, className }: { open?: boolean; className?: string }) {
   return (
     <Link
       href="/"
       aria-label="oeri"
       data-state={open ? "open" : "closed"}
-      className={twMerge(
-        "rounded-lg gap-2 py-1 px-2 text-lg font-medium leading-none font-geist-mono",
-        className
-      )}
+      className={merge("gap-2 rounded-lg px-2 py-1 font-geist-mono text-lg font-medium leading-none", className)}
     >
       <BrandOeriIcon size={30} />
       <span>oeri</span>
@@ -133,38 +151,17 @@ export function LinkHome({
   );
 }
 
-export function ButtonAside({
-  hidden,
-  open,
-  onClick,
-  className
-}: {
-  hidden: boolean | undefined;
-  open?: boolean;
-  onClick: () => void;
-  className?: string;
-}) {
-  if (hidden) {
-    return null;
-  }
+export function ButtonAside(_props: React.ComponentProps<typeof Burger>) {
+  const { hidden, open, onClick, setOpen, className } = _props;
+  if (hidden) return null;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      data-state={open ? "open" : "closed"}
-      aria-label={[open ? "Close" : "Open", "Menu"].join(" ")}
-      className={twMerge(
-        "centered md:hidden md:sr-only relative z-10 scale-100 lg:scale-0 opacity-100 lg:opacity-0 [transition:all_0.5s_ease] rounded-[4px] focus-visible:outline-0",
-        className
-      )}
-    >
-      <LineMenuBarIcon
-        data-state={open ? "open" : "closed"}
-        className={twMerge(
-          "sizer [--sz:24px] overflow-visible [transition:transform_.35s_ease] data-[state=open]:rotate-45 data-[state=open]:[transition-delay:.25s] [&_path]:[transition:transform_.35s_ease]",
-          "[&_[data-line=top]]:data-[state=open]:[transform:rotate(112.5deg)_translate(-27.2%,-80.2%)] [&_[data-line=center]]:data-[state=open]:[transform:rotate(22.5deg)_translate(15.5%,-23%)] [&_[data-line=bottom]]:data-[state=open]:[transform:rotate(112.5deg)_translate(-15%,-149.5%)]"
-        )}
-      />
-    </button>
+    <Burger
+      {...{
+        open,
+        setOpen,
+        className: merge("relative z-10 scale-100 opacity-100 md:sr-only md:hidden lg:scale-0 lg:opacity-0", className),
+        onClick
+      }}
+    />
   );
 }

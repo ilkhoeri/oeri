@@ -1,0 +1,131 @@
+---
+title: cvx({})
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://cva.style/docs
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### Installation
+
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+
+```bash
+npm install str-merge@latest
+```
+
+The cvx function is a utility for managing string class variants in a structured manner.
+
+It allows combining classes based on a predefined variant configuration, with the option to include default values ​​(`defaultVariants`) and customization based on user input.
+
+#### Syntax
+
+```ts
+function cvx<T extends cvxMap>(keys: cvxKeys<T>): (variant: cvxVariant<T>) => string;
+```
+
+#### How cvx works
+
+1. **Merge Variants:**
+   The variants provided by the user via `variant` are merged with the default variants (`defaultVariants`), if any.
+
+2. **Determine Class:**
+   For each key in `variants`, the function maps the corresponding value from the merged variant.
+
+3. **Generate String:**
+   The class values ​​are merged into a single space-separated string.
+   If `assign` is given, this string is prefixed with the value of `assign`.
+
+#### Example of Usage
+
+```tsx
+import { cvx, twMerge, rem, type cvxProps } from "str-merge";
+
+const classes = cvx({
+  // assign values that is definitely returned
+  assign: "bg-muted rounded-sm px-2 border flex items-center justify-center",
+  variants: {
+    variant: {
+      bold: "font-bold",
+      italic: "font-italic",
+      semibold: "font-semibold",
+      light: "font-light"
+    },
+    color: {
+      blue: "text-blue-600",
+      green: "text-green-700",
+      red: "text-red-500",
+      purple: "text-purple-500"
+    },
+    size: {
+      sm: "h-4",
+      md: "h-6",
+      lg: "h-10",
+      xl: "h-14"
+    }
+  },
+  // determine the variance value by default
+  defaultVariants: {
+    variant: "bold",
+    color: "blue",
+    size: "lg"
+  }
+});
+
+type MyVariantsType = cvxProps<typeof classes>;
+interface ClnProps extends MyVariantsType {
+  unstyled?: boolean;
+  className?: string;
+}
+export function clN(props: ClnProps) {
+  const { className, unstyled, ...rest } = props;
+  return { className: twMerge(!unstyled && classes({ ...rest }), className) };
+}
+
+export function CvxDemo(props: ClnProps) {
+  const { className, color, size, variant, unstyled } = props;
+  return (
+    <div className="flex flex-col gap-4">
+      <div {...clN(props)} style={{ width: rem(32), height: rem("32px") }}>
+        COMPONENT
+      </div>
+      <div className={classes()}>COMPONENT</div>
+      <div className={classes({ color: "red", size: "lg" })}>COMPONENT</div>
+      <div className={twMerge(classes({ color: "red", size: "md" }), "bg-black/60 dark:bg-white/60 text-white dark:text-black font-extrabold border-0")}>
+        COMPONENT
+      </div>
+    </div>
+  );
+}
+```
+
+### Advantages
+
+1. Flexibility: Supports a wide range of variant combinations.
+2. Consistency: Simplifies class management with a clearly defined structure.
+3. Efficiency: Minimizes duplication of class logic in code.
+
+### IntelliSense
+
+If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](https://tailwindcss.com/docs/editor-setup#intelli-sense-for-vs-code) class using the following command:
+
+1. Install the [`Tailwind CSS IntelliSense`](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) Visual Studio Code extension
+2. Add to your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings):
+
+```json
+"tailwindCSS.experimental.classRegex": [
+  ["cvx\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+  ["cvx\\(([^)]*)\\)", "(?:'|\"|`)([^'\"`]*)(?:'|\"|`)"],
+  ["assign:\\s*['\"`]([^'\"`]*?)['\"`]", "(?:'|\"|`)([^'\"`\\]]*|\\[[^\\]]+\\])(?:'|\"|`)"],
+  ["assign:\\s*['\"`]([^'\"`]*?)['\"`]", "(?:^|\\s+)([\\w-:\\[\\].()#\\/%]+)(?=\\s+|$)"],
+  ["variants:\\s*\\{([^}]*?)\\}", "(?:'|\"|`)([^'\"`\\]]*|\\[[^\\]]+\\])(?:'|\"|`)"],
+  ["variants:\\s*\\{[^}]*?['\"`\\w]+:\\s*['\"`]([^'\"`]*)['\"`]", "(?:^|\\s+)([\\w-:\\[\\].()#\\/%]+)(?=\\s+|$)"],
+],
+```
+
+[`cva`](https://cva.style/docs) uses the first argument as a constant that will be distributed throughout the variance, in cvx this argument is moved to the `assign` parameter. cvx does not or has not passed the `class` and `className` parameters.

@@ -1,0 +1,12 @@
+.viewport {
+  @apply relative overflow-hidden [--h:28rem] [--spacing:1rem] data-[orientation=horizontal]:max-w-full data-[orientation=vertical]:max-h-[--h];
+}
+.container {
+  @apply flex touch-pinch-zoom items-center data-[orientation=horizontal]:ml-[calc(var(--spacing)*-1)] data-[orientation=horizontal]:h-full data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:py-3 data-[orientation=horizontal]:[--tw-pan-y:pan-y] data-[orientation=vertical]:mt-[calc(var(--spacing)*-1)] data-[orientation=vertical]:h-[calc(var(--spacing)+var(--h))] data-[orientation=vertical]:w-full data-[orientation=vertical]:flex-col data-[orientation=vertical]:px-3 data-[orientation=vertical]:[--tw-pan-x:pan-x];
+}
+.content {
+  @apply relative flex shrink-0 grow-0 select-none items-center justify-center data-[orientation=horizontal]:py-[--spacing] data-[orientation=horizontal]:pl-[--spacing] data-[orientation=vertical]:px-[--spacing] data-[orientation=vertical]:pt-[--spacing];
+}
+.item {
+  @apply flex h-64 w-[300px] min-w-[300px] flex-col items-center justify-center rounded-lg border bg-background text-muted shadow-sm transition-all font-heading after:-mt-6 after:text-sm after:italic after:content-['stop_on_hover'] hover:rounded-xl hover:border-muted-foreground/60 hover:text-muted-foreground hover:[scale:1.05] hover:after:content-['isHover'];
+}

@@ -127,6 +127,7 @@ export const barlow = Barlow({
 });
 
 export const fontsVariable = [
+  geistSans.variable,
   geistMono.variable,
   inter.variable,
   montserrat.variable,

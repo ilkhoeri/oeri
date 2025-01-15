@@ -1,0 +1,52 @@
+---
+title: Button
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<ButtonDemosUsage />
+
+## Properties
+
+<ButtonDemosConfigurator />
+
+## UnstyledButton
+
+UnstyledButton allows to provide its own style independent of all the styles and variant properties of `Button`.
+This can be very useful when you want to use it as a trigger for a tooltip or another toggle.
+
+Used as `asChild` it helps to pass the button property to its single child.
+
+<ButtonDemosUnstyled />
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)
+
+### Styles API
+
+```ts
+type Variant = "default" | "destructive" | "constructive" | "conservative" | "primitive" | "outline" | "ghost" | "link";
+type Colors = "base" | "blue" | "green" | "red" | "default" | "grape" | "gradient-blue" | "gradient-orange" | "outline-base" | "outline-indigo" | "outline-teal";
+type Size = "default" | "icon" | "sm" | "lg" | "badge";
+```
+
+| Styles API  | Type      | Default     | Annotation                                    |
+| ----------- | --------- | ----------- | --------------------------------------------- |
+| unstyled`?` | `boolean` | `false`     | if `true`, all default styles will be removed |
+| variant`?`  | `Variant` | `default`   | Set variant of button                         |
+| color`?`    | `Colors`  | `undefined` | Set color of button                           |
+| size`?`     | `Variant` | `default`   | Set size of button with tailwindcss           |
+
+---
+
+## Code

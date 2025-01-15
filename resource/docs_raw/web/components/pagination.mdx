@@ -1,0 +1,149 @@
+---
+title: Pagination
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<PaginationDemosUsage />
+
+## Properties
+
+<PaginationDemosConfigurator />
+
+## Pagination As Link
+
+<PaginationDemosAsLink />
+
+## Pagination Change Icons
+
+<PaginationDemosChangeIcon />
+
+## Pagination With Chunked Content
+
+<PaginationDemosWithChunk />
+
+## Controlled
+
+To control component state provide value and onChange props:
+
+```ts
+"use client";
+import { useState } from "react";
+import { Pagination } from "@/ui/pagination";
+
+function ControlledPagination() {
+  const [activePage, setPage] = useState(1);
+  return <Pagination value={activePage} onChange={setPage} total={10} />;
+}
+```
+
+## Structure
+
+### Independent Components
+
+```tsx
+import { Pagination, PaginationFirst, PaginationItems, PaginationLast, PaginationNext, PaginationPrevious } from "@/ui/pagination";
+
+export function PaginationDemo() {
+  const itemsProps = (page: number) => ({ el: "a", href: `#page-${page}` });
+  return (
+    <Pagination total={10} getItemProps={itemsProps}>
+      <PaginationFirst el="a" href="#page-0" />
+      <PaginationPrevious el="a" href="#page-1" />
+      <PaginationItems />
+      <PaginationNext el="a" href="#page-2" />
+      <PaginationLast el="a" href="#page-10" />
+    </Pagination>
+  );
+}
+```
+
+### Compound Components
+
+```tsx
+"use client";
+import { Pagination } from "@/ui/pagination";
+import { ArrowSquareRoundRightIcon, ArrowSquareRoundLeftIcon, ChevronCircleRightIcon, ChevronCircleLeftIcon, Svg } from "@/icons/*";
+
+export function PaginationDemo() {
+  return (
+    <Pagination siblings={2} boundaries={2} total={15} defaultValue={8}>
+      <Pagination.First icon={ArrowSquareRoundLeftIcon} />
+      <Pagination.Previous icon={ChevronCircleLeftIcon} />
+      <Pagination.Items dotsIcon={Dot} />
+      <Pagination.Next icon={ChevronCircleRightIcon} />
+      <Pagination.Last icon={ArrowSquareRoundRightIcon} />
+    </Pagination>
+  );
+}
+```
+
+### Declarative Props API
+
+```tsx
+import { Pagination } from "@/ui/pagination";
+
+export function PaginationDemo() {
+  return <Pagination siblings={2} boundaries={2} withEdges color="orange" total={21} defaultValue={11} />;
+}
+```
+
+## API References
+
+### Styles API
+
+```ts
+type T = "root" | "control" | "dots";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+```ts
+type Icons = { first?: PaginationIcon; previous?: PaginationIcon; next?: PaginationIcon; last?: PaginationIcon; dots?: PaginationIcon };
+
+type Control = "first" | "previous" | "next" | "last";
+```
+
+| Props API          | Type                                        | Default     | Annotation                                                                                 |
+| ------------------ | ------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
+| icons`?`           | `Icons`                                     | `default`   | Control icons component                                                                    |
+| gap`?`             | `string\| number`                           | `8`         | Key of gap between controls                                                                |
+| size`?`            | `(string & {}) \| number`                   | `32`        | `height` and `min-width` of controls                                                       |
+| total              | `number`                                    | `-`         | Total number of pages, must be an integer                                                  |
+| color`?`           | `Property.Color`                            | `undefined` | Key of `colors, active item color                                                          |
+| value`?`           | `number`                                    | `undefined` | Active page for controlled component, must be an integer in \[0, total\] interval          |
+| defaultValue`?`    | `number`                                    | `undefined` | Active page for uncontrolled component, must be an integer in \[0, total\] interval        |
+| disabled`?`        | `boolean`                                   | `false`     | Determines whether all controls should be disabled                                         |
+| hideWithOnePage`?` | `boolean`                                   | `false`     | Determines whether pagination should be hidden when only one page is available `total={1}` |
+| withEdges`?`       | `boolean`                                   | `false`     | Determines whether first/last controls should be rendered                                  |
+| withControls`?`    | `boolean`                                   | `true`      | Determines whether next/previous controls should be rendered                               |
+| siblings`?`        | `number`                                    | `1`         | Number of siblings displayed on the left/right side of the selected page                   |
+| boundaries`?`      | `number`                                    | `1`         | Number of elements visible on the left/right edges                                         |
+| onNextPage`?`      | `() => void`                                | `undefined` | Called when next page control is clicked                                                   |
+| onPreviousPage`?`  | `() => void`                                | `undefined` | Called when previous page control is clicked                                               |
+| onFirstPage`?`     | `() => void`                                | `undefined` | Called when first page control is clicked                                                  |
+| onLastPage`?`      | `() => void`                                | `undefined` | Called when last page control is clicked                                                   |
+| onChange`?`        | `(page: number) => void`                    | `undefined` | Called when page changes                                                                   |
+| getItemProps`?`    | `(page: number) => Record<string, any>`     | `undefined` | Additional props passed down to controls                                                   |
+| getControlProps`?` | `(control: Control) => Record<string, any>` | `undefined` | Adds props to next/previous/first/last controls                                            |
+
+---
+
+## Code

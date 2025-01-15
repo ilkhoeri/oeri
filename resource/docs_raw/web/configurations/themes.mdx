@@ -1,0 +1,33 @@
+---
+title: Themes
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### Root Layout
+
+```tsx showLineNumbers{number} /ThemeProvider/#ot  title="app/layout.tsx" caption="add your layout root"
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          {children}
+          <ThemeStateHidden />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+### Code

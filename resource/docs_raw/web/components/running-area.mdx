@@ -1,0 +1,41 @@
+---
+title: Running Area
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<RunningAreaDemosUsage />
+
+## Properties
+
+<RunningAreaDemosConfigurator />
+
+## API References
+
+### Styles API
+
+| Styles API    | Type                                              | Default     | Annotation                             |
+| ------------- | ------------------------------------------------- | ----------- | -------------------------------------- |
+| classNames`?` | `{ wrap?: string; inner?: string }`               | `undefined` | `classNames={{ wrap: "", inner: "" }}` |
+| styles`?`     | `{ wrap?: CSSProperties; inner?: CSSProperties }` | `undefined` | `styles={{ wrap: {}, inner: {} }}`     |
+
+### Props API
+
+| Props API    | Type                | Default                    | Annotation                           |
+| ------------ | ------------------- | -------------------------- | ------------------------------------ |
+| el`?`        | `React.ElementType` | `wrap:"div"` `inner:"div"` | `el={{ wrap: "div", inner: "div" }}` |
+| direction`?` | `(string & {})`     | `"right-to-left"`          | set running direction types          |
+| duration`?`  | `number`            | `25`                       | set running duration speed           |
+
+---
+
+## Code

@@ -1,0 +1,150 @@
+---
+title: Carousel
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CarouselDemosUsage />
+
+## Peer Dependencies
+
+```bash
+npm install embla-carousel@latest embla-carousel-react@latest
+```
+
+## Properties
+
+<CarouselDemosConfigurator />
+
+## Create Carousel with Hook
+
+<CarouselDemosConfiguratorHook />
+
+## Plugins
+
+```bash
+npm install embla-carousel-auto-scroll@latest embla-carousel-autoplay@latest
+```
+
+### AutoScroll
+
+<CarouselDemosAutoScrollPlugins />
+
+### Autoplay
+
+<CarouselDemosAutoplayPlugins />
+
+## Structure
+
+### Independent Components
+
+```tsx
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselIndicators } from "@/ui/carousel";
+
+export function CarouselDemo() {
+  return (
+    <Carousel>
+      <CarouselContent>
+        {datas.map((data, index) => (
+          <CarouselItem key={index}>{index}</CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+      <CarouselIndicators />
+    </Carousel>
+  );
+}
+```
+
+### Compound Components
+
+```tsx
+"use client";
+import { Carousel } from "@/ui/carousel";
+
+export function CarouselDemo() {
+  return (
+    <Carousel>
+      <Carousel.Content>
+        {datas.map((data, index) => (
+          <Carousel.Item key={index}>{index}</Carousel.Item>
+        ))}
+      </Carousel.Content>
+      <Carousel.Previous />
+      <Carousel.Next />
+      <Carousel.Indicators />
+    </Carousel>
+  );
+}
+```
+
+### Declarative Props API
+
+```tsx
+import { Carousel } from "@/ui/carousel";
+
+export function CarouselDemo() {
+  return (
+    <Carousel withControls withIndicators>
+      {datas.map((data, index) => (
+        <Carousel.Item key={index}>{index}</Carousel.Item>
+      ))}
+    </Carousel>
+  );
+}
+```
+
+---
+
+## API References
+
+### Styles API
+
+```ts
+type T = "root" | "content" | "item" | "previous" | "next" | "indicators" | "indicator";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+| Props API               | Type                                               | Default       | Annotation                                                    |
+| ----------------------- | -------------------------------------------------- | ------------- | ------------------------------------------------------------- |
+| dir`?`                  | `"ltr" \| "rtl"`                                   | `ltr`         |                                                               |
+| orientation`?`          | `"horizontal" \| "vertical"`                       | `horizontal`  |                                                               |
+| onPreviousSlide`?`      | `() => void`                                       | `undefined`   | Called when previous itemr is shown                           |
+| onNextSlide`?`          | `() => void`                                       | `undefined`   | Called when next item is shown                                |
+| onItemChange`?`         | `(index: number) => void`                          | `undefined`   | Called with slide index when slide changes                    |
+| setApi`?`               | `(api: CarouselApi) => void`                       | `undefined`   | Called with item index when item changes                      |
+| plugins`?`              | `EmblaPluginType[]`                                | `undefined`   | Called embla API as ref                                       |
+| spacing`?`              | `number \| string`                                 | `16`          | Key of number to set gap between slides                       |
+| withControls`?`         | `boolean`                                          | `false`       | Determines whether next/previous controls should be displayed |
+| withIndicators`?`       | `boolean`                                          | `false`       | Determines whether indicators should be displayed             |
+| opts`?`                 | `CarouselOptions`                                  | `undefined`   | Passing props `EmblaOptionsType`                              |
+| controlsOffset`?`       | `number \| string`                                 | `0`           | Controls position of the next and previous controls           |
+| height`?`               | `CSSProperties["height"]`                          | `undefined`   | Slides container `height`, required for vertical orientation  |
+| controlSize`?`          | `CSSProperties["width"]`                           | `undefined`   | Controls size of the next and previous controls               |
+| withKeyboardEvents`?`   | `boolean`                                          | `true`        | Determines whether arrow key should switch slides             |
+| previousControlProps`?` | `ComponentPropsWithoutRef<"button">`               | `undefined`   | Props passed down to previous control                         |
+| nextControlProps`?`     | `ComponentPropsWithoutRef<"button">`               | `undefined`   | Props passed down to next control                             |
+| icons`?`                | `{ previous?: ReactNode; next?: React.ReactNode }` | `ChveronIcon` | Icon of the previous or next as control                       |
+
+---
+
+## Code

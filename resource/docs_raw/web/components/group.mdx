@@ -1,0 +1,43 @@
+---
+title: Group
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<GroupDemosUsage />
+
+## Properties
+
+<GroupDemosConfigurator />
+
+## API References
+
+### Styles API
+
+| Styles API  | Type                              | Default   | Annotation                                            |
+| ----------- | --------------------------------- | --------- | ----------------------------------------------------- |
+| unstyled`?` | `boolean`                         | `false`   | if `true`, all default styles will be removed         |
+| gap`?`      | `string \| number`                | `12`      | Key of CSS `gap` values, numbers are converted to rem |
+| wrap`?`     | `CSSProperties["flexWrap"]`       | `wrap`    | Controls `flex-wrap` CSS property                     |
+| align`?`    | `CSSProperties["alignItems"]`     | `stretch` | Controls `align-items` CSS property                   |
+| justify`?`  | `CSSProperties["justifyContent"]` | `center`  | Controls `justify-content` CSS property               |
+
+### Props API
+
+| Props API              | Type      | Default | Annotation                                                                                                                        |
+| ---------------------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| grow`?`                | `boolean` | `false` | Determines whether each child element should have `flex-grow: 1` style                                                            |
+| preventGrowOverflow`?` | `boolean` | `true`  | Determines whether children should take only dedicated amount of space (`max-width` style is set based on the number of children) |
+
+---
+
+## Code

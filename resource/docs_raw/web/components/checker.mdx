@@ -1,0 +1,104 @@
+---
+title: Checker
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CheckerDemosUsage />
+
+## Properties
+
+<CheckerDemosConfigurator />
+
+## Change Icon
+
+### Change Icon Labels
+
+<CheckerDemosChangeIconLabels />
+
+### Change Thumb Icon
+
+<CheckerDemosChangeThumbIcon />
+
+## Checker.Group
+
+<CheckerDemosGroup />
+
+## Group.Card
+
+<CheckerDemosGroupCard />
+
+### Current Selected
+
+<CheckerDemosCurrentSelected />
+
+### Multiple Selected
+
+<CheckerDemosMultipleSelected />
+
+## Indeterminate State
+
+<CheckerDemosIndeterminate />
+
+## API References
+
+### Styles API
+
+| Styles API    | Type                                | Default     | Annotation                                    |
+| ------------- | ----------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` | Set className for `T`                         |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` | Set style for `T`                             |
+
+### Props API
+
+**Checker**
+
+```ts
+type Icon = React.FC<{ indeterminate: boolean | undefined; className: string }>;
+```
+
+| Checker Props API | Type                           | Default     | Annotation                                                                                     |
+| ----------------- | ------------------------------ | ----------- | ---------------------------------------------------------------------------------------------- |
+| id`?`             | `string`                       |             | Id used to bind input and label, if not passed, unique id will be generated instead            |
+| label`?`          | `React.ReactNode`              |             | Content of the `label` associated with the radio                                               |
+| icon`?`           | `Icon`                         |             | Icon displayed when checked is in checked or indeterminate state                               |
+| offLabel`?`       | `React.ReactNode`              |             | Inner label when the `Checker` at `type="switch"` is in unchecked state                        |
+| onLabel`?`        | `React.ReactNode`              |             | Inner label when the `Checker` at `type="switch"` is in checked state                          |
+| color`?`          | `CSSProperties["color"]`       |             | Key of CSS color to set input color in checked state.                                          |
+| size`?`           | `string \| number`             |             | Controls size of all elements                                                                  |
+| round`?`          | `string \| number`             | `9999`      | Key of CSS value to set `border-radius                                                         |
+| wrapperProps`?`   | `ComponentProps<"div">`        |             | Props passed down to the root element                                                          |
+| labelPosition`?`  | `"left" \| "right"`            | `right`     | Position of the label relative to the input                                                    |
+| description`?`    | `React.ReactNode`              | `undefined` | Description displayed below the label                                                          |
+| error`?`          | `React.ReactNode`              | `undefined` | Error displayed below the label                                                                |
+| rootRef`?`        | `ForwardedRef<HTMLDivElement>` |             | Assigns ref of the root element                                                                |
+| indeterminate`?`  | `boolean`                      | `false`     | Indeterminate state of the `checkbox`. If set, `checked` prop at `type="checkbox"` is ignored. |
+
+---
+
+**CheckerGroup**
+
+| CheckerGroup Props API | Type                        | Default     | Annotation                                                                                  |
+| ---------------------- | --------------------------- | ----------- | ------------------------------------------------------------------------------------------- |
+| children`?`            | `React.ReactNode`           |             | Required `Checker` components                                                               |
+| value`?`               | `string[]`                  | `undefined` | Controlled component value                                                                  |
+| defaultValue`?`        | `string[]`                  | `undefined` | Default value for uncontrolled component                                                    |
+| onChange`?`            | `(value: string[]) => void` | `undefined` | Called when value changes                                                                   |
+| wrapperProps`?`        | `ComponentProps<"div">`     | `undefined` | Props passed down to the `wrapper`                                                          |
+| size`?`                | `(string & {}) \| number`   | `20`        | Controls size of the `wrapper`                                                              |
+| readOnly`?`            | `boolean`                   | `false`     | If set, value cannot be changed                                                             |
+| indeterminate`?`       | `boolean`                   | `false`     | Indeterminate state of the checked. If set, `checked` prop at `type="checkbox"` is ignored. |
+
+---
+
+## Code

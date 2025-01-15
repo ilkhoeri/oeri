@@ -1,0 +1,58 @@
+---
+title: Code
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CodeDemosUsage />
+
+## Properties
+
+<CodeDemosConfigurator />
+
+- By default, Code component renders inline code html element.
+- To render code in pre element pass block prop to Code component.
+
+## API References
+
+### Styles API
+
+```ts
+type T = "code" | "samp";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+```ts
+type Dir = "ltr" | "rtl" | (string & {});
+```
+
+| Props API   | Type                  | Default     | Annotation                                                        |
+| ----------- | --------------------- | ----------- | ----------------------------------------------------------------- |
+| children`?` | `string`              | `undefined` | Only accept children as strings                                   |
+| block`?`    | `boolean`             | `false`     | If set code will be rendered inside `pre`                         |
+| quote`?`    | `boolean`             | `false`     | Allows applying styles like as blockquote                         |
+| dir`?`      | `Dir`                 | `rtl`       | Attribute that indicates the directionality of the element's text |
+| code`?`     | `string`              | `undefined` | Used to display inline code                                       |
+| samp`?`     | `Record<string, any>` | `undefined` | Used to display data type conversions to strings such as JSON.    |
+
+---
+
+## Code

@@ -1,15 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { cvx, VariantsType } from "str-merge";
-import { Command, command } from "@/modules/resolver/command";
-import { EmptyBoxIcon, FileIcon, XIcon } from "@/modules/icons";
-import {
-  fuzzySearch,
-  levenshteinDistance
-} from "@/modules/ondevelopment/utils";
+import { cvx, cvxProps } from "str-merge";
+import { Command, createCommand } from "@/ui/command";
+import { EmptyBoxIcon, FileIcon } from "@/icons/*";
+import { fuzzySearch, levenshteinDistance } from "@/source/ondevelopment/utils";
 import { appRoutes, type SingleRoute, type NestedRoute } from "@/source/routes";
 import { docsRoutes } from "../generated/gen-routes";
+import { Kbd } from "@/ui/kbd";
 
 type Routes = (SingleRoute | NestedRoute)[] | null;
 export type CommandDialogType = { routes: Routes };
@@ -41,6 +39,8 @@ interface FilterResult {
   actions: Suggestion[];
 }
 
+const [appCommandStore, appCommand] = createCommand();
+
 export function CommandDialog({
   routes = docsRoutes
 }: {
@@ -67,48 +67,29 @@ export function CommandDialog({
       ))}
     </React.Fragment>
   );
-
-  const rightSection = (
-    <button
-      type="button"
-      tabIndex={-1}
-      {...cns("close")}
-      onClick={() => {
-        command.close();
-        setQuery("");
-      }}>
-      <XIcon size={16} />
-    </button>
-  );
-
-  const rest = {
-    query,
-    onQueryChange: setQuery,
-    actions: [...suggestMain({ query }), ...suggest],
-    nothingFound: suggest.length > 0 ? Suggest : <EmptyBoxIcon />,
-    classNames: {
-      content: "h-2/3",
-      empty: suggest.length > 0 ? "pt-0 [display:unset]" : undefined
-    }
-  };
-
+//
   return (
     <>
-      <button type="button" {...cns("trigger")} onClick={command.open}>
+      <button type="button" {...cns("trigger")} onClick={appCommand.open}>
         <span className="hidden lg:inline-flex">Search documentation...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd {...cns("kbd")}>
+        <Kbd size="xs" variant="primitive" {...cns("kbd")}>
           <span>⌘</span>K
-        </kbd>
+        </Kbd>
       </button>
 
       <Command
-        searchProps={{
-          rightSection,
-          value: query,
-          onChange: e => setQuery(e.target.value)
+        {...{
+          query,
+          store: appCommandStore,
+          onQueryChange: setQuery,
+          actions: [...suggestMain({ query }), ...suggest],
+          nothingFound: suggest.length > 0 ? Suggest : <EmptyBoxIcon />,
+          classNames: {
+            content: "h-2/3",
+            empty: suggest.length > 0 ? "pt-0 [display:unset]" : undefined
+          }
         }}
-        {...rest}
       />
     </>
   );
@@ -192,7 +173,7 @@ const classes = cvx({
   variants: {
     as: {
       trigger:
-        "inline-flex items-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-muted/60 text-muted-foreground hover:text-color px-4 py-2 relative h-8 w-full justify-start rounded-[0.5rem] text-sm font-normal shadow-none sm:pr-12 md:w-40 lg:w-64",
+        "relative inline-flex h-8 w-full items-center justify-start whitespace-nowrap rounded-[0.5rem] border bg-background/20 px-4 py-2 text-sm font-normal text-muted-foreground shadow-none transition-colors hover:bg-muted/20 hover:text-color focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-border disabled:pointer-events-none disabled:opacity-50 sm:pr-12 md:w-40 lg:w-64",
       kbd: "pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex [&_span]:text-xs",
       close:
         "size-4 absolute right-3 top-3 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50",
@@ -204,7 +185,7 @@ const classes = cvx({
   }
 });
 
-type Origin = NonNullable<VariantsType<typeof classes>["as"]>;
+type Origin = NonNullable<cvxProps<typeof classes>["as"]>;
 function cns(as: Origin) {
   return {
     className: classes({ as })

@@ -1,0 +1,51 @@
+---
+title: Breadcrumb
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<BreadcrumbDemosConfigurator />
+
+## Structure
+
+<BreadcrumbDemosUsage />
+
+### Change Separator
+
+<BreadcrumbDemosChangeSeparator />
+
+## API References
+
+### Styles API
+
+Unstyled
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+| Props API    | Type                | Default     | Annotation                                            |
+| ------------ | ------------------- | ----------- | ----------------------------------------------------- |
+| children`?`  | `React.ReactNode`   | `undefined` | React nodes that should be separated with `separator` |
+| items`?`     | `React.ReactNode[]` | `undefined` | Filling the childrens array section briefly           |
+| separator`?` | `React.ReactNode`   | `/`         | Separator between children                            |
+| gap`?`       | `number \| string`  | `12px`      | Controls spacing between separator and breadcrumb     |
+
+---
+
+## Code

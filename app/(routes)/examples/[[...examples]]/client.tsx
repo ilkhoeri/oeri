@@ -2,9 +2,9 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { FileIcon } from "@/modules/icons";
+import { FileIcon } from "@/icons/*";
 import { sourceFiles } from "@/source/utils";
-import { LoaderSpinner } from "@/modules/index";
+import { Loader } from "@/ui/loader";
 
 const FallbackComponent = (segment: string[] | undefined) => (
   <div>
@@ -31,7 +31,7 @@ const loadComponent = (segment: string[] | undefined) =>
     {
       ssr: false,
       loading: () => (
-        <LoaderSpinner size={22} classNames={{ root: "my-auto" }} />
+        <Loader size={22} classNames={{ root: "my-auto" }} />
       )
     }
   );
@@ -42,7 +42,7 @@ export function Examples({ segment }: { segment: string[] | undefined }) {
   return (
     <article className="relative mx-auto flex min-h-screen w-full max-w-screen-3xl flex-col items-center justify-center">
       <Suspense
-        fallback={<LoaderSpinner size={22} classNames={{ root: "my-auto" }} />}
+        fallback={<Loader size={22} classNames={{ root: "my-auto" }} />}
       >
         <Component />
       </Suspense>

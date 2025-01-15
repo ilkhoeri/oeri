@@ -1,0 +1,50 @@
+---
+title: Textarea
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<TextareaDemosUsage />
+
+## Textarea Validate Json
+
+<TextareaDemosValidateJson />
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea)
+
+JsonInput is based on Textarea component, it includes json validation logic and option to format input value on blur.
+
+Textarea will adjust its height when you give it a value that exceeds its initial height, this approach will help you more to review what you have typed previously.
+
+### Styles API
+
+| Styles API  | Type      | Default | Annotation                                    |
+| ----------- | --------- | ------- | --------------------------------------------- |
+| unstyled`?` | `boolean` | `false` | if `true`, all default styles will be removed |
+
+### Props API
+
+| Props API            | Type                             | Default          | Annotation                                                                                                                                |
+| -------------------- | -------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| autosize`?`          | `boolean`                        | `true`           | determines whether the textarea height should grow with its content                                                                       |
+| serialize`?`         | `typeof JSON.stringify`          | `JSON.stringify` | function to serialize value into a string, used for value formatting                                                                      |
+| deserialize`?`       | `typeof JSON.parse`              | `JSON.parse`     | function to deserialize string value, used for value formatting and input JSON validation, must throw error if string cannot be processed |
+| validateJson`?`      | `boolean`                        | `false`          | options for JSON validation                                                                                                               |
+| formatOnBlur`?`      | `boolean`                        | `false`          | options for formatting JSON when blurring                                                                                                 |
+| validationError`?`   | `string`                         | `"Invalid JSON"` | message thrown if JSON invalid                                                                                                            |
+| onValidationError`?` | `(error: Error \| null) => void` | `undefined`      | callback when validation fails                                                                                                            |
+
+---
+
+## Code

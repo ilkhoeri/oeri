@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "prettier",
-    "plugin:tailwindcss/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier", "plugin:tailwindcss/recommended"],
   "plugins": ["tailwindcss"],
   "ignorePatterns": ["**/fixtures/**"],
   "rules": {
@@ -12,11 +7,24 @@
     "@next/next/no-page-custom-font": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-require-imports": "off"
+    "@typescript-eslint/no-require-imports": "off",
+    "@typescript-eslint/no-unnecessary-type-constraint": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ]
   },
   "settings": {
     "tailwindcss": {
-      "callees": ["cn", "cnx"],
+      "callees": ["cn", "merge", "twMerge"],
       "config": "tailwind.config.ts"
     },
     "next": {

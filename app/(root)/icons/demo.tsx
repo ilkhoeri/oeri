@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Title } from "@/source/ui/components";
-import { Customizer } from "@/source/ui/code";
-import { highlightCode } from "@/source/utils/escape-code";
+import { Title } from "@/source/assets/components";
+import { Customizer } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
+import { highlightCode } from "@/resource/docs_demo/assets/rehype/rehype-customizer";
 import { Doc } from "@/.contentlayer/generated";
 
 interface DemosProps {
@@ -15,14 +15,7 @@ export async function Demos(_props: DemosProps) {
 
   return (
     <div className="mt-6">
-      {doc?.title && (
-        <Title
-          size="h1"
-          title={doc?.title}
-          variant="segment"
-          className="mb-12 font-geist-mono text-h1"
-        />
-      )}
+      {doc?.title && <Title size="h1" title={doc?.title} variant="segment" className="mb-12 font-geist-mono text-h1" />}
 
       {usages && typeof usages === "string" && (
         <Customizer

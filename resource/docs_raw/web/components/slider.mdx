@@ -1,0 +1,96 @@
+---
+title: Slider
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<SliderDemosUsage />
+
+## Properties
+
+<SliderDemosConfigurator />
+
+### Slider Inverted
+
+<SliderDemosInverted />
+
+### Slider Label
+
+<SliderDemosLabel />
+
+### Slider Marks
+
+<SliderDemosMarks />
+
+### Slider Scale
+
+<SliderDemosScale />
+
+### Slider Step
+
+<SliderDemosStep />
+
+### Slider Thumb
+
+<SliderDemosThumb />
+
+## API References
+
+### Styles API
+
+```ts
+type T = "root" | "label" | "thumb" | "trackContainer" | "track" | "bar" | "markWrapper" | "mark" | "markLabel";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+| Props API               | Type                                                      | Default                    | Annotation                                                                                     |
+| ----------------------- | --------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------- |
+| dir`?`                  | `"ltr" \| "rtl"`                                          | `ltr`                      | Type of direction slider                                                                       |
+| color`?`                | `CSSProperties["color"]`                                  | `hsl(var(--constructive))` | Key of valid CSS color, controls color of track and thumb                                      |
+| round`?`                | `number \| string`                                        | `999`                      | Key of valid CSS value to set `border-radius`, numbers are converted to rem                    |
+| size`?`                 | `(string & {}) \| number`                                 | `12`                       | Controls size of the track                                                                     |
+| min`?`                  | `number`                                                  | `0`                        | Minimal possible value                                                                         |
+| max`?`                  | `number`                                                  | `100`                      | Maximum possible value                                                                         |
+| step`?`                 | `number`                                                  | `1`                        | Number by which value will be incremented/decremented with thumb drag and arrows               |
+| precision`?`            | `number`                                                  |                            | Number of significant digits after the decimal point                                           |
+| value`?`                | `number`                                                  |                            | Controlled component value                                                                     |
+| defaultValue`?`         | `number`                                                  |                            | Uncontrolled component default value                                                           |
+| onChange`?`             | `(value: number) => void`                                 |                            | Called when value changes                                                                      |
+| onChangeEnd`?`          | `(value: number) => void`                                 |                            | Called when user stops dragging slider or changes value with arrows                            |
+| name`?`                 | `string`                                                  |                            | Hidden input name, use with uncontrolled component                                             |
+| marks`?`                | `{ value: number; label?: React.ReactNode }[]`            |                            | Marks displayed on the track                                                                   |
+| label`?`                | `React.ReactNode \| ((value: number) => React.ReactNode)` |                            | Function to generate label or any react node to render instead, set to null to disable label   |
+| labelTransitionProps`?` | `TransitionOverride`                                      | `0`                        | Props passed down to the `Transition` component, `{ transition: 'fade', duration: 0 }`         |
+| labelAlwaysOn`?`        | `boolean`                                                 | `false`                    | Determines whether the label should be visible when the slider is not being dragged or hovered |
+| thumbLabel`?`           | `string`                                                  |                            | Thumb `aria-label`                                                                             |
+| showLabelOnHover`?`     | `boolean`                                                 | `true`                     | Determines whether the label should be displayed when the slider is hovered                    |
+| thumbChildren`?`        | `React.ReactNode`                                         |                            | Content rendered inside thumb                                                                  |
+| disabled`?`             | `boolean`                                                 | `false`                    | Disables slider                                                                                |
+| thumbSize`?`            | `number \| string`                                        | `size`                     | Thumb `width` and `height`, by default value is computed based on `size` prop                  |
+| scale`?`                | `(value: number) => number`                               |                            | A transformation function to change the scale of the slider                                    |
+| inverted`?`             | `boolean`                                                 | `false`                    | Determines whether track value representation should be inverted                               |
+| hiddenInputProps`?`     | `React.ComponentPropsWithoutRef<"input">`                 |                            | Props passed down to the hidden input                                                          |
+| restrictToMarks`?`      | `boolean`                                                 | `false`                    | Determines whether the selection should be only allowed from the given marks array             |
+| thumbProps`?`           | `React.ComponentPropsWithoutRef<"div">`                   |                            | Props passed down to thumb element                                                             |
+
+---
+
+## Code

@@ -1,0 +1,74 @@
+---
+title: Loader
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<LoaderDemosUsage />
+
+## Properties
+
+<LoaderDemosConfigurator />
+
+## Options Usage
+
+### Composite
+
+```ts
+import { Loader } from "@/ui/loader";
+
+export function LoaderDemo() {
+  return <Loader variant="spinner" size={12} color="hsl(var(--constructive))" />;
+}
+```
+
+### Direct Component
+
+```ts
+import { LoaderSpinner } from "@/ui/loader";
+
+export function LoaderDemo() {
+  return <LoaderSpinner size={12} color="hsl(var(--constructive))" />;
+}
+```
+
+---
+
+## API References
+
+### Styles API
+
+```ts
+type T = "saturation" | "body" | "slider" | "root" | "sliders" | "sliderOverlay" | "thumb" | "saturationOverlay" | "swatches" | "swatch" | "preview" | "alphaOverlay" | "shadowOverlay" | "colorOverlay" | "childrenOverlay";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                    |
+| ------------- | ----------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` | Set className for `T`                         |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` | Set style for `T`                             |
+
+### Props API
+
+| Props API     | Type                                                                   | Default             | Annotation        |
+| ------------- | ---------------------------------------------------------------------- | ------------------- | ----------------- |
+| variant`?`    | `"spinner" \| "orbit" \| "clockwise" \| "dots" \| "buffer" \| "rises"` | `spinner`           | variant of loader |
+| unstyled`?`   | `keys object by variant`                                               | `undefined`         |                   |
+| classNames`?` | `keys object by variant`                                               | `undefined`         |                   |
+| styles`?`     | `keys object by variant`                                               | `undefined`         |                   |
+| color`?`      | `React.CSSProperties["color"] \| "currentColor" \| (string & {})`      | `hsl(var(--color))` |                   |
+| size`?`       | `string \| number`                                                     | `20px`              |                   |
+| duration`?`   | `number`                                                               | `1.2`               |                   |
+
+---
+
+## Code

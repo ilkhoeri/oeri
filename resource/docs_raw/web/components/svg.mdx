@@ -1,0 +1,69 @@
+---
+title: Svg
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<SvgDemosUsage />
+
+## Properties
+
+<SvgDemosConfigurator />
+
+## Sizing Ratio
+
+Determine size based on a scale with a reference value of 16
+
+- By default, the `viewbox="0 0 24 24"` and `size={16}`.
+- When `<svg/>` has a different viewbox size, should pass the viewbox size back to the element, like `viewBox="0 0 94.2 24"`.
+- To preserve the `size` property, calculate the ratio by adding `ratio={{ w: 3.925 }}`, which means `94.2 / 24`
+- Determine size to `height={16}` and `width={62.8}`.
+
+So it will look like this:
+
+```tsx
+function LogoIcon({ viewBox = "0 0 94.2 24", ...props }: SvgProps) {
+  return (
+    <Svg currentFill="fill" ratio={{ w: 3.925 }} {...{ viewBox, ...props }}>
+      {/* child */}
+    </Svg>
+  );
+}
+```
+
+---
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg)
+
+The Svg element is a container that defines a new coordinate system and viewport. It is used as the outermost element of SVG documents, but it can also be used to embed an SVG fragment inside an SVG or HTML document with added some utility properties.
+
+Svg will be very useful for you when you want to use a more specific `<LogoIcon/>` in an application.
+
+We added several utility properties to make it easier for you in development, such as size ratio, fill property adjustment, stroke and several others.
+
+### Props API
+
+| Props API      | Type                                  | Default                       | Annotation                                                                                       |
+| -------------- | ------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| size`?`        | `Sizes`                               | `16px`                        | `size={18}` `size="18px"` `size="sm"`                                                            |
+| h`?`           | `string \| number`                    | `height`                      | Abbreviated `height` attribute name                                                              |
+| w`?`           | `string \| number`                    | `width`                       | Abbreviated `width` attribute name                                                               |
+| ratio`?`       | `{h?: number; w?: number}`            | `undefined`                   | Scaling height and width when determining `size`                                                 |
+| currentFill`?` | `"stroke" \| "fill" \| "fill-stroke"` | `stroke`                      | Adjust currentColor on the coordinate                                                            |
+| stroke`?`      | `number \| Colors`                    | as `stroke` and `strokeWidth` | String with valid color will be converted as stroke and number will be converted as strokeWidth. |
+| color`?`       | `Colors`                              | `currentColor`                | Determine the color as the fill color or stroke color                                            |
+
+---
+
+## Code

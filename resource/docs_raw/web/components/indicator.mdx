@@ -1,0 +1,56 @@
+---
+title: Indicator
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<IndicatorDemosUsage />
+
+## Properties
+
+<IndicatorDemosConfigurator />
+
+## API References
+
+### Styles API
+
+```ts
+type T = "root" | "indicator";
+type Unstyled = boolean | Partial<Record<__Selector, boolean>>;
+```
+
+| Styles API    | Type                                  | Default     | Annotation                                    |
+| ------------- | ------------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Unstyled`                            | `undefined` | if `true`, all default styles will be removed |
+| className`?`  | `string`                              | `undefined` | pass to root component `<div>`                |
+| style`?`      | `CSSProperties & Record<string, any>` | `undefined` | pass to root component `<div>`                |
+| classNames`?` | `Partial<Record<T, string>>`          | `undefined` | pass to root component `<div>`                |
+| styles`?`     | `Partial<Record<T, CSSProperties>>`   | `undefined` | pass to root component `<div>`                |
+| color`?`      | `CSSProperties["color"]`              | `undefined` | Determines to indicator color                 |
+| size`?`       | `number \| string`                    | `10`        | Indicator width and height                    |
+| round`?`      | `string \| number`                    | `999`       | Key of valid CSS value to set `border-radius` |
+
+### Props API
+
+| Props API     | Type                | Default          | Annotation                                                                                          |
+| ------------- | ------------------- | ---------------- | --------------------------------------------------------------------------------------------------- |
+| position`?`   | `IndicatorPosition` | `"top-end"`      | Indicator position relative to the target element                                                   |
+| offset`?`     | `number`            | equals to `size` | Indicator offset relative to the target element, usually used for elements with border-radius       |
+| inline`?`     | `boolean`           | `false`          | Determines whether the indicator container should be an inline element                              |
+| label`?`      | `ReactNode`         | `undefined`      | Label rendered inside the indicator, for example, notification count                                |
+| withBorder`?` | `boolean`           | `false`          | Determines whether the indicator should have a border (color of the border is the same as the body) |
+| disabled`?`   | `boolean`           | `false`          | When Indicator is disabled it renders children only                                                 |
+| processing`?` | `boolean`           | `false`          | Determines whether the indicator should have processing animation                                   |
+
+---
+
+## Code

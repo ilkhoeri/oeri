@@ -1,0 +1,44 @@
+---
+title: Floating Indicator
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<FloatingIndicatorDemosUsage />
+
+## Properties
+
+<FloatingIndicatorDemosConfigurator />
+
+## API References
+
+### Styles API
+
+| Styles API   | Type                                  | Default     | Annotation                                    |
+| ------------ | ------------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`  | `boolean`                             | `false`     | if `true`, all default styles will be removed |
+| className`?` | `string`                              | `undefined` | pass to root component `<div>`                |
+| style`?`     | `CSSProperties & Record<string, any>` | `undefined` | pass to root component `<div>`                |
+| color`?`     | `CSSProperties["color"]`              | `undefined` | Determines to indicator color                 |
+
+### Props API
+
+| Props API                    | Type                               | Default     | Annotation                                                                                                                                             |
+| ---------------------------- | ---------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| parent                       | `HTMLElement \| null \| undefined` | `undefined` | Parent element with relative position based on which indicator position should be calculated                                                           |
+| target`?`                    | `HTMLElement \| null \| undefined` | `undefined` | Target element over which indicator should be displayed                                                                                                |
+| transitionDuration`?`        | `number \| string`                 | `150`       | Transition duration in ms                                                                                                                              |
+| displayAfterTransitionEnd`?` | `boolean`                          | ``          | Determines whether indicator should be displayed after transition ends, should be set if used inside a container that has `transform: scale(n)` styles |
+
+---
+
+## Code

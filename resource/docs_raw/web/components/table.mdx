@@ -1,0 +1,190 @@
+---
+title: Table
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label:
+  #     link:
+---
+
+## Usage
+
+<TableDemosUsage />
+
+## Properties
+
+<TableDemosConfigurator />
+
+## Structure
+
+### Independent Components
+
+```tsx
+import { Table, TableBody, TableCaption, TableData, TableHead, TableHeader, TableRow } from "@/ui/table";
+
+const data = [
+  { name: "Sodium", symbol: "Na", position: 11, mass: 22.99 },
+  { name: "Magnesium", symbol: "Mg", position: 12, mass: 24.305 }
+  // others
+];
+
+export function TableDemo() {
+  return (
+    <Table>
+      <TableCaption>
+        Flat Component Structure
+        <br />
+        (Independent Components)
+      </TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Symbol</TableHead>
+          <TableHead>Position</TableHead>
+          <TableHead>Mass</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.slice(0, 3).map(i => (
+          <TableRow key={i.name}>
+            <TableData>{i.name}</TableData>
+            <TableData>{i.symbol}</TableData>
+            <TableData>{i.position}</TableData>
+            <TableData>{i.mass}</TableData>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+```
+
+### Compound Components
+
+```tsx
+"use client";
+import { Table } from "@/ui/table";
+
+const data = [
+  { name: "Sodium", symbol: "Na", position: 11, mass: 22.99 },
+  { name: "Magnesium", symbol: "Mg", position: 12, mass: 24.305 }
+  // others
+];
+
+export function TableDemo() {
+  return (
+    <Table>
+      <Table.Caption>
+        Namespaced Component Structure
+        <br />
+        (Compound Components)
+      </Table.Caption>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head>Name</Table.Head>
+          <Table.Head>Symbol</Table.Head>
+          <Table.Head>Position</Table.Head>
+          <Table.Head>Mass</Table.Head>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {data.slice(3, 6).map(i => (
+          <Table.Row key={i.name}>
+            <Table.Data>{i.name}</Table.Data>
+            <Table.Data>{i.symbol}</Table.Data>
+            <Table.Data>{i.position}</Table.Data>
+            <Table.Data>{i.mass}</Table.Data>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+}
+```
+
+### Declarative Props API
+
+```tsx
+import { Table, dataRenderer, type TableDataProps } from "@/ui/table";
+
+const data = [
+  {
+    name: "Sodium",
+    symbol: "Na",
+    position: 11,
+    mass: 22.99,
+    description: "A soft metal that reacts vigorously with water."
+  },
+  {
+    name: "Magnesium",
+    symbol: "Mg",
+    position: 12,
+    mass: 24.305,
+    description: "A metal used in lightweight alloys."
+  }
+  // others
+];
+
+const tableData: TableDataProps = {
+  caption: "Some elements from periodic table",
+  head: ["Element name", "Symbol", "Element position", "Atomic mass", "Description"],
+  body: dataRenderer(data, ["name", "symbol", "position", "mass", "description"])
+};
+
+export function TableDemo() {
+  return <Table data={tableData} overflow spacing={{ x: "16px", y: "20px" }} />;
+}
+```
+
+## API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table)
+
+### Styles API
+
+```ts
+type T = "root" | "table" | "thead" | "tbody" | "tfoot" | "tr" | "th" | "td" | "caption";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+```ts
+type Spacing = { x?: number | string; y?: number | string; };
+type Striped = boolean | "odd" | "even";
+type Variant = "horizontal" | "vertical";
+```
+| Props API                | Type                | Default                      | Annotation                                                                                     |
+| ------------------------ | ------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------- |
+| data`?`                  | `TableData`         | `undefined`                  | Data that should be used to generate table, ignored if `children` prop is set                  |
+| variant`?`               | `Variant`           | `horizontal`                 | Determines whether the first column in each row is sticky or not                               |
+| layout`?`                | `["tableLayout"]`   | `auto`                       | Value of `table-layout` style                                                                  |
+| striped`?`               | `Striped`           | `undefined`                  | Determines whether every odd/even row background should be changed to `strippedColor`          |
+| captionSide`?`           | `"top" \| "bottom"` | `bottom`                     | Determines on which side `Table.Caption` is displayed                                          |
+| tableOverflow`?`         | `boolean`           | `true`                       | Set table scroll area                                                                          |
+| stickyHeader`?`          | `boolean`           | `true`                       | Determines whether `Table.Thead` should be sticky                                              |
+| stickyHeaderOffset`?`    | `number \| string`  | `0`                          | Offset from top at which `Table.Thead` should become sticky                                    |
+| spacing`?`               | `Spacing`           | `{ x = 0, y = 8 }`           | x = Horizontal, y = Vertical cells spacing or any valid CSS value for padding                  |
+| highlightOnHover`?`      | `boolean`           | `true`                       | Determines whether table rows background should change to `highlightOnHoverColor` when hovered |
+| withTableBorder`?`       | `boolean`           | `true`                       | Determines whether the table should have outer border                                          |
+| withColumnBorders`?`     | `boolean`           | `false`                      | Determines whether the table should have borders between columns                               |
+| withRowBorders`?`        | `boolean`           | `true`                       | Determines whether the table should have borders between rows                                  |
+| stickyHeader`?`          | `boolean`           | `false`                      | Set table scroll area                                                                          |
+| highlightOnHoverColor`?` | `Property.Color`    | `hsl(var(--primitive))`      | Background color of table rows when hovered, key of CSS color                                  |
+| borderColor`?`           | `Property.Color`    | `hsl(var(--border))`         | Color of table borders, key of CSS color                                                       |
+| stripedColor`?`          | `Property.Color`    | `hsl(var(--background-box))` | Background color of striped rows, key of CSS color                                             |
+
+---
+
+## Code

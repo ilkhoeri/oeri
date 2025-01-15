@@ -3,14 +3,10 @@
 import fs from "fs-extra";
 import path from "path";
 import { getSlug } from "../../utils";
-import { log } from "../../log/development";
+import { log } from "../../../resource/log/development";
 
 import type { InnerRoutes, NestedRoute, SingleRoute } from "../../routes/index";
-import {
-  capitalizeFirst,
-  toCamelCase,
-  toSource
-} from "@/source/utils/text-transform";
+import { capitalizeFirst, toCamelCase, toSource } from "@/source/utils/text-transform";
 
 /**
 function getFilesDir(): string[] {
@@ -47,10 +43,7 @@ export async function iconsPath(basePath: string) {
 }
 
 // Function to generate routes dynamically
-async function generatePath(
-  sourcePath: string[],
-  basePath: string
-): Promise<InnerRoutes[]> {
+async function generatePath(sourcePath: string[], basePath: string): Promise<InnerRoutes[]> {
   const routes = [];
   try {
     const folders = await fs.readdir(basePath);
@@ -73,10 +66,7 @@ async function generatePath(
 
 export async function getPath(sourcePath: string[]): Promise<SingleRoute[]> {
   try {
-    const routeData = await generatePath(
-      sourcePath,
-      path.resolve(process.cwd(), `${sourcePath.join("/")}`)
-    );
+    const routeData = await generatePath(sourcePath, path.resolve(process.cwd(), `${sourcePath.join("/")}`));
     return [
       {
         title: capitalizeFirst(getSlug(sourcePath)),
@@ -89,10 +79,7 @@ export async function getPath(sourcePath: string[]): Promise<SingleRoute[]> {
   }
 }
 
-async function generatePaths(
-  sourcePath: string[],
-  basePath: string
-): Promise<SingleRoute[]> {
+async function generatePaths(sourcePath: string[], basePath: string): Promise<SingleRoute[]> {
   const routes: SingleRoute[] = [];
   try {
     const folders = await fs.readdir(basePath);

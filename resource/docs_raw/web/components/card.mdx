@@ -1,0 +1,34 @@
+---
+title: Card
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CardDemosUsage />
+
+## API References
+
+### Styles API
+
+```ts
+type T = "footer" | "header" | "title" | "content" | "root" | "description";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                    |
+| ------------- | ----------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` | Set className for `T`                         |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` | Set style for `T`                             |
+
+---
+
+## Code

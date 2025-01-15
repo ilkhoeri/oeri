@@ -1,10 +1,10 @@
 import { bodyConfig } from "./fonts";
-import { ScrollToggle } from "@/source/ui/toggle";
+import { ScrollToggle } from "@/source/assets/toggle";
 import { FootNav } from "@/source/assets/nav-foot";
 import { NavProvider } from "@/source/hooks/use-nav";
-import { AppProvider } from "@/modules/configurations/web/context-provider";
-import { cookiesValues } from "@/modules/configurations/web/config-cookies";
-import { ThemeProvider } from "@/modules/configurations/web/themes";
+import { AppProvider } from "@/config/app-context";
+import { cookiesValues } from "@/config/config-cookies";
+import { ThemeProvider } from "@/config/themes";
 import { Headnav } from "@/source/assets/nav-head";
 import { META_THEME_COLORS, SEO_VERIFICATION, siteConfig, iconsConfig, linksConfig } from "./site/config";
 
@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import "./themeid-default.css";
-import "../source/styles/mdx.css";
+import "../source/styles/docs.css";
 import "../source/styles/moonlight.css";
 
 export function metadata(): Metadata {
@@ -30,10 +30,7 @@ export function metadata(): Metadata {
     referrer: "origin-when-cross-origin",
     keywords: [...siteConfig.keywords],
     creator: siteConfig.creator,
-    authors: [
-      { name: siteConfig.creator },
-      { name: siteConfig.creator, url: siteConfig.links.github }
-    ],
+    authors: [{ name: siteConfig.creator }, { name: siteConfig.creator, url: siteConfig.links.github }],
     robots: {
       index: true,
       follow: true,
@@ -123,14 +120,7 @@ export default async function RootLayout({
 }>) {
   return (
     <AppProvider {...await cookiesValues()}>
-      <html
-        lang="en"
-        suppressHydrationWarning
-        data-fontid="inter"
-        data-themeid-light="default"
-        data-themeid-dark="default"
-        data-theme="default"
-      >
+      <html lang="en" dir={(await cookiesValues()).dir} suppressHydrationWarning data-themeid-light="default" data-themeid-dark="default" data-theme="default">
         <head>
           <link rel="icon" sizes="any" href="/favicon.ico" />
           <link rel="shortcut icon" href="/favicon.ico" />

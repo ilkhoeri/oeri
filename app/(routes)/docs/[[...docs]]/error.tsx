@@ -1,25 +1,15 @@
 "use client";
 import { useEffect } from "react";
-import { Comp } from "@/source/ui/components";
+import { Comp } from "@/source/assets/components";
 
-export default function Error({
-  error,
-  reset
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
 
   let errorMessage = null;
   if (process.env.NODE_ENV !== "production") {
-    errorMessage = (
-      <p className="font-mono text-[13px] text-muted-foreground">
-        {String(error)}
-      </p>
-    );
+    errorMessage = <p className="font-mono text-[13px] text-muted-foreground">{String(error)}</p>;
   }
 
   return (
@@ -31,10 +21,7 @@ export default function Error({
         <button type="button" aria-label="try-again" onClick={() => reset()}>
           Try again
         </button>
-        <button
-          type="button"
-          aria-label="reload"
-          onClick={() => window.location.reload()}>
+        <button type="button" aria-label="reload" onClick={() => window.location.reload()}>
           Reload
         </button>
       </div>

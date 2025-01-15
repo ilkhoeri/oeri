@@ -1,0 +1,55 @@
+---
+title: Scroll Area
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<ScrollAreaDemosUsage />
+
+## Peer Dependencies
+
+```bash
+npm install @radix-ui/react-scroll-area
+```
+
+## Properties
+
+<ScrollAreaDemosConfigurator />
+
+## API References
+
+- [`@radix-ui`](https://www.radix-ui.com/primitives/docs/components/scroll-area)
+
+### Styles API
+
+```ts
+type T = "root" | "viewport" | "scrollbar" | "thumb" | "corner";
+```
+
+| Styles API    | Type                                        | Default             | Annotation                             |
+| ------------- | ------------------------------------------- | ------------------- | -------------------------------------- |
+| className`?`  | `string`                                    | `undefined`         | Pass to root component `<p>`           |
+| classNames`?` | `Partial<Record<T, string>>`                | `undefined`         |                                        |
+| style`?`      | `CSSProperties`                             | `undefined`         | Pass to root component `<p>`           |
+| styles`?`     | `Partial<Record<T, CSSProperties>>`         | `undefined`         |                                        |
+| unstyled`?`   | `Partial<Record<T, boolean>>`               | `undefined`         |                                        |
+| color`?`      | `Color \| { thumb?: Color; track?: Color }` | `hsl(var(--muted))` | Passed to `thumb` \| `track` component |
+
+### Props API
+
+| Props API   | Type      | Default | Annotation                                    |
+| ----------- | --------- | ------- | --------------------------------------------- |
+| unstyled`?` | `boolean` | `false` | if `true`, all default styles will be removed |
+
+---
+
+## Code

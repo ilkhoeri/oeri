@@ -12,7 +12,7 @@ interface MediaQuery {
 interface NavContextProps extends MediaQuery, ClickOpenOptions {
   defaultOpen?: boolean;
   open: boolean;
-  setOpen: (value: boolean) => void;
+  setOpen: (open: boolean) => void;
   toggle: () => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => false | void;
   minQuery: boolean | undefined;

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { BrandOeriIcon } from "@/modules/icons";
+import { BrandOeriIcon } from "@/icons/*";
 
 export default async function NotFound() {
   return (
     <article className="relative m-0 flex h-dvh w-full max-w-full flex-wrap items-start justify-center overflow-hidden p-4 pt-20 after:absolute after:bottom-0 after:h-[262px] after:w-full after:bg-gradient-to-t after:from-background after:content-['']">
       <h1
         role="presentation"
-        className="pointer-events-none absolute left-0 z-[-1] flex h-full w-full min-w-max flex-col flex-nowrap text-left text-[clamp(52px,47px_+_25vw,30rem)] font-[900] leading-[0.727] tracking-[-26px] text-[#ebebeb] dark:text-[#2e2e2e]">
+        className="pointer-events-none absolute left-0 z-[-1] flex h-full w-full min-w-max flex-col flex-nowrap text-left text-[clamp(52px,47px_+_25vw,30rem)] font-[900] leading-[0.727] tracking-[-26px] text-[#ebebeb] dark:text-[#2e2e2e]"
+      >
         <span>Not -</span>
         <span>Found</span>
       </h1>
@@ -16,7 +17,8 @@ export default async function NotFound() {
           href="/"
           tabIndex={-1}
           aria-label="back-home"
-          className="sticky top-14 rounded-lg px-4 py-1 hover:text-color focus-visible:border-0 focus-visible:ring-0">
+          className="sticky top-14 rounded-lg px-4 py-1 hover:text-color focus-visible:border-0 focus-visible:ring-0"
+        >
           <BrandOeriIcon size={146} />
         </Link>
         <h1 className="min681:text-[38px] text-[32px] font-[900] text-[inherit]">

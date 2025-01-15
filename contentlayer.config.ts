@@ -1,29 +1,16 @@
-import {
-  defineDocumentType,
-  defineNestedType,
-  makeSource,
-  type ComputedFields
-} from "contentlayer2/source-files";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { defineDocumentType, defineNestedType, makeSource, type ComputedFields } from "contentlayer2/source-files";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
-import { codeImport } from "remark-code-import";
 import remarkGfm from "remark-gfm";
-import { visit } from "unist-util-visit";
-import { getHighlighter } from "@shikijs/compat";
-// import { transformerCopyButton } from "@rehype-pretty/transformers";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeStringify from "rehype-stringify";
+import { visit } from "unist-util-visit";
+import { codeImport } from "remark-code-import";
+import { getHighlighter } from "@shikijs/compat";
+import { rehypeNpmCommand } from "@/resource/docs_demo/assets/rehype/rehype-customizer";
+// import { transformerCopyButton } from "@rehype-pretty/transformers";
 
-import moonlightTheme from "./source/md/moonlight.json" with { type: "json" };
-// import {
-//   generateRawToJson
-// generateNameFilesToJson
-// } from "./source/generated/generated";
-
-// generateRawToJson(
-//   "resource/docs/icons",
-//   ".contentlayer/generated/resources/icons.json"
-// );
+import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
 
 /**
  *- `URL`: https://example.com/blog/posts/article-1
@@ -121,11 +108,12 @@ const Doc = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "resource/docs_raw",
   documentTypes: [Doc],
+  disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [remarkGfm, codeImport],
     rehypePlugins: [
       rehypeSlug,
-      //rehypeComponent,
+      // rehypeComponent,
       () => tree => {
         visit(tree, node => {
           if (node?.type === "element" && node?.tagName === "pre") {
@@ -155,21 +143,11 @@ export default makeSource({
           grid: true,
           theme: moonlightTheme,
           keepBackground: false,
+          highlightLines: true,
           tokensMap: {
             fn: "entity.name.function"
           },
-
-          // transformers: [
-          //   transformerCopyButton({
-          //     visibility: "hover",
-          //     feedbackDuration: 3_000
-          //   })
-          // ],
           getHighlighter,
-          // filterMetaString: (string: any) => string.replace(/filename="[^"]*"/, "")
-          // onclick="navigator.clipboard.writeText(this.attributes.data.value);this.classList.add('rehype-pretty-copied');window.setTimeout(() => this.classList.remove('rehype-pretty-copied'), 3000);"
-
-          // theme: "github-dark",
           onVisitLine(node: any) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
@@ -197,8 +175,7 @@ export default makeSource({
               return;
             }
 
-            preElement.properties["__withMeta__"] =
-              node.children.at(0).tagName === "figure";
+            preElement.properties["__withMeta__"] = node.children.at(0).tagName === "figure";
             preElement.properties["__rawString__"] = node.__rawString__;
 
             if (node.__src__) {
@@ -215,16 +192,13 @@ export default makeSource({
           }
         });
       },
-      // rehypeNpmCommand,
+      rehypeNpmCommand,
       [
         rehypeAutolinkHeadings,
         {
           behavior: "wrap",
           properties: {
-            className: [
-              "subheading-anchor",
-              "anchor_id text-color flex flex-row-reverse items-center gap-2"
-            ],
+            className: ["subheading-anchor", "anchor_id text-color flex flex-row-reverse items-center gap-2"],
             ariaLabel: "Link to section"
           },
           content: [
@@ -233,10 +207,12 @@ export default makeSource({
               tagName: "svg",
               properties: {
                 xmlns: "http://www.w3.org/2000/svg",
-                width: "26",
-                height: "26",
+                width: "17",
+                height: "17",
+                fillRule: "evenodd",
+                clipRule: "evenodd",
                 fill: "currentColor",
-                viewBox: "0 0 24 24",
+                viewBox: "0 0 15 15",
                 className: ""
               },
               children: [
@@ -244,7 +220,7 @@ export default makeSource({
                   type: "element",
                   tagName: "path",
                   properties: {
-                    d: "M15.712 11.823a.75.75 0 1 0 1.06 1.06l-1.06-1.06Zm-4.95 1.768a.75.75 0 0 0 1.06-1.06l-1.06 1.06Zm-2.475-1.414a.75.75 0 1 0-1.06-1.06l1.06 1.06Zm4.95-1.768a.75.75 0 1 0-1.06 1.06l1.06-1.06Zm3.359.53-.884.884 1.06 1.06.885-.883-1.061-1.06Zm-4.95-2.12 1.414-1.415L12 6.344l-1.415 1.413 1.061 1.061Zm0 3.535a2.5 2.5 0 0 1 0-3.536l-1.06-1.06a4 4 0 0 0 0 5.656l1.06-1.06Zm4.95-4.95a2.5 2.5 0 0 1 0 3.535L17.656 12a4 4 0 0 0 0-5.657l-1.06 1.06Zm1.06-1.06a4 4 0 0 0-5.656 0l1.06 1.06a2.5 2.5 0 0 1 3.536 0l1.06-1.06Zm-7.07 7.07.176.177 1.06-1.06-.176-.177-1.06 1.06Zm-3.183-.353.884-.884-1.06-1.06-.884.883 1.06 1.06Zm4.95 2.121-1.414 1.414 1.06 1.06 1.415-1.413-1.06-1.061Zm0-3.536a2.5 2.5 0 0 1 0 3.536l1.06 1.06a4 4 0 0 0 0-5.656l-1.06 1.06Zm-4.95 4.95a2.5 2.5 0 0 1 0-3.535L6.344 12a4 4 0 0 0 0 5.656l1.06-1.06Zm-1.06 1.06a4 4 0 0 0 5.657 0l-1.061-1.06a2.5 2.5 0 0 1-3.535 0l-1.061 1.06Zm7.07-7.07-.176-.177-1.06 1.06.176.178 1.06-1.061Z"
+                    d: "M8.51194 3.00541C9.18829 2.54594 10.0435 2.53694 10.6788 2.95419C10.8231 3.04893 10.9771 3.1993 11.389 3.61119C11.8009 4.02307 11.9513 4.17714 12.046 4.32141C12.4633 4.95675 12.4543 5.81192 11.9948 6.48827C11.8899 6.64264 11.7276 6.80811 11.3006 7.23511L10.6819 7.85383C10.4867 8.04909 10.4867 8.36567 10.6819 8.56093C10.8772 8.7562 11.1938 8.7562 11.389 8.56093L12.0077 7.94221L12.0507 7.89929C12.4203 7.52976 12.6568 7.2933 12.822 7.0502C13.4972 6.05623 13.5321 4.76252 12.8819 3.77248C12.7233 3.53102 12.4922 3.30001 12.1408 2.94871L12.0961 2.90408L12.0515 2.85942C11.7002 2.508 11.4692 2.27689 11.2277 2.11832C10.2377 1.46813 8.94398 1.50299 7.95001 2.17822C7.70691 2.34336 7.47044 2.57991 7.1009 2.94955L7.058 2.99247L6.43928 3.61119C6.24401 3.80645 6.24401 4.12303 6.43928 4.31829C6.63454 4.51355 6.95112 4.51355 7.14638 4.31829L7.7651 3.69957C8.1921 3.27257 8.35757 3.11027 8.51194 3.00541ZM4.31796 7.14672C4.51322 6.95146 4.51322 6.63487 4.31796 6.43961C4.12269 6.24435 3.80611 6.24435 3.61085 6.43961L2.99213 7.05833L2.94922 7.10124C2.57957 7.47077 2.34303 7.70724 2.17788 7.95035C1.50265 8.94432 1.4678 10.238 2.11799 11.2281C2.27656 11.4695 2.50766 11.7005 2.8591 12.0518L2.90374 12.0965L2.94837 12.1411C3.29967 12.4925 3.53068 12.7237 3.77214 12.8822C4.76219 13.5324 6.05589 13.4976 7.04986 12.8223C7.29296 12.6572 7.52943 12.4206 7.89896 12.051L7.89897 12.051L7.94188 12.0081L8.5606 11.3894C8.75586 11.1941 8.75586 10.8775 8.5606 10.6823C8.36533 10.487 8.04875 10.487 7.85349 10.6823L7.23477 11.301C6.80777 11.728 6.6423 11.8903 6.48794 11.9951C5.81158 12.4546 4.95642 12.4636 4.32107 12.0464C4.17681 11.9516 4.02274 11.8012 3.61085 11.3894C3.19896 10.9775 3.0486 10.8234 2.95385 10.6791C2.53661 10.0438 2.54561 9.18863 3.00507 8.51227C3.10993 8.35791 3.27224 8.19244 3.69924 7.76544L4.31796 7.14672ZM9.62172 6.08558C9.81698 5.89032 9.81698 5.57373 9.62172 5.37847C9.42646 5.18321 9.10988 5.18321 8.91461 5.37847L5.37908 8.91401C5.18382 9.10927 5.18382 9.42585 5.37908 9.62111C5.57434 9.81637 5.89092 9.81637 6.08619 9.62111L9.62172 6.08558Z"
                   }
                 }
               ]
@@ -252,11 +228,7 @@ export default makeSource({
           ]
         }
       ]
+      // rehypeCssBlocks
     ]
   }
 });
-
-// generateNameFilesToJson(
-//   "resource/docs/icons",
-//   ".contentlayer/generated/resources/icons.json"
-// );

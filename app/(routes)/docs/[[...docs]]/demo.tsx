@@ -1,15 +1,15 @@
 import * as React from "react";
 import Link from "next/link";
-import { Tabs } from "@/source/ui/tabs";
-import { retitled } from "@/source/utils";
-import { Title } from "@/source/ui/components";
-import { Playground } from "@/source/ui/playground";
-import { Code, Customizer } from "@/source/ui/code";
-import { highlightCode } from "@/source/utils/escape-code";
-import { removeTrailingDash, sanitizedToParams } from "@/modules/ondevelopment/utils";
+import { Tabs } from "@/ui/tabs";
 import { LoadComponent } from "./client";
+import { retitled } from "@/source/utils";
+import { Typography } from "@/ui/typography";
+import { PlayTabs } from "@/source/assets/playtabs";
+import { highlightCode } from "@/resource/docs_demo/assets/rehype/rehype-customizer";
+import { Code, Customizer } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
+import { removeTrailingDash } from "@/source/ondevelopment/utils";
+import { compareWords, sanitizedWord } from "@/utility/text-parser";
 import { Doc } from "@/.contentlayer/generated";
-import { compareWords } from "@/modules/utility";
 
 interface DemosProps {
   segment: string[];
@@ -23,23 +23,14 @@ export async function Demos(_props: DemosProps) {
   if (!files.length) {
     return (
       <div className="mt-6">
-        {doc?.title && (
-          <Title
-            size="h1"
-            title={doc?.title}
-            variant="segment"
-            className="mb-12 font-geist-mono text-h1"
-          />
-        )}
+        {doc?.title && <Typography prose="h1">{doc?.title}</Typography>}
 
         <LinksFields fields={doc?.links?.related} />
 
         {usages && typeof usages === "string" && (
-          <Tabs
-            id="usage"
-            defaultValue="usage"
-            className="prefers_code_fragment mb-12 w-full">
-            <Playground
+          <Tabs id="usage" defaultValue="usage" className="prefers_code_fragment mb-12 w-full">
+            <PlayTabs
+              defaultValue="usage"
               childrens={{
                 usage: (
                   <Customizer
@@ -59,53 +50,25 @@ export async function Demos(_props: DemosProps) {
 
   return (
     <React.Fragment>
-      {doc?.title && (
-        <Title
-          size="h1"
-          title={doc?.title}
-          variant="segment"
-          className="mb-12 font-geist-mono text-h1"
-        />
-      )}
+      {doc?.title && <Typography prose="h1">{doc?.title}</Typography>}
       {files.map(async file => {
         return (
-          <div
-            key={file}
-            className="mt-12 border-t pt-8 first:mt-6 first:border-t-0 first:pt-0"
-          >
-            {!compareWords(doc?.title, retitled(file)) && (
-              <Title
-                size="h1"
-                variant="segment"
-                title={retitled(file)}
-                className="mb-12 mt-16 font-geist-mono text-h1"
-              />
-            )}
+          <div key={file} className="mt-12 border-t pt-8 first:mt-6 first:border-t-0 first:pt-0">
+            {!compareWords(doc?.title, retitled(file)) && <Typography prose="h1">{retitled(file)}</Typography>}
 
             <LinksFields fields={doc?.links?.related} />
 
-            <Tabs
-              id={`usage-${sanitizedToParams(removeTrailingDash(file))}`}
-              defaultValue="preview"
-              className="mb-12 w-full"
-            >
-              <Playground
+            <Tabs id={`usage-${sanitizedWord(removeTrailingDash(file))}`} defaultValue="preview" className="mb-12 w-full">
+              <PlayTabs
+                defaultValue="preview"
                 childrens={{
                   preview: (
-                    <article
-                      data-rehype-pretty-code-fragment=""
-                      className="relative mx-auto flex size-full min-h-[32rem] flex-col items-center justify-center"
-                    >
+                    <article data-docs="demo-preview">
                       <LoadComponent segment={segment} file={file} />
                     </article>
                   ),
                   usage: usages && typeof usages === "object" && (
-                    <Code
-                      title={`${removeTrailingDash(file)}-demo.tsx`}
-                      ext=".tsx"
-                      code={usages[file]}
-                      setInnerHTML={await highlightCode(usages[file])}
-                    />
+                    <Code title={`${removeTrailingDash(file)}-demo.tsx`} ext=".tsx" code={usages[file]} setInnerHTML={await highlightCode(usages[file])} />
                   )
                 }}
               />
@@ -117,13 +80,7 @@ export async function Demos(_props: DemosProps) {
   );
 }
 
-function LinksFields({
-  label,
-  fields
-}: {
-  label?: string;
-  fields?: { label?: string; link?: string }[] | null;
-}) {
+function LinksFields({ label, fields }: { label?: string; fields?: { label?: string; link?: string }[] | null }) {
   if (!fields) {
     return null;
   }
@@ -138,7 +95,8 @@ function LinksFields({
             target="_blank"
             href={i.link || ""}
             rel="noopener noreferrer nofollow"
-            className="rounded-md border bg-color px-2 py-px font-roboto-mono text-sm font-semibold text-background no-underline transition-colors decoration-none after:ml-1 after:text-muted-foreground after:transition-colors after:content-['↗'] hover:bg-color/90 hover:text-background hover:after:text-constructive md:after:content-['🡵']">
+            className="rounded-md border bg-color px-2 py-px font-roboto-mono text-sm font-semibold text-background no-underline transition-colors decoration-none after:ml-1 after:text-muted-foreground after:transition-colors after:content-['↗'] hover:bg-color/90 hover:text-background hover:after:text-constructive md:after:content-['🡵']"
+          >
             {i.label}
           </Link>
         ))}

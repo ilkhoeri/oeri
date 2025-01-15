@@ -1,4 +1,8 @@
-import { camelToKebab, capitalizeWords } from "@/modules/ondevelopment/utils";
+import {
+  camelToKebab,
+  capitalizeWords,
+  kebabToCamelCase
+} from "@/source/ondevelopment/utils";
 
 export function cleanedIds(ids: string[], id: string): string[] {
   return ids.map(i => {
@@ -58,12 +62,18 @@ export function prefixName(docs: string[] | undefined, name: string): string {
     .join("");
 }
 
-export function displayName(str: string) {
+export function displayNameX(str: string) {
   // str = str.replace("use", "");
   str = camelToKebab(str);
   str = capitalizeWords(str);
   str = str.replace(/-/g, " ");
   return str;
+}
+
+export function displayName(title: string) {
+  return title.startsWith("use")
+    ? kebabToCamelCase(title)
+    : capitalizeWords(title);
 }
 
 export function sourceFiles(segment: string[] | undefined) {

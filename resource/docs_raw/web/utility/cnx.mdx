@@ -1,0 +1,156 @@
+---
+title: cnx()
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### Installation
+
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+
+```bash
+npm install str-merge@latest
+```
+
+#### API References
+
+- [`mdn`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList#examples)
+
+The cnx function is a utility to dynamically combine string class names based on various input types, such as strings, numbers, objects, arrays, or functions.
+
+This function combines various input types and simplifies complex management by producing clean and valid strings.
+
+Useful for dynamically managing string classes in JavaScript or TypeScript applications.
+
+#### Syntax
+
+```ts
+function cnx(...inputs: ClassValue[]): string;
+```
+
+#### How cnx works
+
+1. **Initialization:**
+   An empty array (classes) is used to store valid strings.
+
+2. **Input Iteration:**
+   Each item in the `...inputs` parameter (spread operator) is processed with the following logic:
+
+- **String or Number:**
+  Immediately converted to a string and inserted into the array.
+- **Array:**
+  Processed recursively using `cnx(...input)` to support nested structures.
+- **Object:**
+  Iterate over the keys and values ​​(key-value pairs). If the value is "truthy" (e.g., `true`), the key (class name) is added to the array.
+- **Function:**
+  The function is called, and the result is processed recursively using cnx.
+- **Null, Undefined, or Boolean:**
+  Ignored, passed without processing.
+
+3. **Output:**
+   The collected classes are combined into a space-separated string.
+
+#### Example of Usage
+
+```ts
+// allows receiving Arrays and Objects
+cnx(['', baz, (foo as string) !== 'foo' && bar], { '': !props }, '', () => ({ '' }), undefined, [{ '' }, () => ({ '' })]);
+```
+
+```tsx
+cnx("hello", "world");
+// Output: 'hello world
+
+cnx(() => "there", "dynamic");
+// Output: 'there dynamic'
+
+cnx(["extra", 0, false, "bar"]);
+// Output: "extra bar"
+
+cnx(Boolean, Object, undefined, null, "", 0, NaN);
+// Output: ""
+
+cnx("hello", true && "foo", false && "bar");
+// Output: "hello foo"
+
+cnx(["foo"], ["", 0, false, "bar"], [["baz", [["hello"], "there"]]]);
+// Output: "foo bar baz hello there"
+
+cnx("foo", [1 && "bar", { baz: false, bat: null }, ["hello", ["world"]]], "cya");
+// Output: "foo bar hello world cya"
+
+cnx("foo", { primary: true, disabled: false }, ["extra", null, undefined], () => "dynamic");
+// Output: 'foo primary extra dynamic'
+
+cnx([{ color: "red", fontSize: "16px" }, () => ({ backgroundColor: "blue" }), undefined, [{ margin: "10px" }, () => ({ padding: "5px" })]]);
+// Output: "color fontSize backgroundColor margin padding"
+```
+
+### Advantages
+
+1. Makes it easier to manage dynamic CSS classes.
+2. Logic wrangling of class merging in code.
+3. Useful in frameworks like React, Vue, or Svelte for changing class conditions.
+
+### IntelliSense
+
+If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](https://tailwindcss.com/docs/editor-setup#intelli-sense-for-vs-code) class using the following command:
+
+1. Install the [`Tailwind CSS IntelliSense`](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) Visual Studio Code extension
+2. Add to your [`settings.json`](https://code.visualstudio.com/docs/getstarted/settings):
+
+```json
+"tailwindCSS.experimental.classRegex": [
+  ["cnx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+  ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+  ["merge\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+],
+```
+
+3. Add config to your [.eslintrc.json](https://eslint.org/docs/latest/use/configure/) to [eslint-plugin-tailwindcss](https://www.npmjs.com/package/eslint-plugin-tailwindcss) configuration
+
+```json
+{
+  "extends": ["prettier", "plugin:tailwindcss/recommended"],
+  "plugins": ["tailwindcss"],
+  "ignorePatterns": [],
+  "rules": {},
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn", "merge", "twMerge"],
+      "config": "tailwind.config.ts"
+    }
+  },
+  "overrides": []
+}
+```
+
+### Merger
+
+#### Merge class
+
+Merge with tailwind-merge
+
+```tsx
+import { cnx, type ClassValue } from "str-merge";
+import { twMerge } from "tailwind-merge";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(cnx(...inputs));
+}
+```
+
+#### Use merge or cn
+
+```tsx
+import { merge } from "str-merge";
+
+<div className={merge("bg-black/60 dark:bg-white/60 text-white dark:text-black", { "font-extrabold border-0": true })} />;
+```

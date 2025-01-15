@@ -1,0 +1,69 @@
+---
+title: Tabs
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<TabsDemosUsage />
+
+## Properties
+
+<TabsDemosConfigurator />
+
+### Tabs Position
+
+<TabsDemosPosition />
+
+## Tabs Customs
+
+<TabsDemosCustom1 />
+
+## API References
+
+### Styles API
+
+```ts
+type T = "root" | "list" | "tab" | "tabLabel" | "tabSection" | "panel";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+---
+
+### Props API
+
+| Props API                  | Type                              | Default              | Annotation                                                                                                    |
+| -------------------------- | --------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------- |
+| defaultValue`?`            | `string \| null`                  |                      | Default value for uncontrolled component                                                                      |
+| value`?`                   | `string \| null`                  |                      | Value for controlled component                                                                                |
+| onChange`?`                | `(value: string \| null) => void` |                      | Called when value changes                                                                                     |
+| orientation`?`             | `'vertical' \| 'horizontal'`      | `horizontal`         | Tabs orientation                                                                                              |
+| placement`?`               | `'left' \| 'right'`               | `'left'`             | `Tabs.List` placement relative to `Tabs.Panel`, applicable only when `orientation="vertical"`                 |
+| id`?`                      | `string`                          | `generated randomly` | Base id, used to generate ids to connect labels with controls                                                 |
+| loop`?`                    | `boolean`                         | `true`               | Determines whether arrow key presses should loop though items (first to last and last to first)               |
+| activateTabWithKeyboard`?` | `boolean`                         | `true`               | Determines whether tab should be activated with arrow key press                                               |
+| allowTabDeactivation`?`    | `boolean`                         | `false`              | Determines whether tab can be deactivated                                                                     |
+| children`?`                | `React.ReactNode`                 | `undefined`          | Tabs content                                                                                                  |
+| color`?`                   | `Colors`                          | ``                   | Changes colors of `Tabs.Tab` components when variant is `pills` or `default`, does nothing for other variants |
+| radius`?`                  | `(string & {}) \| number`         | ``                   | Key of valid CSS value to set `border-radius`                                                                 |
+| inverted`?`                | `boolean`                         | `false`              | Determines whether tabs should have inverted styles                                                           |
+| keepMounted`?`             | `boolean`                         | `true`               | If set to `false`, `Tabs.Panel` content will be unmounted when the associated tab is not active               |
+
+---
+
+## Code

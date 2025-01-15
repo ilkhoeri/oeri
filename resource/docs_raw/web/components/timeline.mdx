@@ -1,0 +1,256 @@
+---
+title: Timeline
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<TimelineDemosUsage />
+
+## Properties
+
+<TimelineDemosConfigurator />
+
+## Structure
+
+### Declarative Props API
+
+```tsx
+import { cnx } from "str-merge";
+import { Timeline, TimelineProps } from "@/ui/timeline";
+import { GitBranchIcon, GitCommitIcon, GitPullRequestDraftIcon, GitPullRequestIcon } from "@/icons/*";
+
+const data = [
+  {
+    id: "1",
+    title: "New branch",
+    description: "Create a new branch to start a new feature or fix bugs.",
+    icons: <GitBranchIcon size={12} />,
+    createdAt: new Date("2024-12-01T10:30:00").toISOString()
+  },
+  {
+    id: "2",
+    title: "Commits",
+    description: "Track changes and save versions of your project with meaningful messages.",
+    icons: <GitCommitIcon size={12} />,
+    createdAt: new Date("2024-12-02T14:45:00").toISOString()
+  },
+  {
+    id: "3",
+    title: "Pull request",
+    description: "Request to merge your branch into the main branch after completing a feature.",
+    icons: <GitPullRequestIcon size={12} />,
+    createdAt: new Date("2024-12-03T09:15:00").toISOString()
+  },
+  {
+    id: "4",
+    title: "Code review",
+    description: "Collaboratively review changes before they are merged to ensure quality.",
+    icons: <GitPullRequestDraftIcon size={12} />,
+    createdAt: new Date("2024-12-03T11:00:00").toISOString()
+  }
+];
+
+const items: TimelineProps["items"] = data.map(i => {
+  const isActive = ["3", "4"].includes(i.id);
+  return {
+    title: i.title,
+    active: isActive,
+    lineStyle: { variant: cnx({ dotted: isActive }) },
+    bullet: i.icons,
+    content: (
+      <>
+        <p className="mt-2 text-xs">{i.description}</p>
+        <time dateTime={String(i.createdAt)} className="mt-2 text-xs">
+          {String(i.createdAt)}
+        </time>
+      </>
+    )
+  };
+});
+
+export function Demo() {
+  return <Timeline items={items} className="max-w-5xl py-12 pl-20 pr-4 md:pl-16" />;
+}
+```
+
+## Alternative
+
+You can use several ways to use `<Timeline/>`.
+
+1. Using with `<TimelineList/>` and `<TimelineItem/>` for server component.
+
+```tsx showLineNumbers
+export function MyComponent() {
+  return (
+    <TimelineList>
+      <TimelineItem title="Title..." content="Content..."></TimelineItem>
+
+      <TimelineItem>
+        <h4>Title...</h4>
+        <div>Content...</div>
+      </TimelineItem>
+    </TimelineList>
+  );
+}
+```
+
+2. Using with `<Timeline/>` origin of for use client component.
+
+```tsx showLineNumbers
+"use client";
+
+export function MyComponent() {
+  return (
+    <Timeline.List align="right">
+      <Timeline.Item title="Title..." content="Content..."></Timeline.Item>
+
+      <Timeline.Item>
+        <h4>Title...</h4>
+        <div>Content...</div>
+      </Timeline.Item>
+    </Timeline.List>
+  );
+}
+```
+
+---
+
+## @tailwind utilities
+
+By default, styles set using the tailwindcss class.
+
+Add the following [`plugins`](https://tailwindcss.com/docs/plugins#overview) to your [`tailwind.config.js`](https://tailwindcss.com/docs/configuration) file:
+
+```ts
+import { PluginAPI, type Config } from "tailwindcss/types/config";
+import plugin from "tailwindcss/plugin";
+
+export default {
+  theme: {
+    extend: {}
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(({ addBase, addUtilities }: PluginAPI) => {
+      addBase({});
+      addUtilities({
+        ".timeline-item": {
+          "--tli-line":
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-line-active-style, var(--tl-line-style)) var(--tli-line-clr, var(--tl-line-clr))",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: "var(--tli-line-top, 0)",
+            left: "var(--tli-line-left, 0)",
+            right: "var(--tli-line-right, 0)",
+            bottom: "var(--tli-line-bottom, -2rem)",
+            display: "var(--tli-line-display, none)",
+            borderInlineStart: "var(--tli-line)",
+            pointerEvents: "none"
+          },
+          "&:where(:not(:first-of-type))": {
+            marginTop: "2rem"
+          },
+          "&:where(:not(:last-of-type))": {
+            "--tli-line-display": "block"
+          },
+          "&:where([data-active]:has(+ [data-active]))": {
+            "--tli-has-line-active-style": "var(--tli-line-style)",
+            "--tli-has-bullet-active-style": "solid",
+            "&::before": {
+              borderColor: "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+            }
+          }
+        },
+        ".timeline-item-bullet": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: "var(--tl-bullet-top, calc(var(--tl-bullet-size) * (-16.667 / 100)))",
+          width: "var(--tl-bullet-size)",
+          height: "var(--tl-bullet-size)",
+          borderRadius: "var(--tl-bullet-round)",
+          outline:
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-line-clr))",
+          "&[data-active]": {
+            outlineColor: "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+          },
+          "&[data-bullet]": {
+            "&[data-active]": {
+              backgroundColor: "var(--active-bg, var(--tli-active-bg, var(--tl-line-clr)))",
+              "& *": {
+                color: "var(--active-clr, var(--tli-active-clr))"
+              }
+            },
+            "& svg": {
+              flexShrink: "0",
+              pointerEvents: "none"
+            }
+          },
+          "&[data-notice]": {
+            "--inset-tr": "calc(var(--tli-line-width, var(--tl-line-width)) * -0.75)",
+            "&::after": {
+              content: '""',
+              zIndex: "0",
+              position: "absolute",
+              width: "33.333333%",
+              height: "33.333333%",
+              top: "var(--inset-tr)",
+              right: "var(--inset-tr)",
+              borderRadius: "inherit",
+              backgroundColor: "var(--notice-clr, var(--tli-notice-clr))",
+              boxShadow:
+                "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notice-clr, var(--tli-notice-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notice-ring, var(--tli-notice-ring))"
+            }
+          }
+        }
+      });
+    })
+  ]
+} satisfies Config;
+```
+
+---
+
+## API References
+
+### TimelineList
+
+| Props API TimelineList | Type                                                                           | Default                                                                     | Annotation                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| align`?`               | `"left" \| "right"`                                                            | `"left"`                                                                    | timeline align position                                                                |
+| bulletStyle`?`         | `{size`?`: number; round`?`: number; ring`?`: Colors; variant?: LineVariant;}` | `{size: 24, round`?`: 9999, ring: "var(--tl-line-clr)", variant?: "solid"}` | bulletStyle=\{\{ size: number, round: number, ring: Colors, variant?: LineVariant \}\} |
+| lineStyle`?`           | `{width?: number; variant?: LineVariant; clr?: Colors;}`                       | `{width: 2, variant: "solid", clr: "hsl(var(--constructive))"}`             | lineStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\}                   |
+
+### TimelineItem
+
+```ts
+type T = "list" | "bullet" | "body" | "title" | "content";
+```
+
+| Props API TimelineItem | Type                                                               | Default       | Annotation                                                                |
+| ---------------------- | ------------------------------------------------------------------ | ------------- | ------------------------------------------------------------------------- |
+| lineStyle`?`           | `{width?: number; variant?: LineVariant; clr?: Colors;}`           | `undefined`   | lineStyle=\{\{ width: number, variant: LineVariant, clr: Colors \}\}      |
+| bullet`?`              | `React.ReactNode`                                                  | `null`        | components inside bullet, usually for `<Icons>`                           |
+| title`?`               | `React.ReactNode`                                                  | `null`        | title declaration to be wrapped in `<h4>`                                 |
+| content`?`             | `React.ReactNode`                                                  | `null`        |                                                                           |
+| classNames`?`          | `Partial<Record<T, string>>`                                       | `undefined`   | `classNames={{ list: ""; bullet: ""; body: ""; title: ""; content: "" }}` |
+| styles`?`              | `Partial<Record<T, React.CSSProperties & { [key: string]: any;}>>` | `undefined`   | `styles={{ list: {}; bullet: {}; body: {}; title: {}; content: {} }}`     |
+| active`?`              | `boolean`                                                          | `false`       |                                                                           |
+| activeStyle`?`         | `{bg?: Colors; clr?: Colors; line?: string;}`                      | `activeStyle` | activeStyle=\{\{ bg: "", clr: "", line: "" \}\}                           |
+| notice`?`              | `boolean`                                                          | `false`       |                                                                           |
+| noticeStyle`?`         | `{clr?: Colors; ring?: Colors;}`                                   | `undefined`   | noticeStyle=\{\{ clr: "", ring: "" \}\}                                   |
+
+---
+
+## Code

@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Textarea } from "@/modules/components/web/textarea";
-import { CopyButton } from "@/source/ui/toggle";
+import { Textarea } from "@/ui/textarea";
+import { CopyButton } from "@/source/assets/toggle";
 import { markdownText } from "./markdown-text";
-import { Tabs } from "@/source/ui/tabs";
-import { Playground } from "@/source/ui/playground";
+import { Tabs } from "@/ui/tabs";
+import { PlayTabs } from "@/source/assets/playtabs";
 
 export function MarkdownText() {
   const [text, setText] = useState<string>(sample);
@@ -19,7 +19,7 @@ export function MarkdownText() {
         aria-label="playground"
         cols={30}
         rows={10}
-        className="!border-0 !bg-transparent scrollbar"
+        className="relative !border-0 !bg-transparent scrollbar"
         spellCheck={false}
         value={text}
         onChange={e => setText(e.currentTarget.value)}
@@ -31,17 +31,14 @@ export function MarkdownText() {
   const preview = (
     <div
       data-rehype-pretty-code-fragment=""
-      className="textarea_class markdown-body flex-col whitespace-pre-line !border-0 !bg-transparent scrollbar"
+      className="textarea_class markdown-body relative flex-col whitespace-pre-line !border-0 !bg-transparent scrollbar"
       dangerouslySetInnerHTML={{ __html: markdownText(text) }}
     />
   );
 
   return (
-    <Tabs
-      defaultValue="preview"
-      id="preview"
-      className="mb-auto size-full scroll-m-20">
-      <Playground childrens={{ edit, preview }} />
+    <Tabs defaultValue="preview" id="preview" className="mb-auto size-full scroll-m-20">
+      <PlayTabs defaultValue="preview" childrens={{ edit, preview }} />
     </Tabs>
   );
 }

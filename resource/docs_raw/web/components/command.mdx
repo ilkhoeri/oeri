@@ -1,0 +1,75 @@
+---
+title: Command
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<CommandDemosUsage />
+
+## Properties
+
+<CommandDemosConfigurator />
+
+**Note:**
+
+- `!modal` is commonly used to force display a component within the DOM structure and is used in conjunction with the `forceOpened` props.
+- `forceOpened` is commonly used in the development process.
+
+## Data Types
+
+**Determines Data:**
+
+- Define data by default using `props.actions` or manually specifying the children component.
+- Either `props.actions` or `children` of `<Command>` must be specified, you cannot use both at the same time or omit both.
+- Using both at the same time will confuse the function and omit both will not do anything.
+- To prevent this we use error throwing so that the function can run properly.
+- Another way is to use the `<Command.Root>` compound component as the parent of another `<Command>` compound.
+
+### Data Single
+
+<CommandDemosDataTypesSingle />
+
+### Data Group
+
+<CommandDemosDataTypesGroup />
+
+## Multiple Command
+
+When using `Command` in more than one place with different states, be sure to create different `store` and `storeState` using `createCommand()`.
+
+<CommandDemosMultipleCommand />
+
+## API References
+
+### Styles API
+
+```ts
+type T = "search" | "overlay" | "content" | "footer" | "searchWrap" | "searchLabel" | "closeCommand" | "empty" | "actionsOrder" | "actionSection" | "actionsList" | "actionsGroup" | "actionGroupLabel" | "action" | "actionLabel" | "actionInner" | "highlight" | "actionDescription" | "actionLeftSection" | "actionRightSection" | "footer";
+```
+
+| Styles API    | Type                                | Default     | Annotation                                |
+| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+
+### Props API
+
+| Props API | Type | Default | Annotation |
+| --------- | ---- | ------- | ---------- |
+| -`?`      | -    | `-`     | --         |
+
+---
+
+## Code

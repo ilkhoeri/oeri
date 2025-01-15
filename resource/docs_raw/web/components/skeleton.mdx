@@ -1,0 +1,46 @@
+---
+title: Skeleton
+description: Create your project and compactness the required dependencies.
+date: 2025-01-05
+summary: Ringkasan
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+<SkeletonDemosUsage />
+
+## Properties
+
+<SkeletonDemosConfigurator />
+
+## API References
+
+### Styles API
+
+| Styles API  | Type      | Default | Annotation                                    |
+| ----------- | --------- | ------- | --------------------------------------------- |
+| unstyled`?` | `boolean` | `false` | if `true`, all default styles will be removed |
+
+### Props API
+
+```ts
+type Size = ((string & {}) | number) | { h?: CSSProperties["height"]; w?: CSSProperties["width"] };
+```
+
+| Props API  | Type                            | Default             | Annotation                                                                                       |
+| ---------- | ------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------ |
+| visible`?` | `boolean`                       | `true`              | Determines whether Skeleton overlay should be displayed.                                         |
+| size`?`    | `Size`                          | `{h: auto, w:100%}` | Skeleton `height`, numbers are converted to rem.                                                 |
+| circle`?`  | `boolean`                       | `false`             | If set, Skeleton `width` and `border-radius` are equal to its `height`                           |
+| round`?`   | `CSSProperties["borderRadius"]` | `16`                | Key of `theme.radius` or any valid CSS value to set border-radius. Numbers are converted to rem. |
+| animate`?` | `boolean`                       | `true`              | Determines whether Skeleton should be animated.                                                  |
+
+---
+
+## Code
