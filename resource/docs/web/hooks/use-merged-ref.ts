@@ -17,9 +17,7 @@ export function mergeRefs<T>(...refs: PossibleRef<T>[]) {
   };
 }
 
-export function createRefs<F, U extends string>(
-  keys: U[]
-): { [K in U]: React.RefObject<F> } {
+export function createRefs<F, U extends string>(keys: U[]): { [K in U]: React.RefObject<F> } {
   return keys.reduce(
     (acc, key) => {
       acc[key] = useRef<F>(null);

@@ -22,7 +22,7 @@ import { merge } from "str-merge";
 interface AccordionContextProps {
   openId: string | null;
   setOpenId: React.Dispatch<React.SetStateAction<string | null>>;
-  defaultOpen?: string | null;
+  defaultOpen: string | null;
 }
 
 type ElementType<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & { unstyled?: boolean };
@@ -52,18 +52,18 @@ Accordion.displayName = "Accordion";
 
 export const AccordionTrigger = React.forwardRef<HTMLButtonElement, ElementType<"button">>((_props, ref) => {
   const { unstyled, ...props } = _props;
-  const { triggerRef } = useAccordionItemContext();
-  return <button ref={mergeRefs(triggerRef, ref)} {...classes("trigger", { unstyled, ...props })} {...props} />;
+  const { triggerRef, toggle } = useAccordionItemContext();
+  return <button ref={mergeRefs(triggerRef, ref)} onClick={() => toggle()} {...classes("trigger", { unstyled, ...props })} {...props} />;
 });
 AccordionTrigger.displayName = "AccordionTrigger";
 
 interface AccordionItemContextProps {
   isOpen: boolean;
-  itemRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<HTMLButtonElement>;
   contentRef: React.RefObject<HTMLDivElement>;
   contentHeight: number;
   value: string | undefined;
+  toggle: () => void;
 }
 
 const AccordionItemContext = createContext<AccordionItemContextProps | undefined>(undefined);
@@ -85,7 +85,6 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const itemRef = useRef<HTMLDivElement>(null);
 
   const [contentHeight, setContentHeight] = useState(0);
   const isOpen = openId === value;
@@ -100,21 +99,19 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
     value && setOpenId(isOpen ? null : value);
   }, [isOpen, setOpenId]);
 
-  useEffect(() => {
-    const el = triggerRef.current;
-
-    if (el) {
-      el.addEventListener("click", toggle);
-
-      return () => {
-        el.removeEventListener("click", toggle);
-      };
-    }
-  }, [toggle]);
+  // useEffect(() => {
+  //   const el = triggerRef.current;
+  //   if (el) {
+  //     el.addEventListener("click", toggle);
+  //     return () => {
+  //       el.removeEventListener("click", toggle);
+  //     };
+  //   }
+  // }, [toggle]);
 
   return (
-    <AccordionItemContext.Provider value={{ isOpen, itemRef, triggerRef, contentRef, contentHeight, value }}>
-      <div ref={mergeRefs(itemRef, ref)} {...classes("item", { unstyled, ...props })} {...props} />
+    <AccordionItemContext.Provider value={{ isOpen, triggerRef, contentRef, contentHeight, value, toggle }}>
+      <div ref={ref} {...classes("item", { unstyled, ...props })} {...props} />
     </AccordionItemContext.Provider>
   );
 });

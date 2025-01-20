@@ -9,12 +9,12 @@ import { merge } from "str-merge";
 import { Polymorphic } from "@/ui/polymorphic-slot";
 import { FloatingIndicator } from "@/ui/floating-indicator";
 import { BrandDiscordFillIcon, BrandGithubFillIcon, BrandOeriIcon, HeartIcon, TextDirectionIcon } from "@/icons/*";
+import { useApp } from "@/config/app-context";
+import { Burger } from "@/ui/burger";
+import { Button } from "@/ui/button";
 import type { SingleRoute, NestedRoute } from "@/source/routes";
 
 import globalStyle from "../styles/styles";
-import { Burger } from "@/ui/burger";
-import { Button } from "@/ui/button";
-import { useApp } from "@/config/app-context";
 
 export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | null }) {
   const { toggleDirection, dir } = useApp();

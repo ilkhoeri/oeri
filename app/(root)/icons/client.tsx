@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { Tabs } from "@/ui/tabs";
 import { log } from "@/resource/log/development";
-import { Sheets, SheetsClosed, SheetsContent, SheetsTrigger } from "@/ui/sheets";
+import { Sheets, SheetsClose, SheetsContent, SheetsTrigger } from "@/ui/sheets";
 import { Input } from "@/ui/input";
 import { FileIcon, Svg, XIcon } from "@/icons/*";
 import { PlayTabs } from "@/source/assets/playtabs";
@@ -141,7 +141,7 @@ export function LoadComponent({
             />
           </Tabs>
         </div>
-        <SheetsClosed />
+        <SheetsClose />
       </SheetsContent>
     </Sheets>
   );

@@ -121,11 +121,12 @@ export default {
           }
         },
         "collapse-open": {
-          from: { height: "0" },
+          from: { height: "0", opacity: "0" },
           to: { height: "var(--measure-available-h)" }
         },
         "collapse-closed": {
           from: { height: "var(--measure-available-h)" },
+          "85%": { opacity: "0" },
           to: { height: "0", visibility: "hidden" }
         },
         "bounce-in": {
@@ -178,8 +179,8 @@ export default {
       },
       animation: {
         "cursor-bar": "cursor-bar 0.5s step-end infinite alternate, cursor-blink 0.5s infinite",
-        "collapse-open": "collapse-open 0.2s ease forwards",
-        "collapse-closed": "collapse-closed 0.2s ease forwards",
+        "collapse-open": "collapse-open 0.2s linear forwards",
+        "collapse-closed": "collapse-closed 0.2s linear forwards",
         "fade-in": "fade-in ease-in forwards",
         "fade-out": "fade-out ease-out forwards",
         "bounce-in": "bounce-in 0.5s linear forwards 0.3s",

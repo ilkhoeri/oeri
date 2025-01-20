@@ -3,6 +3,9 @@ import { createPortal } from "react-dom";
 import { useHotkeys } from "@/hooks/use-hotkeys";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useClickOutside } from "@/hooks/use-click-outside";
+import { SizeElement, useElementRect } from "@/hooks/use-element-info";
+import { inferType } from "str-merge";
 
 export enum Selector {
   Trigger = "trigger",
@@ -27,27 +30,8 @@ export enum DataState {
   opened = "opened",
   closed = "closed"
 }
-export enum DataTrigger {
-  hover = "hover",
-  click = "click"
-}
-export enum DataOrientation {
-  vertical = "vertical",
-  horizontal = "horizontal"
-}
 export type RectInfo = "x" | "y" | "width" | "height" | "top" | "right" | "bottom" | "left" | "scrollX" | "scrollY";
-type Observes =
-  | "side"
-  | "align"
-  | "touch"
-  | "offset"
-  | "sideswipe"
-  | "alignswipe"
-  | "orientation"
-  | "triggerRect"
-  | "contentRect"
-  | "multipleOpen"
-  | "measureSize";
+type Observes = "side" | "align" | "touch" | "offset" | "sideswipe" | "alignswipe" | "triggerRect" | "contentRect" | "measureSize";
 export type MeasureSize = { h: number | "auto"; w: number | "auto" };
 export type RectElement = Record<RectInfo, number>;
 interface ObserveOptions {
@@ -57,6 +41,7 @@ interface StateSharedOptions {
   align?: `${DataAlign}`;
   side?: `${DataSide}`;
   sideOffset?: number;
+  multipleOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
   delay?: { open?: number; closed?: number };
@@ -71,17 +56,12 @@ export interface ClickOpenOptions extends StateSharedOptions {
 }
 
 export interface OpenStateOptions extends HoverOpenOptions, ClickOpenOptions, ObserveOptions {
-  orientation?: `${DataOrientation}`;
-  trigger?: `${DataTrigger}`;
-  openId?: string | null;
-  setOpenId?: React.Dispatch<React.SetStateAction<string | null>>;
+  triggerRef?: React.RefObject<HTMLButtonElement>;
+  contentRef?: React.RefObject<HTMLDivElement>;
 }
 
 const DEFAULTEVENTS = ["mousedown", "touchstart"];
 const BUFFER_OFFSET = 2;
-
-const round = (num: number) => Math.round(num * 100) / 100;
-const safeValue = (value: number) => (isNaN(value) ? 0 : round(value));
 
 function nextValue<T>(currentValue: T, values: T[]): T {
   const currentIndex = values.indexOf(currentValue);
@@ -90,11 +70,11 @@ function nextValue<T>(currentValue: T, values: T[]): T {
   return values[nextIndex];
 }
 
-function setValues<T>(state: boolean | undefined | string | number, attr: T): T | Record<string, never> {
+export function setValues<T>(state: boolean | undefined | string | number, attr: T): T | Record<string, never> {
   return state ? (attr as T) : {};
 }
 
-function setVars(selector: `${Selector}`, info?: RectElement): Record<string, string> | undefined {
+export function setVars(selector: `${Selector}`, info?: RectElement): Record<string, string> | undefined {
   if (!info) return;
   const properties = ["height", "width", "x", "y", "right", "bottom"] as const;
   return properties.reduce(
@@ -108,87 +88,26 @@ function setVars(selector: `${Selector}`, info?: RectElement): Record<string, st
   );
 }
 
-function debounce<T>(fn: Function, delay: number) {
-  let timer: NodeJS.Timeout;
-  return (...args: T[]) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), delay);
-  };
+interface GetInsetProps {
+  align: "start" | "center" | "end";
+  side: "top" | "right" | "bottom" | "left";
+  sideOffset: number;
+  triggerRect: RectElement;
+  contentRect: RectElement;
 }
 
-function useClientRect<T extends HTMLElement | null>(el: T | null, measureSize: boolean = false, debounceDelay: number = 100) {
-  const [rect, setRect] = useState<RectElement>({ ...{} } as RectElement);
-  const [size, setSize] = useState<MeasureSize>({ h: 0, w: 0 });
-
-  const updateRectElement = useCallback(() => {
-    if (!el) return;
-
-    const rect = el.getBoundingClientRect();
-    if (!rect) return;
-
-    setRect({
-      top: safeValue(rect.top),
-      left: safeValue(rect.left),
-      right: safeValue(rect.right),
-      bottom: safeValue(rect.bottom),
-      width: safeValue(rect.width),
-      height: safeValue(rect.height),
-      scrollY: safeValue(window.scrollY),
-      scrollX: safeValue(window.scrollX),
-      y: safeValue(rect.top + window.scrollY),
-      x: safeValue(rect.left + window.scrollX)
-    });
-
-    if (measureSize) {
-      setSize({ h: safeValue(el.scrollHeight), w: safeValue(el.scrollWidth) });
-    }
-  }, [el, measureSize]);
-
-  const handleScroll = useCallback(debounce(updateRectElement, debounceDelay), [updateRectElement, debounceDelay]);
-  const handleResize = useCallback(debounce(updateRectElement, debounceDelay), [updateRectElement, debounceDelay]);
-
-  useLayoutEffect(() => {
-    if (!el) return;
-
-    const resizeObserver = new ResizeObserver(() => updateRectElement());
-    const mutationObserver = new MutationObserver(() => updateRectElement());
-
-    resizeObserver.observe(el);
-    mutationObserver.observe(el, { attributes: true, childList: true, subtree: true });
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
-
-    updateRectElement();
-
-    return () => {
-      resizeObserver.disconnect();
-      mutationObserver.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [el, handleScroll, handleResize, updateRectElement]);
-
-  return { rect, size };
-}
-
-function getInset(
-  align: `${DataAlign}`,
-  side: `${DataSide}`,
-  sideOffset: number,
-  triggerRect: RectElement,
-  contentRect: RectElement
-): readonly [number, number] {
+export function getInset(_props: GetInsetProps): readonly [number, number] {
+  const { align, side, contentRect, sideOffset, triggerRect } = _props;
   let top: number = 0;
   let left: number = 0;
 
   const calcAlign = (triggerStart: number, triggerSize: number, contentSize: number): number => {
     switch (align) {
-      case DataAlign.start:
+      case "start":
         return triggerStart;
-      case DataAlign.center:
+      case "center":
         return triggerStart + (triggerSize - contentSize) / 2;
-      case DataAlign.end:
+      case "end":
         return triggerStart + triggerSize - contentSize;
       default:
         return triggerStart;
@@ -196,19 +115,19 @@ function getInset(
   };
 
   switch (side) {
-    case DataSide.top:
+    case "top":
       top = triggerRect.top - contentRect.height - sideOffset;
       left = calcAlign(triggerRect.left, triggerRect.width, contentRect.width);
       break;
-    case DataSide.right:
+    case "right":
       top = calcAlign(triggerRect.top, triggerRect.height, contentRect.height);
       left = triggerRect.right + sideOffset;
       break;
-    case DataSide.bottom:
+    case "bottom":
       top = triggerRect.bottom + sideOffset;
       left = calcAlign(triggerRect.left, triggerRect.width, contentRect.width);
       break;
-    case DataSide.left:
+    case "left":
       top = calcAlign(triggerRect.top, triggerRect.height, contentRect.height);
       left = triggerRect.left - contentRect.width - sideOffset;
       break;
@@ -216,26 +135,14 @@ function getInset(
 
   if (typeof window !== "undefined") {
     const viewportWidth = window.innerWidth;
-    // if (left < BUFFER_OFFSET) {
-    //   left = BUFFER_OFFSET;
-    // } else if (left + contentRect.width > viewportWidth - BUFFER_OFFSET) {
-    //   left = viewportWidth - contentRect.width - BUFFER_OFFSET;
-    // }
-    // const viewportHeight = window.innerHeight;
-    // if (top < BUFFER_OFFSET) {
-    //   top = BUFFER_OFFSET;
-    // } else if (top + contentRect.height > viewportHeight - BUFFER_OFFSET) {
-    //   top = viewportHeight - contentRect.height - BUFFER_OFFSET;
-    // }
-
     if (left < BUFFER_OFFSET) {
-      if (side === DataSide.left) {
+      if (side === "left") {
         left = triggerRect.right + sideOffset; // ltr
       } else {
         left = BUFFER_OFFSET;
       }
     } else if (left + contentRect.width > viewportWidth - BUFFER_OFFSET) {
-      if (side === DataSide.right) {
+      if (side === "right") {
         left = triggerRect.left - contentRect.width - sideOffset; // rtl
       } else {
         left = viewportWidth - contentRect.width - BUFFER_OFFSET;
@@ -246,45 +153,94 @@ function getInset(
   return [top, left] as const;
 }
 
-const getAttributes = (
-  state: `${DataState}`,
-  align?: `${DataAlign}`,
-  side?: `${DataSide}`,
-  orientation?: `${DataOrientation}`,
-  { observe }: ObserveOptions = {}
-) => {
-  return {
-    "data-state": state,
-    ...setValues(observe?.align && align, { "data-align": align }),
-    ...setValues(observe?.side && side, { "data-side": side }),
-    ...setValues(observe?.orientation && orientation, { "data-orientation": orientation })
-  };
-};
+export interface UseVarsPositions extends GetInsetProps {
+  contentSize: SizeElement | undefined;
+}
+export function getVarsPositions(required: UseVarsPositions) {
+  const { triggerRect, contentRect, contentSize, ...others } = required;
+  const [top, left] = getInset({ triggerRect, contentRect, ...others });
 
-function getStyles(
-  selector: `${Selector}`,
-  sideOffset: number,
-  align: `${DataAlign}`,
-  side: `${DataSide}`,
-  triggerRect: RectElement,
-  contentRect: RectElement,
-  measure: MeasureSize,
-  { observe }: ObserveOptions = {}
-): Record<string, string> {
-  const [top, left] = getInset(align, side, sideOffset, triggerRect, contentRect);
+  const vars = {
+    triggerInset: {
+      "--top": `${top + triggerRect.scrollY}px`,
+      "--left": `${left + triggerRect.scrollX}px`
+    },
+    triggerSize: {
+      "--measure-trigger-h": `${triggerRect.height}px`,
+      "--measure-trigger-w": `${triggerRect.width}px`
+    },
+    contentSize: {
+      "--measure-available-h": `${contentSize?.h}px`,
+      "--measure-available-w": `${contentSize?.w}px`
+    }
+  };
+  return { vars, top, left };
+}
+
+export interface UseUpdatedPositions {
+  triggerRect: RectElement;
+  contentRect: RectElement;
+  align: `${DataAlign}`;
+  side: `${DataSide}`;
+  sideOffset: number;
+}
+export function useUpdatedPositions(required: UseUpdatedPositions) {
+  const { triggerRect, contentRect, align, side, sideOffset } = required;
+
+  const [newSide, setNewSide] = useState(side);
+  const [newAlign, setNewAlign] = useState(align);
+
+  const updatedPosition = useCallback(() => {
+    const dataAlign: `${DataAlign}`[] = ["start", "center", "end"];
+    const [top, left] = getInset({ align, side, sideOffset, triggerRect, contentRect });
+
+    if (triggerRect && contentRect) {
+      const rect = { top, left, bottom: top + contentRect.height, right: left + contentRect.width, width: contentRect.width, height: contentRect.height };
+      const isOutOfLeftViewport = rect.left < BUFFER_OFFSET;
+      const isOutOfRightViewport = rect.right > window.innerWidth - BUFFER_OFFSET;
+      const isOutOfTopViewport = rect.top < BUFFER_OFFSET;
+      const isOutOfBottomViewport = rect.bottom > window.innerHeight - BUFFER_OFFSET;
+
+      if (isOutOfLeftViewport) {
+        if (side === DataSide.left) setNewSide(DataSide.right);
+      } else if (isOutOfRightViewport) {
+        if (side === DataSide.right) setNewSide(DataSide.left);
+      } else if (isOutOfTopViewport) {
+        if (side === DataSide.top) setNewSide(DataSide.bottom);
+        if (newSide === DataSide.left || newSide === DataSide.right) setNewAlign(nextValue(newAlign, dataAlign.toReversed()));
+      } else if (isOutOfBottomViewport) {
+        if (side === DataSide.bottom) setNewSide(DataSide.top);
+        if (newSide === DataSide.left || newSide === DataSide.right) setNewAlign(nextValue(newAlign, dataAlign));
+      } else {
+        setNewSide(side);
+        setNewAlign(align);
+      }
+    }
+  }, [align, side, sideOffset, triggerRect, contentRect]);
+
+  useLayoutEffect(() => {
+    updatedPosition();
+    window.addEventListener("scroll", updatedPosition);
+    window.addEventListener("resize", updatedPosition);
+    return () => {
+      window.removeEventListener("scroll", updatedPosition);
+      window.removeEventListener("resize", updatedPosition);
+    };
+  }, [updatedPosition]);
+
+  return { newAlign, newSide, updatedPosition };
+}
+
+interface GetAttributesProps extends ObserveOptions {
+  dataAlign?: `${DataAlign}`;
+  dataSide?: `${DataSide}`;
+}
+
+function getAttributes(attr: GetAttributesProps) {
+  const { dataAlign, observe, dataSide } = attr;
   return {
-    ...setValues(selector === "trigger" && observe?.triggerRect, setVars(selector, triggerRect)),
-    ...setValues(selector === "content", {
-      ...setValues(observe?.offset, { "--offset": `${sideOffset}px` }),
-      ...setValues(observe?.sideswipe, { "--top": `${top + triggerRect.scrollY}px`, "--left": `${left + triggerRect.scrollX}px` }),
-      ...setValues(observe?.measureSize, {
-        "--measure-available-h": `${measure.h}px`,
-        "--measure-available-w": `${measure.w}px`,
-        "--measure-trigger-h": `${triggerRect.height}px`,
-        "--measure-trigger-w": `${triggerRect.width}px`
-      }),
-      ...setValues(observe?.contentRect, setVars("content", contentRect))
-    })
+    ...setValues(observe?.align && dataAlign, { "data-align": dataAlign }),
+    ...setValues(observe?.side && dataSide, { "data-side": dataSide })
   };
 }
 
@@ -306,28 +262,18 @@ export function useOpenState(options: OpenStateOptions = {}) {
     hotKeys = "",
     side = "bottom",
     align = "center",
-    trigger = "click",
-    onOpenChange,
     sideOffset = 0,
-    open: openChange,
     popstate = false,
-    defaultOpen = false,
-    clickOutsideToClose = false,
-    orientation = "vertical",
     modal = false,
-    observe = { multipleOpen: true },
-    // delay = { open: 0, closed: 0 },
-    openId,
-    setOpenId
+    defaultOpen = false,
+    multipleOpen = false,
+    clickOutsideToClose = false,
+    open: openChange = undefined,
+    onOpenChange = undefined,
+    observe,
+    triggerRef = useRef<HTMLButtonElement>(null),
+    contentRef = useRef<HTMLDivElement>(null)
   } = options;
-
-  const refs = {
-    trigger: useRef<HTMLButtonElement>(null),
-    content: useRef<HTMLDivElement>(null),
-    overlay: useRef<HTMLDivElement>(null),
-    root: useRef<HTMLDivElement>(null),
-    item: useRef<HTMLDivElement>(null)
-  };
 
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const open = openChange !== undefined ? openChange : isOpen;
@@ -336,47 +282,66 @@ export function useOpenState(options: OpenStateOptions = {}) {
   const [render, setRender] = useState(open);
   const [initialOpen, setInitialOpen] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [updatedSide, setUpdatedSide] = useState(side);
-  const [updatedAlign, setUpdatedAlign] = useState(align);
 
-  useHotkeys([[hotKeys, () => trigger === "click" && setOpen(!open)]]);
+  useHotkeys([[hotKeys, () => setOpen(!open)]]);
   useMeasureScrollbar(!open ? render : open, { modal });
 
-  const bounding = {
-    trigger: useClientRect<HTMLButtonElement>(refs?.trigger?.current),
-    content: useClientRect<HTMLDivElement>(refs?.content?.current, render)
-  };
+  const triggerBounding = useElementRect<HTMLButtonElement>(triggerRef?.current);
+  const contentBounding = useElementRect<HTMLDivElement>(contentRef?.current, render);
+
+  const { newAlign, newSide } = useUpdatedPositions({
+    triggerRect: triggerBounding.rect,
+    contentRect: contentBounding.rect,
+    align,
+    side,
+    sideOffset
+  });
 
   const toggle = useCallback(() => {
-    const controlId = refs.trigger.current?.id || refs.item.current?.getAttribute("data-controls") || undefined;
-    if (!observe.multipleOpen && controlId) {
-      setOpenId?.(openId === controlId ? null : controlId);
-    } else {
-      if (!open) {
-        if (trigger === "click" && popstate) {
-          window.history.pushState({ open: true }, "");
-        }
-        setOpen(true);
-      } else {
-        if (trigger === "click" && popstate) {
-          window.history.back();
-        }
-        setOpen(false);
+    if (!open) {
+      if (popstate) {
+        window.history.pushState({ open: true }, "");
       }
+      setOpen(true);
+    } else {
+      if (popstate) {
+        window.history.back();
+      }
+      setOpen(false);
     }
-  }, [trigger, popstate, open, setOpen, observe.multipleOpen, openId, setOpenId, refs.trigger, refs.item]);
+  }, [popstate, open, setOpen, multipleOpen, triggerRef]);
+
+  const handleOnMouseEnter = useCallback(() => {
+    if (!isTouchDevice) setOpen(true);
+  }, [isTouchDevice, setOpen]);
+
+  const handleOnMouseLeave = useCallback(() => {
+    if (!isTouchDevice) setOpen(false);
+  }, [isTouchDevice, setOpen]);
+
+  const handleOnMouseMove = useCallback(() => {
+    if (isTouchDevice) setIsTouchDevice(false);
+  }, [isTouchDevice, setIsTouchDevice]);
+
+  const handleOnTouchStart = useCallback(() => {
+    if (!isTouchDevice) setIsTouchDevice(true);
+    setOpen(true);
+  }, [isTouchDevice, setIsTouchDevice, setOpen]);
+
+  const handleOnTouchEnd = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const handleOnKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      e.key === "Enter" && toggle();
+    },
+    [toggle]
+  );
 
   useLayoutEffect(() => {
     if (open !== defaultOpen) setInitialOpen(true);
   }, [open, defaultOpen]);
-
-  useEffect(() => {
-    const controlId = refs.trigger.current?.id || refs.item.current?.getAttribute("data-controls") || undefined;
-    if (!observe.multipleOpen && controlId) {
-      if (openId === controlId) setOpen(true);
-      if (openId !== controlId) setOpen(false);
-    }
-  }, [observe.multipleOpen, openId, setOpen, refs.trigger, refs.item]);
 
   useEffect(() => {
     const historyPopState = () => {
@@ -391,123 +356,33 @@ export function useOpenState(options: OpenStateOptions = {}) {
   }, [popstate, open, setOpen]);
 
   useEffect(() => {
-    const onMouseEnter = () => {
-      if (!isTouchDevice) setOpen(true);
-    };
-    const onMouseLeave = () => {
-      if (!isTouchDevice) setOpen(false);
-    };
-    const onMouseMove = () => {
-      if (isTouchDevice) setIsTouchDevice(false);
-    };
-    const onTouchStart = () => {
-      if (!isTouchDevice) setIsTouchDevice(true);
-      setOpen(true);
-    };
-    const onTouchEnd = () => setOpen(false);
-    const windowTouchStart = () => {
-      if (!isTouchDevice) setIsTouchDevice(true);
-    };
-
     const attachListeners = (el: HTMLButtonElement | null) => {
       if (el) {
-        if (trigger === "click") {
-          el.addEventListener("click", toggle);
-        }
-        if (trigger === "hover") {
-          if (observe?.touch) {
-            el.addEventListener("touchstart", onTouchStart);
-            el.addEventListener("touchend", onTouchEnd);
-          }
-          window.addEventListener("touchstart", windowTouchStart, { passive: true });
-          window.addEventListener("mousemove", onMouseMove, { passive: true });
-          el.addEventListener("mouseenter", onMouseEnter);
-          el.addEventListener("mouseleave", onMouseLeave);
-          el.addEventListener("mousemove", onMouseMove);
+        if (observe?.touch) {
+          el.addEventListener("touchstart", handleOnTouchStart);
+          el.addEventListener("touchend", handleOnTouchEnd);
         }
       }
     };
     const detachListeners = (el: HTMLButtonElement | null) => {
       if (el) {
-        if (trigger === "click") {
-          el.removeEventListener("click", toggle);
-        }
-        if (trigger === "hover") {
-          if (observe?.touch) {
-            el.removeEventListener("touchstart", onTouchStart);
-            el.removeEventListener("touchend", onTouchEnd);
-          }
-          window.removeEventListener("touchstart", windowTouchStart);
-          window.removeEventListener("mousemove", onMouseMove);
-          el.removeEventListener("mouseenter", onMouseEnter);
-          el.removeEventListener("mouseleave", onMouseLeave);
-          el.removeEventListener("mousemove", onMouseMove);
+        if (observe?.touch) {
+          el.removeEventListener("touchstart", handleOnTouchStart);
+          el.removeEventListener("touchend", handleOnTouchEnd);
         }
       }
     };
-    attachListeners(refs.trigger.current);
+
+    attachListeners(triggerRef.current);
     return () => {
-      detachListeners(refs.trigger.current);
+      detachListeners(triggerRef.current);
     };
-  }, [trigger, toggle, refs.trigger, isTouchDevice, setIsTouchDevice, observe?.touch]);
+  }, [toggle, triggerRef, handleOnTouchStart, handleOnTouchEnd, observe?.touch]);
+  const everyRefs = [triggerRef, contentRef];
+  const handler = () => clickOutsideToClose && setOpen(false);
+  const events = DEFAULTEVENTS;
 
-  useEffect(() => {
-    const everyRefs = [refs.trigger, refs.content];
-    const handler = () => trigger === "click" && clickOutsideToClose && setOpen(false);
-    const events = DEFAULTEVENTS;
-    const listener = (event: MouseEvent | TouchEvent) => {
-      const { target } = event;
-      const shouldIgnore =
-        target instanceof HTMLElement && (target.hasAttribute("data-ignore-clickoutside") || (!document.body.contains(target) && target.tagName !== "HTML"));
-      const shouldTrigger = everyRefs.every(ref => ref.current && !ref.current.contains(target as Node));
-      if (!shouldIgnore && shouldTrigger) handler();
-    };
-    // @ts-ignore
-    events.forEach(event => document.addEventListener(event, listener));
-    return () => {
-      // @ts-ignore
-      events.forEach(event => document.removeEventListener(event, listener));
-    };
-  }, [clickOutsideToClose, setOpen, trigger, refs.content, refs.trigger]);
-
-  const updateSide = useCallback(() => {
-    const triggerRect = bounding.trigger.rect;
-    const contentRect = bounding.content.rect;
-    const dataAlign: `${DataAlign}`[] = ["start", "center", "end"];
-    if (triggerRect && contentRect) {
-      const [top, left] = getInset(align, side, sideOffset, triggerRect, contentRect);
-      const rect = { top, left, bottom: top + contentRect.height, right: left + contentRect.width, width: contentRect.width, height: contentRect.height };
-      const isOutOfLeftViewport = rect.left < BUFFER_OFFSET;
-      const isOutOfRightViewport = rect.right > window.innerWidth - BUFFER_OFFSET;
-      const isOutOfTopViewport = rect.top < BUFFER_OFFSET;
-      const isOutOfBottomViewport = rect.bottom > window.innerHeight - BUFFER_OFFSET;
-
-      if (isOutOfLeftViewport) {
-        if (side === DataSide.left) setUpdatedSide(DataSide.right);
-      } else if (isOutOfRightViewport) {
-        if (side === DataSide.right) setUpdatedSide(DataSide.left);
-      } else if (isOutOfTopViewport) {
-        if (side === DataSide.top) setUpdatedSide(DataSide.bottom);
-        if (updatedSide === DataSide.left || updatedSide === DataSide.right) setUpdatedAlign(nextValue(updatedAlign, dataAlign.toReversed()));
-      } else if (isOutOfBottomViewport) {
-        if (side === DataSide.bottom) setUpdatedSide(DataSide.top);
-        if (updatedSide === DataSide.left || updatedSide === DataSide.right) setUpdatedAlign(nextValue(updatedAlign, dataAlign));
-      } else {
-        setUpdatedSide(side);
-        setUpdatedAlign(align);
-      }
-    }
-  }, [align, side, sideOffset, bounding.trigger.rect, bounding.content.rect]);
-
-  useEffect(() => {
-    updateSide();
-    window.addEventListener("scroll", updateSide, { passive: true });
-    window.addEventListener("resize", updateSide, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", updateSide);
-      window.removeEventListener("resize", updateSide);
-    };
-  }, [updateSide]);
+  useClickOutside(handler, everyRefs, events);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
@@ -516,24 +391,107 @@ export function useOpenState(options: OpenStateOptions = {}) {
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [trigger, open]);
-
-  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLElement>) => e.key === "Enter" && toggle(), [toggle]);
+  }, [open]);
 
   const dataState = open ? (initialOpen ? "open" : "opened") : "closed";
-  const dataSide = trigger === "hover" || observe?.sideswipe ? updatedSide : side;
-  const dataAlign = trigger === "hover" || observe?.alignswipe ? updatedAlign : align;
+  const dataSide = observe?.sideswipe ? newSide : side;
+  const dataAlign = observe?.alignswipe ? newAlign : align;
 
-  const attr = getAttributes(dataState, dataAlign, dataSide, orientation, { observe });
-  const attrStyles = (selector: `${Selector}`, { style }: { style?: React.CSSProperties & Record<string, any> } = {}) => ({
-    ...attr,
-    style: {
-      ...style,
-      ...getStyles(selector, sideOffset, dataAlign, dataSide, bounding.trigger.rect, bounding.content.rect, bounding.content.size, {
-        observe
-      })
-    }
+  const { vars } = getVarsPositions({
+    sideOffset,
+    align: dataAlign,
+    side: dataSide,
+    triggerRect: triggerBounding.rect,
+    contentRect: contentBounding.rect,
+    contentSize: contentBounding.size
   });
 
-  return { refs, render, open, setOpen, Portal, toggle, onKeyDown, bounding, attr, attrStyles, align, dataState, side: dataSide };
+  function attr(openState = dataState) {
+    return {
+      "data-state": openState,
+      ...getAttributes({ dataAlign, dataSide, observe })
+    };
+  }
+
+  function styleVars(selector: `${Selector}`) {
+    return setValues(selector === "content", {
+      ...setValues(observe?.sideswipe, {
+        "--offset": `${sideOffset}px`,
+        ...vars.triggerInset
+      }),
+      ...setValues(observe?.measureSize, {
+        ...vars.triggerSize,
+        ...vars.contentSize
+      }),
+      ...setValues(observe?.contentRect, setVars("content", contentBounding.rect))
+    });
+  }
+
+  return {
+    triggerRef,
+    contentRef,
+    triggerBounding,
+    contentBounding,
+    render,
+    open,
+    setOpen,
+    Portal,
+    toggle,
+    attr,
+    styleVars,
+    dataState,
+    side: dataSide,
+    align: dataAlign,
+    handleOnKeyDown,
+    handleOnMouseEnter,
+    handleOnMouseLeave,
+    handleOnMouseMove,
+    handleOnTouchStart,
+    handleOnTouchEnd,
+    isTouchDevice,
+    setIsTouchDevice,
+    observe
+  };
+}
+
+export function useOpenStateHandler(trigger: "click" | "hover", use: Partial<inferType<typeof useOpenState>> = {}) {
+  useEffect(() => {
+    const windowTouchStart = () => {
+      if (!use?.isTouchDevice) use?.setIsTouchDevice?.(true);
+    };
+
+    const attachListeners = (el: HTMLButtonElement | null) => {
+      if (el) {
+        if (trigger === "click") {
+          el.addEventListener("click", () => use?.toggle?.());
+        }
+        if (trigger === "hover") {
+          window.addEventListener("touchstart", windowTouchStart, { passive: true });
+          window.addEventListener("mousemove", () => use?.handleOnMouseMove?.(), { passive: true });
+          el.addEventListener("mouseenter", () => use?.handleOnMouseEnter?.());
+          el.addEventListener("mouseleave", () => use?.handleOnMouseLeave?.());
+          el.addEventListener("mousemove", () => use?.handleOnMouseMove?.());
+        }
+      }
+    };
+    const detachListeners = (el: HTMLButtonElement | null) => {
+      if (el) {
+        if (trigger === "click") {
+          el.removeEventListener("click", () => use?.toggle?.());
+        }
+        if (trigger === "hover") {
+          window.removeEventListener("touchstart", windowTouchStart);
+          window.removeEventListener("mousemove", () => use?.handleOnMouseMove?.());
+          el.removeEventListener("mouseenter", () => use?.handleOnMouseEnter?.());
+          el.removeEventListener("mouseleave", () => use?.handleOnMouseLeave?.());
+          el.removeEventListener("mousemove", () => use?.handleOnMouseMove?.());
+        }
+      }
+    };
+
+    attachListeners(use?.triggerRef?.current!);
+    return () => {
+      detachListeners(use?.triggerRef?.current!);
+    };
+  }, [trigger, use?.toggle, use?.triggerRef, use?.isTouchDevice, use?.setIsTouchDevice, use?.observe?.touch]);
 }

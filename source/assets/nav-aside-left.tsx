@@ -15,13 +15,12 @@ import type { SingleRoute, NestedRoute, InnerRoutes } from "@/source/routes";
 
 import style from "./aside.module.css";
 
-export function AsideLeft({
-  classNames,
-  routes = docsRoutes
-}: {
+interface AsideLeftProps {
   classNames?: { aside?: string; overlay?: string };
   routes?: (SingleRoute | NestedRoute)[] | null;
-}) {
+}
+export function AsideLeft(_props: AsideLeftProps) {
+  const { classNames, routes = docsRoutes } = _props;
   const { rootSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
   const { dir } = useApp();
 
@@ -97,26 +96,26 @@ function NavRoutes({ routes, query, setOpen }: { routes: (SingleRoute | NestedRo
     if ((route as NestedRoute).data[0].data) {
       const nestedRoute = route as NestedRoute; // Handle NestedRoute
       return (
-        <Sheets key={index} defaultOpen className={style.collapse}>
+        <Sheets.Collapsible key={index} defaultOpen className={style.collapse}>
           <SheetsTrigger unstyled type="button" className={classes({ style: "trigger" })}>
             <span className="truncate">{displayName(nestedRoute.title)}</span>
           </SheetsTrigger>
           <SheetsContent unstyled data-origin="content" className="z-1 w-full">
             <NavRoutes routes={nestedRoute.data} {...{ query, setOpen }} />
           </SheetsContent>
-        </Sheets>
+        </Sheets.Collapsible>
       );
     } else {
       const singleRoute = route as SingleRoute; // Handle SingleRoute
       return (
-        <Sheets key={index} defaultOpen align="start" className={style.collapse}>
+        <Sheets.Collapsible key={index} defaultOpen className={style.collapse}>
           <SheetsTrigger unstyled className={classes({ style: "trigger" })}>
             <span className="truncate">{displayName(singleRoute.title)}</span>
           </SheetsTrigger>
           <SheetsContent data-inner-collapse="">
             <Item routes={singleRoute.data} />
           </SheetsContent>
-        </Sheets>
+        </Sheets.Collapsible>
       );
     }
   });

@@ -5,7 +5,6 @@ import { Input } from "@/ui/input";
 import { Group } from "@/ui/group";
 import { CheckIcon } from "@/icons/*";
 import { Sheets } from "@/ui/sheets";
-import { DEFAULT_THEME } from "../assets/const";
 import { ColorWheelIcon } from "./color-wheel-icon";
 import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
@@ -33,21 +32,7 @@ export function ConfiguratorColorControl(_props: ConfiguratorColorControlProps) 
     onChange(color);
   };
 
-  const _colors = Object.keys(DEFAULT_THEME.colors)
-    .filter(color => color !== "dark")
-    .map(color => (
-      <ColorSwatch
-        color={color}
-        key={color}
-        onClick={() => onChange(color)}
-        className="flex flex-[1_0_calc(15%-0px)] cursor-pointer items-center justify-center overflow-hidden text-white"
-        aria-label={color}
-      >
-        {value === color && <CheckIcon size="sm" />}
-      </ColorSwatch>
-    ));
-    console.log("'_colors' is declared but its value is never used", _colors)
-
+  // const colors = Object.keys(DEFAULT_THEME.colors)
   const colors = swatches
     .filter(color => color !== "dark")
     .map(color => (

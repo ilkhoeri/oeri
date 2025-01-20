@@ -1,11 +1,12 @@
 import { DemoSlot, type DataTrees } from "./demo-slot";
 import { ConstructorWebComponentsDemos, demosMap } from "./demo-manifest-component";
+import { ConstructorWebHooksDemos } from "./demo-manifest-hook";
 
 export type ConstructorKeys<U extends [string, unknown]> = {
   [K in U as K[0]]: `${K[0]}.${Extract<keyof K[1], string>}`;
 }[U[0]];
 
-export type DocsDemoEntries = ConstructorKeys<ConstructorWebComponentsDemos>;
+export type DocsDemoEntries = ConstructorKeys<ConstructorWebComponentsDemos> | ConstructorKeys<ConstructorWebHooksDemos>;
 
 export interface DocsDemoProps {
   manifest: DocsDemoEntries;

@@ -4,17 +4,13 @@ import { usePathname } from "next/navigation";
 import React, { createContext, useContext, ReactNode, useEffect } from "react";
 import { useOpenState, type ClickOpenOptions } from "@/hooks/use-open-state";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { inferType } from "str-merge";
 
 interface MediaQuery {
   mediaQuery?: number;
 }
 
-interface NavContextProps extends MediaQuery, ClickOpenOptions {
-  defaultOpen?: boolean;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  toggle: () => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => false | void;
+interface NavContextProps extends MediaQuery, ClickOpenOptions, Omit<inferType<typeof useOpenState>, keyof ClickOpenOptions> {
   minQuery: boolean | undefined;
   maxQuery: boolean | undefined;
   rootSegment: boolean | undefined;
@@ -27,12 +23,7 @@ interface NavProviderProps extends ClickOpenOptions, MediaQuery {
 
 const NavContext = createContext<NavContextProps | undefined>(undefined);
 
-export const NavProvider: React.FC<NavProviderProps> = ({
-  children,
-  popstate = true,
-  mediaQuery = 768,
-  ...rest
-}) => {
+export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = true, mediaQuery = 768, ...rest }) => {
   const pathname = usePathname();
   const state = useOpenState({ popstate, ...rest });
   const { open } = state;

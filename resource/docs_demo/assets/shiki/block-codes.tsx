@@ -8,58 +8,36 @@ import { purify } from "@/source/libs/dom-purify";
 import { ShikiLanguage } from "./types";
 import { getSlug } from "@/source/utils";
 
-type CtxProps = {
-  segment: string[];
-  codes: {
-    code: Record<"content" | "extension", string | null>;
-    css: Record<"content" | "source", string | null>;
-  } | null;
-};
-
-const ctx = React.createContext<CtxProps | undefined>(undefined);
-const useBlockCodes = () => React.useContext(ctx)!;
-
-interface BlockCodesProviderProps {
-  children: React.ReactNode;
-  loadCodes: () => Promise<CtxProps["codes"]>;
-  segment?: string[];
-}
-export function BlockCodesProvider({ children, loadCodes, segment = [] }: BlockCodesProviderProps) {
-  const [codes, setShiki] = React.useState<CtxProps["codes"] | null>(null);
-
-  React.useEffect(() => {
-    loadCodes().then(s => setShiki(s));
-  }, [loadCodes]);
-
-  return <ctx.Provider value={{ codes, segment }}>{children}</ctx.Provider>;
-}
-
 export function LoadCodes() {
-  const [mounted, setMounted] = React.useState(false);
+  // const [mounted, setMounted] = React.useState(false);
+  const ctx = useShiki();
 
-  React.useEffect(() => setMounted(true), []);
-  const ctx = useBlockCodes();
-  const { codes, segment } = ctx;
-  const highlight = useShiki();
+  // React.useEffect(() => setMounted(true), []);
 
   const childs: Record<string, React.JSX.Element | null> = {};
 
-  const windowIsDefine = typeof window !== "undefined" && typeof document !== "undefined";
-  if (!windowIsDefine || !mounted) return null;
+  // const windowIsDefine = typeof window !== "undefined" && typeof document !== "undefined";
+  // if (!windowIsDefine || !mounted) return null;
 
-  if (codes?.css.content) {
-    const highlighted = highlight(codes?.css.content?.trim(), "css");
-    childs.css = <Code ext=".css" code={codes?.css.content} title={codes?.css.source} setInnerHTML={purify(highlighted.code)} />;
+  if (ctx?.codes?.css.content) {
+    const highlighted = ctx?.highlight(ctx?.codes?.css.content?.trim(), "css");
+    childs.css = <Code ext=".css" code={ctx?.codes?.css.content} title={ctx?.codes?.css.source} setInnerHTML={purify(highlighted.code)} />;
   }
-  if (codes?.code.content) {
-    const lang = (codes?.code.extension || ".ts").replace(".", "") as ShikiLanguage;
-    const highlighted = highlight(codes?.code.content?.trim(), lang);
+  if (ctx?.codes?.code.content) {
+    const lang = (ctx?.codes?.code.extension || ".ts").replace(".", "") as ShikiLanguage;
+    const highlighted = ctx?.highlight(ctx?.codes?.code.content?.trim(), lang);
     childs.code = (
       <Code
-        code={codes?.code.content}
-        ext={codes?.code.extension || ".ts"}
-        title={`${getSlug(segment)}${codes?.code.extension}`}
+        code={ctx?.codes?.code.content}
+        ext={ctx?.codes?.code.extension || ".ts"}
+        title={`${getSlug(ctx?.segment)}${ctx?.codes?.code.extension}`}
         setInnerHTML={purify(highlighted.code)}
+        className=""
+        classNames={{
+          content: "m-0 block leading-[0] p-[var(--pre-p,.625rem_1rem)] [--code-line-height:--code-leading,1.7]",
+          inner:
+            "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55]"
+        }}
         // title={`${getSlug(segment)}${code.extension}`}
         // repo={`${sourceFile(segment)}${code.extension}`}
       />

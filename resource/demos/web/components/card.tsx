@@ -1,9 +1,9 @@
-import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 import { Card } from "@/ui/card";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { Group } from "@/ui/group";
 import { Label } from "@/ui/label";
+import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
   usage:

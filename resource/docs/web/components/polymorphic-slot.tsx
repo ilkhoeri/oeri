@@ -222,18 +222,18 @@ export function injectComponentIntoFirstChild(children: React.ReactNode, compone
   return children; // If invalid, return children as is
 }
 
-export type PolymorphicType<T extends React.ElementType, Props = object> = InheritedProps<T, Element<T> & Props> & {
+export type PolymorphicProps<T extends React.ElementType = "div", Props = object> = InheritedProps<T, Element<T> & Props> & {
   asChild?: boolean;
   ref?: React.ComponentPropsWithRef<T>["ref"];
 };
-type PolymorphicEdge = <T extends React.ElementType = "div">(_props: PolymorphicType<T>) => React.ReactElement;
+type PolymorphicElement = <T extends React.ElementType = "div">(_props: PolymorphicProps<T>) => React.ReactElement;
 // @ts-ignore
 export const Polymorphic = React.forwardRef(function Polymorphic<T extends React.ElementType = "div">(
-  _props: Omit<PolymorphicType<T>, "ref">,
+  _props: Omit<PolymorphicProps<T>, "ref">,
   ref: PolymorphicRef<T>
 ) {
   const { asChild = false, el, ...props } = _props;
   const Component = asChild ? PolymorphicSlot : ((el || "div") as React.ElementType);
   return <Component {...{ ref, ...props }} />;
-}) as PolymorphicEdge;
+}) as PolymorphicElement;
 // export default Polymorphic;

@@ -35,7 +35,7 @@ const TooltipProvider = (
 ) => {
   const { withArrow, sideOffset, touch, ...rest } = props;
   const ctx = useOpenState({
-    trigger: "hover",
+    // trigger: "hover",
     sideOffset: withArrow ? Number(sideOffset) + 9 : sideOffset,
     observe: {
       touch,
@@ -55,7 +55,7 @@ const TooltipTrigger = React.forwardRef<React.ElementRef<"button">, TooltipTrigg
   ref
 ) {
   const ctx = useTooltipContext();
-  const rest = { ref: mergeRefs(ctx.refs.trigger, ref), ...ctx.attrStyles("trigger", { style }), type, ...props };
+  const rest = { ref: mergeRefs(ctx.triggerRef, ref), style: { ...style, ...ctx.styleVars("trigger") }, type, ...props };
 
   return asChild ? <Slot {...rest}>{children}</Slot> : <button {...rest}>{children}</button>;
 });
@@ -73,9 +73,9 @@ const TooltipContent = React.forwardRef<React.ElementRef<"div">, TooltipContentT
     return (
       <ctx.Portal render={ctx.render}>
         <div
-          ref={mergeRefs(ctx.refs.content, ref)}
+          ref={mergeRefs(ctx.contentRef, ref)}
           className={cn(!unstyled && classes({ side }), className)}
-          {...ctx.attrStyles("content", { style })}
+          {...{ style: { ...style, ...ctx.styleVars("content") } }}
           {...rest}
         >
           {children}

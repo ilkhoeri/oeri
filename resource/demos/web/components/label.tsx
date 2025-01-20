@@ -17,29 +17,12 @@ function Demo() {
   );
 }
 
-function ConfiguratorDemo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Input id="terms-demo-2" type="checkbox" />
-      <Label htmlFor="terms-demo-2">Accept terms and conditions</Label>
-    </div>
-  );
-}
-
 const usage: DataTrees = {
   type: "code",
   component: Demo,
   code: codes.usage
 };
 
-const configurator: DataTrees = {
-  type: "code",
-  component: ConfiguratorDemo,
-  code: codes.usage,
-  centered: true
-};
-
 export const LabelDemos = {
-  usage,
-  configurator
+  usage
 };

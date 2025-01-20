@@ -1,6 +1,6 @@
 "use client";
-import { useNetwork } from "@/hooks/use-network";
 import { Table } from "@/ui/table";
+import { useNetwork } from "@/hooks/use-network";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {

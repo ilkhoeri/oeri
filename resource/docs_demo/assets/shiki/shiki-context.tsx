@@ -6,7 +6,14 @@ import type { HighlighterGeneric } from "shiki";
 import { classes } from "./shiki-code-highlight-tabs";
 import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
 
-type HighlightCode = (code: string, language: ShikiLanguage) => { code: string; highlighted: boolean };
+type HighlightCode = {
+  highlight: (code: string, language: ShikiLanguage) => { code: string; highlighted: boolean };
+  segment: string[];
+  codes: {
+    code: Record<"content" | "extension", string | null>;
+    css: Record<"content" | "source", string | null>;
+  } | null;
+};
 
 function prepareHtmlCode(code: string) {
   return code
@@ -23,17 +30,21 @@ const ShikiContext = createContext<HighlightCode | null>(null);
 interface ShikiProviderProps {
   children: React.ReactNode;
   loadShiki: () => Promise<HighlighterGeneric<any, any>>;
+  loadCodes: () => Promise<HighlightCode["codes"]>;
+  segment?: string[];
 }
 
-export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
+export function ShikiProvider({ children, loadShiki, loadCodes, segment = [] }: ShikiProviderProps) {
   const [shiki, setShiki] = useState<HighlighterGeneric<any, any> | null>(null);
+  const [codes, setCodes] = useState<HighlightCode["codes"] | null>(null);
 
   useLayoutEffect(() => {
     loadShiki().then(s => setShiki(s));
+    loadCodes().then(s => setCodes(s));
   }, [loadShiki]);
 
-  const highlight: HighlightCode = useCallback(
-    (code, language = "tsx") => {
+  const highlight = useCallback(
+    (code: string, language = "tsx") => {
       if (!shiki) {
         return { code, highlighted: false };
       }
@@ -43,16 +54,20 @@ export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
         highlighted: true
       };
     },
-    [shiki]
+    [shiki, codes]
   );
 
-  return <ShikiContext.Provider value={highlight}>{children}</ShikiContext.Provider>;
+  return <ShikiContext.Provider value={{ highlight, codes, segment }}>{children}</ShikiContext.Provider>;
 }
 
 export function useShiki() {
   const shiki = useContext(ShikiContext);
   if (!shiki) {
-    return (code: string) => ({ code, highlighted: false });
+    return {
+      highlight: (code: string) => ({ code, highlighted: false }),
+      segment: [],
+      codes: null
+    };
   }
   return shiki;
 }

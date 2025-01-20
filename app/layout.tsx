@@ -18,7 +18,7 @@ import "../source/styles/moonlight.css";
 export function metadata(): Metadata {
   return {
     title: {
-      template: "%s | oeri",
+      template: "%s | Oeri UI",
       default: siteConfig.name
     },
     applicationName: siteConfig.name,

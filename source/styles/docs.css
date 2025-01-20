@@ -172,7 +172,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
       @apply [&:not(:first-child)]:mt-6;
     }
   }
-  & p {
+  & p:not(:is([data-demo-area] p)) {
     & a {
       @apply underline underline-offset-2 decoration-color-muted hover:text-color hover:decoration-color;
     }
@@ -204,14 +204,16 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   }
 
   & :where(ul:is(:is(h1, h2, h3, h4, h5) + ul:not(:is(p + ul)))):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply !list-none !pl-0 relative whitespace-pre-wrap text-base flex !flex-row !items-center !flex-wrap gap-4 !space-y-0;
-    & > li {
-      @apply !block !m-0;
-      & > a {
-        @apply !no-underline !decoration-none;
+    &:not(:is([data-demo-area] &)) {
+      @apply !list-none !pl-0 relative whitespace-pre-wrap text-base flex !flex-row !items-center !flex-wrap gap-4 !space-y-0;
+      & > li {
+        @apply !block !m-0;
+        & > a {
+          @apply !no-underline !decoration-none;
 
-        & > code {
-          @apply [--round-code:calc(var(--radius)-2px)] [--bg-code:hsl(var(--color))] [--p-code:1px_0.5rem] font-semibold text-background no-underline after:ml-1 after:text-muted-foreground after:content-['↗'] hover:bg-color/90 hover:text-background hover:after:text-constructive md:after:content-['🡵'];
+          & > code {
+            @apply [--round-code:calc(var(--radius)-2px)] [--bg-code:hsl(var(--color))] [--p-code:1px_0.5rem] font-semibold text-background no-underline after:ml-1 after:text-muted-foreground after:content-['↗'] hover:bg-color/90 hover:text-background hover:after:text-constructive md:after:content-['🡵'];
+          }
         }
       }
     }

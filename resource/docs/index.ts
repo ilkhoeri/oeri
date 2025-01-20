@@ -16,7 +16,7 @@ export { useMediaQuery } from "./web/hooks/use-media-query";
 export { assignRef, createRefs, mergeRefs, useMergedRef } from "./web/hooks/use-merged-ref";
 export { clampUseMovePosition, useMove } from "./web/hooks/use-move";
 export { useMouse } from "./web/hooks/use-mouse";
-export { useOpenState, Selector, DataTrigger, DataAlign, DataSide } from "./web/hooks/use-open-state";
+export { useOpenState, Selector, DataAlign, DataSide } from "./web/hooks/use-open-state";
 export { createSafeContext, Portal, hasSpecificChildren, modifyChildren } from "./web/hooks/open-state-context";
 export { DOTS, range, usePagination } from "./web/hooks/use-pagination";
 export { getRandomColor, useRandomColors, useStringToHEx } from "./web/hooks/use-random-colors";

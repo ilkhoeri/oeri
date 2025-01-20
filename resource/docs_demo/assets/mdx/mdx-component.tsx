@@ -15,6 +15,7 @@ import { CodeBlockCommand, Expand } from "../rehype";
 import { Avatar } from "@/ui/avatar";
 import { demoComponentsEntries } from "../demo-manifest-component";
 import { demoHooksEntries } from "../demo-manifest-hook";
+import { LoadCodes } from "../shiki/block-codes";
 
 export const components = {
   Expand,
@@ -111,6 +112,7 @@ export const components = {
   GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)} {...props} />
   ),
+  LoadCodes,
   ...demoComponentsEntries,
   ...demoHooksEntries
 };

@@ -103,7 +103,7 @@ export function useRender(
     };
   }, [open, delay, depend]);
 
-  useMeasureScrollbar(!open ? render : open, { modal, has: true });
+  useMeasureScrollbar(!open ? render : open, { modal });
 
   return render;
 }

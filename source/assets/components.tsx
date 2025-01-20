@@ -15,41 +15,39 @@ const varsComp = cvx({
   variants: {
     el: {
       main: "w-full relative flex flex-col md:flex-row mx-auto min-h-screen pt-[--navbar] pb-20 max-w-var",
-      section:
-        "w-full max-w-full overflow-x-hidden max-md:px-6 pt-9 flex flex-col",
+      section: "w-full max-w-full overflow-x-hidden max-md:px-6 pt-9 flex flex-col",
       p: "text-paragraph whitespace-pre-wrap [&:not(:first-child)]:mt-3"
     }
   }
 });
 
-export function cn<T extends (...keys: any) => any>(
-  props: cvxProps<T> & {
-    unstyled?: boolean;
-    className?: string;
-  }
-): string {
+export type ClassesProps<T extends (...keys: any) => any> = cvxProps<T> & {
+  unstyled?: boolean;
+  className?: string;
+};
+export function classes<T extends (...keys: any) => any>(props: ClassesProps<T>): string {
   const { className, unstyled = false, ...rest } = props;
   return twMerge(!unstyled && varsComp({ ...rest }), className);
 }
-export const Comp = React.forwardRef<HTMLElement, ElementType<HTMLElement>>(
-  function Comp({ el = "main", unstyled, className, ...props }, ref) {
-    const Component = el;
-    const els = (el as cvxProps<typeof varsComp>["el"]) || undefined;
-    return (
-      <Component
-        {...{
-          ref,
-          className: cn<typeof varsComp>({
-            el: els,
-            unstyled,
-            className
-          }),
-          ...props
-        }}
-      />
-    );
-  }
-);
+
+export const Comp = React.forwardRef<HTMLElement, ElementType<HTMLElement>>((_props, ref) => {
+  const { el = "main", unstyled, className, ...props } = _props;
+  const Component = el;
+  const els = (el as cvxProps<typeof varsComp>["el"]) || undefined;
+  return (
+    <Component
+      {...{
+        ref,
+        className: classes<typeof varsComp>({
+          el: els,
+          unstyled,
+          className
+        }),
+        ...props
+      }}
+    />
+  );
+});
 Comp.displayName = "Comp";
 
 const headings = cvx({
@@ -72,60 +70,33 @@ const headings = cvx({
   },
   defaultVariants: { variant: "title", size: "h3" }
 });
-interface HeadingElement
-  extends React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLHeadingElement>,
-      HTMLHeadingElement
-    >,
-    cvxProps<typeof headings> {
+
+interface HeadingElement extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>, cvxProps<typeof headings> {
   el?: cvxProps<typeof headings>["size"];
   unstyled?: boolean;
 }
-// variant="segment" className="mb-12 font-geist-sans tracking-px text-h1" 
-export const Title = React.forwardRef<HTMLHeadingElement, HeadingElement>(
-  (
-    {
-      el = "h1",
-      children,
-      title,
-      role = "presentation",
-      unstyled,
-      className,
-      variant,
-      size,
-      ...props
-    },
-    ref
-  ) => {
-    const Component: React.ElementType = el;
-    return (
-      <Component
-        ref={ref}
-        role={role}
-        className={twMerge(!unstyled && headings({ variant, size }), className)}
-        {...props}>
-        {children || title}
-      </Component>
-    );
-  }
-);
+// variant="segment" className="mb-12 font-geist-sans tracking-px text-h1"
+export const Title = React.forwardRef<HTMLHeadingElement, HeadingElement>((_props, ref) => {
+  const { el = "h1", children, title, role = "presentation", unstyled, className, variant, size, ...props } = _props;
+  const Component: React.ElementType = el;
+  return (
+    <Component ref={ref} role={role} className={twMerge(!unstyled && headings({ variant, size }), className)} {...props}>
+      {children || title}
+    </Component>
+  );
+});
 Title.displayName = "Title";
 
-export function Portal({
-  portal = true,
-  children,
-  container,
-  key
-}: {
+interface PortalProps {
   portal?: boolean;
   children: React.ReactNode;
   container: Element | DocumentFragment | null;
   key?: null | string;
-}) {
+}
+export function Portal(props: PortalProps) {
+  const { portal = true, children, container, key } = props;
   if (typeof document === "undefined") return null;
-  return portal
-    ? createPortal(children, container || document.body, key)
-    : children;
+  return portal ? createPortal(children, container || document.body, key) : children;
 }
 
 /**

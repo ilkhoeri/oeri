@@ -9,12 +9,7 @@ interface UseTouchProps {
 }
 
 export function useTouch<T extends HTMLElement>(_touch: UseTouchProps) {
-  const {
-    touch = true,
-    defaultOpen = false,
-    onOpenChange,
-    open: openChange
-  } = _touch;
+  const { touch = true, defaultOpen = false, onOpenChange, open: openChange } = _touch;
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   const triggerRef = React.useRef<T>(null);

@@ -161,10 +161,11 @@ type T = "root" | "table" | "thead" | "tbody" | "tfoot" | "tr" | "th" | "td" | "
 ### Props API
 
 ```ts
-type Spacing = { x?: number | string; y?: number | string; };
+type Spacing = { x?: number | string; y?: number | string };
 type Striped = boolean | "odd" | "even";
 type Variant = "horizontal" | "vertical";
 ```
+
 | Props API                | Type                | Default                      | Annotation                                                                                     |
 | ------------------------ | ------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------- |
 | data`?`                  | `TableData`         | `undefined`                  | Data that should be used to generate table, ignored if `children` prop is set                  |
@@ -188,3 +189,5 @@ type Variant = "horizontal" | "vertical";
 ---
 
 ## Code
+
+<LoadCodes />

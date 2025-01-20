@@ -2,22 +2,19 @@
 import { useEffect, useState } from "react";
 
 interface Options {
-  has?: boolean;
   modal?: boolean;
 }
 
-export function useMeasureScrollbar(
-  render: any = false,
-  options: Options = {}
-): [boolean, number] {
-  const { has = true, modal = true } = options;
+export function useMeasureScrollbar(render: boolean = false, options: Options = {}): [boolean, number] {
+  const { modal = true } = options;
+
   const [hasScrollbar, setHasScrollbar] = useState<boolean>(false);
   const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
 
   useEffect(() => {
     const measureScrollbar = () => {
       const outer = document.createElement("div");
-      outer.style.visibility = "hidden";
+      // outer.style.visibility = "hidden";
       outer.style.position = "absolute";
       outer.style.zIndex = "-9999px";
       outer.style.overflow = "scroll";
@@ -40,12 +37,12 @@ export function useMeasureScrollbar(
     const timeoutId: NodeJS.Timeout | null = null;
 
     if (render) {
-      if (modal && has) {
+      if (modal) {
         attachBodyProperty(scrollbarWidth);
         applyStateEffect(true);
       }
     } else {
-      if (modal && has) {
+      if (modal) {
         detachBodyProperty();
         applyStateEffect(false);
       }
@@ -55,12 +52,12 @@ export function useMeasureScrollbar(
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      if (modal && has) {
+      if (modal) {
         detachBodyProperty();
         applyStateEffect(false);
       }
     };
-  }, [render, modal, has, scrollbarWidth]);
+  }, [render, modal, scrollbarWidth]);
 
   return [hasScrollbar, scrollbarWidth] as const;
 }
@@ -69,10 +66,7 @@ export function attachBodyProperty(scrollbarWidth: number) {
   const body = document.body;
   body.setAttribute("data-has-scroll", "true");
   body.style.setProperty("overflow", "hidden");
-  body.style.setProperty(
-    "margin-right",
-    "var(--set-has-scrollbar, var(--has-scrollbar))"
-  );
+  body.style.setProperty("margin-right", "var(--set-has-scrollbar, var(--has-scrollbar))");
   body.style.setProperty("--has-scrollbar", `${scrollbarWidth}px`);
 }
 
@@ -96,8 +90,7 @@ export function applyStateEffect(apply: boolean) {
   elements.forEach((element: Element) => {
     if (element instanceof HTMLElement) {
       if (apply) {
-        element.style.marginRight =
-          "var(--set-has-scrollbar, var(--has-scrollbar))";
+        element.style.marginRight = "var(--set-has-scrollbar, var(--has-scrollbar))";
       } else {
         element.style.removeProperty("margin-right");
       }

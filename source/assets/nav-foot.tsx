@@ -78,7 +78,7 @@ export async function FootNav() {
             rel="noopener noreferrer nofollow"
             target="_blank"
             href="https://github.com/ilkhoeri"
-            aria-label="Vercel.com Link"
+            aria-label="Oeri UI"
             className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color"
           >
             <BrandOeriIcon size={28} aria-label="oeri Logo" className="duration-200 ease-linear group-hover:scale-110" /> oeri

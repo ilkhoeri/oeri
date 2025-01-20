@@ -18,9 +18,9 @@ export const classes = cvx({
       root: "relative mt-0 bg-primitive [&:where([data-collapsed]):global([data-radix-scroll-area-viewport]>div)]:!block",
       code: "inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55]",
       codeWrapper:
-        "relative max-h-[--ch-max-collapsed-height] overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:z-[100] before:rounded-[calc(.5rem-.0625rem)] before:bg-gradient-to-t before:from-primitive/85 before:content-[''] data-[expanded]:max-h-none data-[expanded]:before:hidden",
+        "relative max-h-[--ch-max-collapsed-height] overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:z-[38] before:rounded-[calc(.5rem-.0625rem)] before:bg-gradient-to-t before:from-primitive/85 before:content-[''] data-[expanded]:max-h-none data-[expanded]:before:hidden",
       showCodeButton:
-        "absolute bottom-2 left-1/2 z-[101] inline-flex h-8 w-max min-w-26 -translate-x-1/2 cursor-pointer appearance-none items-center justify-center rounded-md border bg-background px-3 py-1.5 text-center text-[clamp(0.75rem,0.65rem+0.65vw,0.9rem)] font-medium leading-tight text-muted-foreground transition-[bottom,color,opacity] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground/35 focus-visible:ring-offset-1 focus-visible:ring-offset-background active:scale-[.985] disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 aria-hidden:hidden data-[hidden]:hidden [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-background-box hover:text-color",
+        "absolute bottom-2 left-1/2 z-[40] inline-flex h-8 w-max min-w-26 -translate-x-1/2 cursor-pointer appearance-none items-center justify-center rounded-md border bg-background px-3 py-1.5 text-center text-[clamp(0.75rem,0.65rem+0.65vw,0.9rem)] font-medium leading-tight text-muted-foreground transition-[bottom,color,opacity] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-foreground/35 focus-visible:ring-offset-1 focus-visible:ring-offset-background active:scale-[.985] disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 aria-hidden:hidden data-[hidden]:hidden [&_svg]:pointer-events-none [&_svg]:shrink-0 hover:bg-background-box hover:text-color",
       pre: "m-0 block leading-[0] p-[var(--pre-p,.625rem_1rem)] [--code-line-height:--code-leading,1.7]",
       header: "flex items-start justify-between",
       file: "m-0 flex cursor-pointer items-center justify-center gap-[.4375rem] whitespace-nowrap border border-l-0 border-t-0 border-solid px-[.75rem] py-[.4375rem] font-geist-mono text-xs font-bold leading-none text-muted-foreground opacity-80 only:cursor-default last-of-type:rounded-br-[.25rem] hover:opacity-100 data-[active]:bg-background-theme data-[active]:text-color data-[active]:opacity-100",
@@ -132,9 +132,9 @@ export const CodeHighlightTabs = React.forwardRef<HTMLDivElement, CodeHighlightT
   const nodes = Array.isArray(code) ? code : [code];
   const currentCode = nodes[value];
 
-  const highlight = useShiki();
+  const ctx = useShiki();
 
-  const highlighted = highlight(currentCode.code.trim(), currentCode.language || "tsx");
+  const highlighted = ctx?.highlight(currentCode.code.trim(), currentCode.language || "tsx");
 
   const language = currentCode.language || "tsx";
 

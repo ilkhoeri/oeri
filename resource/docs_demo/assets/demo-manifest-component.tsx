@@ -27,6 +27,7 @@ import { LabelDemos } from "@/resource/demos/web/components/label";
 import { LoaderDemos } from "@/resource/demos/web/components/loader";
 import { PaginationDemos } from "@/resource/demos/web/components/pagination";
 import { PolymorphicSlotDemos } from "@/resource/demos/web/components/polymorphic-slot";
+import { ProseDemos } from "@/resource/demos/web/components/prose";
 import { RatingDemos } from "@/resource/demos/web/components/rating";
 import { RunningAreaDemos } from "@/resource/demos/web/components/running-area";
 import { ScrollAreaDemos } from "@/resource/demos/web/components/scroll-area";
@@ -69,6 +70,7 @@ export type ConstructorWebComponentsDemos =
   | ["loader", typeof LoaderDemos]
   | ["pagination", typeof PaginationDemos]
   | ["polymorphic-slot", typeof PolymorphicSlotDemos]
+  | ["prose", typeof ProseDemos]
   | ["rating", typeof RatingDemos]
   | ["running-area", typeof RunningAreaDemos]
   | ["scroll-area", typeof ScrollAreaDemos]
@@ -117,6 +119,7 @@ export const demosMap = {
   "loader": LoaderDemos,
   "pagination": PaginationDemos,
   "polymorphic-slot": PolymorphicSlotDemos,
+  "prose": ProseDemos,
   "rating": RatingDemos,
   "running-area": RunningAreaDemos,
   "scroll-area": ScrollAreaDemos,
@@ -194,7 +197,6 @@ export const demoComponentsEntries = {
   KbdDemosUsage: () => <DemoSlot data={KbdDemos.usage} />,
   KbdDemosConfigurator: () => <DemoSlot data={KbdDemos.configurator} />,
   LabelDemosUsage: () => <DemoSlot data={LabelDemos.usage} />,
-  LabelDemosConfigurator: () => <DemoSlot data={LabelDemos.configurator} />,
   LoaderDemosUsage: () => <DemoSlot data={LoaderDemos.usage} />,
   LoaderDemosConfigurator: () => <DemoSlot data={LoaderDemos.configurator} />,
   PaginationDemosUsage: () => <DemoSlot data={PaginationDemos.usage} />,
@@ -204,6 +206,12 @@ export const demoComponentsEntries = {
   PaginationDemosWithChunk: () => <DemoSlot data={PaginationDemos.withChunk} />,
   PolymorphicSlotDemosUsage: () => <DemoSlot data={PolymorphicSlotDemos.usage} />,
   PolymorphicSlotDemosConfigurator: () => <DemoSlot data={PolymorphicSlotDemos.configurator} />,
+  ProseDemosUsage: () => <DemoSlot data={ProseDemos.usage} />,
+  ProseDemosBlockquoteUsage: () => <DemoSlot data={ProseDemos.blockquoteUsage} />,
+  ProseDemosListUsage: () => <DemoSlot data={ProseDemos.listUsage} />,
+  ProseDemosListInsideUsage: () => <DemoSlot data={ProseDemos.listInsideUsage} />,
+  ProseDemosTableUsage: () => <DemoSlot data={ProseDemos.tableUsage} />,
+  ProseDemosConfigurator: () => <DemoSlot data={ProseDemos.configurator} />,
   RatingDemosUsage: () => <DemoSlot data={RatingDemos.usage} />,
   RatingDemosConfigurator: () => <DemoSlot data={RatingDemos.configurator} />,
   RatingDemosCustomSymbol: () => <DemoSlot data={RatingDemos.customSymbol} />,
@@ -216,8 +224,11 @@ export const demoComponentsEntries = {
   SheetsDemosCollapsible: () => <DemoSlot data={SheetsDemos.collapsible} />,
   SheetsDemosCollapsible2: () => <DemoSlot data={SheetsDemos.collapsible2} />,
   SheetsDemosDialog: () => <DemoSlot data={SheetsDemos.dialog} />,
+  SheetsDemosDialogNested: () => <DemoSlot data={SheetsDemos.dialogNested} />,
   SheetsDemosDrawer: () => <DemoSlot data={SheetsDemos.drawer} />,
+  SheetsDemosDrawerNested: () => <DemoSlot data={SheetsDemos.drawerNested} />,
   SheetsDemosDropdown: () => <DemoSlot data={SheetsDemos.dropdown} />,
+  SheetsDemosDropdownNested: () => <DemoSlot data={SheetsDemos.dropdownNested} />,
   SkeletonDemosUsage: () => <DemoSlot data={SkeletonDemos.usage} />,
   SkeletonDemosConfigurator: () => <DemoSlot data={SkeletonDemos.configurator} />,
   SliderDemosUsage: () => <DemoSlot data={SliderDemos.usage} />,

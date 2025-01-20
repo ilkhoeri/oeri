@@ -894,6 +894,267 @@
   }
 }
 
+/* prose */
+@layer base {
+  .stylelayer-prose {
+    @apply [--fz-h1:clamp(2rem,1rem+4vw,2.75rem)] [--fz-h2:clamp(1.25rem,0.75rem+4vw,2.25rem)] [--fz-h3:clamp(1.125rem,11px+3.5vw,1.875rem)] [--fz-h4:clamp(1.1875rem,0.75rem+3vw,1.5rem)] [--fz-h5:clamp(1rem,0.75rem+2vw,1.25rem)] [--fz-h6:clamp(0.9375rem,0.75rem+2vw,1.125rem)] [--fz-base:1rem] [--fz-sm:0.875rem];
+
+    &[data-prose-size="lg"] {
+      @apply [--prose-scale:1] [--prose-heading-scale:1];
+    }
+    &[data-prose-size="md"] {
+      @apply [--prose-scale:0.975] [--prose-heading-scale:0.95];
+    }
+    &[data-prose-size="sm"] {
+      @apply [--prose-scale:0.925] [--prose-heading-scale:0.85];
+    }
+
+    &[data-prose-color="muted"] {
+      & p,
+      & h5,
+      & h6,
+      & blockquote {
+        @apply text-muted-foreground;
+      }
+      & p a {
+        @apply text-constructive;
+      }
+      & ol,
+      & ul,
+      & menu {
+        @apply text-muted-foreground marker:text-color;
+      }
+      & table {
+        & tr {
+          @apply border-b-muted-emphasis;
+          & th {
+            @apply bg-muted/60;
+          }
+          & td {
+            @apply text-muted-foreground;
+          }
+        }
+        & thead {
+          &::after {
+            @apply bg-muted;
+          }
+          & tr {
+            @apply border-b-muted;
+          }
+        }
+        & tbody {
+          & tr {
+            &:hover,
+            &:hover th,
+            &:hover td {
+              @apply bg-muted/30;
+            }
+          }
+        }
+      }
+    }
+
+    & h1 {
+      @apply scroll-m-20 text-[calc(var(--fz-h1)*var(--prose-heading-scale))] leading-[calc(clamp(2rem,1rem+4vw,4.25rem)*var(--prose-heading-scale))] font-extrabold tracking-tight;
+    }
+    & h2 {
+      @apply scroll-m-20 text-[calc(var(--fz-h2)*var(--prose-heading-scale))] font-bold tracking-tight pb-2 first:mt-0;
+    }
+    & h3 {
+      @apply scroll-m-20 text-[calc(var(--fz-h3)*var(--prose-heading-scale))] leading-9 font-bold tracking-normal;
+    }
+    & h4 {
+      @apply scroll-m-20 text-[calc(var(--fz-h4)*var(--prose-heading-scale))] leading-7 font-semibold tracking-tight;
+    }
+    & h5 {
+      @apply scroll-m-20 text-[calc(var(--fz-h5)*var(--prose-heading-scale))] leading-6 font-medium tracking-tight;
+    }
+    & h6 {
+      @apply scroll-m-20 text-[calc(var(--fz-h6)*var(--prose-heading-scale))] leading-4 font-medium tracking-tight;
+    }
+    & label {
+      @apply mr-auto w-full text-[calc(var(--fz-sm)*var(--prose-scale))] text-muted-foreground rtl:ml-auto rtl:mr-0;
+    }
+    & p {
+      @apply text-[calc(var(--fz-base)*var(--prose-scale))] leading-7 [&:empty:not(:only-child)]:hidden;
+    }
+    & p + p,
+    & label ~ label {
+      @apply mt-4;
+    }
+    & span {
+      @apply mt-1 w-full text-start text-[calc(var(--fz-sm)*var(--prose-scale))] text-muted-foreground first-of-type:mt-8;
+    }
+    & code {
+      @apply text-[calc(var(--fz-sm)*var(--prose-scale))] relative rounded bg-muted/60 border border-solid border-border px-[0.3rem] py-[0.2rem] font-mono font-medium;
+    }
+    & kbd {
+      @apply whitespace-pre-line text-[calc(var(--fz-sm)*var(--prose-scale))] rounded py-[calc(.15em*1)] px-[calc(.35em*1)] [--shadow:hsl(var(--border))] [box-shadow:0_0_0_.0625em_var(--shadow),0_.09375em_0_.0625em_var(--shadow)];
+    }
+    & em {
+      @apply italic;
+    }
+    & a {
+      @apply text-constructive-foreground hover:underline underline-offset-2;
+    }
+    & p a {
+      @apply underline decoration-muted hover:decoration-constructive-foreground;
+    }
+    & blockquote {
+      @apply my-5 text-[calc(var(--fz-base)*var(--prose-scale))] border-l-4 pl-6 rtl:border-l-0 rtl:pl-0 rtl:border-r-4 rtl:pr-6 italic;
+    }
+    & hr {
+      @apply my-3 h-0 w-full border-t border-solid border-border;
+    }
+    & mark {
+      @apply block rounded data-[mark=true]:bg-[#6cc4d2] data-[mark=false]:bg-[#e54b4b];
+    }
+    & ol,
+    & ul,
+    & menu {
+      @apply my-5 ml-5 pl-5 rtl:ml-0 rtl:pl-0 rtl:mr-5 rtl:pr-5 marker:font-normal text-[calc(var(--fz-base)*var(--prose-scale))];
+    }
+    & ol {
+      @apply [list-style:decimal_outside] rtl:[list-style:arabic-indic_outside] [&:has(+ul)]:mb-0 [&:has(+ul)+ul]:my-0 [&:has(+ul)+ul]:ml-10;
+    }
+    & ul {
+      @apply [list-style:disc_outside];
+    }
+    & ul li,
+    & ol li,
+    & menu li {
+      @apply list-item mt-2 [text-align:-webkit-match-parent] [unicode-bidi:isolate] leading-normal [&:empty:not(:only-child)]:hidden;
+      &:has(ul, ol, menu) {
+        @apply whitespace-normal;
+      }
+    }
+    & li:not(ul li, ol li, menu li) {
+      @apply hidden;
+    }
+    & li ul,
+    & li ol,
+    & li menu {
+      @apply my-0 ml-0 rtl:mr-0;
+    }
+    & ol > li > ol {
+      @apply [list-style-type:upper-alpha];
+
+      & > li > ol {
+        @apply [list-style-type:upper-roman];
+
+        & > li > ol {
+          @apply [list-style-type:lower-alpha];
+
+          & > li > ol {
+            @apply [list-style-type:lower-roman];
+
+            & > li > ol {
+              @apply [list-style-type:disc];
+            }
+          }
+        }
+      }
+    }
+    & table {
+      @apply w-full caption-bottom text-[calc(var(--fz-base)*var(--prose-scale))] text-left rtl:text-right;
+
+      & thead {
+        @apply relative;
+        &::after {
+          @apply content-[''] absolute z-4 w-full h-px bg-border bottom-[3px] inset-x-0;
+        }
+      }
+
+      & tr {
+        @apply border-b border-b-border appearance-none;
+        & th,
+        & td {
+          @apply pl-3 pr-3 first:pl-4 font-geist-sans last:pr-4;
+          &:first-child {
+            @apply sticky left-0 z-2;
+          }
+        }
+        & th {
+          @apply py-[10px] h-12 bg-background-box font-semibold align-middle text-color [&:has([role=checkbox])]:pr-0;
+        }
+        & td {
+          @apply py-4 bg-background;
+        }
+      }
+
+      & tbody {
+        & tr {
+          @apply last:border-b-0 relative;
+          &:hover,
+          &:hover th,
+          &:hover td {
+            @apply bg-muted-emphasis;
+          }
+
+          & td[data-sr-only] {
+            @apply hidden sr-only;
+          }
+          & td {
+            & code {
+              @apply whitespace-nowrap;
+            }
+          }
+          & td[data-value="true"] {
+            @apply relative z-[99] p-4 align-middle [&:has([role=checkbox])]:pr-0 min-w-max truncate whitespace-nowrap;
+            & time {
+              @apply w-full flex flex-nowrap flex-row items-center justify-end gap-2 text-[#888];
+              & svg {
+                @apply w-[--sz] min-w-[--sz] h-[--sz] min-h-[--sz] [--sz:calc(var(--fz-base)*var(--prose-scale))];
+              }
+            }
+            & time:nth-child(2) {
+              @apply text-[13px];
+            }
+          }
+        }
+
+        & tr:empty:not(:only-child) {
+          @apply border-b border-b-border data-[state=selected]:bg-muted;
+
+          & td:empty:not(:only-child) {
+            @apply py-4 px-4 whitespace-pre-line align-middle [&:has([role=checkbox])]:pr-0 max-w-var min-w-max truncate h-24 text-center;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+&  { @apply ; }
+    */
+
 /* sheets */
 @layer base {
   [data-origin="trigger"] [data-origin="arrow-collapse"] {

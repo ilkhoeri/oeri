@@ -8,7 +8,7 @@ export const siteConfig = {
   creator: "@ilkhoeri",
   url: `${process.env.SITE_URL}`,
   email: "khoeriilham@gmail.com",
-  name: "Oeri",
+  name: "Oeri UI",
   ogImage: "/assets/images/homepage.webp",
   description:
     "The Good Choice for Development Application based on React, components server, hooks, and more functions.",

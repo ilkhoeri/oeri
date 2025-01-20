@@ -3,6 +3,8 @@ import React from "react";
 import { getMDXComponent } from "@contentlayer2/core/client";
 import { components } from "./mdx-component";
 import { createHighlighter } from "shiki";
+import { getSlug, sourceFile } from "@/source/utils";
+import { getContent, getCssContent } from "@/source/generated/fs-get-contents";
 import { ShikiProvider } from "@/resource/docs_demo/assets/shiki/shiki-context";
 
 type FunctionElementType = Extract<ElementType, (props: Record<string, any>) => any>;
@@ -49,24 +51,6 @@ async function loadShiki() {
   });
   return shiki;
 }
-
-export function MDXComponent({ code }: MdxProps) {
-  const Component = useMDXComponent(code, {});
-  return (
-    <div className="mdx_customizer">
-      <ShikiProvider loadShiki={loadShiki}>
-        <Component components={components} />
-      </ShikiProvider>
-    </div>
-  );
-}
-
-/**
-import { getSlug, sourceFile } from "@/source/utils";
-import { getContent, getCssContent } from "@/source/generated/fs-get-contents";
-import { BlockCodesProvider } from "../shiki/block-codes";
-import { inferType } from "str-merge";
-export type LoadCodesTypes = inferType<typeof loadCodes>;
 async function loadCodes(segment?: string[]) {
   const resource = `/resource/docs/${sourceFile(segment)}`;
   const content = await getContent(resource, [".tsx", ".ts"], undefined, { wrap: false });
@@ -81,5 +65,14 @@ async function loadCodes(segment?: string[]) {
     css: await getCssContent(getSlug(segment), { wrap: false })
   };
 }
-<BlockCodesProvider loadCodes={() => loadCodes(segment)} segment={segment}></BlockCodesProvider>
- */
+
+export function MDXComponent({ code, segment }: MdxProps) {
+  const Component = useMDXComponent(code, {});
+  return (
+    <div className="mdx_customizer">
+      <ShikiProvider segment={segment} loadCodes={() => loadCodes(segment)} loadShiki={loadShiki}>
+        <Component components={components} />
+      </ShikiProvider>
+    </div>
+  );
+}

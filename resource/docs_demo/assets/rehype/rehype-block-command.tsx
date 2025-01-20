@@ -18,7 +18,7 @@ export function CodeBlockCommand(_props: React.ComponentProps<"pre"> & NpmComman
   const [copied, setCopied] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
 
-  const highlight = useShiki();
+  const ctx = useShiki();
 
   React.useEffect(() => {
     setMounted(true);
@@ -97,7 +97,7 @@ export function CodeBlockCommand(_props: React.ComponentProps<"pre"> & NpmComman
           })}
         </Tabs.List>
         {Object.entries(tabs).map(([key, value]) => {
-          const highlighted = highlight((value || "")?.trim(), "bash");
+          const highlighted = ctx?.highlight((value || "")?.trim(), "bash");
           const isHighlight = highlighted.highlighted;
 
           return (

@@ -54,11 +54,12 @@ export interface ConfiguratorObjectControlOptions {
 
 export interface ConfiguratorDemoProps extends DemoAreaProps {
   code: Code;
+  defaultExpanded?: boolean;
   controls: ConfiguratorControlOptions[];
 }
 
 export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
-  const { code, controls, children, centered, maxWidth, minHeight, withPadding, dimmed, striped, orientation = "horizontal", className, classNames } = _props;
+  const { code, controls, children, centered, maxWidth, minHeight, withPadding, dimmed, striped, orientation = "horizontal", defaultExpanded = true, className, classNames } = _props;
   const ctx = useApp();
   const tooltipSide = ctx.dir === "rtl" ? "right" : "left";
 
@@ -98,6 +99,7 @@ export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
       tooltipSide={isHorizontal(tooltipSide)}
       unstyled={isHorizontal(reUnstyled)}
       classNames={isHorizontal(reStyles)}
+      defaultExpanded={defaultExpanded}
     />
   );
 

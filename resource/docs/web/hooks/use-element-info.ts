@@ -1,31 +1,79 @@
 "use client";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
-export type RectInfo =
-  | "x"
-  | "y"
-  | "width"
-  | "height"
-  | "top"
-  | "right"
-  | "bottom"
-  | "left"
-  | "scrollX"
-  | "scrollY";
+export type RectInfo = "x" | "y" | "width" | "height" | "top" | "right" | "bottom" | "left" | "scrollX" | "scrollY";
 export type RectElement = Record<RectInfo, number>;
+export type SizeElement = { h: number | "auto"; w: number | "auto" };
 export type InitialInfo = { initial?: Partial<RectElement> };
 
-function round(num: number) {
-  return Math.round(num * 100) / 100;
+const round = (num: number) => Math.round(num * 100) / 100;
+const safeValue = (value: number) => (isNaN(value) ? 0 : round(value));
+
+function debounce<T>(fn: Function, delay: number) {
+  let timer: NodeJS.Timeout;
+  return (...args: T[]) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
 }
 
-export function useElementInfo<T extends HTMLElement | null>(
-  element?: T | null,
-  { initial }: InitialInfo = {}
-) {
-  const [rect, setRect] = useState<RectElement>({
-    ...(initial || {})
-  } as RectElement);
+export function useElementRect<T extends HTMLElement | null>(el: T | null, withSizeElement: boolean = false, debounceDelay: number = 100) {
+  const [rect, setRect] = useState<RectElement>({ ...{} } as RectElement);
+  const [size, setSize] = useState<SizeElement>({ h: 0, w: 0 });
+
+  const updateRectElement = useCallback(() => {
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    if (!rect) return;
+
+    setRect({
+      top: safeValue(rect.top),
+      left: safeValue(rect.left),
+      right: safeValue(rect.right),
+      bottom: safeValue(rect.bottom),
+      width: safeValue(rect.width),
+      height: safeValue(rect.height),
+      scrollY: safeValue(window.scrollY),
+      scrollX: safeValue(window.scrollX),
+      y: safeValue(rect.top + window.scrollY),
+      x: safeValue(rect.left + window.scrollX)
+    });
+
+    if (withSizeElement) {
+      setSize({ h: safeValue(el.scrollHeight), w: safeValue(el.scrollWidth) });
+    }
+  }, [el, withSizeElement]);
+
+  const handleScroll = useCallback(debounce(updateRectElement, debounceDelay), [updateRectElement, debounceDelay]);
+  const handleResize = useCallback(debounce(updateRectElement, debounceDelay), [updateRectElement, debounceDelay]);
+
+  useLayoutEffect(() => {
+    if (!el) return;
+
+    const resizeObserver = new ResizeObserver(() => updateRectElement());
+    const mutationObserver = new MutationObserver(() => updateRectElement());
+
+    resizeObserver.observe(el);
+    mutationObserver.observe(el, { attributes: true, childList: true, subtree: true });
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+
+    updateRectElement();
+
+    return () => {
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [el, handleScroll, handleResize, updateRectElement]);
+
+  return { rect, size };
+}
+
+export function useElementInfo<T extends HTMLElement | null>(element?: T | null) {
   const [hovered, setHovered] = useState<DOMRect | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollBody, setScrollBody] = useState(0);
@@ -39,43 +87,20 @@ export function useElementInfo<T extends HTMLElement | null>(
 
   const el = element !== undefined ? element : ref.current;
 
-  const updateRectElement = useCallback(() => {
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      if (rect.width !== 0 && rect.height !== 0) {
-        requestAnimationFrame(() =>
-          setRect({
-            scrollX: round(window.scrollX),
-            scrollY: round(window.scrollY),
-            x: round(rect.left + window.scrollX),
-            y: round(rect.top + window.scrollY),
-            width: round(rect.width),
-            height: round(rect.height),
-            top: round(rect.top),
-            bottom: round(rect.bottom),
-            right: round(rect.right),
-            left: round(rect.left)
-          })
-        );
-      }
-    }
-  }, [el]);
+  const { rect, size } = useElementRect<T>(el, true);
 
   useLayoutEffect(() => {
     const handleScroll = () => {
       const el = element !== undefined ? element : ref.current;
       setScrollPosition(el?.scrollTop || 0);
-      updateRectElement();
     };
 
     const handleScrollBody = () => {
       setScrollBody(document.documentElement.scrollTop);
-      updateRectElement();
     };
 
     const handleResize = () => {
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-      updateRectElement();
     };
 
     const observeElement = () => {
@@ -87,22 +112,6 @@ export function useElementInfo<T extends HTMLElement | null>(
           attrs[attr.name] = attr.value;
         }
         setAttributes(attrs);
-
-        if (!resizeObserverRef.current) {
-          resizeObserverRef.current = new ResizeObserver(updateRectElement);
-        }
-        if (!mutationObserverRef.current) {
-          mutationObserverRef.current = new MutationObserver(() => {
-            updateRectElement();
-          });
-        }
-
-        resizeObserverRef.current.observe(el);
-        mutationObserverRef.current.observe(el, {
-          attributes: true,
-          childList: true,
-          subtree: true
-        });
       }
     };
 
@@ -117,7 +126,6 @@ export function useElementInfo<T extends HTMLElement | null>(
       }
     };
 
-    updateRectElement();
     handleResize();
     observeElement();
 
@@ -134,7 +142,7 @@ export function useElementInfo<T extends HTMLElement | null>(
         disconnectObservers();
       }
     };
-  }, [element, updateRectElement]);
+  }, [element]);
 
   const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     setHovered(event.currentTarget.getBoundingClientRect());
@@ -145,6 +153,7 @@ export function useElementInfo<T extends HTMLElement | null>(
   return {
     ref,
     rect,
+    size,
     windowSize,
     scrollBody,
     scrollPosition,

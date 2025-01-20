@@ -5,7 +5,7 @@ import { CopyButton, GetCodeButton } from "../../../../source/assets/toggle";
 import { ChainIcon, BrandCssFillIcon, BrandTypescriptFillIcon } from "@/icons/*";
 import { ScrollArea } from "@/ui/scroll-area";
 
-type CustomizerOrigin = "title" | "content";
+type CustomizerOrigin = "title" | "content" | "inner";
 type CodeCustomizer = {
   code?: string | null;
   setInnerHTML?: string | null;
@@ -45,6 +45,7 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         dir="ltr"
         viewportProps={ocx({ "data-code-fragment": "", "data-rehype-pretty-code-fragment": "" })}
         className={cn("min-h-full min-w-full !overflow-hidden rounded-lg p-4 [&>code>[data-rehype-pretty-code-figure]]:pr-8", classNames?.content)}
+        classNames={{ viewport: classNames?.inner }}
         styles={{ root: { overflow: "hidden" } }}
         dangerouslySetInnerHTML={setInnerHTML ? { __html: setInnerHTML } : undefined}
       >

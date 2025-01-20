@@ -1,10 +1,10 @@
 "use client";
-import { useFullscreen } from "@/hooks/use-fullscreen";
-import { MinimizeIcon, MaximizeIcon } from "@/icons/*";
 import { Button } from "@/ui/button";
 import { Stack } from "@/ui/stack";
-import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 import { Typography } from "@/ui/typography";
+import { useFullscreen } from "@/hooks/use-fullscreen";
+import { MinimizeIcon, MaximizeIcon } from "@/icons/*";
+import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 function Demo() {
   const { fullscreen, toggle } = useFullscreen();

@@ -5,9 +5,7 @@ import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { camelToKebab, transform } from "@/utility/text-parser";
 import { cn } from "str-merge";
 
-type RequestCookies =
-  | { name: string; value: "true" | "false" | (string & {}) }
-  | undefined;
+type RequestCookies = { name: string; value: "true" | "false" | (string & {}) } | undefined;
 
 export type TourSteps = {
   selector: string;
@@ -48,8 +46,7 @@ export enum DataAlign {
   end = "end"
 }
 
-const useIsomorphicEffect =
-  typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
+const useIsomorphicEffect = typeof document !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
 const setCookie = (name: string, value: string, days = 360) => {
   const date = new Date();
@@ -57,12 +54,7 @@ const setCookie = (name: string, value: string, days = 360) => {
   document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/`;
 };
 
-export function OnboardingStepper({
-  cookies,
-  children,
-  tourSteps,
-  sideOffset = 0
-}: OnboardingStepperProps) {
+export function OnboardingStepper({ cookies, children, tourSteps, sideOffset = 0 }: OnboardingStepperProps) {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [isTourActive, setIsTourActive] = React.useState(false);
   const [style, setStyle] = React.useState<InsetContent>({
@@ -75,12 +67,8 @@ export function OnboardingStepper({
     x: 0,
     y: 0
   });
-  const [side, setSide] = React.useState<`${DataSide}`>(
-    tourSteps[0].side || DataSide.bottom
-  ); // Default to bottom
-  const [align, setAlign] = React.useState<`${DataAlign}`>(
-    tourSteps[0].align || DataAlign.center
-  ); // Default to center
+  const [side, setSide] = React.useState<`${DataSide}`>(tourSteps[0].side || DataSide.bottom); // Default to bottom
+  const [align, setAlign] = React.useState<`${DataAlign}`>(tourSteps[0].align || DataAlign.center); // Default to center
 
   const guidesRef = React.useRef<HTMLDivElement>(null);
   const initialValue = cookies.request?.value;
@@ -88,7 +76,7 @@ export function OnboardingStepper({
 
   const pathname = usePathname();
   useMeasureScrollbar(isTourActive && initialValue === "false", {
-    has: pathname !== "/"
+    modal: pathname !== "/"
   });
 
   function round(num: number) {
@@ -102,11 +90,7 @@ export function OnboardingStepper({
       const content = guidesRef.current?.getBoundingClientRect();
       // const content = document.querySelector("[role='dialog']")?.getBoundingClientRect();
 
-      const calculateAlignment = (
-        triggerStart: number,
-        triggerSize: number,
-        contentSize: number
-      ): number => {
+      const calculateAlignment = (triggerStart: number, triggerSize: number, contentSize: number): number => {
         switch (align) {
           case DataAlign.start:
             return triggerStart;
@@ -145,10 +129,8 @@ export function OnboardingStepper({
         // Update position based on viewport visibility
         if (top < 0) setSide(DataSide.bottom);
         else if (left < 0) setSide(DataSide.right);
-        else if (top + content.height > window.innerHeight)
-          setSide(DataSide.top);
-        else if (left + content.width > window.innerWidth)
-          setSide(DataSide.left);
+        else if (top + content.height > window.innerHeight) setSide(DataSide.top);
+        else if (left + content.width > window.innerWidth) setSide(DataSide.left);
 
         // Adjust based on scroll position
         setStyle({
@@ -211,37 +193,23 @@ export function OnboardingStepper({
             className="absolute text-color bg-muted border rounded-2xl max-md:max-w-[50%] max-w-72 z-99 flex flex-col items-center justify-center"
             {...{ style }}
           >
-            <article
-              role="article"
-              className="relative flex flex-col w-full p-3 md:p-4"
-            >
-              <h4 className="text-base font-semibold">
-                {transform("capitalize", camelToKebab(currentStep.selector))}
-              </h4>
+            <article role="article" className="relative flex flex-col w-full p-3 md:p-4">
+              <h4 className="text-base font-semibold">{transform("capitalize", camelToKebab(currentStep.selector))}</h4>
 
               {Array.isArray(currentStep.content) ? (
                 <ul role="list">
                   {currentStep.content.map((content, index) => (
-                    <li
-                      key={index}
-                      role="listitem"
-                      className="text-sm mt-2 first:pt-2 first:border-t"
-                    >
+                    <li key={index} role="listitem" className="text-sm mt-2 first:pt-2 first:border-t">
                       {content}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm mt-2 pt-2 border-t">
-                  {currentStep.content}
-                </p>
+                <p className="text-sm mt-2 pt-2 border-t">{currentStep.content}</p>
               )}
             </article>
 
-            <div
-              role="group"
-              className="relative w-full flex flex-row justify-between flex-nowrap items-center px-3 pb-3 gap-4"
-            >
+            <div role="group" className="relative w-full flex flex-row justify-between flex-nowrap items-center px-3 pb-3 gap-4">
               {stepIndex !== 0 && (
                 <button
                   type="button"
@@ -257,9 +225,7 @@ export function OnboardingStepper({
               <button
                 type="button"
                 onClick={nextStep}
-                className={cn(
-                  "text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background min-w-max ml-auto"
-                )}
+                className={cn("text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background min-w-max ml-auto")}
               >
                 {stepIndex === tourSteps.length - 1 ? "Finish" : "Next"}
               </button>

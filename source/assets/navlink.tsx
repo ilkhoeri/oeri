@@ -34,20 +34,11 @@ export function NavLink({ items, ...props }: NavLinkProps) {
   return items.map((item, index) => <NavLinkItem key={index} href={item.href} title={item.title} icon={item.icon} {...props} />);
 }
 
-export function NavLinkItem({
-  href,
-  title,
-  icon: Icon,
-  image,
-  isNew,
-  scroll = false,
-  className,
-  classNames,
-  includePath,
-  iconProps,
-  style,
-  ...props
-}: NavLinkItemProps & AnchorProps & NavLinkClass & { includePath?: boolean }) {
+interface NavLinkItemTypes extends Omit<AnchorProps, "href">, NavLinkItemProps, NavLinkClass {
+  includePath?: boolean;
+}
+export function NavLinkItem(_props: NavLinkItemTypes) {
+  const { href = "", title, icon: Icon, image, isNew, scroll = false, className, classNames, includePath, iconProps, style, ...props } = _props;
   const pathname = usePathname();
 
   const pathSegments = getPathSegments(pathname);

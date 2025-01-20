@@ -1,8 +1,6 @@
 "use client";
-import React, { ElementType, FC } from "react";
-
-import { useEffect, useState } from "react";
-import { twMerge } from "str-merge";
+import React, { ElementType, useEffect, useState } from "react";
+import { merge } from "str-merge";
 
 export const formatterIDR = new Intl.NumberFormat("id-ID", {
   style: "currency",
@@ -33,59 +31,26 @@ type CurrencyProps = {
   format?: "default" | "long" | "medium" | "short";
 } & React.HTMLAttributes<HTMLElement>;
 
-export const Currency: FC<CurrencyProps> = ({
-  value = 0,
-  quantity,
-  format = "default",
-  className,
-  leftSection,
-  rightSection,
-  el = "div",
-  ...others
-}) => {
-  const [isMounted, setIsMounted] = useState(false);
+export function Currency(_props: CurrencyProps) {
+  const { value = 0, quantity, format = "default", className, leftSection, rightSection, el = "div", ...others } = _props;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  if (!mounted) return null;
 
-  if (!isMounted) return null;
-
-  const rootClassName = twMerge("min-w-max", className);
-
-  const Component: React.ComponentType<React.HTMLAttributes<HTMLElement>> =
-    el as any;
-
+  const Component: React.ComponentType<React.HTMLAttributes<HTMLElement>> = el as any;
   const total = Number(value) * quantity!;
-
-  const formattedValue = quantity
-    ? formatterIDR.format(Number(total))
-    : formatterIDR.format(Number(value));
-
-  // Remove "Rp " and ",00"
-  const sanitizedValue = formattedValue
-    .replace(/Rp\s*/, "")
-    .replace(/\,00$/, "");
+  const formattedValue = quantity ? formatterIDR.format(Number(total)) : formatterIDR.format(Number(value));
+  const sanitizedValue = formattedValue.replace(/Rp\s*/, "").replace(/\,00$/, ""); // Remove "Rp " and ",00"
 
   return (
-    <Component className={rootClassName} {...others}>
+    <Component className={merge("min-w-max", className)} {...others}>
       {leftSection}
-
       {format === "default" && formattedValue}
-
-      {format === "long" &&
-        (quantity
-          ? formatterLong.format(Number(total))
-          : formatterLong.format(Number(value)))}
-
+      {format === "long" && (quantity ? formatterLong.format(Number(total)) : formatterLong.format(Number(value)))}
       {format === "medium" && sanitizedValue}
-
-      {format === "short" &&
-        (quantity
-          ? formatterIDRK(Number(total))
-          : formatterIDRK(Number(value)))}
-
+      {format === "short" && (quantity ? formatterIDRK(Number(total)) : formatterIDRK(Number(value)))}
       {rightSection}
     </Component>
   );
-};
+}

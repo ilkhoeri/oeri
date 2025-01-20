@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { cvx, cvxProps } from "str-merge";
 import { Command, createCommand } from "@/ui/command";
@@ -12,9 +11,7 @@ import { Kbd } from "@/ui/kbd";
 type Routes = (SingleRoute | NestedRoute)[] | null;
 export type CommandDialogType = { routes: Routes };
 
-export function useSearch<T>({
-  clearQuery = true
-}: { clearQuery?: boolean | undefined } = {}) {
+export function useSearch<T>({ clearQuery = true }: { clearQuery?: boolean | undefined } = {}) {
   const [query, setQuery] = useState("");
   const [suggest, setSuggest] = useState<T[]>([]);
 
@@ -41,11 +38,7 @@ interface FilterResult {
 
 const [appCommandStore, appCommand] = createCommand();
 
-export function CommandDialog({
-  routes = docsRoutes
-}: {
-  routes?: (SingleRoute | NestedRoute)[] | null;
-}) {
+export function CommandDialog({ routes = docsRoutes }: { routes?: (SingleRoute | NestedRoute)[] | null }) {
   const { query, setQuery, suggest, setSuggest } = useSearch<FilterResult>();
 
   useEffect(() => {
@@ -67,7 +60,7 @@ export function CommandDialog({
       ))}
     </React.Fragment>
   );
-//
+  //
   return (
     <>
       <button type="button" {...cns("trigger")} onClick={appCommand.open}>
@@ -99,9 +92,7 @@ function filter(routes: Routes, query: string) {
   if (!routes) return [];
 
   const filteredRoutes = routes.flatMap(route => {
-    const routeData = (route as NestedRoute).data?.[0]?.data
-      ? (route as NestedRoute).data
-      : [route as SingleRoute];
+    const routeData = (route as NestedRoute).data?.[0]?.data ? (route as NestedRoute).data : [route as SingleRoute];
 
     return routeData.flatMap(singleRoute => {
       const actions = singleRoute.data
@@ -125,9 +116,7 @@ function filter(routes: Routes, query: string) {
   }
 
   const levenshteinSuggestions = routes.flatMap(route => {
-    const routeData = (route as NestedRoute).data?.[0]?.data
-      ? (route as NestedRoute).data
-      : [route as SingleRoute];
+    const routeData = (route as NestedRoute).data?.[0]?.data ? (route as NestedRoute).data : [route as SingleRoute];
 
     return routeData.flatMap(singleRoute => {
       const actions = singleRoute.data
@@ -175,10 +164,8 @@ const classes = cvx({
       trigger:
         "relative inline-flex h-8 w-full items-center justify-start whitespace-nowrap rounded-[0.5rem] border bg-background/20 px-4 py-2 text-sm font-normal text-muted-foreground shadow-none transition-colors hover:bg-muted/20 hover:text-color focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-border disabled:pointer-events-none disabled:opacity-50 sm:pr-12 md:w-40 lg:w-64",
       kbd: "pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex [&_span]:text-xs",
-      close:
-        "size-4 absolute right-3 top-3 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50",
-      suggest:
-        "italic text-left px-2 py-1.5 text-sm font-medium select-none flex items-center",
+      close: "size-4 absolute right-3 top-3 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50",
+      suggest: "italic text-left px-2 py-1.5 text-sm font-medium select-none flex items-center",
       content: "overflow-hidden p-0 md:w-[520px] md:h-[360px]",
       command: "[&_[data-command=search-wrap]]:pr-10"
     }
@@ -191,28 +178,3 @@ function cns(as: Origin) {
     className: classes({ as })
   };
 }
-/**
-<div className="flex gap-4 px-4 h-11 items-center">
-    <p className="text-3xs text-tertiary inline-flex gap-2 items-center max-md-gutters:hidden">
-      <kbd>↵</kbd>
-      <span>to select</span>
-    </p>
-    <p className="text-3xs text-tertiary inline-flex gap-2 items-center max-md-gutters:hidden">
-      <kbd>↑</kbd>
-      <kbd>↓</kbd>
-      <span>to navigate</span>
-    </p>
-    <p className="text-3xs text-tertiary inline-flex gap-2 items-center max-md-gutters:hidden">
-      <kbd>esc</kbd>
-      <span>to close</span>
-    </p>
-    <p className="text-3xs text-tertiary inline-flex gap-2 items-center ml-auto">
-      <span>Search by</span>
-      <a
-        href="https://www.algolia.com/developers/?utm_medium=referral&utm_content=powered_by&utm_source=expo.dev.com&utm_campaign=docsearch"
-        target="_blank">
-        <AlgoliaLogo />
-      </a>
-    </p>
-  </div>
- */

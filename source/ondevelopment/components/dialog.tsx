@@ -9,8 +9,8 @@ import { twMerge } from "tailwind-merge";
 type Side = "top" | "right" | "bottom" | "left";
 
 interface DialogContextProps {
-  open: string | null;
-  setOpen: (value: string | null) => void;
+  openId: string | null;
+  setOpenId: (value: string | null) => void;
   handleOverlayClick: (e: React.MouseEvent, value: string | undefined) => void;
   shouldRender: (value: string | undefined) => boolean;
   toggle: (value: string | undefined) => void;
@@ -70,7 +70,7 @@ interface DialogProviderProps {
  * ```
  */
 export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaultOpen = null, modal, side }) => {
-  const [open, setOpen] = React.useState<string | null>(defaultOpen);
+  const [openId, setOpenId] = React.useState<string | null>(defaultOpen);
 
   const refs = {
     trigger: React.useRef<HTMLButtonElement>(null),
@@ -97,11 +97,11 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaul
 
   const toggle = (value: string | undefined) => {
     if (value) {
-      if (open === value) {
+      if (openId === value) {
         closed();
       } else {
         closed(() => {
-          setOpen(value);
+          setOpenId(value);
           setRenderStates(prev => ({ ...prev, [value]: true }));
         });
       }
@@ -109,10 +109,10 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaul
   };
 
   const closed = (callback?: () => void) => {
-    if (open) {
-      setOpen(null);
+    if (openId) {
+      setOpenId(null);
       setTimeout(() => {
-        setRenderStates(prev => ({ ...prev, [open]: false }));
+        setRenderStates(prev => ({ ...prev, [openId]: false }));
         if (callback) callback();
       }, 150);
     } else if (callback) {
@@ -120,7 +120,7 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaul
     }
   };
 
-  const isOpen = (value: string | undefined) => open === value;
+  const isOpen = (value: string | undefined) => openId === value;
   const shouldRender = (value: string | undefined) => (value ? !!renderStates[value] : false);
 
   const handleOverlayClick = (e: React.MouseEvent, value: string | undefined) => {
@@ -133,8 +133,8 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaul
     <DialogContext.Provider
       value={{
         refs,
-        open,
-        setOpen,
+        openId,
+        setOpenId,
         toggle,
         isOpen,
         shouldRender,

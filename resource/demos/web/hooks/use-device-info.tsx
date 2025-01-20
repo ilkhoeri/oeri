@@ -1,6 +1,7 @@
 "use client";
-import { useDeviceInfo } from "@/hooks/use-device-info";
 import { dataRenderer, Table } from "@/ui/table";
+import { useDeviceInfo } from "@/hooks/use-device-info";
+import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 function Demo() {
   const device = useDeviceInfo();
@@ -28,7 +29,6 @@ function Demo() {
 
   return <Table withTableBorder={false} variant="horizontal" data={tableData} />;
 }
-import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
   usage:

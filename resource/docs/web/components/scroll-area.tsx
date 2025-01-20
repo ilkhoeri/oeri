@@ -26,7 +26,7 @@ const classes = cvx({
 
 export type Orientation = "vertical" | "horizontal";
 type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
-type CSSProperties = React.CSSProperties & { [key: string]: any };
+type CSSProperties = React.CSSProperties & Record<string, any>;
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
 };

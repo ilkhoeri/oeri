@@ -43,8 +43,8 @@ function addLineBreaksToEmptyParagraphs(html: string): string {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
   const emptyParagraphs = doc.querySelectorAll("p:empty:not(:only-child)");
-  emptyParagraphs.forEach(function (paragraph) {
-    paragraph.innerHTML = "<br>"; // Menambahkan konten <br> (enter)
+  emptyParagraphs.forEach(function (p) {
+    p.innerHTML = "<br>"; // Menambahkan konten <br> (enter)
   });
   return doc.body.innerHTML;
 }
