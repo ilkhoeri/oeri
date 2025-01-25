@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { default as NextImage, type ImageProps } from "next/image";
-import { cn, cnx, cvx, merge, ocx, rem, type cvxProps } from "str-merge";
+import { cn, cnx, cvx, merge, ocx, rem, type cvxProps } from "cretex";
 import { PolymorphicSlot } from "@/ui/polymorphic-slot";
 import { getContrastColor } from "@/hooks/use-random-colors";
 

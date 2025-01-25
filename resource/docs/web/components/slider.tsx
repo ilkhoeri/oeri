@@ -3,7 +3,7 @@ import * as React from "react";
 import { clamp, useMove } from "@/hooks/use-move";
 import { Transition, TransitionOverride } from "@/hooks/use-dialog";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, rem, type inferType, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
 import { useMergedRef } from "@/hooks/use-merged-ref";
 
 const classes = cvx({
@@ -511,7 +511,7 @@ export const RangeSlider = React.forwardRef<HTMLDivElement, RangeSliderProps>((_
       containerWidth: rect.width
     });
     const nearestHandle = Math.abs(_value[0] - changeValue) > Math.abs(_value[1] - changeValue) ? 1 : 0;
-    const _nearestHandle = dir === "ltr" ? nearestHandle : nearestHandle === 1 ? 0 : 1
+    const _nearestHandle = dir === "ltr" ? nearestHandle : nearestHandle === 1 ? 0 : 1;
     thumbIndex.current = _nearestHandle;
   };
 
@@ -589,10 +589,7 @@ export const RangeSlider = React.forwardRef<HTMLDivElement, RangeSliderProps>((_
 
   return (
     <ctx.Provider value={{ dir, getStyles }}>
-      <Edge
-        key={dir}
-        {...{ el: "div", selector: "root", ref, dir, size, round, ...stylesApi, ...props }}
-      >
+      <Edge key={dir} {...{ el: "div", selector: "root", ref, dir, size, round, ...stylesApi, ...props }}>
         <SliderTrack
           {...{
             offset: positions[0],

@@ -16,7 +16,7 @@ export const namesCode =
 
 const codes = {
   usage:
-    'import { Group } from "@/ui/group";\nimport { StarIcon } from "@/icons/*";\nimport { Avatar } from "@/ui/avatar";\n\nexport function AvatarsDemo() {\n  return (\n    <Group justify="center">\n      {/* With image and fallback */}\n      <Avatar src="avatar.png" alt="it\'s me" fallback="Brian and friends" />\n\n      {/* Default placeholder */}\n      <Avatar round="12" />\n\n      {/* Fallback Element Only */}\n      <Avatar fallback={<p className="-mt-0.5 font-sans text-2xl font-extrabold italic">K</p>} />\n\n      {/* Letters with xl radius */}\n      <Avatar color="hsl(var(--constructive)/0.5)" round="12">\n        Mike\n      </Avatar>\n\n      {/* Custom placeholder with fallback */}\n      <Avatar color="blue" round="8" fallback="x">\n        <StarIcon size="1.5rem" />\n      </Avatar>\n    </Group>\n  );\n}',
+    'import { Group } from "@/ui/group";\nimport { StarIcon } from "@/icons/*";\nimport { Avatar } from "@/ui/avatar";\n\nexport function AvatarsDemo() {\n  return (\n    <Group justify="center">\n      {/* With image and fallback */}\n      <Avatar src="avatar.png" alt="it\'s me" fallback="Brian and friends" />\n\n      {/* Default placeholder */}\n      <Avatar round="12" />\n\n      {/* Fallback Element Only */}\n      <Avatar fallback={<p className="font-sans text-2xl font-extrabold italic">K</p>} />\n\n      {/* Letters with xl radius */}\n      <Avatar color="hsl(var(--constructive)/0.5)" round="12">\n        Mike\n      </Avatar>\n\n      {/* Custom placeholder with fallback */}\n      <Avatar color="blue" round="8" fallback="x">\n        <StarIcon size="1.5rem" />\n      </Avatar>\n    </Group>\n  );\n}',
   configurator: 'import { Avatar } from "@/ui/avatar";\n\nexport function AvatarDemo() {\n  return <Avatar{{props}} />;\n}',
   group:
     'import { Avatar } from "@/ui/avatar";\n\nexport function AvatarGroupDemo() {\n  return (\n    <Avatar.Group{{props}}>\n      <Avatar fallback="4ndrea" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Andrea" />\n      <Avatar fallback="Brian and Frend Paual" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brian" />\n      <Avatar fallback="oliver" src="/null.png" />\n      <Avatar fallback="y" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=y" />\n      <Avatar initialLimit="4">+9999</Avatar>\n    </Avatar.Group>\n  );\n}'
@@ -27,7 +27,7 @@ function AvatarsDemo() {
     <Group justify="center">
       <Avatar src={avatars[0]} alt="it's me" fallback="Brian and friends" />
       <Avatar round="12" />
-      <Avatar fallback={<p className="-mt-0.5 font-sans text-2xl font-extrabold italic">K</p>} />
+      <Avatar fallback={<p className="font-sans text-2xl font-extrabold italic">K</p>} />
       <Avatar color="hsl(var(--constructive)/0.5)" round="12">
         Mike
       </Avatar>

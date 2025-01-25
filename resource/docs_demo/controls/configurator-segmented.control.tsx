@@ -4,7 +4,7 @@ import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
 import { UnstyledButton } from "@/ui/button";
 import { transform } from "@/utility/text-parser";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 import { SelectData, transformSelectData } from "./transform-select-data";
 import { __cn } from "./classes.control";
 

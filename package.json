@@ -22,6 +22,7 @@
     "dev": "next dev",
     "build": "bun run generated:icons && next build",
     "start": "next start",
+    "generated:flesdocs": "bun run ./scripts/generated-files-docs.ts",
     "generated:demos": "bun run generated:generated-type-demos && bun run generated:generated-files-demos",
     "generated:generated-type-demos": "bun run ./scripts/generated-type-demos.ts",
     "generated:generated-files-demos": "bun run ./scripts/generated-files-demos.ts",
@@ -51,6 +52,7 @@
     "@tanstack/react-table": "^8.17.3",
     "@vercel/analytics": "^1.4.1",
     "contentlayer2": "^0.5.3",
+    "cretex": "^0.0.1",
     "dompurify": "^3.2.1",
     "embla-carousel": "^8.3.1",
     "embla-carousel-auto-scroll": "^8.3.1",
@@ -65,7 +67,6 @@
     "node-fetch": "^3.3.2",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "str-merge": "^1.0.6",
     "unified": "^11.0.4"
   },
   "devDependencies": {
@@ -107,6 +108,7 @@
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.5.3",
+    "unist-builder": "3.0.0",
     "unist-util-visit": "^5.0.0"
   },
   "peerDependencies": {

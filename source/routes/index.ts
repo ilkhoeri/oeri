@@ -5,6 +5,9 @@ import {
   UtilityIcon,
   CommandIcon,
   IconsIcon,
+  BrandDiscordFillIcon,
+  BrandGithubFillIcon,
+  HeartIcon,
   AppsIcon
 } from "@/icons/*";
 
@@ -30,6 +33,26 @@ export const appRoutes = {
     //   title: "Generators",
     //   href: "",
     // },
+  ],
+  sections: [
+    {
+      label: "Github Repository",
+      href: "https://github.com/ilkhoeri/oeri",
+      icon: BrandGithubFillIcon,
+      color: "#6e5494"
+    },
+    {
+      label: "Discord Community",
+      href: "https://discord.gg/Xct5BBPDZ9",
+      icon: BrandDiscordFillIcon,
+      color: "#436ab2"
+    },
+    {
+      label: "Open Collective",
+      href: "https://opencollective.com/oeri",
+      icon: HeartIcon,
+      color: "#b11c66"
+    }
   ],
   suggestions: {
     title: "Main",

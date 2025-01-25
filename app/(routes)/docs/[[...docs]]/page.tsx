@@ -40,7 +40,7 @@ export default async function Page({ params }: DocsParams) {
     <Polymorphic el="article" className="relative mx-auto w-full md:max-lg:pr-6">
       <Typography prose="h1">{doc?.title}</Typography>
       {/* <Typography prose="p">{doc?.description}</Typography> */}
-      <MDXComponent segment={segment} code={doc?.body?.code} />
+      <MDXComponent code={doc?.body?.code} />
     </Polymorphic>
   );
 }

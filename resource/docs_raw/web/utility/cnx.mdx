@@ -13,10 +13,10 @@ links:
 
 ### Installation
 
-- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/cretex/?icon=npm)](https://www.npmjs.com/cretex)
 
 ```bash
-npm install str-merge@latest
+npm install cretex@latest
 ```
 
 #### API References
@@ -32,7 +32,12 @@ Useful for dynamically managing string classes in JavaScript or TypeScript appli
 #### Syntax
 
 ```ts
-function cnx(...inputs: ClassValue[]): string;
+function cnx(...inputs: cnxValues[]): string;
+```
+
+```ts
+// allows receiving Arrays, Objects and Functions
+cnx(['', baz, (foo as string) !== 'foo' && bar], { '': !props }, '', () => ({ '' }), undefined, [{ '' }, () => ({ '' })]);
 ```
 
 #### How cnx works
@@ -59,17 +64,12 @@ function cnx(...inputs: ClassValue[]): string;
 
 #### Example of Usage
 
-```ts
-// allows receiving Arrays and Objects
-cnx(['', baz, (foo as string) !== 'foo' && bar], { '': !props }, '', () => ({ '' }), undefined, [{ '' }, () => ({ '' })]);
-```
-
 ```tsx
 cnx("hello", "world");
-// Output: 'hello world
+// Output: "hello world"
 
 cnx(() => "there", "dynamic");
-// Output: 'there dynamic'
+// Output: "there dynamic"
 
 cnx(["extra", 0, false, "bar"]);
 // Output: "extra bar"
@@ -87,7 +87,7 @@ cnx("foo", [1 && "bar", { baz: false, bat: null }, ["hello", ["world"]]], "cya")
 // Output: "foo bar hello world cya"
 
 cnx("foo", { primary: true, disabled: false }, ["extra", null, undefined], () => "dynamic");
-// Output: 'foo primary extra dynamic'
+// Output: "foo primary extra dynamic"
 
 cnx([{ color: "red", fontSize: "16px" }, () => ({ backgroundColor: "blue" }), undefined, [{ margin: "10px" }, () => ({ padding: "5px" })]]);
 // Output: "color fontSize backgroundColor margin padding"
@@ -139,10 +139,10 @@ If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](
 Merge with tailwind-merge
 
 ```tsx
-import { cnx, type ClassValue } from "str-merge";
+import { cnx, type cnxValues } from "cretex";
 import { twMerge } from "tailwind-merge";
 
-function cn(...inputs: ClassValue[]) {
+function cn(...inputs: cnxValues[]) {
   return twMerge(cnx(...inputs));
 }
 ```
@@ -150,7 +150,7 @@ function cn(...inputs: ClassValue[]) {
 #### Use merge or cn
 
 ```tsx
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
-<div className={merge("bg-black/60 dark:bg-white/60 text-white dark:text-black", { "font-extrabold border-0": true })} />;
+<div className={merge("bg-black/60 dark:bg-white/60 font-medium border", { "font-extrabold border-0": true })} />;
 ```

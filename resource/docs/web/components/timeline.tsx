@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType, type cvxProps } from "str-merge";
+import { cn, cvx, inferType, type cvxProps } from "cretex";
 const classes = cvx({
   variants: {
     selector: {
@@ -116,7 +116,24 @@ export interface TimelineItemProps extends ComponentProps<"div", "title" | "cont
   content?: React.ReactNode;
 }
 export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>((_props, ref) => {
-  const { children, bullet, title, content, unstyled, className, classNames, style, styles, lineStyle, active, notice, role = "listbox", activeStyle = {}, noticeStyle = {}, ...props } = _props;
+  const {
+    children,
+    bullet,
+    title,
+    content,
+    unstyled,
+    className,
+    classNames,
+    style,
+    styles,
+    lineStyle,
+    active,
+    notice,
+    role = "listbox",
+    activeStyle = {},
+    noticeStyle = {},
+    ...props
+  } = _props;
   const { bg = "hsl(var(--pure-white))", clr = "hsl(var(--pure-black))", line = "hsl(var(--constructive))" } = activeStyle;
   const { clr: noticeClr = "hsl(42deg 100% 50%)", ring = "hsl(var(--background))" } = noticeStyle;
   const stylesApi = { unstyled, classNames, styles };

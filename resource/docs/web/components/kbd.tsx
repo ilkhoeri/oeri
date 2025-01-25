@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, cvx, type cvxProps } from "str-merge";
+import { cn, cvx, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
@@ -21,7 +21,7 @@ const classes = cvx({
 export interface KbdProps extends React.PropsWithoutRef<Omit<React.ComponentProps<"kbd">, "style">>, cvxProps<typeof classes> {
   unstyled?: boolean;
   style?: React.CSSProperties & Record<string, any>;
-  items?:string[];
+  items?: string[];
   separator?: React.ReactNode | ((index: number) => React.ReactNode);
 }
 

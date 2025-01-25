@@ -2,7 +2,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { merge, cvx, inferType, rem, ocx } from "str-merge";
+import { merge, cvx, inferType, rem, ocx } from "cretex";
 import { useHotkeys } from "@/hooks/use-hotkeys";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { useClickOutside } from "@/hooks/use-click-outside";

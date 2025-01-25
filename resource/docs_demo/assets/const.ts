@@ -1,4 +1,4 @@
-import { rem } from "str-merge";
+import { rem } from "cretex";
 import { ConfiguratorControlOptions } from "./demo-config";
 
 const DEFAULT_FONT_FAMILY = "var(--ff-geist-sans)";

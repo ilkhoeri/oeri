@@ -1,6 +1,6 @@
 import { PageHome } from "./components-home";
 import { Polymorphic } from "@/ui/polymorphic-slot";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 import style from "@/source/styles/.module.css";
 

@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMergedRef } from "@/hooks/use-merged-ref";
 import { useMutationObserver } from "@/hooks/use-mutation-observer";
 import { getEnv, useTimeout } from "@/hooks/use-timeout";
-import { cn, ocx } from "str-merge";
+import { cn, ocx } from "cretex";
 
 function isParent(parentElement: HTMLElement | EventTarget | null, childElement: HTMLElement | null) {
   if (!childElement || !parentElement) {

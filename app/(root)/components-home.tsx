@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { cvx, merge, rem } from "str-merge";
+import { cvx, merge, rem } from "cretex";
 import { TypingWords } from "@/ui/typing-words";
 import { Transform } from "@/source/ondevelopment";
 import { sanitizedWord } from "@/utility/text-parser";
@@ -12,7 +12,7 @@ import { BookOpenIcon, BrandGithubFillIcon, ArrowsSquareIcon, Svg } from "@/icon
 import style from "@/source/styles/.module.css";
 
 const TYPING_DEFAULT = ["a team", "an idea", "a solution", "a spirit"];
-<div className=""></div>
+
 const classes = cvx({
   variants: {
     selector: {

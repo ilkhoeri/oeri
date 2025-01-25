@@ -3,7 +3,7 @@ import { getControlLabel } from "./get-control-label";
 import { SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
 import { ConfiguratorControl } from "./types.control";
 import { ComponentProps, ComponentPropsWithRef } from "../assets/types/component";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 import { __cn } from "./classes.control";
 
 export type ConfiguratorSelectControlOptions = ConfiguratorControl<"select", { data: SelectData; initialValue: string }>;

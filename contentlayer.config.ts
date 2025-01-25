@@ -11,6 +11,7 @@ import { rehypeNpmCommand } from "@/resource/docs_demo/assets/rehype/rehype-cust
 // import { transformerCopyButton } from "@rehype-pretty/transformers";
 
 import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
+import { rehypeComponent } from "./resource/docs_demo/assets/rehype/rehype-component";
 
 /**
  *- `URL`: https://example.com/blog/posts/article-1
@@ -113,7 +114,7 @@ export default makeSource({
     remarkPlugins: [remarkGfm, codeImport],
     rehypePlugins: [
       rehypeSlug,
-      // rehypeComponent,
+      rehypeComponent,
       () => tree => {
         visit(tree, node => {
           if (node?.type === "element" && node?.tagName === "pre") {

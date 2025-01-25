@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { twMerge, cvx, type cvxProps } from "str-merge";
+import { merge, cvx, type cvxProps } from "cretex";
 
 type ElementType<T> = {
   el?: React.ElementType;
@@ -27,7 +27,7 @@ export type ClassesProps<T extends (...keys: any) => any> = cvxProps<T> & {
 };
 export function classes<T extends (...keys: any) => any>(props: ClassesProps<T>): string {
   const { className, unstyled = false, ...rest } = props;
-  return twMerge(!unstyled && varsComp({ ...rest }), className);
+  return merge(!unstyled && varsComp({ ...rest }), className);
 }
 
 export const Comp = React.forwardRef<HTMLElement, ElementType<HTMLElement>>((_props, ref) => {
@@ -80,7 +80,7 @@ export const Title = React.forwardRef<HTMLHeadingElement, HeadingElement>((_prop
   const { el = "h1", children, title, role = "presentation", unstyled, className, variant, size, ...props } = _props;
   const Component: React.ElementType = el;
   return (
-    <Component ref={ref} role={role} className={twMerge(!unstyled && headings({ variant, size }), className)} {...props}>
+    <Component ref={ref} role={role} className={merge(!unstyled && headings({ variant, size }), className)} {...props}>
       {children || title}
     </Component>
   );

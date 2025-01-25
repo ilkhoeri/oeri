@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType, rem } from "str-merge";
+import { cn, cvx, inferType, rem } from "cretex";
 
 const classes = cvx({
   variants: {
@@ -115,7 +115,23 @@ export interface TableProps extends __TableProps, IntrinsicTableProps {
   data?: TableDataProps;
 }
 export const Table = React.forwardRef<HTMLTableElement, TableProps>((_props, ref) => {
-  const { unstyled, classNames, styles, striped, children, stickyHeader, variant = "vertical", captionSide = "bottom", tableOverflow = true, withRowBorders = true, withTableBorder = true, highlightOnHover = true, withColumnBorders = false, data, ...props } = _props;
+  const {
+    unstyled,
+    classNames,
+    styles,
+    striped,
+    children,
+    stickyHeader,
+    variant = "vertical",
+    captionSide = "bottom",
+    tableOverflow = true,
+    withRowBorders = true,
+    withTableBorder = true,
+    highlightOnHover = true,
+    withColumnBorders = false,
+    data,
+    ...props
+  } = _props;
   return (
     <ctx.Provider
       value={{
@@ -193,14 +209,25 @@ interface TableRootProps extends IntrinsicTableProps {
   title?: string;
 }
 const TableRoot = React.forwardRef<HTMLTableElement, TableRootProps>(function TableRoot(_props, ref) {
-  const { unstyled, className, classNames, style, styles, layout, spacing = {}, stickyHeaderOffset, borderColor = "hsl(var(--border))", stripedColor = "hsl(var(--primitive))", highlightOnHoverColor = "hsl(var(--primitive-foreground))", ...props } = _props;
+  const {
+    unstyled,
+    className,
+    classNames,
+    style,
+    styles,
+    layout,
+    spacing = {},
+    stickyHeaderOffset,
+    borderColor = "hsl(var(--border))",
+    stripedColor = "hsl(var(--primitive))",
+    highlightOnHoverColor = "hsl(var(--primitive-foreground))",
+    ...props
+  } = _props;
   const ctx = useTable();
   const { x, y = 8 } = spacing;
   const stylesApi = { unstyled, classNames, styles, ...ctx };
 
-  const table = (
-    <table {...{ ref, ...ctx.getStyles("table", stylesApi), ...props }} />
-  );
+  const table = <table {...{ ref, ...ctx.getStyles("table", stylesApi), ...props }} />;
 
   return (
     <div
@@ -247,7 +274,9 @@ TableHead.displayName = "TableHead";
 export const TableData = React.forwardRef<HTMLTableCellElement, ComponentProps<"td">>((props, ref) => <Edge {...{ ref, el: "td", ...props }} />);
 TableData.displayName = "TableData";
 
-export const TableCaption = React.forwardRef<HTMLTableCaptionElement, ComponentProps<"caption">>((props, ref) => <Edge {...{ ref, el: "caption", ...props }} />);
+export const TableCaption = React.forwardRef<HTMLTableCaptionElement, ComponentProps<"caption">>((props, ref) => (
+  <Edge {...{ ref, el: "caption", ...props }} />
+));
 TableCaption.displayName = "TableCaption";
 
 const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props: { el?: T } & ComponentProps<T>, ref: React.ComponentPropsWithRef<T>["ref"]) {
@@ -255,7 +284,9 @@ const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props:
   const ctx = useTable();
   const Components = el as React.ElementType;
   return (
-    <Components {...{ ref, ...ctx.getStyles((selector || el) as __Selector, { unstyled, className, classNames, style, styles, ...ctx }, propsStyles), ...props }} />
+    <Components
+      {...{ ref, ...ctx.getStyles((selector || el) as __Selector, { unstyled, className, classNames, style, styles, ...ctx }, propsStyles), ...props }}
+    />
   );
 }) as <T extends React.ElementType>(
   _props: ComponentProps<T> & {

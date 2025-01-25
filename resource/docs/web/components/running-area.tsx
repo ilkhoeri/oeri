@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 
 type __Selector = "container" | "content";

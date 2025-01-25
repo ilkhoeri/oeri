@@ -3,7 +3,7 @@ import { ThemeToggle } from "@/config/themes";
 import { NavLinkItem } from "@/source/assets/navlink";
 import { appRoutes } from "@/source/routes";
 import { BrandOeriIcon } from "@/icons/*";
-import { cvx } from "str-merge";
+import { cvx } from "cretex";
 
 import globalStyle from "../styles/styles";
 import { Polymorphic } from "@/ui/polymorphic-slot";

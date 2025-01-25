@@ -7,7 +7,7 @@ import { UnstyledButton } from "@/ui/button";
 import { ScrollArea } from "@/ui/scroll-area";
 import { Tooltip } from "@/ui/tooltip";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, ocx, rem, type cvxProps } from "str-merge";
+import { cn, cvx, ocx, rem, type cvxProps } from "cretex";
 import { CopyButton } from "@/ui/copy-button";
 import { CheckIcon, CopyIcon } from "@/icons/*";
 import { useShiki } from "./shiki-context";

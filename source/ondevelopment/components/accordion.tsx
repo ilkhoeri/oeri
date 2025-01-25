@@ -3,7 +3,7 @@
 import React, { useState, createContext, useEffect, useRef, useContext, useCallback } from "react";
 
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
 /**
 ```js

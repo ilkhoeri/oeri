@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType } from "str-merge";
+import { cn, cvx, inferType } from "cretex";
 import { Slot } from "@radix-ui/react-slot";
 import { useOpenState, type HoverOpenOptions } from "@/hooks/use-open-state";
 import { createSafeContext } from "@/hooks/open-state-context";
@@ -143,7 +143,7 @@ export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 /**
 import * as React from "react";
 import * as Primitive from "@radix-ui/react-tooltip";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { useTouch } from "@/hooks/use-touch";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Group } from "./group";
 import { usePagination } from "@/hooks/use-pagination";
-import { cn, cvx, inferType, rem, type cvxProps } from "str-merge";
+import { cn, cvx, inferType, rem, type cvxProps } from "cretex";
 import { getContrastColor } from "@/hooks/use-random-colors";
 
 const classes = cvx({
@@ -89,10 +89,35 @@ export interface PaginationProps extends __PaginationProps, ComponentProps<typeo
 
 export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>((_props, ref) => {
   const {
-    unstyled, className, classNames, style, styles, gap, size, color, getControlProps, hideWithOnePage,
-    total, value, defaultValue, onChange, disabled, onNextPage, onPreviousPage, onFirstPage, onLastPage,
-    getItemProps, children, icons = {}, siblings = 1, boundaries = 1, withEdges = false, withControls = true,
-    role = "navigation", "aria-label": al = "pagination", ...props
+    unstyled,
+    className,
+    classNames,
+    style,
+    styles,
+    gap,
+    size,
+    color,
+    getControlProps,
+    hideWithOnePage,
+    total,
+    value,
+    defaultValue,
+    onChange,
+    disabled,
+    onNextPage,
+    onPreviousPage,
+    onFirstPage,
+    onLastPage,
+    getItemProps,
+    children,
+    icons = {},
+    siblings = 1,
+    boundaries = 1,
+    withEdges = false,
+    withControls = true,
+    role = "navigation",
+    "aria-label": al = "pagination",
+    ...props
   } = _props;
 
   const { range, setPage, next, previous, active, first, last } = usePagination({
@@ -127,10 +152,22 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>((_pr
   );
 
   return (
-    <ctx.Provider value={{ getStyles, total, range, active, disabled, getItemProps, onChange: setPage, onNext: handleNextPage, onPrevious: handlePreviousPage, onFirst: handleFirstPage, onLast: handleLastPage }}>
-      <PaginationRoot {...{ ref, role, gap, size, className, style, color, "aria-label": al, ...rest, ...props }}>
-        {children || content}
-      </PaginationRoot>
+    <ctx.Provider
+      value={{
+        getStyles,
+        total,
+        range,
+        active,
+        disabled,
+        getItemProps,
+        onChange: setPage,
+        onNext: handleNextPage,
+        onPrevious: handlePreviousPage,
+        onFirst: handleFirstPage,
+        onLast: handleLastPage
+      }}
+    >
+      <PaginationRoot {...{ ref, role, gap, size, className, style, color, "aria-label": al, ...rest, ...props }}>{children || content}</PaginationRoot>
     </ctx.Provider>
   );
 }) as PaginationComponent;
@@ -169,7 +206,7 @@ PaginationRoot.displayName = "Pagination/PaginationRoot";
 
 type InheritedProps<T extends React.ElementType, OverrideProps = object> = OverrideProps &
   Omit<JSX.LibraryManagedAttributes<T, React.ComponentPropsWithoutRef<T>>, keyof OverrideProps>;
-type PolymorphicType<T extends React.ElementType, Props = object> = InheritedProps<T, { el?: T | (React.ElementType & {}); } & Props>;
+type PolymorphicType<T extends React.ElementType, Props = object> = InheritedProps<T, { el?: T | (React.ElementType & {}) } & Props>;
 type PolymorphicRef<T extends React.ElementType> = React.ComponentPropsWithRef<T>["ref"];
 
 type PaginationControlProps<T extends React.ElementType> = PolymorphicType<T> & StylesNames<__Selector>;
@@ -213,7 +250,9 @@ const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props:
   const ctx = usePaginationCtx();
   const disabled = type === "next" ? ctx.active === ctx.total : ctx.active === 1;
   return (
-    <PaginationControl {...{ ref, title: title || action.replace("on", ""), disabled: ctx.disabled || disabled, onClick: onClick || ctx[action], withPadding: false, ...props }}>
+    <PaginationControl
+      {...{ ref, title: title || action.replace("on", ""), disabled: ctx.disabled || disabled, onClick: onClick || ctx[action], withPadding: false, ...props }}
+    >
       <Icon />
     </PaginationControl>
   );
@@ -341,11 +380,7 @@ export const PaginationLast = React.forwardRef(function PaginationLast<T extends
 const PaginationDots = React.forwardRef<HTMLDivElement, PaginationActions<"div">>(function PaginationDots(_props, ref) {
   const { classNames, className, style, styles, icon: Icon, ...props } = _props;
   const ctx = usePaginationCtx();
-  return (
-    <div {...{ ref, ...ctx.getStyles("dots", { className, style, styles, classNames }), ...props }}>
-      {Icon && <Icon />}
-    </div>
-  );
+  return <div {...{ ref, ...ctx.getStyles("dots", { className, style, styles, classNames }), ...props }}>{Icon && <Icon />}</div>;
 });
 
 type EventHandler<Event> = ((event?: Event) => void) | undefined;

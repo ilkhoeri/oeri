@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React, { createContext, useContext, ReactNode, useEffect } from "react";
 import { useOpenState, type ClickOpenOptions } from "@/hooks/use-open-state";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { inferType } from "str-merge";
+import { inferType } from "cretex";
 
 interface MediaQuery {
   mediaQuery?: number;

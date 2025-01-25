@@ -4,7 +4,7 @@ import * as Primitive from "@radix-ui/react-tooltip";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 import { useTouch } from "@/hooks/use-touch";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 type TooltipOrigin = "trigger" | "content";
 type KeyType = "side" | "align" | "sideOffset";
@@ -97,7 +97,26 @@ export interface TooltipProps
 }
 
 const Tooltip = React.forwardRef<React.ElementRef<typeof Primitive.Trigger>, TooltipProps>((_props, ref) => {
-  const { open, onOpenChange, defaultOpen, delayDuration = 0, disableHoverableContent, content, contentProps, sideOffset, skipDelayDuration, className, classNames, style, styles, withArrow, touch = true, align = "center", side = "bottom", ...props } = _props;
+  const {
+    open,
+    onOpenChange,
+    defaultOpen,
+    delayDuration = 0,
+    disableHoverableContent,
+    content,
+    contentProps,
+    sideOffset,
+    skipDelayDuration,
+    className,
+    classNames,
+    style,
+    styles,
+    withArrow,
+    touch = true,
+    align = "center",
+    side = "bottom",
+    ...props
+  } = _props;
 
   return (
     <TooltipProvider {...{ skipDelayDuration, open, touch, onOpenChange, defaultOpen, delayDuration, disableHoverableContent }}>

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useId } from "@/hooks/use-id";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, rem, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {

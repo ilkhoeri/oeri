@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, ocx, type cvxVariant } from "str-merge";
+import { cn, ocx, type cvxResult } from "cretex";
 
 type SubKeys = {
   spinner: "root" | "bar";
@@ -15,7 +15,7 @@ type classes = {
 };
 
 type __Loader = keyof classes;
-type __Selector<T extends __Loader> = NonNullable<cvxVariant<classes>[T]>;
+type __Selector<T extends __Loader> = NonNullable<cvxResult<classes>[T]>;
 type StylesNames<T extends __Loader> = {
   unstyled?: Partial<Record<__Selector<T>, boolean>>;
   className?: string;
@@ -40,7 +40,8 @@ function getStyles<T extends __Loader>(loader: T, selector: __Selector<T>, optio
     (acc, key) => {
       const value = options?.[key as keyof typeof options];
       if (value !== undefined) {
-        acc[`--${loader}-${key}`] = key === "duration" ? `${clamp(value as number)}s` : key === "size" && typeof value === "number" ? `${value}px` : String(value);
+        acc[`--${loader}-${key}`] =
+          key === "duration" ? `${clamp(value as number)}s` : key === "size" && typeof value === "number" ? `${value}px` : String(value);
       }
       return acc;
     },

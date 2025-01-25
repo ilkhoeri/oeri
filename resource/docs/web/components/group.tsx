@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, rem } from "str-merge";
+import { cn, rem } from "cretex";
 
 export interface GroupProps extends React.ComponentProps<"div"> {
   grow?: boolean;
@@ -13,7 +13,19 @@ export interface GroupProps extends React.ComponentProps<"div"> {
 }
 
 export const Group = React.forwardRef<HTMLDivElement, GroupProps>((_props, ref) => {
-  const { unstyled, className, style, grow, children, gap = "12", wrap = "wrap", align = "stretch", justify = "center", preventGrowOverflow = true, ...props } = _props;
+  const {
+    unstyled,
+    className,
+    style,
+    grow,
+    children,
+    gap = "12",
+    wrap = "wrap",
+    align = "stretch",
+    justify = "center",
+    preventGrowOverflow = true,
+    ...props
+  } = _props;
   const filteredChildren = filterFalsyChildren(children);
   const childrenCount = filteredChildren.length;
   const isGrow = grow && preventGrowOverflow;

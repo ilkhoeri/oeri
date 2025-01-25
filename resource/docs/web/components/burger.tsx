@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Svg } from "./svg";
-import { cn, cvx, rem, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type cvxProps } from "cretex";
 import { UnstyledButton, type UnstyledButtonProps } from "./button";
 
 export interface BurgerProps extends UnstyledButtonProps<"children"> {

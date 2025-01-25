@@ -288,17 +288,7 @@ export default {
             backgroundColor: "currentColor",
             height: "1px"
           },
-          "@media (hover: none)": {
-            "&::after": {
-              width: "0"
-            },
-            "&:hover": {
-              "&::after": {
-                animation: "underlinehover 0.75s cubic-bezier(0.86, 0, 0.07, 1)"
-              }
-            }
-          },
-          "@media not all and (hover: hover) and (pointer: fine)": {
+          "@media (hover: hover)": {
             "&::after": {
               left: "0",
               width: "100%",
@@ -311,6 +301,16 @@ export default {
                 transform: "scaleX(1)",
                 transformOrigin: "left center",
                 animation: "none"
+              }
+            }
+          },
+          "@media not all and (hover: hover)": {
+            "&::after": {
+              width: "0"
+            },
+            "&:hover": {
+              "&::after": {
+                animation: "underlinehover 0.75s cubic-bezier(0.86, 0, 0.07, 1)"
               }
             }
           }

@@ -4,17 +4,20 @@ import { useId } from "@/hooks/use-id";
 import { clamp } from "@/hooks/use-move";
 import { useMergedRef } from "@/hooks/use-merged-ref";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, rem, type inferType, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
     selector: {
       root: "flex w-max [&:where(:has(input:disabled))]:pointer-events-none [--rating-base-color:#666]",
       symbolGroup: "relative [transition:transform_100ms_ease] [&:where([data-active])]:z-1 [&:where([data-active])]:scale-110",
-      input: "sr-only [-webkit-tap-highlight-color:transparent] [&:focus-visible+label]:outline-2 [&:focus-visible+label]:outline-offset-2 [&:focus-visible+label]:outline-[--rating-color]",
-      label: "absolute left-0 top-0 z-[--rating-item-z-index,0] block cursor-pointer [-webkit-tap-highlight-color:transparent] [&:where(:last-of-type)]:relative [&:where([data-read-only])]:cursor-default",
+      input:
+        "sr-only [-webkit-tap-highlight-color:transparent] [&:focus-visible+label]:outline-2 [&:focus-visible+label]:outline-offset-2 [&:focus-visible+label]:outline-[--rating-color]",
+      label:
+        "absolute left-0 top-0 z-[--rating-item-z-index,0] block cursor-pointer [-webkit-tap-highlight-color:transparent] [&:where(:last-of-type)]:relative [&:where([data-read-only])]:cursor-default",
       symbolBody: "[clip-path:--rating-symbol-clip-path]",
-      starSymbol: "block size-[--rating-sz,var(--rating-size)] fill-[--rating-base-color] stroke-[--rating-base-color] [&:where([data-filled])]:fill-[--rating-color] [&:where([data-filled])]:stroke-[--rating-color]"
+      starSymbol:
+        "block size-[--rating-sz,var(--rating-size)] fill-[--rating-base-color] stroke-[--rating-base-color] [&:where([data-filled])]:fill-[--rating-color] [&:where([data-filled])]:stroke-[--rating-color]"
     }
   }
 });
@@ -73,13 +76,34 @@ export interface __RatingProps {
 
 export interface RatingProps extends __RatingProps, ComponentProps<"div", "onChange" | "children" | "color" | "dir" | "defaultValue"> {
   dir?: "ltr" | "rtl";
-};
+}
 export const Rating = React.forwardRef<HTMLDivElement, RatingProps>((_props, ref) => {
   const {
-    className, classNames, style, styles, unstyled, name, id, value, defaultValue, onChange,
-    count = 5, fractions = 1, getSymbolLabel = value => `${value}`, onMouseEnter, readOnly,
-    onMouseMove, onHover, onMouseLeave, onTouchStart, onTouchEnd, emptySymbol, fullSymbol,
-    highlightSelectedOnly, dir = defaultDir, ...props
+    className,
+    classNames,
+    style,
+    styles,
+    unstyled,
+    name,
+    id,
+    value,
+    defaultValue,
+    onChange,
+    count = 5,
+    fractions = 1,
+    getSymbolLabel = value => `${value}`,
+    onMouseEnter,
+    readOnly,
+    onMouseMove,
+    onHover,
+    onMouseLeave,
+    onTouchStart,
+    onTouchEnd,
+    emptySymbol,
+    fullSymbol,
+    highlightSelectedOnly,
+    dir = defaultDir,
+    ...props
   } = _props;
   const stylesApi = { dir, unstyled, classNames, styles };
 
@@ -170,10 +194,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>((_props, ref
       const isGroupActive = !readOnly && Math.ceil(hovered) === integerValue;
 
       return (
-        <div
-          key={integerValue}
-          {...{ "data-active": isGroupActive || undefined, ...getStyles("symbolGroup", stylesApi) }}
-        >
+        <div key={integerValue} {...{ "data-active": isGroupActive || undefined, ...getStyles("symbolGroup", stylesApi) }}>
           {fractionItems.map((__, fractionIndex) => {
             const fractionValue = decimalUnit * (index === 0 ? fractionIndex : fractionIndex + 1);
             const symbolValue = roundValueTo(integerValue - 1 + fractionValue, decimalUnit);
@@ -266,8 +287,23 @@ export interface RatingItemProps extends ComponentProps<"input", "value" | "size
 }
 const RatingItem = React.forwardRef<HTMLInputElement, RatingItemProps>((_props, ref) => {
   const {
-    getSymbolLabel, emptyIcon, fullIcon, full, active, value, readOnly, fractionValue,
-    id, onBlur, onChange, onInputChange, unstyled, className, classNames, style, styles,
+    getSymbolLabel,
+    emptyIcon,
+    fullIcon,
+    full,
+    active,
+    value,
+    readOnly,
+    fractionValue,
+    id,
+    onBlur,
+    onChange,
+    onInputChange,
+    unstyled,
+    className,
+    classNames,
+    style,
+    styles,
     ...props
   } = _props;
 

@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import DOMPurify, { Config } from "dompurify";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
 export type ProseProps<T extends React.ElementType = "div"> = React.PropsWithoutRef<React.ComponentProps<T>> & {
   el?: T | React.ElementType;
@@ -49,9 +49,7 @@ export const Prose = React.forwardRef(function Prose<T extends React.ElementType
 
   return (
     <Component
-      {...props}
-      suppressHydrationWarning
-      suppressContentEditableWarning
+      {...{ ...props, suppressHydrationWarning, suppressContentEditableWarning }}
       data-prose-container
       ref={ref}
       {...getStyles({ unstyled, className, color, size, dir })}

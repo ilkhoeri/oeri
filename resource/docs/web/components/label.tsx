@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Primitive from "@radix-ui/react-label";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 export interface LabelProps extends React.ComponentPropsWithoutRef<typeof Primitive.Root> {
   unstyled?: boolean;

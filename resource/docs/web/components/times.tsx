@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Svg from "@/ui/svg";
-import { cn, cvx, type cvxProps } from "str-merge";
+import { cn, cvx, type cvxProps } from "cretex";
 
 const classesTime = cn("flex flex-row items-center justify-start gap-1");
 const classes = cvx({

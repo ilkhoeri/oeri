@@ -2,18 +2,12 @@ import * as React from "react";
 import { ChevronIcon, DotsIcon } from "@/icons/*";
 import { ButtonProps, buttonVariants } from "@/ui/button";
 import { Anchor } from "@/ui/anchor";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 export function Demo() {
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  return (
-    <PaginationExamples
-      currentPage={currentPage}
-      totalPages={10}
-      onPageChange={page => setCurrentPage(page)}
-    />
-  );
+  return <PaginationExamples currentPage={currentPage} totalPages={10} onPageChange={page => setCurrentPage(page)} />;
 }
 
 const PaginationExamples: React.FC<{
@@ -52,10 +46,7 @@ const PaginationExamples: React.FC<{
     for (let i = startPage; i <= endPage; i++) {
       items.push(
         <PaginationItem key={i}>
-          <PaginationButton
-            isActive={i === currentPage}
-            onClick={() => onPageChange(i)}
-          >
+          <PaginationButton isActive={i === currentPage} onClick={() => onPageChange(i)}>
             {i}
           </PaginationButton>
         </PaginationItem>
@@ -78,17 +69,11 @@ const PaginationExamples: React.FC<{
     <Pagination>
       <PaginationContent className="flex items-center gap-2">
         <PaginationItem>
-          <PaginationPrevious
-            onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
-          />
+          <PaginationPrevious onClick={() => currentPage > 1 && onPageChange(currentPage - 1)} />
         </PaginationItem>
         {getPaginationItems()}
         <PaginationItem>
-          <PaginationNext
-            onClick={() =>
-              currentPage < totalPages && onPageChange(currentPage + 1)
-            }
-          />
+          <PaginationNext onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
@@ -96,19 +81,8 @@ const PaginationExamples: React.FC<{
 };
 
 // dibawah ini adalah yang lama
-export const Pagination = React.forwardRef<
-  HTMLElement,
-  React.ComponentProps<"nav">
->(
-  (
-    {
-      className,
-      role = "navigation",
-      "aria-label": al = "pagination",
-      ...props
-    },
-    ref
-  ) => (
+export const Pagination = React.forwardRef<HTMLElement, React.ComponentProps<"nav">>(
+  ({ className, role = "navigation", "aria-label": al = "pagination", ...props }, ref) => (
     <nav
       {...{
         ref,
@@ -122,70 +96,40 @@ export const Pagination = React.forwardRef<
 );
 Pagination.displayName = "Pagination";
 
-export const PaginationContent = React.forwardRef<
-  HTMLUListElement,
-  React.ComponentProps<"ul">
->(({ className, ...props }, ref) => (
-  <ul
-    ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
-    {...props}
-  />
+export const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(({ className, ...props }, ref) => (
+  <ul ref={ref} className={cn("flex flex-row items-center gap-1", className)} {...props} />
 ));
 PaginationContent.displayName = "PaginationContent";
 
-export const PaginationItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentProps<"li">
->(({ ...props }, ref) => <li ref={ref} {...props} />);
+export const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>(({ ...props }, ref) => <li ref={ref} {...props} />);
 PaginationItem.displayName = "PaginationItem";
 
 export const PaginationButton = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<"button"> & { isActive?: boolean } & Pick<
-      ButtonProps,
-      "size" | "variant"
-    >
->(
-  (
-    {
-      className,
-      isActive,
-      type = "button",
-      role = "button",
-      variant,
-      size = "icon",
-      "aria-current": ac,
+  React.ComponentProps<"button"> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">
+>(({ className, isActive, type = "button", role = "button", variant, size = "icon", "aria-current": ac, ...props }, ref) => (
+  <button
+    {...{
+      ref,
+      type,
+      role,
+      "aria-current": ac || isActive ? "page" : undefined,
+      className: cn(
+        buttonVariants({
+          variant: variant || (isActive ? "primitive" : "outline"),
+          size
+        }),
+        className
+      ),
       ...props
-    },
-    ref
-  ) => (
-    <button
-      {...{
-        ref,
-        type,
-        role,
-        "aria-current": ac || isActive ? "page" : undefined,
-        className: cn(
-          buttonVariants({
-            variant: variant || (isActive ? "primitive" : "outline"),
-            size
-          }),
-          className
-        ),
-        ...props
-      }}
-    />
-  )
-);
+    }}
+  />
+));
 PaginationButton.displayName = "PaginationButton";
 
 export const PaginationLink = React.forwardRef<
   HTMLAnchorElement,
-  React.ComponentProps<typeof Anchor> & { isActive?: boolean } & Pick<
-      ButtonProps,
-      "size" | "variant"
-    >
+  React.ComponentProps<typeof Anchor> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">
 >(({ className, isActive, variant, size = "icon", ...props }, ref) => (
   <Anchor
     {...{
@@ -203,20 +147,8 @@ export const PaginationLink = React.forwardRef<
 ));
 PaginationLink.displayName = "PaginationLink";
 
-export const PaginationPrevious = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<typeof PaginationButton>
->(
-  (
-    {
-      className,
-      "aria-label": al = "Go to previous page",
-      children,
-      size = "default",
-      ...props
-    },
-    ref
-  ) => (
+export const PaginationPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(
+  ({ className, "aria-label": al = "Go to previous page", children, size = "default", ...props }, ref) => (
     <PaginationButton
       {...{
         ref,
@@ -240,20 +172,8 @@ export const PaginationPrevious = React.forwardRef<
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
-export const PaginationNext = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<typeof PaginationButton>
->(
-  (
-    {
-      className,
-      "aria-label": al = "Go to next page",
-      children,
-      size = "default",
-      ...props
-    },
-    ref
-  ) => (
+export const PaginationNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(
+  ({ className, "aria-label": al = "Go to next page", children, size = "default", ...props }, ref) => (
     <PaginationButton
       {...{
         ref,
@@ -277,20 +197,8 @@ export const PaginationNext = React.forwardRef<
 );
 PaginationNext.displayName = "PaginationNext";
 
-export const PaginationEllipsis = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentProps<"span">
->(
-  (
-    {
-      className,
-      "aria-hidden": ah = "true",
-      "aria-label": al = "More pages",
-      children,
-      ...props
-    },
-    ref
-  ) => (
+export const PaginationEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentProps<"span">>(
+  ({ className, "aria-hidden": ah = "true", "aria-label": al = "More pages", children, ...props }, ref) => (
     <span
       {...{
         ref,

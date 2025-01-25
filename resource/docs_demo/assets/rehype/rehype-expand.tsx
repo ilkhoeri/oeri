@@ -1,6 +1,6 @@
 import React from "react";
 import { useExpand } from "@/source/assets/playtabs";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
 export const Expand = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>((_props, ref) => {
   const { children, className, ...props } = _props;

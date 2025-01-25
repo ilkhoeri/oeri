@@ -1,11 +1,12 @@
 import * as React from "react";
-import { cn, cnx, cvx, ocx, rem, type cvxProps } from "str-merge";
+import { cn, cnx, cvx, ocx, rem, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
     selector: {
       root: "relative",
-      indicator: "absolute z-[200] flex items-center justify-center whitespace-nowrap text-xs leading-none [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
+      indicator:
+        "absolute z-[200] flex items-center justify-center whitespace-nowrap text-xs leading-none [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
     },
     processing: {
       true: "before:absolute before:inset-0 before:bg-[var(--indicator-color,inherit)] before:rounded-[--indicator-round,9999px] before:-z-1 data-[processing]:before:content-[''] data-[processing]:before:[animation:processing_1000ms_linear_infinite]"
@@ -108,8 +109,24 @@ export interface IndicatorProps extends React.PropsWithoutRef<ElementProps>, __I
 }
 export const Indicator = React.forwardRef<HTMLDivElement, IndicatorProps>((_props, ref) => {
   const {
-    label, children, classNames, className, style, styles, unstyled, color, size = 10, round, offset = 0, inline = false,
-    disabled = false, processing = false, withBorder = false, position = "top-end", "aria-disabled": arDis, ...props
+    label,
+    children,
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    color,
+    size = 10,
+    round,
+    offset = 0,
+    inline = false,
+    disabled = false,
+    processing = false,
+    withBorder = false,
+    position = "top-end",
+    "aria-disabled": arDis,
+    ...props
   } = _props;
   const stylesApi = { unstyled, classNames, styles, color, disabled, label, withBorder, processing, inline, position, size, round, offset, arDis };
   return (

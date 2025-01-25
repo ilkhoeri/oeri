@@ -5,7 +5,7 @@ import { Tabs } from "@/ui/tabs";
 import { Button } from "@/ui/button";
 import { Event, trackEvent } from "../mdx/events";
 import { useConfig } from "../mdx/config";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { Tooltip } from "@/ui/tooltip";
 import { HasCopyIcon } from "@/resource/docs_demo/assets/shiki/shiki-code-highlight-tabs";
 import { ScrollArea } from "@/ui/scroll-area";
@@ -87,6 +87,7 @@ export function CodeBlockCommand(_props: React.ComponentProps<"pre"> & NpmComman
               <Tabs.Tab
                 key={key}
                 value={key}
+                data-pm={key}
                 className={cn("-mb-px border-b border-transparent p-1 font-geist-mono text-muted-foreground", {
                   "aria-selected:border-color aria-selected:text-color": mounted
                 })}

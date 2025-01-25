@@ -25,7 +25,7 @@ async function Icons({ files }: { files: RawToJsonProps }) {
     raw: files.raw,
     content: await highlightCode(`\`\`\`tsx\n${files.raw}\n\`\`\``.trimEnd())
   };
-  return <LoadComponent {...{ files, segment, content, _raw }} setInnerHTML={await highlightCode(content)} />;
+  return <LoadComponent {...{ files, segment, content, _raw }} __html={await highlightCode(content)} />;
 }
 
 export default async function Page() {

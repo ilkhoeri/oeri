@@ -3,7 +3,7 @@ import * as React from "react";
 import Svg from "./svg";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { EmblaCarouselType, EmblaOptionsType, EmblaPluginType } from "embla-carousel";
-import { cn, cvx, rem, type inferType, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
 
 const buttonStyles = cn(
   "absolute inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-transparent shadow-sm transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive active:scale-[.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0"

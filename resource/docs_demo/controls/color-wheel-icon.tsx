@@ -1,4 +1,4 @@
-import { rem } from "str-merge";
+import { rem } from "cretex";
 
 export function ColorWheelIcon() {
   return (

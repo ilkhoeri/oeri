@@ -5,7 +5,7 @@ import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { SizeElement, useElementRect } from "@/hooks/use-element-info";
-import { inferType } from "str-merge";
+import { inferType } from "cretex";
 
 export enum Selector {
   Trigger = "trigger",

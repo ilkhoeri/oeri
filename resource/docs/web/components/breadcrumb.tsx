@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, rem, type inferType, type cvxProps } from "str-merge";
+import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {

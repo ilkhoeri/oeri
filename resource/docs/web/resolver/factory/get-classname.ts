@@ -1,4 +1,4 @@
-import { twMerge, cnx, cvxVariant } from "str-merge";
+import { merge, cnx, cvxResult } from "cretex";
 import { GetStylesApiOptions, Theme } from "./factory-types";
 
 interface GetThemeClassNamesOptions {
@@ -8,13 +8,7 @@ interface GetThemeClassNamesOptions {
   props: Record<string, any>;
   stylesCtx: Record<string, any> | undefined;
 }
-export function getThemeClassNames({
-  themeName,
-  theme,
-  selector,
-  props,
-  stylesCtx
-}: GetThemeClassNamesOptions) {
+export function getThemeClassNames({ themeName, theme, selector, props, stylesCtx }: GetThemeClassNamesOptions) {
   return themeName.map(
     n =>
       resolveClassNames({
@@ -32,26 +26,15 @@ interface GetStaticClassNamesInput {
   classNamesPrefix?: string;
 }
 /** Returns static component classes, for example, `.Input-wrapper` */
-export function getStaticClassNames({
-  themeName,
-  classNamesPrefix,
-  selector
-}: GetStaticClassNamesInput) {
+export function getStaticClassNames({ themeName, classNamesPrefix, selector }: GetStaticClassNamesInput) {
   return themeName.map(n => `${classNamesPrefix}-${n}-${selector}`).join(" ");
 }
 
-interface GetOptionsClassNamesInput
-  extends Omit<ResolveClassNamesInput, "classNames"> {
+interface GetOptionsClassNamesInput extends Omit<ResolveClassNamesInput, "classNames"> {
   selector: string;
   options: GetStylesApiOptions | undefined;
 }
-export function getOptionsClassNames({
-  selector,
-  stylesCtx,
-  options,
-  props,
-  theme
-}: GetOptionsClassNamesInput) {
+export function getOptionsClassNames({ selector, stylesCtx, options, props, theme }: GetOptionsClassNamesInput) {
   return resolveClassNames({
     theme,
     classNames: options?.classNames,
@@ -66,11 +49,7 @@ interface GetRootClassNameInput {
   className: string | undefined;
 }
 /** Adds `className` to the list if given selector is root */
-export function getRootClassName({
-  rootSelector,
-  selector,
-  className
-}: GetRootClassNameInput) {
+export function getRootClassName({ rootSelector, selector, className }: GetRootClassNameInput) {
   return rootSelector === selector ? className : undefined;
 }
 
@@ -98,52 +77,30 @@ export interface ResolveClassNamesInput {
   props: Record<string, any>;
   stylesCtx: Record<string, any> | undefined;
 }
-export function resolveClassNames({
-  theme,
-  classNames,
-  props,
-  stylesCtx
-}: ResolveClassNamesInput) {
+export function resolveClassNames({ theme, classNames, props, stylesCtx }: ResolveClassNamesInput) {
   const arrayClassNames = Array.isArray(classNames) ? classNames : [classNames];
-  const resolvedClassNames = arrayClassNames.map(item =>
-    typeof item === "function"
-      ? item(theme, props, stylesCtx)
-      : item || EMPTY_CLASS_NAMES
-  );
+  const resolvedClassNames = arrayClassNames.map(item => (typeof item === "function" ? item(theme, props, stylesCtx) : item || EMPTY_CLASS_NAMES));
 
   return mergeClassNames(resolvedClassNames);
 }
 
 interface GetSelectorClassNameInput {
   selector: string;
-  classes: (
-    variant?: cvxVariant<{ selector: { [key: string]: string } }>
-  ) => string;
+  classes: (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string;
   unstyled: boolean | undefined;
 }
-export function getSelectorClassName({
-  selector,
-  classes,
-  unstyled
-}: GetSelectorClassNameInput) {
+export function getSelectorClassName({ selector, classes, unstyled }: GetSelectorClassNameInput) {
   return unstyled ? undefined : classes({ selector });
 }
 
 interface GetVariantClassNameInput {
   options: GetStylesApiOptions | undefined;
-  classes: (
-    variant?: cvxVariant<{ selector: { [key: string]: string } }>
-  ) => string;
+  classes: (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string;
   selector: string;
   unstyled: boolean | undefined;
 }
 /** Returns variant className, variant is always separated from selector with `--`, for example, `tab--default` */
-export function getVariantClassName({
-  options,
-  classes,
-  selector,
-  unstyled
-}: GetVariantClassNameInput) {
+export function getVariantClassName({ options, classes, selector, unstyled }: GetVariantClassNameInput) {
   // return options?.variant && !unstyled ? classes.variant.as[`${selector}--${options.variant}`] : undefined;
   return options?.variant && !unstyled ? classes({ selector }) : undefined;
 }
@@ -154,38 +111,21 @@ interface GetGlobalClassNamesOptions {
   options: GetStylesApiOptions | undefined;
 }
 /** Returns classes that are defined globally (focus and active styles) based on options */
-export function getGlobalClassNames({
-  theme,
-  options,
-  unstyled
-}: GetGlobalClassNamesOptions) {
-  return cnx(
-    options?.focusable && !unstyled && theme?.focusClassName,
-    options?.active && !unstyled && theme?.activeClassName
-  );
+export function getGlobalClassNames({ theme, options, unstyled }: GetGlobalClassNamesOptions) {
+  return cnx(options?.focusable && !unstyled && theme?.focusClassName, options?.active && !unstyled && theme?.activeClassName);
 }
 
 interface GetResolvedClassNamesOptions extends ResolveClassNamesInput {
   selector: string;
 }
-export function getResolvedClassNames({
-  selector,
-  stylesCtx,
-  theme,
-  classNames,
-  props
-}: GetResolvedClassNamesOptions) {
+export function getResolvedClassNames({ selector, stylesCtx, theme, classNames, props }: GetResolvedClassNamesOptions) {
   return resolveClassNames({ theme, classNames, props, stylesCtx })[selector];
 }
 
 type __ClassNames =
   | undefined
   | Partial<Record<string, string>>
-  | ((
-      theme: Theme,
-      props: Record<string, any>,
-      ctx: Record<string, any> | undefined
-    ) => Partial<Record<string, string>>);
+  | ((theme: Theme, props: Record<string, any>, ctx: Record<string, any> | undefined) => Partial<Record<string, string>>);
 
 export type _ClassNames = __ClassNames | __ClassNames[];
 
@@ -199,9 +139,7 @@ export interface GetClassNameOptions {
   /** `classNames` specified in the hook, only resolved `classNames[selector]` is added to the list */
   classNames: _ClassNames;
   /** Classes object, usually imported from `*.module.css` */
-  classes: (
-    variant?: cvxVariant<{ selector: { [key: string]: string } }>
-  ) => string;
+  classes: (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string;
   // classes: Record<string, string>;
   /** Determines whether classes from `classes` should be added to the list */
   unstyled: boolean | undefined;
@@ -233,7 +171,7 @@ export function getClassName({
   props
   // classNamesPrefix,
 }: GetClassNameOptions) {
-  return twMerge(
+  return merge(
     cnx(
       getSelectorClassName({
         selector,

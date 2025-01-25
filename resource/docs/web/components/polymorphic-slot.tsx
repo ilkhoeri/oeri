@@ -1,5 +1,5 @@
 import * as React from "react";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
 export type Element<T> = { el?: T | (React.ElementType & {}); style?: CSSProperties };
 export type CSSProperties = React.CSSProperties & Record<string, any>;

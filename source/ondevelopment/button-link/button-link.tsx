@@ -1,16 +1,15 @@
 import React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
+import { merge } from "cretex";
 import { AnchorTargets } from "@/utility/types";
-import { cvx, type cvxProps } from "str-merge";
+import { cvx, type cvxProps } from "cretex";
 
 export const variantLinkButton = cvx({
   assign: "cursor-pointer",
   variants: {
     variant: {
-      badge:
-        "min-w-[54px] py-[1px] z-10 px-1 rounded-full centered text-center text-[10px] font-medium leading-normal",
+      badge: "min-w-[54px] py-[1px] z-10 px-1 rounded-full centered text-center text-[10px] font-medium leading-normal",
       normal: "flex items-center justify-center"
     },
     color: {
@@ -21,19 +20,14 @@ export const variantLinkButton = cvx({
       red: "bg-[#fa52521a] text-[#ff6b6b] border-[#ff6b6b]",
       "gradient-blue": "bg-[linear-gradient(#0dccea,_#0d70ea)]",
       "gradient-orange": "bg-[linear-gradient(-180deg,_#FF7E31,_#E62C03)]",
-      "outline-base":
-        "bg-white dark:bg-black text-slate outline-1 outline outline-slate",
-      "outline-indigo":
-        "outline-2 outline outline-indigo-500 bg-indigo-500/20 text-indigo-600",
-      "outline-teal":
-        "outline-2 outline outline-teal-500 bg-teal-500/20 text-teal-600"
+      "outline-base": "bg-white dark:bg-black text-slate outline-1 outline outline-slate",
+      "outline-indigo": "outline-2 outline outline-indigo-500 bg-indigo-500/20 text-indigo-600",
+      "outline-teal": "outline-2 outline outline-teal-500 bg-teal-500/20 text-teal-600"
     }
   }
 });
 
-export type LinkType = LinkProps &
-  AnchorTargets &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+export type LinkType = LinkProps & AnchorTargets & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 export type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
 };
@@ -43,9 +37,9 @@ export type LinkButtonProps =
   | ({ el?: "link" } & LinkType & cvxProps<typeof variantLinkButton>);
 
 export const LinkButton = (props: LinkButtonProps) => {
-  const { el = "link", className, color='base', variant = "badge", ...rest } = props;
+  const { el = "link", className, color = "base", variant = "badge", ...rest } = props;
   const router = useRouter();
-  const classes = twMerge(variantLinkButton({ variant, color }), className);
+  const classes = merge(variantLinkButton({ variant, color }), className);
 
   if (el === "link") {
     const { rel = "noopener noreferrer", ...other } = rest as LinkType;

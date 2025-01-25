@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useId } from "@/hooks/use-id";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cnx, cvx, rem, type cvxProps } from "str-merge";
+import { cn, cnx, cvx, rem, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
@@ -92,16 +92,43 @@ export interface CheckerGroupProps
 }
 export const CheckerGroup = React.forwardRef<HTMLDivElement, CheckerGroupProps>((_props, ref) => {
   const {
-    children, value, defaultValue, onChange, size, labelPosition, readOnly, required, color, round,
-    disabled, label, description, className, style, classNames, styles, unstyled, error, checked,
-    indeterminate, type = checkerDefault, id: defaulId, name, multiple, groupProps: wp, ...props
+    children,
+    value,
+    defaultValue,
+    onChange,
+    size,
+    labelPosition,
+    readOnly,
+    required,
+    color,
+    round,
+    disabled,
+    label,
+    description,
+    className,
+    style,
+    classNames,
+    styles,
+    unstyled,
+    error,
+    checked,
+    indeterminate,
+    type = checkerDefault,
+    id: defaulId,
+    name,
+    multiple,
+    groupProps: wp,
+    ...props
   } = _props;
 
   const id = useId(defaulId);
   const role = cnx(props?.role ?? `${type}group`);
   const _name = useId(name);
   const [_value, setValue] = useUncontrolled({
-    value, defaultValue, finalValue: [], onChange
+    value,
+    defaultValue,
+    finalValue: [],
+    onChange
   });
   const stylesApi = { id, styles, label, error, type, required, disabled, unstyled, classNames, description, indeterminate, checked };
 
@@ -160,8 +187,9 @@ export const CheckerGroup = React.forwardRef<HTMLDivElement, CheckerGroupProps>(
 CheckerGroup.displayName = "Checker/CheckerGroup";
 
 type PickFromGroup = "error" | "required" | "indeterminate" | "readOnly" | "round" | "labelPosition" | "type";
-interface __CheckerCardProps extends ComponentProps<"button", "size" | "color" | "type" | "onChange">,
-  Pick<__CheckerGroupProps, PickFromGroup>,
+interface __CheckerCardProps
+  extends ComponentProps<"button", "size" | "color" | "type" | "onChange">,
+    Pick<__CheckerGroupProps, PickFromGroup>,
     StylesNames<"checkerGroup"> {
   id?: string;
   dir?: "ltr" | "rtl";
@@ -174,9 +202,28 @@ interface __CheckerCardProps extends ComponentProps<"button", "size" | "color" |
 }
 export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProps>((_props, ref) => {
   const {
-    dir = "ltr", round = 8, classNames, className, style, styles, unstyled, checked, value,
-    onClick, name, onKeyDown, disabled, error, required, indeterminate, readOnly, labelPosition,
-    defaultChecked, onChange, type = checkerDefault, ...props
+    dir = "ltr",
+    round = 8,
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    checked,
+    value,
+    onClick,
+    name,
+    onKeyDown,
+    disabled,
+    error,
+    required,
+    indeterminate,
+    readOnly,
+    labelPosition,
+    defaultChecked,
+    onChange,
+    type = checkerDefault,
+    ...props
   } = _props;
 
   const ctx = useCheckerGroupCtx();
@@ -185,10 +232,25 @@ export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProp
   const _checked = typeof checked === "boolean" ? checked : value ? (Array.isArray(ctx?.value) ? ctx.value.includes(value) : ctx?.value === value) : false;
 
   const [_value, setValue] = useUncontrolled({
-    value: _checked, defaultValue: defaultChecked, finalValue: false, onChange
+    value: _checked,
+    defaultValue: defaultChecked,
+    finalValue: false,
+    onChange
   });
 
-  const stylesApi = { round, unstyled, classNames, styles, required, disabled, error, indeterminate, readOnly, checked: _value, labelPosition: ctx?.labelPosition ?? labelPosition };
+  const stylesApi = {
+    round,
+    unstyled,
+    classNames,
+    styles,
+    required,
+    disabled,
+    error,
+    indeterminate,
+    readOnly,
+    checked: _value,
+    labelPosition: ctx?.labelPosition ?? labelPosition
+  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     onKeyDown?.(event);
@@ -252,9 +314,33 @@ export interface CheckerProps extends ComponentProps<"input", "size" | "children
 }
 export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props, ref) => {
   const {
-    classNames, className, style, styles, unstyled, color, label, offLabel, onLabel, id, size, round,
-    icon, checked, defaultChecked, onChange, labelPosition, description, error, disabled, required,
-    rootRef, indeterminate, multiple, type = checkerDefault, rootProps: wp, ...props
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    color,
+    label,
+    offLabel,
+    onLabel,
+    id,
+    size,
+    round,
+    icon,
+    checked,
+    defaultChecked,
+    onChange,
+    labelPosition,
+    description,
+    error,
+    disabled,
+    required,
+    rootRef,
+    indeterminate,
+    multiple,
+    type = checkerDefault,
+    rootProps: wp,
+    ...props
   } = _props;
 
   const uuid = useId(id);
@@ -268,7 +354,9 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
     : {};
 
   const [_checked, handleChange] = useUncontrolled({
-    value: contextProps.checked ?? checked, defaultValue: defaultChecked, finalValue: false
+    value: contextProps.checked ?? checked,
+    defaultValue: defaultChecked,
+    finalValue: false
   });
 
   const rest = {
@@ -315,7 +403,7 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
           ...props
         }}
       />
-      <div {...{"aria-hidden": "true", ...checkerStyles("track", rest)}}>
+      <div {...{ "aria-hidden": "true", ...checkerStyles("track", rest) }}>
         {rest.type !== "switch" ? (
           icon || <IconDefault type={rest.type} indeterminate={rest.indeterminate} />
         ) : (
@@ -428,7 +516,22 @@ function checkerGroupStyles(selector: __Selector<"checkerGroup">, options: Style
   };
 }
 function checkerStyles(selector: __Selector<"checker">, options: StylesNames<"checker"> & __CheckerProps = {}) {
-  const { unstyled, className, classNames, style, styles, disabled, required, error, size = 20, round, labelPosition = "right", type, indeterminate, color = "hsl(var(--constructive))" } = options;
+  const {
+    unstyled,
+    className,
+    classNames,
+    style,
+    styles,
+    disabled,
+    required,
+    error,
+    size = 20,
+    round,
+    labelPosition = "right",
+    type,
+    indeterminate,
+    color = "hsl(var(--constructive))"
+  } = options;
   function selected<T>(select: __Selector<"checker">, state: T) {
     return selector === select ? (state as T) : undefined;
   }

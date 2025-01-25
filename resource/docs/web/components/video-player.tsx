@@ -1,7 +1,7 @@
 "use client";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 import * as React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { Svg, type SvgProps } from "@/ui/svg";
 
 export interface UseVideoPlayerProps {

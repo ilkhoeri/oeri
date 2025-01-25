@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 import { displayName } from "../utils";
 import { ArrowIcon } from "@/icons/*";
 import { usePathname } from "next/navigation";

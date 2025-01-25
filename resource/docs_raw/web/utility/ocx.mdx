@@ -1,6 +1,6 @@
 ---
 title: ocx({})
-description: Create your project and compactness the required dependencies.
+description: Dynamically utility for combining different types of values ​​into a single object.
 date: 2025-01-05
 summary: Ringkasan
 component: true
@@ -13,10 +13,10 @@ links:
 
 ### Installation
 
-- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/cretex/?icon=npm)](https://www.npmjs.com/cretex)
 
 ```bash
-npm install str-merge@latest
+npm install cretex@latest
 ```
 
 The ocx function is a utility for combining different types of values ​​into a single object.
@@ -28,7 +28,7 @@ It can accept various input types, such as objects, arrays, functions, or primit
 #### Syntax
 
 ```ts
-function ocx<T extends ocxMap>(...inputs: ocxValues<T>[]): ocxKey<T>;
+function ocx<T extends ocxKey>(...obj: ocxObj<T>[]): ocxAcc<T>;
 ```
 
 #### How ocx works
@@ -74,9 +74,9 @@ ocx<React.CSSProperties>([
   [true && { margin: "10px" }, () => ({ padd: "5px", "--index": 0 })],
   false && [{ out: "1px" }, { border: "cya", "--index": 11 }],
   null,
-  [[true && { bar: null, baz: false, remake: "ok!" }]]
+  [[true && { bar: null, baz: false, qux: "qux!" }]]
 ]);
-// Output: {"baz":false,"size":true,"foo":"world","margiin":"10px","padd":"5px","--index":11,"bar":null,"remake":"ok!"} as `React.CSSProperties & Record<string, any>`
+// Output: {"baz":false,"size":true,"foo":"world","margin":"10px","padd":"5px","--index":11,"bar":null,"qux":"qux!"} as `React.CSSProperties & Record<string, any>`
 ```
 
 ### Advantages

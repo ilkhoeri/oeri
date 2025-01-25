@@ -25,7 +25,7 @@ import {
 } from "../controls";
 import { Code, getCodeArray } from "./get-code-array";
 import { getStyles } from "./shiki/shiki-code-highlight-tabs";
-import { ocx } from "str-merge";
+import { ocx } from "cretex";
 
 const ControlComponents = {
   boolean: ConfiguratorBooleanControl,
@@ -59,7 +59,21 @@ export interface ConfiguratorDemoProps extends DemoAreaProps {
 }
 
 export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
-  const { code, controls, children, centered, maxWidth, minHeight, withPadding, dimmed, striped, orientation = "horizontal", defaultExpanded = true, className, classNames } = _props;
+  const {
+    code,
+    controls,
+    children,
+    centered,
+    maxWidth,
+    minHeight,
+    withPadding,
+    dimmed,
+    striped,
+    orientation = "horizontal",
+    defaultExpanded = true,
+    className,
+    classNames
+  } = _props;
   const ctx = useApp();
   const tooltipSide = ctx.dir === "rtl" ? "right" : "left";
 

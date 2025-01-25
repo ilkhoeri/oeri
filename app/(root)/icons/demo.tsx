@@ -19,7 +19,7 @@ export async function Demos(_props: DemosProps) {
 
       {usages && typeof usages === "string" && (
         <Customizer
-          setInnerHTML={await highlightCode(usages, {
+          __html={await highlightCode(usages, {
             copy: true
           })}
           className="mb-0 scrollbar"

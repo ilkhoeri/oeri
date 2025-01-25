@@ -1,8 +1,8 @@
 import * as React from "react";
-import { cn, cvx, type cvxProps } from "str-merge";
+import { cn, cvx, type cvxProps } from "cretex";
 
 const classRoot = cn(
-  "max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre [word-wrap:normal] [word-break:normal]"
+  "max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]"
 );
 
 const classes = cvx({

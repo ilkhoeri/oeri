@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
@@ -55,8 +55,18 @@ export function useDoubleHelixWords({ el, placeholders, duration = 4000 }: Doubl
 
 export const DoubleHelixWords = React.forwardRef<HTMLElement, DoubleHelixWordsProps>((_props, ref) => {
   const {
-    el = { root: "article", backbone: "section", bases: "span" }, placeholders, duration, className, classNames,
-    style, styles, gap = 6, distance = 100, speed = 400, suppressHydrationWarning = true, ...props
+    el = { root: "article", backbone: "section", bases: "span" },
+    placeholders,
+    duration,
+    className,
+    classNames,
+    style,
+    styles,
+    gap = 6,
+    distance = 100,
+    speed = 400,
+    suppressHydrationWarning = true,
+    ...props
   } = _props;
 
   const Root: React.ElementType = el.root as React.ElementType;

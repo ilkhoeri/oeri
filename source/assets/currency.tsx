@@ -1,6 +1,6 @@
 "use client";
 import React, { ElementType, useEffect, useState } from "react";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 
 export const formatterIDR = new Intl.NumberFormat("id-ID", {
   style: "currency",

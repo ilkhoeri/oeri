@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Anchor } from "@/ui/anchor";
 import { tocopy } from "../utils";
-import { twMerge } from "str-merge";
+import { merge } from "cretex";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
 import { UnstyledButton } from "@/ui/button";
@@ -48,6 +48,7 @@ export const CopyButton = React.forwardRef<
   }
 >(({ value, className, ...props }, ref) => {
   const clipboard = useClipboard({ timeout: 1000 });
+
   return (
     <Tooltip
       ref={ref}
@@ -62,6 +63,7 @@ export const CopyButton = React.forwardRef<
       sideOffset={6}
       contentProps={{ className: "min-w-[86px] py-1" }}
       content={<span>{clipboard.copied ? "Copied" : "Copy code"}</span>}
+      suppressHydrationWarning
     >
       {clipboard.copied ? <CheckIcon className="size-5 animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" /> : <CopyIcon className="size-5" />}
     </Tooltip>
@@ -90,7 +92,7 @@ export const ScrollToggle = React.forwardRef<React.ElementRef<typeof UnstyledBut
         onClick={scrollWindow}
         // onMouseEnter={() => setHovered(true)}
         // onMouseLeave={() => setHovered(false)}
-        className={twMerge(
+        className={merge(
           "fixed bottom-4 right-4 z-[99] mr-[--scrollbar-space,var(--has-scrollbar)] flex size-8 cursor-pointer select-none items-center justify-center rounded-xl border border-muted-foreground/40 bg-background/40 p-0.5 capitalize text-muted-foreground/90 outline-0 backdrop-blur transition-none duration-0 disabled:pointer-events-none disabled:opacity-50 supports-[backdrop-filter]:bg-background/40 [&_svg]:size-full",
           "after:absolute after:left-0 after:h-8 after:w-12 after:content-['']",
           className

@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 interface UseTypingWords {
   placeholders: string[];
@@ -118,7 +118,8 @@ export const TypingWords = React.forwardRef<HTMLElement, TypingWordsProps>((_pro
         "data-animation": "TypingWords",
         className: cn(
           {
-            "relative [display:ruby] after:content-[''] after:relative after:block after:-bottom-1 after:overflow-hidden after:bg-transparent after:border-solid after:h-[--cursor-h,20px] after:[border-right:var(--cursor-w,0.15rem)_solid_var(--cursor-color,#e34ba9)] after:animate-cursor-bar": withCursor
+            "relative [display:ruby] after:content-[''] after:relative after:block after:-bottom-1 after:overflow-hidden after:bg-transparent after:border-solid after:h-[--cursor-h,20px] after:[border-right:var(--cursor-w,0.15rem)_solid_var(--cursor-color,#e34ba9)] after:animate-cursor-bar":
+              withCursor
           },
           className
         ),

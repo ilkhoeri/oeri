@@ -1,5 +1,5 @@
 import React from "react";
-import { merge, rem } from "str-merge";
+import { merge, rem } from "cretex";
 import { Typography } from "@/ui/typography";
 import { getCodeFileIcon } from "./shiki/shiki-code-get-icon";
 import { CodeHighlightTabs, CodeHighlightTabsCode, CodeHighlightTabsProps } from "./shiki/shiki-code-highlight-tabs";
@@ -147,17 +147,17 @@ export function DemoArea(_props: DemoAreaProps) {
   );
 }
 
-    // align-items: stretch;
-    // justify-content: space-between;
-    // margin-top: 1rem;
-    // height: -moz-max-content;
-    // height: max-content;
-    // flex-direction: row;
-    // /* flex-direction: column; */
-    // flex-wrap: wrap;
-    // border-top-width: 1px;
-    // padding: 1rem;
-    // padding-bottom: 0;
-    // display: flex;
-    // gap: .75rem;
-    // background-color: hsl(var(--background));
+// align-items: stretch;
+// justify-content: space-between;
+// margin-top: 1rem;
+// height: -moz-max-content;
+// height: max-content;
+// flex-direction: row;
+// /* flex-direction: column; */
+// flex-wrap: wrap;
+// border-top-width: 1px;
+// padding: 1rem;
+// padding-bottom: 0;
+// display: flex;
+// gap: .75rem;
+// background-color: hsl(var(--background));

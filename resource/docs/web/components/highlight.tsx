@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 type __Selector = "root" | "highlight";
 type Options = StylesNames<__Selector> & {};

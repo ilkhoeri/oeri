@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Tabs } from "@/ui/tabs";
-import { cn, cvx, cvxProps } from "str-merge";
+import { cn, cvx, cvxProps } from "cretex";
 import { Button } from "@/ui/button";
 import { nextValue } from "../utils";
 import { FloatingIndicator } from "@/ui/floating-indicator";
@@ -73,7 +73,8 @@ export function useExpand(options: { defaultExpanded?: `${Expands}` } = {}) {
             setExpand(nextValue(expand, EXPAND_VALUES));
             props?.onClick?.(e);
           },
-          ...props
+          ...props,
+          suppressHydrationWarning: true
         }}
       >
         {capitalizeWords(expand)}

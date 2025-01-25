@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { sourceFile } from "@/source/utils";
 import { usePathname } from "next/navigation";
 import { ArrowsSquareIcon } from "@/icons/*";
@@ -49,7 +49,7 @@ export function TableOfContents({ toc, sub }: TocProps) {
   const editPageLink = paths.length > 1 ? `https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFile(paths)}.mdx` : "";
 
   return (
-    <aside className="lg:sticky m-0 mt-[calc(var(--navbar)*-1)] h-[--aside-h] max-h-[--aside-h] w-full overflow-hidden bg-background-theme pt-[calc(var(--navbar)+18px)] [--aside-h:100dvh] [--aside-w:calc(var(--aside)-1rem)] max-lg:sr-only max-lg:z-[-111] max-lg:hidden lg:top-0 lg:w-[--aside-w] lg:min-w-[--aside-w] lg:max-w-[--aside-w] lg:pl-8 lg:pr-4 lg:transition-none lg:[--aside-h:calc(100dvh-2rem)] lg:rtl:pl-4 lg:rtl:pr-8">
+    <aside className="m-0 mt-[calc(var(--navbar)*-1)] h-[--aside-h] max-h-[--aside-h] w-full overflow-hidden bg-background-theme pt-[calc(var(--navbar)+18px)] [--aside-h:100dvh] [--aside-w:calc(var(--aside)-1rem)] max-lg:sr-only max-lg:z-[-111] max-lg:hidden lg:sticky lg:top-0 lg:w-[--aside-w] lg:min-w-[--aside-w] lg:max-w-[--aside-w] lg:pl-8 lg:pr-4 lg:transition-none lg:[--aside-h:calc(100dvh-2rem)] lg:rtl:pl-4 lg:rtl:pr-8">
       {min_lg && (
         <>
           {toc?.items?.length && (
@@ -65,18 +65,13 @@ export function TableOfContents({ toc, sub }: TocProps) {
           )}
 
           <hr className="mt-5 w-full min-w-[212px]" />
-
-          <Link
-            href={editPageLink}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="group mt-5 h-4 justify-start gap-1 pb-1.5 text-muted-foreground"
-          >
-            <span className="truncate text-sm transition-all underline-hover group-hover:text-constructive">Edit this page on GitHub</span>
-            <ArrowsSquareIcon arrow="right" square={false} className="-rotate-45 stroke-[1.25] sizer [--sz:28px]" />
-          </Link>
         </>
       )}
+
+      <Link href={editPageLink} target="_blank" rel="noopener noreferrer nofollow" className="group mt-5 h-4 justify-start gap-1 pb-1.5 text-muted-foreground">
+        <span className="truncate text-sm transition-all underline-hover group-hover:text-constructive">Edit this page on GitHub</span>
+        <ArrowsSquareIcon arrow="right" square={false} className="-rotate-45 stroke-[1.25] sizer [--sz:28px]" />
+      </Link>
     </aside>
   );
 }

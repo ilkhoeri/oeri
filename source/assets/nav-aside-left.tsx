@@ -4,7 +4,7 @@ import React from "react";
 import { useNavContext } from "@/source/hooks/use-nav";
 import { NavLinkItem } from "@/source/assets/navlink";
 import { ButtonAside, LinkHome } from "./nav-head";
-import { cvx, twMerge } from "str-merge";
+import { cvx, merge } from "cretex";
 import { ScrollArea } from "@/ui/scroll-area";
 import { docsRoutes } from "../generated/gen-routes";
 import { Sheets, SheetsContent, SheetsTrigger } from "@/ui/sheets";
@@ -30,7 +30,7 @@ export function AsideLeft(_props: AsideLeftProps) {
 
   return (
     <>
-      <aside data-state={query ? (open ? "open" : "closed") : undefined} className={twMerge(classes({ style: "aside" }), classNames?.aside)}>
+      <aside data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
         {query && (
           <hgroup className={classes({ style: "hgroup" })}>
             <LinkHome />
@@ -125,7 +125,7 @@ function Overlay({ minQuery, open, setOpen, className }: { minQuery?: boolean; o
   if (minQuery || !open) {
     return null;
   }
-  return <span onClick={() => setOpen(false)} className={twMerge(classes({ style: "overlay" }), className)} />;
+  return <span onClick={() => setOpen(false)} className={merge(classes({ style: "overlay" }), className)} />;
 }
 
 const classes = cvx({

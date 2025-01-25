@@ -4,7 +4,7 @@ import { useDidUpdate } from "@/hooks/use-did-update";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { mergeRefs, useMergedRef } from "@/hooks/use-merged-ref";
 import { clampUseMovePosition, useMove, UseMovePosition } from "@/hooks/use-move";
-import { cn, cvx, rem, type inferType, type cvxProps, ocx } from "str-merge";
+import { cn, cvx, rem, type inferType, type cvxProps, ocx } from "cretex";
 import Svg, { type SvgProps } from "@/ui/svg";
 import { getContrastColor } from "@/hooks/use-random-colors";
 
@@ -195,7 +195,7 @@ export const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>((_
           "data-color-format": format,
           "data-full-width": fullWidth ? "true" : undefined,
           style: {
-            ...rootVars({round,size,swatchPerRow}),
+            ...rootVars({ round, size, swatchPerRow }),
             ...(children
               ? {
                   "--cp-input-round": "var(--cp-round)",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, rem } from "str-merge";
+import { cn, rem } from "cretex";
 
 export interface StackProps extends React.ComponentProps<"div"> {
   unstyled?: string;

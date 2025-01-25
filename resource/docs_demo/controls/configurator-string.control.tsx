@@ -4,7 +4,7 @@ import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
 import { __cn } from "./classes.control";
 import { SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 import { purify } from "@/source/libs/dom-purify";
 
 export type ConfiguratorStringControlOptions = ConfiguratorControl<

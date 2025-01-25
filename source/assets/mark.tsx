@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 export type MarkProps = {
   className?: string;

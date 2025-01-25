@@ -8,11 +8,6 @@ import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" w
 
 type HighlightCode = {
   highlight: (code: string, language: ShikiLanguage) => { code: string; highlighted: boolean };
-  segment: string[];
-  codes: {
-    code: Record<"content" | "extension", string | null>;
-    css: Record<"content" | "source", string | null>;
-  } | null;
 };
 
 function prepareHtmlCode(code: string) {
@@ -30,17 +25,13 @@ const ShikiContext = createContext<HighlightCode | null>(null);
 interface ShikiProviderProps {
   children: React.ReactNode;
   loadShiki: () => Promise<HighlighterGeneric<any, any>>;
-  loadCodes: () => Promise<HighlightCode["codes"]>;
-  segment?: string[];
 }
 
-export function ShikiProvider({ children, loadShiki, loadCodes, segment = [] }: ShikiProviderProps) {
+export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
   const [shiki, setShiki] = useState<HighlighterGeneric<any, any> | null>(null);
-  const [codes, setCodes] = useState<HighlightCode["codes"] | null>(null);
 
   useLayoutEffect(() => {
     loadShiki().then(s => setShiki(s));
-    loadCodes().then(s => setCodes(s));
   }, [loadShiki]);
 
   const highlight = useCallback(
@@ -54,19 +45,17 @@ export function ShikiProvider({ children, loadShiki, loadCodes, segment = [] }: 
         highlighted: true
       };
     },
-    [shiki, codes]
+    [shiki]
   );
 
-  return <ShikiContext.Provider value={{ highlight, codes, segment }}>{children}</ShikiContext.Provider>;
+  return <ShikiContext.Provider value={{ highlight }}>{children}</ShikiContext.Provider>;
 }
 
 export function useShiki() {
   const shiki = useContext(ShikiContext);
   if (!shiki) {
     return {
-      highlight: (code: string) => ({ code, highlighted: false }),
-      segment: [],
-      codes: null
+      highlight: (code: string) => ({ code, highlighted: false })
     };
   }
   return shiki;

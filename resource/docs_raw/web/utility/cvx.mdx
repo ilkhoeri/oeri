@@ -13,10 +13,10 @@ links:
 
 ### Installation
 
-- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/str-merge/?icon=npm)](https://www.npmjs.com/str-merge)
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/cretex/?icon=npm)](https://www.npmjs.com/cretex)
 
 ```bash
-npm install str-merge@latest
+npm install cretex@latest
 ```
 
 The cvx function is a utility for managing string class variants in a structured manner.
@@ -26,7 +26,15 @@ It allows combining classes based on a predefined variant configuration, with th
 #### Syntax
 
 ```ts
-function cvx<T extends cvxMap>(keys: cvxKeys<T>): (variant: cvxVariant<T>) => string;
+function cvx<T extends cvxKeys>(keys: cvxRecord<T>): (result?: cvxResult<T>) => string;
+```
+
+```ts
+cvx({
+  assign: "", // optional
+  variants: {}, // required
+  defaultVariants: {} // optional
+});
 ```
 
 #### How cvx works
@@ -44,7 +52,7 @@ function cvx<T extends cvxMap>(keys: cvxKeys<T>): (variant: cvxVariant<T>) => st
 #### Example of Usage
 
 ```tsx
-import { cvx, twMerge, rem, type cvxProps } from "str-merge";
+import { cvx, merge, rem, type cvxProps } from "cretex";
 
 const classes = cvx({
   // assign values that is definitely returned
@@ -84,7 +92,7 @@ interface ClnProps extends MyVariantsType {
 }
 export function clN(props: ClnProps) {
   const { className, unstyled, ...rest } = props;
-  return { className: twMerge(!unstyled && classes({ ...rest }), className) };
+  return { className: merge(!unstyled && classes({ ...rest }), className) };
 }
 
 export function CvxDemo(props: ClnProps) {
@@ -96,7 +104,7 @@ export function CvxDemo(props: ClnProps) {
       </div>
       <div className={classes()}>COMPONENT</div>
       <div className={classes({ color: "red", size: "lg" })}>COMPONENT</div>
-      <div className={twMerge(classes({ color: "red", size: "md" }), "bg-black/60 dark:bg-white/60 text-white dark:text-black font-extrabold border-0")}>
+      <div className={merge(classes({ color: "red", size: "md" }), "bg-black/60 dark:bg-white/60 text-white dark:text-black font-extrabold border-0")}>
         COMPONENT
       </div>
     </div>

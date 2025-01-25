@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { Svg } from "@/ui/svg";
 import { Tabs } from "@/ui/tabs";
 import { Event } from "./events";
@@ -15,7 +15,7 @@ import { CodeBlockCommand, Expand } from "../rehype";
 import { Avatar } from "@/ui/avatar";
 import { demoComponentsEntries } from "../demo-manifest-component";
 import { demoHooksEntries } from "../demo-manifest-hook";
-import { LoadCodes } from "../shiki/block-codes";
+import { SourceCodes } from "./source-codes";
 
 export const components = {
   Expand,
@@ -112,7 +112,7 @@ export const components = {
   GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)} {...props} />
   ),
-  LoadCodes,
+  SourceCodes,
   ...demoComponentsEntries,
   ...demoHooksEntries
 };

@@ -1,4 +1,4 @@
-import { cnxValues, cvx, cvxProps, merge, ocx } from "str-merge";
+import { cnxValues, cvx, cvxProps, merge, ocx } from "cretex";
 
 export const classes = cvx({
   variants: {

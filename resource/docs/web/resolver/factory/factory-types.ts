@@ -1,39 +1,24 @@
 import React from "react";
-import { cvxVariant } from "str-merge";
+import { cvxResult } from "cretex";
 
 export type Factory<Payload extends FactoryPayload> = Payload;
-export type PolymorphicFactory<Payload extends PolymorphicFactoryPayload> =
-  Payload;
+export type PolymorphicFactory<Payload extends PolymorphicFactoryPayload> = Payload;
 
-type ExtendedProps<Props = {}, OverrideProps = {}> = OverrideProps &
-  Omit<Props, keyof OverrideProps>;
+type ExtendedProps<Props = {}, OverrideProps = {}> = OverrideProps & Omit<Props, keyof OverrideProps>;
 
-type ElementType =
-  | keyof JSX.IntrinsicElements
-  | React.JSXElementConstructor<any>;
+type ElementType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
-type PropsOf<C extends ElementType> = JSX.LibraryManagedAttributes<
-  C,
-  React.ComponentPropsWithoutRef<C>
->;
+type PropsOf<C extends ElementType> = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
 
 type ComponentProp<C> = {
   component?: C;
 };
 
-type InheritedProps<C extends ElementType, Props = {}> = ExtendedProps<
-  PropsOf<C>,
-  Props
->;
+type InheritedProps<C extends ElementType, Props = {}> = ExtendedProps<PropsOf<C>, Props>;
 
-export type PolymorphicRef<C> = C extends React.ElementType
-  ? React.ComponentPropsWithRef<C>["ref"]
-  : never;
+export type PolymorphicRef<C> = C extends React.ElementType ? React.ComponentPropsWithRef<C>["ref"] : never;
 
-export type PolymorphicComponentProps<
-  C,
-  Props = {}
-> = C extends React.ElementType
+export type PolymorphicComponentProps<C, Props = {}> = C extends React.ElementType
   ? InheritedProps<C, Props & ComponentProp<C>> & {
       ref?: PolymorphicRef<C>;
       renderRoot?(props: any): any;
@@ -43,25 +28,14 @@ export type PolymorphicComponentProps<
       renderRoot?(props: Record<string, any>): any;
     };
 
-export function createPolymorphicComponent<
-  ComponentDefaultType,
-  Props,
-  StaticComponents = Record<string, never>
->(component: any) {
+export function createPolymorphicComponent<ComponentDefaultType, Props, StaticComponents = Record<string, never>>(component: any) {
   type ComponentProps<C> = PolymorphicComponentProps<C, Props>;
 
-  type _PolymorphicComponent = <C = ComponentDefaultType>(
-    props: ComponentProps<C>
-  ) => React.ReactElement;
+  type _PolymorphicComponent = <C = ComponentDefaultType>(props: ComponentProps<C>) => React.ReactElement;
 
-  type ComponentProperties = Omit<
-    React.FunctionComponent<ComponentProps<any>>,
-    never
-  >;
+  type ComponentProperties = Omit<React.FunctionComponent<ComponentProps<any>>, never>;
 
-  type PolymorphicComponent = _PolymorphicComponent &
-    ComponentProperties &
-    StaticComponents;
+  type PolymorphicComponent = _PolymorphicComponent & ComponentProperties & StaticComponents;
 
   return component as PolymorphicComponent;
 }
@@ -84,11 +58,7 @@ export interface FactoryPayload {
 }
 
 type ResolveStyle = CSSProperties | ((theme: Theme) => CSSProperties);
-export type GetStyleProp =
-  | ResolveStyle
-  | ResolveStyle[]
-  | GetStyleProp[]
-  | undefined;
+export type GetStyleProp = ResolveStyle | ResolveStyle[] | GetStyleProp[] | undefined;
 
 export interface GetStylesApiOptions {
   id?: string;
@@ -106,45 +76,25 @@ export interface GetStylesApiOptions {
   // defaultOpen?: boolean;
 }
 
-export type StylesApiRecord<
-  Payload extends FactoryPayload,
-  DataType
-> = Payload["compound"] extends true
+export type StylesApiRecord<Payload extends FactoryPayload, DataType> = Payload["compound"] extends true
   ? Payload["stylesNames"] extends string
     ? StylesRecord<Payload["stylesNames"], DataType>
     : never
   : Payload["stylesNames"] extends string
     ?
         | StylesRecord<Payload["stylesNames"], DataType>
-        | ((
-            theme: Theme,
-            props: Payload["props"],
-            ctx: Payload["ctx"]
-          ) => StylesRecord<Payload["stylesNames"], DataType>)
+        | ((theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => StylesRecord<Payload["stylesNames"], DataType>)
     : never;
 
-export type Styles<Payload extends FactoryPayload> = StylesApiRecord<
-  Payload,
-  CSSProperties
->;
-export type ClassNames<Payload extends FactoryPayload> = StylesApiRecord<
-  Payload,
-  string
->;
-export type ClassNamesArray<Payload extends FactoryPayload> = (
-  | StylesApiRecord<Payload, string>
-  | undefined
-)[];
+export type Styles<Payload extends FactoryPayload> = StylesApiRecord<Payload, CSSProperties>;
+export type ClassNames<Payload extends FactoryPayload> = StylesApiRecord<Payload, string>;
+export type ClassNamesArray<Payload extends FactoryPayload> = (StylesApiRecord<Payload, string> | undefined)[];
 
-export type StylesRecord<StylesNames extends string, Payload> = Partial<
-  Record<StylesNames, Payload>
->;
+export type StylesRecord<StylesNames extends string, Payload> = Partial<Record<StylesNames, Payload>>;
 
 export interface StylesApiProps<Payload extends FactoryPayload> {
   unstyled?: boolean;
-  variant?: Payload["variant"] extends string
-    ? Payload["variant"] | (string & {})
-    : string;
+  variant?: Payload["variant"] extends string ? Payload["variant"] | (string & {}) : string;
   classNames?: ClassNames<Payload>;
   styles?: Styles<Payload>;
   className?: string;
@@ -152,27 +102,14 @@ export interface StylesApiProps<Payload extends FactoryPayload> {
   vars?: PartialVarsResolver<Payload>;
 }
 
-export interface CompoundStylesApiProps<Payload extends FactoryPayload>
-  extends StylesApiProps<Payload> {}
+export interface CompoundStylesApiProps<Payload extends FactoryPayload> extends StylesApiProps<Payload> {}
 
-export type ElementProps<
-  ElementType extends React.ElementType,
-  PropsToOmit extends string = never
-> = Omit<React.ComponentPropsWithoutRef<ElementType>, "style" | PropsToOmit>;
+export type ElementProps<ElementType extends React.ElementType, PropsToOmit extends string = never> = Omit<
+  React.ComponentPropsWithoutRef<ElementType>,
+  "style" | PropsToOmit
+>;
 
-export type ColorsTuple = readonly [
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  ...string[]
-];
+export type ColorsTuple = readonly [string, string, string, string, string, string, string, string, string, string, ...string[]];
 
 export type ColorShade = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
@@ -216,36 +153,21 @@ export type StyleProp = Style | Style[] | StyleProp[] | undefined;
 
 export type CssVariable = `--${string}`;
 
-export type CssVariables<Variable extends string = CssVariable> = Partial<
-  Record<Variable, string>
->;
+export type CssVariables<Variable extends string = CssVariable> = Partial<Record<Variable, string>>;
 
-export type CssVars<Variable extends string = CssVariable> =
-  | CssVariables<Variable>
-  | ((theme: Theme) => CssVariables<Variable>)
-  | CssVars<Variable>[];
+export type CssVars<Variable extends string = CssVariable> = CssVariables<Variable> | ((theme: Theme) => CssVariables<Variable>) | CssVars<Variable>[];
 
-export type CssVarsProp<Variable extends string = CssVariable> =
-  | CssVars<Variable>
-  | CssVars<Variable>[];
+export type CssVarsProp<Variable extends string = CssVariable> = CssVars<Variable> | CssVars<Variable>[];
 
 export type TransformVars<V> = {
-  [Key in keyof V]: V[Key] extends CssVariable
-    ? Record<V[Key], string | undefined>
-    : never;
+  [Key in keyof V]: V[Key] extends CssVariable ? Record<V[Key], string | undefined> : never;
 };
 
 export type PartialTransformVars<V> = {
-  [Key in keyof V]: V[Key] extends CssVariable
-    ? Partial<Record<V[Key], string | undefined>>
-    : never;
+  [Key in keyof V]: V[Key] extends CssVariable ? Partial<Record<V[Key], string | undefined>> : never;
 };
 
-export type VarsResolver<Payload extends FactoryPayload> = (
-  theme: Theme,
-  props: Payload["props"],
-  ctx: Payload["ctx"]
-) => TransformVars<Payload["vars"]>;
+export type VarsResolver<Payload extends FactoryPayload> = (theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => TransformVars<Payload["vars"]>;
 
 export type PartialVarsResolver<Payload extends FactoryPayload> = (
   theme: Theme,
@@ -273,34 +195,26 @@ export interface ExtendsRootComponent<Payload extends FactoryPayload> {
   vars?: PartialVarsResolver<Payload>;
 }
 
-export type ExtendComponent<Payload extends FactoryPayload> =
-  Payload["compound"] extends true
-    ? ExtendCompoundComponent<Payload>
-    : ExtendsRootComponent<Payload>;
+export type ExtendComponent<Payload extends FactoryPayload> = Payload["compound"] extends true
+  ? ExtendCompoundComponent<Payload>
+  : ExtendsRootComponent<Payload>;
 
-export type StaticComponents<Input> =
-  Input extends Record<string, any> ? Input : Record<string, never>;
+export type StaticComponents<Input> = Input extends Record<string, any> ? Input : Record<string, never>;
 
 export interface ThemeExtend<Payload extends FactoryPayload> {
   extend: (input: ExtendComponent<Payload>) => ThemeComponent;
 }
 
 export type ComponentClasses<Payload extends FactoryPayload> = {
-  classes: Payload["stylesNames"] extends string
-    ? (variant?: cvxVariant<{ selector: { [key: string]: string } }>) => string
-    : never;
+  classes: Payload["stylesNames"] extends string ? (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string : never;
 };
 
-export type ComponentStaticProperties<Payload extends FactoryPayload> =
-  ThemeExtend<Payload> &
-    ComponentClasses<Payload> &
-    StaticComponents<Payload["staticComponents"]>;
+export type ComponentStaticProperties<Payload extends FactoryPayload> = ThemeExtend<Payload> &
+  ComponentClasses<Payload> &
+  StaticComponents<Payload["staticComponents"]>;
 
-export type Component<Payload extends FactoryPayload> =
-  React.ForwardRefExoticComponent<
-    Payload["props"] & React.RefAttributes<Payload["ref"]>
-  > &
-    ComponentStaticProperties<Payload>;
+export type Component<Payload extends FactoryPayload> = React.ForwardRefExoticComponent<Payload["props"] & React.RefAttributes<Payload["ref"]>> &
+  ComponentStaticProperties<Payload>;
 
 export type FilterPropsRes<T extends Record<string, any>> = {
   [Key in keyof T]-?: T[Key] extends undefined ? never : T[Key];
@@ -308,9 +222,7 @@ export type FilterPropsRes<T extends Record<string, any>> = {
 
 export interface UseStyles<Payload extends FactoryPayload> {
   name: string | (string | undefined)[];
-  classes: Payload["stylesNames"] extends string
-    ? (variant?: cvxVariant<{ selector: { [key: string]: string } }>) => string
-    : never;
+  classes: Payload["stylesNames"] extends string ? (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string : never;
   // classes: Payload["stylesNames"] extends string ? Record<string, string> : never;
   props: Payload["props"];
   stylesCtx?: Payload["ctx"];

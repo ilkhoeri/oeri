@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import * as Primitive from "@radix-ui/react-scroll-area";
-import { cn, cvx, ocx, rem, type cvxProps } from "str-merge";
+import { cn, cvx, ocx, rem, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
@@ -86,7 +86,22 @@ export interface ScrollAreaProps extends PropsOf<Primitive.ScrollAreaProps, "col
   viewportProps?: PropsOf<Primitive.ScrollAreaViewportProps & React.ComponentProps<"div"> & Record<string, string>>;
 }
 export const ScrollArea = React.forwardRef<React.ElementRef<typeof Primitive.Root>, ScrollAreaProps>((_props, ref) => {
-  const { orientation = "vertical", className, type, classNames, color, style, styles, unstyled, children, asChild = true, size, dangerouslySetInnerHTML, viewportProps, ...props } = _props;
+  const {
+    orientation = "vertical",
+    className,
+    type,
+    classNames,
+    color,
+    style,
+    styles,
+    unstyled,
+    children,
+    asChild = true,
+    size,
+    dangerouslySetInnerHTML,
+    viewportProps,
+    ...props
+  } = _props;
   const stylesApi = { classNames, styles, unstyled };
   const stylesRest = { orientation, ...stylesApi };
 

@@ -13,7 +13,7 @@ import { toPascal } from "@/utility/text-parser";
 import { useStringToHEx } from "@/hooks/use-random-colors";
 import { Code } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
 import { Comp } from "@/source/assets/components";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 import { RawToJsonProps } from "@/scripts/generated-icons";
 import { cleanHTML } from "@/source/libs/dom-purify";
 // import { CopyButton } from "@/source/ui/toggle";
@@ -51,11 +51,11 @@ export function LoadComponent({
   _raw,
   content,
   segment,
-  setInnerHTML
+  __html
 }: {
   files: RawToJsonProps;
   content?: string | null;
-  setInnerHTML?: string | null;
+  __html?: string | null;
   segment: string[] | undefined;
   _raw?: {
     raw: string | undefined;
@@ -116,7 +116,7 @@ export function LoadComponent({
                 code: (
                   <Code
                     code={content}
-                    setInnerHTML={setInnerHTML}
+                    __html={__html}
                     repo={`${segment?.[segment?.length - 1]}/${files.file}`}
                     title={`<${toPascal(files.file.replace(".tsx", "Icon"))}/>`}
                     classNames={{
@@ -128,7 +128,7 @@ export function LoadComponent({
                 raw: _raw && (
                   <Code
                     code={_raw.raw}
-                    setInnerHTML={_raw.content}
+                    __html={_raw.content}
                     href={`https://github.com/ilkhoeri/oericons/blob/master/resource/svg/${files.file.replace(".tsx", ".svg")}`}
                     title={files.file.replace(".tsx", ".svg")}
                     classNames={{

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Link from "next/link";
-import { cvx, merge, type cvxProps } from "str-merge";
+import { cvx, merge, type cvxProps } from "cretex";
 
 const classes = cvx({
   assign: "",

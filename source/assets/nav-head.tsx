@@ -5,13 +5,14 @@ import { useNavContext } from "../hooks/use-nav";
 import { CommandDialog } from "./command-dialog";
 import { appRoutes } from "@/source/routes";
 import { NavLinkItem } from "@/source/assets/navlink";
-import { merge } from "str-merge";
+import { merge } from "cretex";
 import { Polymorphic } from "@/ui/polymorphic-slot";
 import { FloatingIndicator } from "@/ui/floating-indicator";
-import { BrandDiscordFillIcon, BrandGithubFillIcon, BrandOeriIcon, HeartIcon, TextDirectionIcon } from "@/icons/*";
+import { BrandOeriIcon, TextDirectionIcon } from "@/icons/*";
 import { useApp } from "@/config/app-context";
 import { Burger } from "@/ui/burger";
 import { Button } from "@/ui/button";
+
 import type { SingleRoute, NestedRoute } from "@/source/routes";
 
 import globalStyle from "../styles/styles";
@@ -92,29 +93,8 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
   );
 }
 
-const sections = [
-  {
-    label: "Github Repository",
-    href: "https://github.com/ilkhoeri/oeri",
-    icon: BrandGithubFillIcon,
-    color: "#6e5494"
-  },
-  {
-    label: "Discord Community",
-    href: "https://discord.gg/Xct5BBPDZ9",
-    icon: BrandDiscordFillIcon,
-    color: "#436ab2"
-  },
-  {
-    label: "Open Collective",
-    href: "https://opencollective.com/oeridev",
-    icon: HeartIcon,
-    color: "#b11c66"
-  }
-];
-
 function LinksSection() {
-  return sections.map((i, __i) => (
+  return appRoutes["sections"].map((i, __i) => (
     <NavLinkItem
       key={__i}
       icon={i.icon}

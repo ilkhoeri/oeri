@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 //import { mergeRefs } from "@/hooks/use-merged-ref";
 
 // import "./scroll-area.css";
@@ -11,21 +11,12 @@ type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
 };
-type Styles =
-  | ["unstyled", boolean]
-  | ["classNames", string]
-  | ["styles", CSSProperties];
-type StylesNames<T extends string, Exclude extends string = never> = Omit<
-  NestedRecord<Styles, T> & { className?: string; style?: CSSProperties },
-  Exclude
->;
+type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
+type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties }, Exclude>;
 export interface ScrollAreaProps
   extends UseScrollAreaType,
     StylesNames<__Selector>,
-    React.DetailedHTMLProps<
-      Omit<React.HTMLAttributes<HTMLDivElement>, "style">,
-      HTMLDivElement
-    > {
+    React.DetailedHTMLProps<Omit<React.HTMLAttributes<HTMLDivElement>, "style">, HTMLDivElement> {
   el?: React.ElementType;
 }
 
@@ -196,33 +187,23 @@ export function useScrollArea({ overflow = "y" }: UseScrollAreaType = {}) {
 
   const [thumbHeight, setThumbHeight] = React.useState(20);
   const [isDragging, setIsDragging] = React.useState(false);
-  const [scrollStartPosition, setScrollStartPosition] =
-    React.useState<number>(0);
-  const [initialContentScrollTop, setInitialContentScrollTop] =
-    React.useState<number>(0);
+  const [scrollStartPosition, setScrollStartPosition] = React.useState<number>(0);
+  const [initialContentScrollTop, setInitialContentScrollTop] = React.useState<number>(0);
 
   function handleResize() {
     if (scrollTrackRef.current && contentRef.current) {
       const { clientHeight: trackSize } = scrollTrackRef.current;
-      const { clientHeight: contentVisible, scrollHeight: contentTotalHeight } =
-        contentRef.current;
-      setThumbHeight(
-        Math.max((contentVisible / contentTotalHeight) * trackSize, 20)
-      );
+      const { clientHeight: contentVisible, scrollHeight: contentTotalHeight } = contentRef.current;
+      setThumbHeight(Math.max((contentVisible / contentTotalHeight) * trackSize, 20));
     }
   }
 
   function handleThumbPosition() {
-    if (
-      !contentRef.current ||
-      !scrollTrackRef.current ||
-      !scrollThumbRef.current
-    ) {
+    if (!contentRef.current || !scrollTrackRef.current || !scrollThumbRef.current) {
       return;
     }
 
-    const { scrollTop: contentTop, scrollHeight: contentHeight } =
-      contentRef.current;
+    const { scrollTop: contentTop, scrollHeight: contentHeight } = contentRef.current;
     const { clientHeight: trackHeight } = scrollTrackRef.current;
 
     let newTop = (contentTop / contentHeight) * trackHeight;
@@ -253,8 +234,7 @@ export function useScrollArea({ overflow = "y" }: UseScrollAreaType = {}) {
     e.preventDefault();
     e.stopPropagation();
     setScrollStartPosition(e.clientY);
-    if (contentRef.current)
-      setInitialContentScrollTop(contentRef.current.scrollTop);
+    if (contentRef.current) setInitialContentScrollTop(contentRef.current.scrollTop);
     setIsDragging(true);
   }
 
@@ -271,19 +251,11 @@ export function useScrollArea({ overflow = "y" }: UseScrollAreaType = {}) {
       e.preventDefault();
       e.stopPropagation();
       if (isDragging) {
-        const {
-          scrollHeight: contentScrollHeight,
-          clientHeight: contentClientHeight
-        } = contentRef.current;
+        const { scrollHeight: contentScrollHeight, clientHeight: contentClientHeight } = contentRef.current;
 
-        const deltaY =
-          (e.clientY - scrollStartPosition) *
-          (contentClientHeight / thumbHeight);
+        const deltaY = (e.clientY - scrollStartPosition) * (contentClientHeight / thumbHeight);
 
-        const newScrollTop = Math.min(
-          initialContentScrollTop + deltaY,
-          contentScrollHeight - contentClientHeight
-        );
+        const newScrollTop = Math.min(initialContentScrollTop + deltaY, contentScrollHeight - contentClientHeight);
 
         contentRef.current.scrollTop = newScrollTop;
       }
@@ -310,8 +282,7 @@ export function useScrollArea({ overflow = "y" }: UseScrollAreaType = {}) {
       const rect = target.getBoundingClientRect();
       const trackTop = rect.top;
       const thumbOffset = -(thumbHeight / 2);
-      const clickRatio =
-        (clientY - trackTop + thumbOffset) / track.clientHeight;
+      const clickRatio = (clientY - trackTop + thumbOffset) / track.clientHeight;
       const scrollAmount = Math.floor(clickRatio * content.scrollHeight);
       content.scrollTo({
         top: scrollAmount,
@@ -341,30 +312,9 @@ export function useScrollArea({ overflow = "y" }: UseScrollAreaType = {}) {
   };
 }
 
-export const ScrollArea = React.forwardRef<
-  React.ElementRef<"div">,
-  ScrollAreaProps
->((_props, ref) => {
-  const {
-    el = "div",
-    overflow = "y",
-    className,
-    classNames,
-    style,
-    styles,
-    children,
-    ...props
-  } = _props;
-  const {
-    contentRef,
-    scrollThumbRef,
-    handleScrollButton,
-    scrollTrackRef,
-    handleTrackClick,
-    isDragging,
-    handleThumbMousedown,
-    thumbHeight
-  } = useScrollArea({
+export const ScrollArea = React.forwardRef<React.ElementRef<"div">, ScrollAreaProps>((_props, ref) => {
+  const { el = "div", overflow = "y", className, classNames, style, styles, children, ...props } = _props;
+  const { contentRef, scrollThumbRef, handleScrollButton, scrollTrackRef, handleTrackClick, isDragging, handleThumbMousedown, thumbHeight } = useScrollArea({
     overflow
   });
   const Component = el as React.ElementType;
@@ -406,18 +356,11 @@ export const ScrollArea = React.forwardRef<
       />
       {/*  */}
       <div ref={ref} className={cn("root", classNames?.root)}>
-        <div
-          className="content"
-          id="custom-scrollbars-content"
-          ref={contentRef}
-        >
+        <div className="content" id="custom-scrollbars-content" ref={contentRef}>
           {children}
         </div>
         <div className="scrollbar">
-          <button
-            className="button button--up"
-            onClick={() => handleScrollButton("up")}
-          >
+          <button className="button button--up" onClick={() => handleScrollButton("up")}>
             ↑
           </button>
 
@@ -426,12 +369,7 @@ export const ScrollArea = React.forwardRef<
             // role="scrollbar"
             aria-controls="custom-scrollbars-content"
           >
-            <div
-              className="track"
-              ref={scrollTrackRef}
-              onClick={handleTrackClick}
-              style={{ cursor: isDragging ? "grabbing" : undefined }}
-            ></div>
+            <div className="track" ref={scrollTrackRef} onClick={handleTrackClick} style={{ cursor: isDragging ? "grabbing" : undefined }}></div>
             <div
               className="thumb"
               ref={scrollThumbRef}
@@ -443,10 +381,7 @@ export const ScrollArea = React.forwardRef<
             ></div>
           </div>
 
-          <button
-            className="button button--down"
-            onClick={() => handleScrollButton("down")}
-          >
+          <button className="button button--down" onClick={() => handleScrollButton("down")}>
             ↓
           </button>
         </div>

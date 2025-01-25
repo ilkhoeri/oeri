@@ -1,7 +1,7 @@
 "use client";
 import { useId } from "@/hooks/use-id";
 import * as React from "react";
-import { cn, cvx, inferType, merge, ocx, rem, type cvxProps } from "str-merge";
+import { cn, cvx, inferType, merge, ocx, rem, type cvxProps } from "cretex";
 
 export const classes = cvx({
   assign:

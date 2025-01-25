@@ -1,5 +1,5 @@
 import * as React from "react";
-import { merge, cvx, type cvxProps } from "str-merge";
+import { merge, cvx, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {

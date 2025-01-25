@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "str-merge";
+import { cn } from "cretex";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   autosize?: boolean;
@@ -14,7 +14,24 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((_props, ref) => {
-  const { unstyled, className, autosize = true, spellCheck = false, validateJson = false, formatOnBlur = false, deserialize = JSON.parse, serialize = JSON.stringify, validationError = "Invalid JSON", readOnly, onValidationError, onBlur, onChange, onFocus, onInput, ...props } = _props;
+  const {
+    unstyled,
+    className,
+    autosize = true,
+    spellCheck = false,
+    validateJson = false,
+    formatOnBlur = false,
+    deserialize = JSON.parse,
+    serialize = JSON.stringify,
+    validationError = "Invalid JSON",
+    readOnly,
+    onValidationError,
+    onBlur,
+    onChange,
+    onFocus,
+    onInput,
+    ...props
+  } = _props;
 
   const onAutoSIze = (event: React.ChangeEvent<HTMLTextAreaElement>, safeHeight: number = 2) => {
     if (autosize && getEnv() !== "test") {

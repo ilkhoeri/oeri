@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, rem } from "str-merge";
+import { cn, rem } from "cretex";
 import { PolymorphicSlot } from "@/ui/polymorphic-slot";
 
 type CSSProperties = React.CSSProperties & { [key: string]: any };
