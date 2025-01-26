@@ -27,8 +27,8 @@ export const classes = cvx({
       files: "flex",
       fileIcon: "flex shrink-0 grow-0 items-center justify-center [&>svg]:block",
       controls: "mr-[0rem] mt-[0rem] flex items-center flex-row",
-      control: "size-8 m-0 bg-transparent text-muted-foreground opacity-80 hover:text-color hover:opacity-100 max-md:hidden",
-      copy: "absolute right-[.3125rem] top-[.3125rem] z-1 size-8 m-0 bg-transparent text-muted-foreground opacity-80 hover:text-color hover:opacity-100 max-md:hidden"
+      control: "size-8 m-0 bg-transparent text-muted-foreground opacity-80 hover:text-color hover:opacity-100",
+      copy: "absolute right-[.3125rem] top-[.3125rem] z-1 size-8 m-0 bg-transparent text-muted-foreground opacity-80 hover:text-color hover:opacity-100"
     }
   }
 });
@@ -202,8 +202,13 @@ export const CodeHighlightTabs = React.forwardRef<HTMLDivElement, CodeHighlightT
           </pre>
         ) : null}
       </ScrollArea>
-      <UnstyledButton {...getStyles("showCodeButton", stylesApi)} data-hidden={is(_expanded)} aria-hidden={is(_expanded)} onClick={() => setExpanded(true)}>
-        {expandCodeLabel}
+      <UnstyledButton
+        {...getStyles("showCodeButton", stylesApi)}
+        data-hidden={is(!_expanded)}
+        aria-hidden={is(!_expanded)}
+        onClick={() => setExpanded(!_expanded)}
+      >
+        {_expanded ? collapseCodeLabel : expandCodeLabel}
       </UnstyledButton>
     </div>
   );

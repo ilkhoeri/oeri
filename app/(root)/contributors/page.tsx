@@ -1,5 +1,6 @@
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { Comp } from "@/source/assets/components";
+import { Typography } from "@/ui/typography";
 import Link from "next/link";
 
 import type { Metadata } from "next";
@@ -14,15 +15,35 @@ export function generateMetadata(): Metadata {
 
 export default function Page() {
   return (
-    <Comp>
+    <Comp className="flex flex-col md:flex-col">
       <div className="flex size-full max-w-full flex-col items-start justify-center gap-4 p-8">
-        <h1 className="font-geist-sans font-bold text-muted-foreground text-h1">Thank&apos;s for contributors</h1>
+        <Typography prose="h1">Thank&apos;s for contributors</Typography>
 
         <Link href="https://github.com/ilkhoeri/ioeri/graphs/contributors">
           <picture className="p-4">
             <img src="https://contrib.rocks/image?repo=ilkhoeri/oeri" alt="contributors" height={64} width={64} />
           </picture>
         </Link>
+      </div>
+
+      <hr />
+
+      <div className="mt-12 flex size-full max-w-full flex-col items-start justify-center gap-4 p-8">
+        <Typography prose="h2">Support Us</Typography>
+        {/* <iframe
+          src="https://github.com/sponsors/ilkhoeri/button"
+          title="Sponsor ilkhoeri"
+          height="32"
+          width="114"
+          {...{ style: { border: "0", borderRadius: "6px" } }}
+        /> */}
+        <iframe
+          src="https://github.com/sponsors/ilkhoeri/card"
+          title="Sponsor ilkhoeri"
+          height="225"
+          width="600"
+          {...{ style: { border: "0", borderRadius: "9px", maxWidth: "100%" } }}
+        />
       </div>
     </Comp>
   );

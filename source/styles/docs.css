@@ -156,11 +156,11 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   }
 
   & :where(:is(h1, h2, h3, h4, h5)):not(:is([data-demo-area] :is(h1, h2, h3, h4, h5))) {
-    @apply text-color mt-9 mb-1 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive;
+    @apply text-color mt-9 mb-1 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive max-w-full;
   }
   & :where(:is(h1, h2, h3, h4, h5)) {
     & a.anchor_id {
-      @apply font-geist-sans [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
+      @apply font-geist-sans [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
       &:has(img + svg) {
         @apply [&>svg]:hidden;
       }

@@ -8,13 +8,13 @@ interface Options {
 export function useMeasureScrollbar(render: boolean = false, options: Options = {}): [boolean, number] {
   const { modal = true } = options;
 
-  const [hasScrollbar, setHasScrollbar] = useState<boolean>(false);
+  const [hasScrollbar, setHasScrollbar] = useState<boolean>(true);
   const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
 
   useEffect(() => {
     const measureScrollbar = () => {
       const outer = document.createElement("div");
-      // outer.style.visibility = "hidden";
+      outer.style.visibility = "hidden";
       outer.style.position = "absolute";
       outer.style.zIndex = "-9999px";
       outer.style.overflow = "scroll";
@@ -31,7 +31,7 @@ export function useMeasureScrollbar(render: boolean = false, options: Options = 
     return () => {
       window.removeEventListener("resize", measureScrollbar);
     };
-  }, [hasScrollbar]);
+  }, []);
 
   useEffect(() => {
     const timeoutId: NodeJS.Timeout | null = null;

@@ -1,17 +1,11 @@
-// import fs from "fs";
-// import path from "path";
-// import { u } from "unist-builder";
 import { visit } from "unist-util-visit";
-
 import { UnistNode, UnistTree } from "../mdx/unist";
-
 import { sourceCodes } from "@/scripts/generated-source-codes";
 import { fileDocsWeb } from "./files-docs";
 
 export function rehypeComponent() {
   return async (tree: UnistTree) => {
     visit(tree, (node: UnistNode) => {
-      // src prop overrides both name and fileName.
       const { value: srcPath } =
         (getNodeAttributeByName(node, "resource") as {
           name: string;
@@ -20,58 +14,17 @@ export function rehypeComponent() {
         }) || {};
 
       if (node.name === "SourceCodes") {
-        // const categories = getNodeAttributeByName(node, "categories")?.value as string[];
         const name = getNodeAttributeByName(node, "name")?.value as string;
-        // const fileName = getNodeAttributeByName(node, "fileName")?.value as string | undefined;
         const fd = fileDocsWeb.find(obj => obj.name === name);
-        // log.info(content.css);
 
         if ((!name && !srcPath) || !fd) {
           return null;
         }
 
-        // const rsrcFolder = path.resolve("resource/docs/web/components");
-        // const files = fs.readdirSync(rsrcFolder).filter(file => /.*?ts/.test(file));
-
         try {
           const content = sourceCodes([...fd.segment, name]);
 
           if (content.code) {
-            // node.children?.push(
-            //   u("element", {
-            //     tagName: "pre",
-            //     properties: {
-            //       // __src__: src,
-            //       // __style__: style.name
-            //       className: "m-0 block leading-[0] p-[var(--pre-p,.625rem_1rem)] [--code-line-height:--code-leading,1.7]"
-            //     },
-            //     // attributes: [
-            //     //   {
-            //     //     name: "styleName",
-            //     //     type: "mdxJsxAttribute",
-            //     //     value: style.name
-            //     //   }
-            //     // ],
-            //     children: [
-            //       u("element", {
-            //         tagName: "code",
-            //         properties: {
-            //           className: [
-            //             "language-tsx",
-            //             "inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55]"
-            //           ]
-            //           // className:
-            //         },
-            //         children: [
-            //           {
-            //             type: "text",
-            //             value: `${content.code}`
-            //           }
-            //         ]
-            //       })
-            //     ]
-            //   })
-            // );
             node.attributes?.push(
               {
                 name: "code",

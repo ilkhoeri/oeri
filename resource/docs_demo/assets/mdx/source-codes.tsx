@@ -40,17 +40,12 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
         repo={loaded(repo) as string | undefined}
         __html={loaded(shiki.code)}
         classNames={{
-          content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", { "opacity-0": !mounted }),
+          content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", {
+            "pointer-events-none overflow-hidden after:absolute after:inset-0 after:z-[21] after:bg-background/60 after:content-[''] after:animate-pulse": !mounted
+          }),
           inner:
             "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55]"
         }}
-        // classNames={{
-        //   content: merge("m-0 block leading-[0] [--code-line-height:--code-leading,1.7]", mounted ? "p-[var(--pre-p,.625rem_1rem)]" : "p-[var(--pre-p,1rem)]"),
-        //   inner: merge(
-        //     "inline-block whitespace-pre-wrap rounded-[.125rem] font-mono leading-[--code-line-height,1.55] [font-size:var(--code-fz,.8125rem)]",
-        //     mounted ? "p-[var(--code-p,.0625rem_.1875rem)]" : "p-[var(--code-p,.625rem_1rem)]"
-        //   )
-        // }}
       />
     );
   }

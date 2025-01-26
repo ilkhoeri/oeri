@@ -167,12 +167,12 @@ export function SheetsProvider(_props: SheetsProviderProps) {
 
   useHotkeys([[hotKeys, () => setOpen(!open)]]);
 
-  const stateOpened = !multipleOpen ? (!open ? render : open) : false;
-  useMeasureScrollbar(stateOpened, { modal });
+  useMeasureScrollbar(!open ? render : open, { modal: modal });
 
   function useHideScrollbar(value?: string | undefined) {
-    if (!(multipleOpen && value)) return;
-    return useMeasureScrollbar(shouldRenderMultiple(value), { modal });
+    // if (!(multipleOpen && value)) return;
+    const stateOpened = multipleOpen && value ? shouldRenderMultiple(value) : render;
+    return useMeasureScrollbar(stateOpened, { modal });
   }
 
   const everyRefs = [triggerRef, contentRef];
@@ -590,58 +590,110 @@ export interface SheetsContentProps extends ComponentProps<"div"> {
   side?: SheetsContextProps["side"];
 }
 export const SheetsContent = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
-  const { className, unstyled, "aria-disabled": arDsb, style, children, value, side: propSide, ...props } = _props;
-  const { variant = "accordion", side: ctxSide, multipleOpen, useHideScrollbar, ...ctx } = useSheetsCtx(value);
+  const { className, unstyled, value, side: propSide, ...props } = _props;
+  const { variant = "accordion", side: ctxSide, multipleOpen } = useSheetsCtx(value);
+
+  const side = propSide ?? ctxSide;
+  const propsApi = { ref, ...props, ...getStyles("content", { variant, side, className, unstyled }), value };
+
+  switch (variant) {
+    case SheetsVariant.Accordion:
+      return <SheetsContentCollapse {...propsApi} />;
+
+    case SheetsVariant.Collapsible:
+      return <SheetsContentCollapse {...propsApi} />;
+
+    default:
+      return multipleOpen ? <SheetsContentMultiple {...propsApi} /> : <SheetsContentDefault {...propsApi} />;
+  }
+});
+SheetsContent.displayName = "SheetsContent";
+
+const SheetsContentCollapse = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+  const { "aria-disabled": arDsb, style, value, ...props } = _props;
+  const ctx = useSheetsCtx(value);
   const ctxItem = useSheetsItemCtx();
 
-  const omitVariants = ["accordion", "collapsible"].includes(variant);
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
-  const side = propSide ?? ctxSide; // If `side` in `SheetsContent` is overridden, use that value. Otherwise, use the value from `Sheets`.
-
-  // if ((!ctx?.render && !omitVariants) || (multipleOpen && !ctx?.shouldRenderMultiple)) return null;
-
-  const dataState = ctxItem ? ctxItem?.dataStateItem : multipleOpen ? (ctx?.isOpenMultiple ? "open" : "closed") : undefined;
-
-  useHideScrollbar(value);
-
-  const content = (
+  return (
     <div
       {...{
         ref: mergeRefs(ctx?.contentRef, ref),
         ...props,
-        role: omitVariants ? "region" : undefined,
-        "aria-disabled": arDsb || (omitVariants && ctxItem) ? !ctxItem?.isOpen : multipleOpen ? !ctx?.isOpenMultiple : !ctx.render,
-        "data-value": multipleOpen && value ? value : undefined,
-        "aria-labelledby": multipleOpen && value ? value : ctxItem ? ctxItem?.value : undefined,
-        ...getStyles("content", { variant, side, className, unstyled }),
-        ...ctx?.attr(dataState),
+        role: "region",
+        "aria-disabled": arDsb || (ctxItem ? !ctxItem?.isOpen : !ctx.render),
+        "data-value": value,
+        "aria-labelledby": value,
+        ...ctx?.attr(ctxItem?.dataStateItem ?? undefined),
         style: ocx(
           style,
-          omitVariants && ctxItem
+          ctxItem
             ? {
-                "--accordion-content-h": ctxItem?.isOpen ? rem(ctxItem?.contentHeight) : rem(0),
-                height: "var(--accordion-content-h)",
+                "--accordion-content-h": rem(ctxItem?.isOpen ? ctxItem?.contentHeight : 0),
+                height: typeof ctx.defaultOpen === "string" && ctxItem?.isOpen && !mounted ? "auto" : "var(--accordion-content-h)",
                 overflow: "hidden",
                 transition: "height 0.3s ease"
               }
             : ctx?.styleVars()
         )
       }}
-    >
-      {children}
-    </div>
+    />
   );
+});
+SheetsContentCollapse.displayName = "SheetsContentCollapse";
 
-  if (omitVariants) return content;
+const SheetsContentDefault = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+  const { "aria-disabled": arDsb, style, value, ...props } = _props;
+  const ctx = useSheetsCtx(value);
 
   return (
-    <SheetsPortal render={multipleOpen ? ctx?.shouldRenderMultiple : ctx?.render}>
-      <SheetsOverlay value={value} />
-      {content}
+    <SheetsPortal render={ctx?.render}>
+      <SheetsOverlay />
+      <div
+        {...{
+          ref: mergeRefs(ctx?.contentRef, ref),
+          ...props,
+          role: "region",
+          "aria-disabled": arDsb || !ctx.render,
+          "data-value": value,
+          "aria-labelledby": value,
+          ...ctx?.attr(),
+          style: ocx(style, ctx?.styleVars())
+        }}
+      />
     </SheetsPortal>
   );
 });
-SheetsContent.displayName = "SheetsContent";
+SheetsContentDefault.displayName = "SheetsContentDefault";
+
+const SheetsContentMultiple = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+  const { "aria-disabled": arDsb, style, value, ...props } = _props;
+  const { modal, ...ctx } = useSheetsCtx(value);
+
+  // const dataState = ctx?.isOpenMultiple ? "open" : "closed";
+
+  useMeasureScrollbar(ctx.shouldRenderMultiple, { modal });
+
+  return (
+    <SheetsPortal render={ctx?.shouldRenderMultiple}>
+      <SheetsOverlay value={value} />
+      <div
+        {...{
+          ref: mergeRefs(ctx?.contentRef, ref),
+          ...props,
+          "aria-disabled": arDsb || !ctx?.isOpenMultiple,
+          "data-value": value,
+          "aria-labelledby": value,
+          ...ctx?.attr(ctx?.isOpenMultiple ? "open" : "closed"),
+          style: ocx(style, ctx?.styleVars())
+        }}
+      />
+    </SheetsPortal>
+  );
+});
+SheetsContentMultiple.displayName = "SheetsContentMultiple";
 
 export interface SheetsCloseProps extends ComponentProps<"button"> {}
 export const SheetsClose = React.forwardRef<React.ElementRef<"button">, SheetsCloseProps>((_props, ref) => {
@@ -802,7 +854,7 @@ function styleByVariant(side: `${SheetsSide}`) {
       },
       trigger: {
         accordion:
-          "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&>svg]:data-[state=open]:rotate-180",
+          "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&>svg]:data-[state*=open]:rotate-180",
         collapsible: merge(styleDefault.trigger),
         dialog: merge(styleDefault.trigger),
         drawer: merge(styleDefault.trigger),
