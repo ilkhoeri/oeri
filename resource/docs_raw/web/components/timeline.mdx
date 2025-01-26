@@ -181,9 +181,9 @@ export default {
           height: "var(--tl-bullet-size)",
           borderRadius: "var(--tl-bullet-round)",
           outline:
-            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-line-clr))",
+            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-bullet-ring, var(--tl-line-clr)))",
           "&[data-active]": {
-            outlineColor: "var(--active-line, var(--tli-active-line, var(--tl-line-clr)))"
+            outlineColor: "var(--active-ring, var(--bullet-active-ring, var(--tl-line-clr)))"
           },
           "&[data-bullet]": {
             "&[data-active]": {

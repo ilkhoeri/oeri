@@ -117,7 +117,7 @@ export function LoadComponent({
                   <Code
                     code={content}
                     __html={__html}
-                    repo={`${segment?.[segment?.length - 1]}/${files.file}`}
+                    href={`https://github.com/ilkhoeri/oeri/blob/master/resource/${segment?.[segment?.length - 1]}/${files.file}`}
                     title={`<${toPascal(files.file.replace(".tsx", "Icon"))}/>`}
                     classNames={{
                       title: "font-geist-mono",

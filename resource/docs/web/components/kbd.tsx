@@ -2,11 +2,12 @@ import * as React from "react";
 import { cn, cvx, type cvxProps } from "cretex";
 
 const classes = cvx({
+  assign: "active:translate-y-0.5 transition-transform cursor-default",
   variants: {
     variant: {
       default: "font-mono leading-none font-bold border border-solid border-b-[.1875rem] border-muted bg-muted/60 text-color [unicode-bidi:embed]",
       primitive:
-        "inline-flex items-center justify-center shrink-0 font-geist-mono font-normal align-text-top whitespace-nowrap select-none relative top-[-.03em] text-xs min-w-7 leading-7 box-border pb-[.05em] [word-spacing:-.1em] tracking-normal h-fit text-color bg-primitive [transition:box-shadow_.12s,background-color_.12s] [box-shadow:inset_0_-0.05em_0.5em_hsl(var(--muted-foreground)/0.08),inset_0_0.05em_#f1f7feb5,inset_0_0.25em_0.5em_hsl(var(--muted-foreground)/0.17),inset_0_-0.1em_hsl(var(--background)/0.9),0_0_0_0.075em_hsl(var(--muted-foreground)/0.25),0_0.08em_0.17em_hsl(var(--background)/0.95)]"
+        "inline-flex items-center justify-center shrink-0 font-geist-mono font-normal align-text-top whitespace-nowrap select-none relative top-[-.03em] text-xs min-w-7 leading-7 box-border pb-[.05em] [word-spacing:-.1em] tracking-normal h-fit text-color bg-primitive [transition:transform,box-shadow_.12s,background-color_.12s] [box-shadow:inset_0_-0.05em_0.5em_hsl(var(--muted-foreground)/0.08),inset_0_0.05em_#f1f7feb5,inset_0_0.25em_0.5em_hsl(var(--muted-foreground)/0.17),inset_0_-0.1em_hsl(var(--background)/0.9),0_0_0_0.075em_hsl(var(--muted-foreground)/0.25),0_0.08em_0.17em_hsl(var(--background)/0.95)]"
     },
     size: {
       xs: "text-[.625rem] py-[0rem] px-[.25rem] rounded border-0 border-b-0",

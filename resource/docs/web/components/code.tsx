@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn, cvx, type cvxProps } from "cretex";
 
 const classRoot = cn(
-  "max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]"
+  "block max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]"
 );
 
 const classes = cvx({
@@ -99,7 +99,8 @@ export function typeJSON<T extends object>(example: T): string {
   const typeRepresentation = JSON.stringify(
     Object.keys(example).reduce(
       (acc, key) => {
-        acc[key] = typeof (example as any)[key];
+        // @ts-ignore
+        acc[key] = typeof (example as T)[key];
         return acc;
       },
       {} as Record<string, string>

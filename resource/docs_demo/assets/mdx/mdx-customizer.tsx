@@ -11,7 +11,7 @@ type CodeCustomizer = {
   __html?: string | null;
   className?: string;
   title?: string | null;
-  repo?: string | null;
+  repo?: string;
   href?: string;
   children?: React.ReactNode;
   classNames?: Partial<Record<CustomizerOrigin, string>>;
@@ -26,7 +26,7 @@ export function ExtIcons({ ext }: ExtIconsType) {
 }
 
 export function Code(Text: CodeCustomizer & ExtIconsType) {
-  const { code, __html, title, repo, href, className, classNames, children } = Text;
+  const { code, __html, title, repo, href, className, classNames, children = null } = Text;
 
   const [_, _ext] = title!.split(".");
 
@@ -39,7 +39,7 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
           </h6>
         )}
         <div className="ml-auto flex flex-row items-center gap-1">
-          {repo && <GetCodeButton href={href} repo={repo} />}
+          {(repo || href) && <GetCodeButton href={href} repo={repo} />}
           {code && <CopyButton value={code} />}
         </div>
       </div>
@@ -51,15 +51,15 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         styles={{ root: { overflow: "hidden" } }}
         dangerouslySetInnerHTML={!children && __html ? { __html: __html } : undefined}
       >
-        {!__html && !children ? (
+        {/* {!__html && !children ? (
           <pre data-language="tsx" data-theme="default">
             <code data-language="tsx" data-theme="default">
               {code}
             </code>
           </pre>
-        ) : children ? (
+        ) : (
           children
-        ) : null}
+        )} */}
       </ScrollArea>
     </>
   );

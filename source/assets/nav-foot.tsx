@@ -3,10 +3,10 @@ import { ThemeToggle } from "@/config/themes";
 import { NavLinkItem } from "@/source/assets/navlink";
 import { appRoutes } from "@/source/routes";
 import { BrandOeriIcon } from "@/icons/*";
+import { Polymorphic } from "@/ui/polymorphic-slot";
 import { cvx } from "cretex";
 
 import globalStyle from "../styles/styles";
-import { Polymorphic } from "@/ui/polymorphic-slot";
 
 const Styles = cvx({
   variants: {
@@ -25,7 +25,6 @@ const Styles = cvx({
 });
 
 export async function FootNav() {
-  // const pages = await getParams();
   const currentYear = new Date().getFullYear();
 
   return (

@@ -167,7 +167,8 @@ export function SheetsProvider(_props: SheetsProviderProps) {
 
   useHotkeys([[hotKeys, () => setOpen(!open)]]);
 
-  !multipleOpen && useMeasureScrollbar(!open ? render : open, { modal });
+  const stateOpened = !multipleOpen ? (!open ? render : open) : false;
+  useMeasureScrollbar(stateOpened, { modal });
 
   function useHideScrollbar(value?: string | undefined) {
     if (!(multipleOpen && value)) return;

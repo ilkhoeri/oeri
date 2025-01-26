@@ -28,7 +28,7 @@ export interface NavLinkProps extends Omit<AnchorProps, "href">, NavLinkClass {
 }
 
 // Helper function to split pathname into segments
-export const getPathSegments = (path: string) => path.split("/").filter(Boolean);
+export const getPathSegments = (path: string) => path.toLowerCase().split("/").filter(Boolean);
 
 export function NavLink({ items, ...props }: NavLinkProps) {
   return items.map((item, index) => <NavLinkItem key={index} href={item.href} title={item.title} icon={item.icon} {...props} />);

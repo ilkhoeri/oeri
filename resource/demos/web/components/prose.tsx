@@ -397,7 +397,7 @@ const listInsideUsage: DataTrees = {
   component: ListInsideDemo,
   code: codes.listInside,
   defaultExpanded: false,
-  classNames: { demoInner: "w-full text-start" }
+  classNames: { demoInner: "w-full text-start overflow-x-auto [&>*]:w-max [&>*]:mr-4" }
 };
 
 const tableUsage: DataTrees = {

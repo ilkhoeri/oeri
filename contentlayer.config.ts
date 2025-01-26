@@ -8,10 +8,9 @@ import { visit } from "unist-util-visit";
 import { codeImport } from "remark-code-import";
 import { getHighlighter } from "@shikijs/compat";
 import { rehypeNpmCommand } from "@/resource/docs_demo/assets/rehype/rehype-customizer";
-// import { transformerCopyButton } from "@rehype-pretty/transformers";
+import { rehypeComponent } from "./resource/docs_demo/assets/rehype/rehype-component";
 
 import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
-import { rehypeComponent } from "./resource/docs_demo/assets/rehype/rehype-component";
 
 /**
  *- `URL`: https://example.com/blog/posts/article-1

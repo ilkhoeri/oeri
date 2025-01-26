@@ -228,11 +228,6 @@ export const fileDocsWeb = [
     segment: ["web", "configurations"]
   },
   {
-    name: "index",
-    ext: ".ts",
-    segment: ["web", "configurations"]
-  },
-  {
     name: "themes",
     ext: ".tsx",
     segment: ["web", "configurations"]
@@ -498,13 +493,8 @@ export const fileDocsWeb = [
     segment: ["web", "utility"]
   },
   {
-    name: "index",
-    ext: ".ts",
-    segment: ["web", "utility"]
-  },
-  {
     name: "text-parser",
-    ext: ".tsx",
+    ext: ".ts",
     segment: ["web", "utility"]
   },
   {

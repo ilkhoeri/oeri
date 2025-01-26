@@ -29,12 +29,13 @@ export function rehypeComponent() {
         if ((!name && !srcPath) || !fd) {
           return null;
         }
-        const content = sourceCodes([...fd.segment, name]);
 
         // const rsrcFolder = path.resolve("resource/docs/web/components");
         // const files = fs.readdirSync(rsrcFolder).filter(file => /.*?ts/.test(file));
 
         try {
+          const content = sourceCodes([...fd.segment, name]);
+
           if (content.code) {
             // node.children?.push(
             //   u("element", {

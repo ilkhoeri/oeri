@@ -1,10 +1,10 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType, type cvxProps } from "cretex";
+import { cn, cvx, rem, inferType, type cvxProps } from "cretex";
 const classes = cvx({
   variants: {
     selector: {
-      list: "group/tl timeline",
+      list: "group/tl timeline pl-[--pl] pr-[--pr] data-[align=left]:[--pl:--tl-safearea-x,0] data-[align=right]:[--pr:--tl-safearea-x,0]",
       item: "group/tli timeline-item relative text-[#c9c9c9] pb-4",
       body: "",
       bullet: "bg-background timeline-item-bullet",
@@ -77,13 +77,14 @@ export const TimelineList = React.forwardRef<HTMLDivElement, TimelineListProps>(
           className,
           classNames,
           style: {
-            "--tl-bullet-size": `${size}px`,
-            "--tl-bullet-round": `${round}px`,
+            "--tl-bullet-size": rem(size),
+            "--tl-bullet-round": rem(round),
             "--tl-bullet-ring": ring,
             "--tl-bullet-style": bulletVarian,
             "--tl-line-clr": clr,
-            "--tl-line-width": `${width}px`,
+            "--tl-line-width": rem(width),
             "--tl-line-style": variant,
+            "--tl-safearea-x": "calc((var(--tl-bullet-size) / 2) + var(--tl-line-width))",
             ...style
           } as React.CSSProperties,
           styles,
@@ -100,6 +101,7 @@ export interface TimelineItemProps extends ComponentProps<"div", "title" | "cont
     bg?: Colors;
     clr?: Colors;
     line?: Colors;
+    ring?: Colors;
   };
   notice?: boolean;
   noticeStyle?: {
@@ -134,8 +136,8 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
     noticeStyle = {},
     ...props
   } = _props;
-  const { bg = "hsl(var(--pure-white))", clr = "hsl(var(--pure-black))", line = "hsl(var(--constructive))" } = activeStyle;
-  const { clr: noticeClr = "hsl(42deg 100% 50%)", ring = "hsl(var(--background))" } = noticeStyle;
+  const { bg = "hsl(var(--pure-white))", clr = "hsl(var(--pure-black))", line = "hsl(var(--constructive))", ring = "var(--tli-active-line)" } = activeStyle;
+  const { clr: noticeClr = "hsl(42deg 100% 50%)", ring:noticeRing = "hsl(var(--background))" } = noticeStyle;
   const stylesApi = { unstyled, classNames, styles };
   return (
     <Component
@@ -148,12 +150,13 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
         style: {
           "--tli-line-clr": lineStyle?.clr,
           "--tli-line-style": lineStyle?.variant,
-          "--tli-line-width": lineStyle?.width ? `${lineStyle?.width}px` : undefined,
+          "--tli-line-width": lineStyle?.width ? rem(lineStyle?.width) : undefined,
           "--tli-active-bg": active ? bg : undefined,
           "--tli-active-clr": active ? clr : undefined,
           "--tli-active-line": active ? line : undefined,
           "--tli-notice-clr": notice ? noticeClr : undefined,
-          "--tli-notice-ring": notice ? ring : undefined,
+          "--tli-notice-ring": notice ? noticeRing : undefined,
+          "--bullet-active-ring": active? ring :undefined,
           ...style
         } as React.CSSProperties,
         ...stylesApi,

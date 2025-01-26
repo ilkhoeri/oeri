@@ -18,6 +18,7 @@ import { demoHooksEntries } from "../demo-manifest-hook";
 import { SourceCodes } from "./source-codes";
 
 export const components = {
+  SourceCodes,
   Expand,
   Image,
   Avatar,
@@ -112,7 +113,6 @@ export const components = {
   GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)} {...props} />
   ),
-  SourceCodes,
   ...demoComponentsEntries,
   ...demoHooksEntries
 };

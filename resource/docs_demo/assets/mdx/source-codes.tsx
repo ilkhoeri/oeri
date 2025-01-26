@@ -5,14 +5,15 @@ import { PlayTabs } from "@/source/assets/playtabs";
 import { Code } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
 import { useShiki } from "../shiki/shiki-context";
 import { purify } from "@/source/libs/dom-purify";
+import { merge } from "cretex";
 
 interface SourceCodesProps {
-  children?: React.ReactNode;
   ext?: string;
+  name?: string;
   segment?: string[];
+  children?: React.ReactNode;
   code?: string | null;
   css?: string | null;
-  name?: string;
   repo?: string;
 }
 
@@ -31,18 +32,25 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
   }
   if (code) {
     const shiki = ctx?.highlight(code, "ts");
-    const loaded = (code: string | null) => (mounted && shiki.highlighted ? code : null);
+    const loaded = (code: string | null | undefined) => (mounted && shiki.highlighted ? code : null);
     childs.code = (
       <Code
-        code={loaded(code)}
         title={`${name}${ext}`}
-        repo={repo}
+        code={loaded(code)}
+        repo={loaded(repo) as string | undefined}
         __html={loaded(shiki.code)}
         classNames={{
-          content: "m-0 block leading-[0] p-[var(--pre-p,.625rem_1rem)] [--code-line-height:--code-leading,1.7]",
+          content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", { "opacity-0": !mounted }),
           inner:
             "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55]"
         }}
+        // classNames={{
+        //   content: merge("m-0 block leading-[0] [--code-line-height:--code-leading,1.7]", mounted ? "p-[var(--pre-p,.625rem_1rem)]" : "p-[var(--pre-p,1rem)]"),
+        //   inner: merge(
+        //     "inline-block whitespace-pre-wrap rounded-[.125rem] font-mono leading-[--code-line-height,1.55] [font-size:var(--code-fz,.8125rem)]",
+        //     mounted ? "p-[var(--code-p,.0625rem_.1875rem)]" : "p-[var(--code-p,.625rem_1rem)]"
+        //   )
+        // }}
       />
     );
   }

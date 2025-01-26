@@ -17,9 +17,9 @@ const codes = {
   collapsible:
     '// Compound Components\n"use client";\nimport { Sheets } from "@/ui/sheets";\nimport { ChevronIcon } from "@/icons/*";\nimport { Typography } from "@/ui/typography";\n\nexport function SheetsCollapsibleDemo() {\n  return (\n    <Sheets{{props}} variant="collapsible" className="m-auto w-full max-w-80 space-y-2">\n      <Sheets.Trigger className="w-full justify-between bg-background font-mono text-sm text-muted-foreground data-[state=open]:text-constructive">\n        Select your &lt;Sheets /&gt;\n        <Typography className="rounded-md border p-1 transition-colors group-hover:bg-muted/90 group-data-[state=open]:border-constructive">\n          <ChevronIcon chevron="up-down" />\n        </Typography>\n      </Sheets.Trigger>\n\n      <Typography\n        el="a"\n        data-ignore-clickoutside\n        href="#sheets-variant-collapsible"\n        className="mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"\n      >\n        @sheets/collapsible\n      </Typography>\n\n      <Sheets.Content className="space-y-2">\n        {["accordion", "dialog", "drawer", "dropdown"].map(i => (\n          <Typography\n            el="a"\n            key={i}\n            href={`#sheets-variant-${i}`}\n            className="w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"\n          >\n            @sheets/{i}\n          </Typography>\n        ))}\n      </Sheets.Content>\n    </Sheets>\n  );\n}',
   collapsible2:
-    '// Only Root Component\n"use client";\nimport { useState } from "react";\nimport { Sheets } from "@/ui/sheets";\nimport { Button } from "@/ui/button";\nimport { Stack } from "@/ui/stack";\nimport { Typography } from "@/ui/typography";\n\nexport function SheetsCollapsibleRootDemo() {\n  const [isOpen, setIsOpen] = useState<boolean>(false);\n\n  return (\n    <Stack gap={8}>\n      <Button onClick={() => setIsOpen(o => !o)} className="w-max">{isOpen ? "Close" : "Read"}</Button>\n      <Sheets variant="collapsible" open={isOpen} onOpenChange={setIsOpen} className="w-96 text-justify text-sm">\n        <Typography prose="span">\n          Long ago, during the era of Gol D. Roger, the Pirate King, the seas were filled with tales of adventure, danger, and mystery. His final words\n          before execution ignited the "Great Pirate Era": "My treasure? It\'s yours if you want it. I left everything I gathered in one place." These words \n          inspired countless pirates, including a young boy named Monkey D. Luffy, who dreamed of finding the legendary <em>One Piece</em> and becoming the \n          next Pirate King. With a straw hat gifted by the infamous Shanks and the power of the Gomu Gomu no Mi, a mysterious Devil Fruit, Luffy set out on \n          a journey that would bring together an unforgettable crew and face unimaginable challenges. From battling fierce Warlords to uncovering secrets of \n          the Void Century, their adventure is a testament to loyalty, courage, and the unbreakable bonds of friendship.\n        </Typography>\n        <Button variant="link" onClick={() => setIsOpen(false)}>\n          close\n        </Button>\n      </Sheets>\n    </Stack>\n  );\n}',
+    '// Only Root Component\n"use client";\nimport { useState } from "react";\nimport { Sheets } from "@/ui/sheets";\nimport { Button } from "@/ui/button";\nimport { Stack } from "@/ui/stack";\nimport { Typography } from "@/ui/typography";\n\nexport function SheetsCollapsibleRootDemo() {\n  const [isOpen, setIsOpen] = useState<boolean>(false);\n\n  return (\n    <Stack gap={8}>\n      <Button onClick={() => setIsOpen(o => !o)} className="w-max">{isOpen ? "Close" : "Read"}</Button>\n      <Sheets variant="collapsible" open={isOpen} onOpenChange={setIsOpen} className="w-96 text-justify text-sm max-w-full">\n        <Typography prose="span" className="max-w-full text-wrap">\n          Long ago, during the era of Gol D. Roger, the Pirate King, the seas were filled with tales of adventure, danger, and mystery. His final words\n          before execution ignited the "Great Pirate Era": "My treasure? It\'s yours if you want it. I left everything I gathered in one place." These words \n          inspired countless pirates, including a young boy named Monkey D. Luffy, who dreamed of finding the legendary <em>One Piece</em> and becoming the \n          next Pirate King. With a straw hat gifted by the infamous Shanks and the power of the Gomu Gomu no Mi, a mysterious Devil Fruit, Luffy set out on \n          a journey that would bring together an unforgettable crew and face unimaginable challenges. From battling fierce Warlords to uncovering secrets of \n          the Void Century, their adventure is a testament to loyalty, courage, and the unbreakable bonds of friendship.\n        </Typography>\n        <Button variant="link" onClick={() => setIsOpen(false)}>\n          close\n        </Button>\n      </Sheets>\n    </Stack>\n  );\n}',
   dialog:
-    '// Independent Components\nimport { Sheets, SheetsContent, SheetsTrigger, SheetsClose } from "@/ui/sheets";\nimport { Typography } from "@/ui/typography";\nimport { Stack } from "@/ui/stack";\n\nexport function SheetsDialogDemo() {\n  return (\n    <Sheets variant="dialog">\n      <SheetsTrigger>\n        <Typography\n          el="span"\n          data-labelopen="Open Dialog"\n          data-labelclosed="Close Dialog"\n          className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]"\n        />\n      </SheetsTrigger>\n\n      <SheetsContent className="flex flex-col gap-4 overflow-hidden md:w-[528px] md:h-[438px]">\n        <Stack>\n          <Typography el="h2" prose="large">\n            The Power of Dreams\n          </Typography>\n          <Typography prose="muted">\n            Explore the strength of ambitions and the stories of those who dare to dream beyond the horizon.\n          </Typography>\n        </Stack>\n        <Typography prose="p" className="flex size-full flex-col overflow-y-auto">\n          Every great journey begins with a dream. It is the courage to pursue the unknown, the resilience to face challenges, and the belief in oneself \n          that turns visions into reality. Whether it’s the quest for knowledge, the pursuit of adventure, or the desire to leave a lasting legacy, dreams \n          shape the world we live in. From the innovators who redefined technology to explorers who mapped uncharted territories, their stories remind us \n          that nothing is impossible when driven by purpose. So, what’s your dream, and how far will you go to achieve it?\n        </Typography>\n\n        <SheetsClose />\n      </SheetsContent>\n    </Sheets>\n  );\n}',
+    '// Independent Components\nimport { Sheets, SheetsContent, SheetsTrigger, SheetsClose } from "@/ui/sheets";\nimport { Typography } from "@/ui/typography";\nimport { Stack } from "@/ui/stack";\n\nexport function SheetsDialogDemo() {\n  return (\n    <Sheets variant="dialog">\n      <SheetsTrigger>\n        <Typography\n          el="span"\n          data-labelopen="Open Dialog"\n          data-labelclosed="Close Dialog"\n          className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]"\n        />\n      </SheetsTrigger>\n\n      <SheetsContent className="flex flex-col gap-4 overflow-hidden md:w-[528px] md:h-[438px] max-md:max-h-96">\n        <Stack>\n          <Typography el="h2" prose="large">\n            The Power of Dreams\n          </Typography>\n          <Typography prose="muted">\n            Explore the strength of ambitions and the stories of those who dare to dream beyond the horizon.\n          </Typography>\n        </Stack>\n        <Typography prose="p" className="flex size-full flex-col overflow-y-auto">\n          Every great journey begins with a dream. It is the courage to pursue the unknown, the resilience to face challenges, and the belief in oneself \n          that turns visions into reality. Whether it’s the quest for knowledge, the pursuit of adventure, or the desire to leave a lasting legacy, dreams \n          shape the world we live in. From the innovators who redefined technology to explorers who mapped uncharted territories, their stories remind us \n          that nothing is impossible when driven by purpose. So, what’s your dream, and how far will you go to achieve it?\n        </Typography>\n\n        <SheetsClose />\n      </SheetsContent>\n    </Sheets>\n  );\n}',
   dialogNested:
     '"use client";\nimport { Sheets } from "@/ui/sheets";\nimport { Typography } from "@/ui/typography";\nimport { Button, buttonStyle } from "@/ui/button";\nimport { Stack } from "@/ui/stack";\nimport { Input } from "@/ui/input";\nimport { Group } from "@/ui/group";\n\nexport function SheetsDialogDemoNested() {\n  return (\n    <Sheets variant="dialog" multipleOpen>\n      <Sheets.Trigger id="dialog-demo-1">Edit profile</Sheets.Trigger>\n\n      <Sheets.Content value="dialog-demo-1" className="flex flex-col justify-between md:w-full max-w-md">\n        <Typography el="p" prose="h4">\n          Edit profile\n        </Typography>\n        <Typography prose="muted">Make changes to your profile here. Click continue to the next step.</Typography>\n\n        <Stack>\n          <Input.Wrapper label="Name">\n            <Input placeholder="Edit your name" />\n          </Input.Wrapper>\n          <Input.Wrapper label="Username">\n            <Input placeholder="Edit Username" />\n          </Input.Wrapper>\n        </Stack>\n\n        <Group align="stretch" grow>\n          <Sheets.Close unstyled className={buttonStyle({ variant: "destructive" })}>\n            Cancel\n          </Sheets.Close>\n          <Sheets.Trigger id="dialog-demo-2" unstyled className={buttonStyle({ variant: "default" })}>\n            Continue\n          </Sheets.Trigger>\n        </Group>\n\n        <Sheets.Close />\n      </Sheets.Content>\n\n      <Sheets.Content value="dialog-demo-2" side="bottom" className="flex flex-col justify-between md:w-full max-w-md">\n        <Typography el="p" prose="h1">\n          Dialog 2\n        </Typography>\n\n        <Sheets.Trigger id="dialog-demo-3" className="absolute bottom-4">\n          Open Dialog 3\n        </Sheets.Trigger>\n\n        <Sheets.Close />\n      </Sheets.Content>\n\n      <Sheets.Content value="dialog-demo-3" side="bottom" className="flex flex-col justify-between md:w-full max-w-md">\n        <Typography el="p" prose="h1">\n          Dialog 3\n        </Typography>\n\n        <Sheets.Trigger id="dialog-demo-4" className="absolute bottom-4">\n          Open Dialog 4\n        </Sheets.Trigger>\n\n        <Sheets.Close />\n      </Sheets.Content>\n\n      <Sheets.Content value="dialog-demo-4" className="flex flex-col justify-between md:w-full max-w-md">\n        <Typography el="p" prose="h1">\n          Dialog 4\n        </Typography>\n\n        <Sheets.Close />\n      </Sheets.Content>\n    </Sheets>\n  );\n}',
   drawer:
@@ -110,8 +110,8 @@ function CollapsibleRootDemo() {
       <Button onClick={() => setIsOpen(o => !o)} className="w-max">
         {isOpen ? "Close" : "Read"}
       </Button>
-      <Sheets variant="collapsible" open={isOpen} onOpenChange={setIsOpen} className="w-96 text-justify text-sm">
-        <Typography prose="span">
+      <Sheets variant="collapsible" open={isOpen} onOpenChange={setIsOpen} className="w-96 max-w-full text-justify text-sm">
+        <Typography prose="span" className="max-w-full text-wrap">
           Long ago, during the era of Gol D. Roger, the Pirate King, the seas were filled with tales of adventure, danger, and mystery. His final words before
           execution ignited the "Great Pirate Era": "My treasure? It's yours if you want it. I left everything I gathered in one place." These words inspired
           countless pirates, including a young boy named Monkey D. Luffy, who dreamed of finding the legendary <em>One Piece</em> and becoming the next Pirate
@@ -140,7 +140,7 @@ function DialogDemo() {
         />
       </SheetsTrigger>
 
-      <SheetsContent className="flex flex-col gap-4 overflow-hidden md:h-[438px] md:w-[528px]">
+      <SheetsContent className="flex flex-col gap-4 overflow-hidden max-md:max-h-96 md:h-[438px] md:w-[528px]">
         <Stack>
           <Typography el="h2" prose="large">
             The Power of Dreams
@@ -165,7 +165,7 @@ function DialogDemoNested() {
     <Sheets variant="dialog" multipleOpen>
       <Sheets.Trigger id="dialog-demo-1">Edit profile</Sheets.Trigger>
 
-      <Sheets.Content value="dialog-demo-1" className="flex flex-col justify-between md:w-full max-w-md">
+      <Sheets.Content value="dialog-demo-1" className="flex max-w-md flex-col justify-between md:w-full">
         <Typography el="p" prose="h4">
           Edit profile
         </Typography>
@@ -192,7 +192,7 @@ function DialogDemoNested() {
         <Sheets.Close />
       </Sheets.Content>
 
-      <Sheets.Content value="dialog-demo-2" className="flex flex-col justify-between md:w-full max-w-md">
+      <Sheets.Content value="dialog-demo-2" className="flex max-w-md flex-col justify-between md:w-full">
         <Typography el="p" prose="h4">
           Dialog 2
         </Typography>
@@ -204,7 +204,7 @@ function DialogDemoNested() {
         <Sheets.Close />
       </Sheets.Content>
 
-      <Sheets.Content value="dialog-demo-3" className="flex flex-col justify-between md:w-full max-w-md">
+      <Sheets.Content value="dialog-demo-3" className="flex max-w-md flex-col justify-between md:w-full">
         <Typography el="p" prose="h4">
           Dialog 3
         </Typography>
@@ -216,7 +216,7 @@ function DialogDemoNested() {
         <Sheets.Close />
       </Sheets.Content>
 
-      <Sheets.Content value="dialog-demo-4" className="flex flex-col justify-between md:w-full max-w-md">
+      <Sheets.Content value="dialog-demo-4" className="flex max-w-md flex-col justify-between md:w-full">
         <Typography el="p" prose="h4">
           Dialog 4
         </Typography>
@@ -444,7 +444,7 @@ const dropdown: DataTrees = {
   centered: true,
   defaultExpanded: false,
   controls: [
-    { prop: "side", type: "select", initialValue: "right", libraryValue: "right", data: ["top", "right", "bottom", "left"] },
+    { prop: "side", type: "select", initialValue: "bottom", libraryValue: "bottom", data: ["top", "right", "bottom", "left"] },
     { prop: "align", type: "select", initialValue: "center", libraryValue: null, data: ["center", "start", "end"] },
     { prop: "sideOffset", type: "number", initialValue: 4, libraryValue: null, min: 0, max: 16 },
     { prop: "clickOutsideToClose", type: "boolean", initialValue: false, libraryValue: false },

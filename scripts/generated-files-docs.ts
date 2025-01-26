@@ -20,7 +20,7 @@ async function generatedFilesDocs(docs: string, segments: string[]) {
       const files = await fs.readdir(dirPath);
 
       for (const file of files) {
-        const ext = extensions.find(e => file.endsWith(e));
+        const ext = extensions.find(e => file !== `index${e}` && file.endsWith(e));
         if (ext) {
           const name = path.basename(file, ext);
           data.push(`  {\n    name: "${name}",\n    ext: "${ext}",\n    segment: ["${docs}", "${segment}"]\n  }`);

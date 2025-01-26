@@ -19,9 +19,8 @@ export const GetCodeButton = React.forwardRef<
     href?: string & NonNullable<unknown>;
   }
 >(function GetCodeButton({ className, href, repo, ...props }, ref) {
-  if (!repo) {
-    return null;
-  }
+  if (!(repo || href)) return null;
+
   return (
     <Tooltip asChild side="left" sideOffset={6} content={<span>Repository</span>} contentProps={{ className: "min-w-[86px]" }}>
       <Anchor

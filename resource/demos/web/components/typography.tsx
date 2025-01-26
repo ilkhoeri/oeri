@@ -11,8 +11,12 @@ const codes = {
 function Demo() {
   return (
     <div>
-      <Typography el="h3" prose="h1">Typography Tailored for Your Needs.</Typography>
-      <Typography el="h4" prose="h1">Scalable, Stylish, and Simple.</Typography>
+      <Typography el="h3" prose="h1">
+        Typography Tailored for Your Needs.
+      </Typography>
+      <Typography el="h4" prose="h1">
+        Scalable, Stylish, and Simple.
+      </Typography>
     </div>
   );
 }
@@ -25,7 +29,7 @@ const usage: DataTrees = {
   type: "code",
   component: Demo,
   code: codes.usage,
-  classNames: { demoInner: "min-h-60 w-full centered px-12" }
+  classNames: { demoInner: "min-h-60 w-full centered px-6" }
 };
 
 const configurator: DataTrees = {
