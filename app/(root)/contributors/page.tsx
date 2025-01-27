@@ -44,6 +44,14 @@ export default function Page() {
           width="600"
           {...{ style: { border: "0", borderRadius: "9px", maxWidth: "100%" } }}
         />
+        <iframe
+          src="https://discord.com/widget?id=1129868548504830003&theme=dark"
+          width="350"
+          height="500"
+          // allowTransparency
+          {...{ style: { border: "0", borderRadius: "9px", maxWidth: "100%" } }}
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        />
       </div>
     </Comp>
   );

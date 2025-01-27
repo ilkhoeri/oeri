@@ -1,41 +1,55 @@
-type Transforms = "uppercase" | "capitalize-first" | "capitalize" | "lowercase";
-/**
- * Transforms a given string based on the specified transformation type.
- *
- * @param {"uppercase" | "capitalize-first" | "capitalize" | "lowercase"} transform - The transformation type.
- * @param {string | undefined} words - The input string to transform.
- * @returns {string} - The transformed string.
- */
-export function transform(transform: Transforms, words: string | undefined): string {
-  if (!words) return "";
-  switch (transform) {
-    case "uppercase":
+/** Transforms a given string based on the specified transformation type. */
+export const transform = Object.assign(
+  {},
+  {
+    /**
+     * @param words - The input string to transform.
+     * @returns string
+     */
+    uppercase: (words: string | undefined) => {
+      if (!words) return "";
       return words
         .split("-")
         .map(word => word.toUpperCase())
         .join(" ");
-
-    case "capitalize-first":
+    },
+    /**
+     * @param words - The input string to transform.
+     * @returns string
+     */
+    capitalizeFirst: (words: string | undefined) => {
+      if (!words) return "";
       return toUpper(
         words
           .split(" ")
           .map(word => toUpper(word.replace(/-/g, " ")))
           .join(" ")
       );
-
-    case "capitalize":
+    },
+    /**
+     * @param words - The input string to transform.
+     * @returns string
+     */
+    capitalize: (words: string | undefined) => {
+      if (!words) return "";
       return words
         .split("-")
         .map(word => toUpper(word))
         .join(" ");
-
-    case "lowercase":
+    },
+    /**
+     * @param words - The input string to transform.
+     * @returns string
+     */
+    lowercase: (words: string | undefined) => {
+      if (!words) return "";
       return words
         .split(" ")
         .map(word => toLower(word))
         .join(" ");
+    }
   }
-}
+);
 
 /**
  * Truncates a string to a maximum length, adding an ellipsis if necessary.

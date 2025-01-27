@@ -90,7 +90,7 @@ export function FilterDocs(props: FilterDocsProps) {
         type="text"
       />
       <label role="presentation" htmlFor={_id} className={classes({ as: "label", labelState: value ? "true" : "false" })}>
-        {transform("capitalize", id)}
+        {transform.capitalize(id)}
       </label>
     </>
   );

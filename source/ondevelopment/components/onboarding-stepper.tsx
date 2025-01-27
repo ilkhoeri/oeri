@@ -194,7 +194,7 @@ export function OnboardingStepper({ cookies, children, tourSteps, sideOffset = 0
             {...{ style }}
           >
             <article role="article" className="relative flex flex-col w-full p-3 md:p-4">
-              <h4 className="text-base font-semibold">{transform("capitalize", camelToKebab(currentStep.selector))}</h4>
+              <h4 className="text-base font-semibold">{transform.capitalize(camelToKebab(currentStep.selector))}</h4>
 
               {Array.isArray(currentStep.content) ? (
                 <ul role="list">

@@ -13,10 +13,6 @@
   "bugs": {
     "url": "https://github.com/ilkhoeri/oeri/issues"
   },
-  "packageManager": "bun@1.1.27",
-  "engines": {
-    "node": "22.x"
-  },
   "scripts": {
     "vercel": "vercel dev --listen 5005",
     "dev": "next dev",

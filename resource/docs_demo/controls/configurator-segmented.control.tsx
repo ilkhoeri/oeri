@@ -32,7 +32,7 @@ export function ConfiguratorSegmentedControl({ data, value, onChange, prop, tran
           value === value && "border-constructive bg-constructive/20"
         )}
       >
-        {transform("capitalize-first", label)}
+        {transform.capitalizeFirst(label)}
       </UnstyledButton>
     );
   }
