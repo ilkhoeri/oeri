@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "description": "The Best Choice for Development Application based on React",
-  "author": "Ilham Khoeri <khoeriilham@gmail.com>",
+  "author": "Ilham Khoeri <khoeriilham@gmail.com> (http://ilkhoeri.vercel.app/)",
   "homepage": "https://github.com/ilkhoeri/",
   "repository": {
     "type": "git",
@@ -13,6 +13,20 @@
   "bugs": {
     "url": "https://github.com/ilkhoeri/oeri/issues"
   },
+  "funding": [
+    {
+      "type": "sponsors",
+      "url": "https://github.com/sponsors/ilkhoeri"
+    },
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/oeri"
+    },
+    {
+      "type": "individual",
+      "url": "https://saweria.co/ilkhoeri"
+    }
+  ],
   "scripts": {
     "vercel": "vercel dev --listen 5005",
     "dev": "next dev",

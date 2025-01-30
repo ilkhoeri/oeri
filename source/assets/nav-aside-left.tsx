@@ -24,9 +24,7 @@ export function AsideLeft(_props: AsideLeftProps) {
   const { rootSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
   const { dir } = useApp();
 
-  if (rootSegment) {
-    return null;
-  }
+  if (rootSegment) return null;
 
   return (
     <>
@@ -36,17 +34,17 @@ export function AsideLeft(_props: AsideLeftProps) {
             <LinkHome />
             <ButtonAside
               {...{
-                hidden: minQuery,
                 open,
                 setOpen,
+                hidden: minQuery,
                 onClick: toggle,
-                className: "mr-1.5"
+                className: "mr-1.5 rtl:mr-0 rtl:ml-1.5"
               }}
             />
           </hgroup>
         )}
 
-        <ScrollArea dir={dir} classNames={{ viewport: classes({ style: "nav" }) }}>
+        <ScrollArea dir={dir} classNames={{ viewport: classes({ style: "nav" }), thumb: "max-md:sr-only" }}>
           <NavLinkItem
             href="/docs"
             title="Getting Started"

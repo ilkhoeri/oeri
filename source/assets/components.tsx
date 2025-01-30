@@ -14,7 +14,7 @@ const varsComp = cvx({
   assign: "relative",
   variants: {
     el: {
-      main: "w-full relative flex flex-col md:flex-row mx-auto min-h-screen pt-[--navbar] pb-20 max-w-var",
+      main: "w-full relative flex flex-col md:flex-row mx-auto min-h-screen pt-[--navbar] pb-20 max-lg:pr-8 rtl:max-lg:pr-0 rtl:max-lg:pl-8 max-w-var",
       section: "w-full max-w-full overflow-x-hidden max-md:px-6 pt-9 flex flex-col",
       p: "text-paragraph whitespace-pre-wrap [&:not(:first-child)]:mt-3"
     }

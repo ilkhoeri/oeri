@@ -32,6 +32,8 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
   };
   const isActive = (key: string) => (active === key ? "true" : undefined);
 
+  const excludesPath = pathname.split("/").filter(Boolean).includes("examples");
+
   return (
     <header
       dir={dir}
@@ -73,7 +75,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
           </div>
         )}
 
-        <div dir={dir} className={globalStyle({ toggle: "group" }, "ltr:ml-auto rtl:mr-auto [&_svg]:size-[1.375rem] gap-1.5")}>
+        <div dir={dir} className={globalStyle({ toggle: "group" }, { "max-md:pr-2 rtl:max-md:pr-0 rtl:max-md:pl-2": excludesPath }, "ltr:ml-auto rtl:mr-auto [&_svg]:size-[1.375rem] gap-1.5")}>
           <CommandDialog routes={routes} />
           <div className="grid grid-flow-col gap-0.5">
             <LinksSection />
@@ -85,7 +87,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
 
         <ButtonAside
           {...{ open, setOpen, onClick: toggle }}
-          hidden={minQuery || pathname.split("/").filter(Boolean).includes("examples")}
+          hidden={minQuery || excludesPath}
           className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]"
         />
       </Polymorphic>
