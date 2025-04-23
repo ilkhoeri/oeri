@@ -20,7 +20,7 @@ export const classes = cvx({
       image: "bg-center text-transparent align-middle items-center justify-center rounded-2xl border py-0 px-0 outline-0 outline-none [&>*]:border-0 [&>*]:outline-0 [&>*]:outline-none",
       month: "min-w-52 text-muted-foreground [&:where(:is(:not([value=''])))]:text-color",
       number: "cursor-text justify-start [&[type=number]::-webkit-inner-spin-button]:[-webkit-appearance:none] [&[type=number]::-webkit-outer-spin-button]:[-webkit-appearance:none] [appearance:textfield] [-moz-appearance:textfield]",
-      password: "cursor-text justify-start",
+      password: "cursor-text justify-start [-webkit-text-security:disc] data-[state=text]:[-webkit-text-security:none]",
       radio: "rounded-full px-0 py-0 items-center justify-center border-muted-foreground checked:border-color",
       range:
         "h-max items-center overflow-x-hidden rounded-full border-0 bg-transparent p-0 text-constructive [--thumb-border:calc(var(--thumb-sz)/3.5)] [--thumb-inner-color:--track-color-active] [--thumb-outer-color:hsl(var(--pure-white))] [--thumb-sz:1rem] [--track-color-active:hsl(var(--constructive))] [--track-height:calc(var(--thumb-sz)/2)]",
@@ -56,8 +56,7 @@ const classesPassword = cvx({
   variants: {
     selector: {
       wrapper: "relative flex w-full items-center",
-      input:
-        "inline-flex h-9 w-full items-center whitespace-nowrap rounded-lg border border-border bg-background px-4 py-2 pl-3 pr-10 text-left text-sm font-normal ring-offset-background transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground hover:bg-background focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f81f7] focus-visible:ring-offset-0 read-only:focus-visible:border-border read-only:focus-visible:ring-0 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 data-[state=password]:[-webkit-text-security:disc] data-[state=text]:[-webkit-text-security:none]",
+      input: classes({ variant: "password" }),
       toggle: "pointer-events-auto absolute bottom-0 right-0 z-99 flex h-9 w-9 cursor-pointer items-center justify-center rounded-[8px] border-0 !bg-transparent outline-0"
     }
   }

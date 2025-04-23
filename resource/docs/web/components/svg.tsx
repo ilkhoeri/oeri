@@ -84,8 +84,16 @@ export const getInitialSizes = (size: Sizes): string | undefined => {
   return sizeMap[size as InitialSize];
 };
 
-// const isValidSize = typeof size === 'string' && (size.startsWith('calc(') || size.startsWith('clamp(') || size.startsWith('var('));
+// Check if stroke is a valid color or a valid number
+const isNumber = <T,>(value: T): boolean => !isNaN(Number(value)) && Number(value) > 0;
+const isColor = <T,>(value: T): boolean =>
+  typeof value === "string" &&
+  (/^#[0-9A-Fa-f]{3,6}$/.test(value) || // Hex color
+    /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/.test(value) || // RGB
+    /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
+    /^[a-zA-Z]+$/.test(value)); // Named color
 
+// const isValidSize = typeof size === 'string' && (size.startsWith('calc(') || size.startsWith('clamp(') || size.startsWith('var('));
 function isValidSize(size: number | string | undefined): boolean {
   return typeof size === "string" && /^(calc|clamp|var)\(/.test(size);
 }
@@ -103,34 +111,17 @@ function applyRatio(sz: string | number | undefined, ratio: number | undefined =
 export function getSizes(Size: SizesProps) {
   const { size = "16px", height, width, h, w, ratio } = Size;
   const sizeMap = getInitialSizes(size);
-  const inSz = Object.values(InitialSize) as string[];
-
-  const initialSize = (sz: string) => inSz.includes(sz);
-
+  const initialSize = (sz: string) => (Object.values(InitialSize) as string[]).includes(sz);
   const sz = (sz: Sizes) => (initialSize(sz as string) ? sizeMap : sz);
-
   const sizer = (rt: number | undefined) => (initialSize(size as string) ? applyRatio(sizeMap, rt) : applyRatio(size, rt));
 
-  return {
-    sz,
-    h: height || h || sz(sizer(ratio?.h)),
-    w: width || w || sz(sizer(ratio?.w))
-  };
+  return { sz, h: height || h || sz(sizer(ratio?.h)), w: width || w || sz(sizer(ratio?.w)) };
 }
 
 export function svgProps(detail: DetailedSvgProps) {
   const { xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", "aria-hidden": ariaHidden = "true", currentFill = "stroke", w, h, size, width, height, fill, stroke, strokeWidth, strokeLinecap, strokeLinejoin, ratio, color, style, ...props } = detail;
 
   const sz = getSizes({ size, h, w, height, width, ratio });
-
-  // Check if stroke is a valid color or a valid number
-  const isNumber = (value: any): boolean => !isNaN(Number(value)) && Number(value) > 0;
-  const isColor = (value: any): boolean =>
-    typeof value === "string" &&
-    (/^#[0-9A-Fa-f]{3,6}$/.test(value) || // Hex color
-      /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/.test(value) || // RGB
-      /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
-      /^[a-zA-Z]+$/.test(value)); // Named color
 
   // Determine strokeIsColor and strokeIsWidth
   const strokeIsColor = typeof stroke === "string" && isColor(stroke) ? stroke : undefined;

@@ -31,7 +31,7 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
       "pointer-events-none overflow-hidden after:absolute after:inset-0 after:z-[21] after:bg-background/60 after:content-[''] after:animate-pulse": !mounted
     }),
     inner:
-      "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--fz-code:.8125rem] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--p-code:0] [&>figure>pre>code:is([data-language][data-line-numbers])]:border-0"
+      "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55] [&_>_figure_>_pre_>_code:is([data-language][data-line-numbers])]:[--fz-code:.8125rem] [&_>_figure_>_pre_>_code:is([data-language][data-line-numbers])]:[--p-code:0] [&_>_figure_>_pre_>_code:is([data-language][data-line-numbers])]:border-0 [&_>_figure_>_pre_>_code:is([data-language][data-line-numbers]):focus]:outline-0 focus-visible:[&_>_figure_>_pre_>_code:is([data-language][data-line-numbers])]:border-0"
   };
 
   if (css) {
