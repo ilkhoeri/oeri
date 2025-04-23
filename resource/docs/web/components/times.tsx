@@ -44,20 +44,43 @@ function getStyles(selector: __Selector, options?: Options) {
 }
 
 export interface __TimesProps {
-  diff?: Format["diff"];
-  locales?: Format["locales"];
+  diff?: TimeAgoFormat["diff"];
+  locales?: TimeAgoFormat["locales"];
 }
 
-export interface TimesProps extends ComponentProps<"time">, __TimesProps {
+interface DefaultTimePropsConstructor extends ComponentProps<"time"> {
   time?: string | Date;
+  locales?: TimeAgoFormat["locales"];
 }
+
+export interface TimeDefaultProps extends DefaultTimePropsConstructor {
+  localeString?: Intl.DateTimeFormatOptions;
+}
+export interface TimeAgoProps extends DefaultTimePropsConstructor {
+  diff?: TimeAgoFormat["diff"];
+}
+
+export type TimesProps = (TimeDefaultProps & { format?: "default" }) | (TimeAgoProps & { format?: "time-ago" });
+
 export const Times = React.forwardRef<HTMLTimeElement, TimesProps>((_props, ref) => {
-  const { time, style, children, suppressHydrationWarning, diff, locales, ...props } = _props;
-  return <time {...{ ref, style, dateTime: String(time), suppressHydrationWarning, ...props }}>{children || (time && getTimeAgo(new Date(String(time)), { locales, diff }))}</time>;
+  const { time, children, suppressHydrationWarning, format = "default", ...props } = _props;
+  if (format === "default") {
+    const { localeString, locales, ...rest } = props as TimeDefaultProps;
+    const content = children || (time && getTime(time, { locales, ...localeString }));
+    return <time {...{ ref, dateTime: String(time), suppressHydrationWarning, ...rest }}>{content}</time>;
+  }
+
+  if (format === "time-ago") {
+    const { locales, diff, ...rest } = props as TimeAgoProps;
+    const content = children || (time && getTimeAgo(new Date(String(time)), { locales, diff }));
+    return <time {...{ ref, dateTime: String(time), suppressHydrationWarning, ...rest }}>{content}</time>;
+  }
+
+  return null;
 }) as TimesComponent;
 Times.displayName = "Times";
 
-export interface TimesPostedProps extends Omit<TimesProps, "time">, StylesNames<__Selector> {
+export interface TimesPostedProps extends ComponentProps<"time">, __TimesProps, StylesNames<__Selector> {
   withInterval?: boolean;
   times?: {
     createdAt?: string | Date;
@@ -66,9 +89,9 @@ export interface TimesPostedProps extends Omit<TimesProps, "time">, StylesNames<
 }
 export const TimesPosted = React.forwardRef<HTMLTimeElement, TimesPostedProps>((_props, ref) => {
   const { times, diff, locales, unstyled, className, classNames, style, styles, withInterval, ...props } = _props;
-  if (!times) {
-    return null;
-  }
+
+  if (!times) return null;
+
   const sameDate = isSameDate(times?.createdAt, times?.updatedAt);
   const stylesApi = { unstyled, classNames, styles };
   const formatApi = { diff, locales };
@@ -121,13 +144,29 @@ type TimesComponent = React.ForwardRefExoticComponent<TimesProps> & {
 // Attach sub-components
 Times.Posted = TimesPosted;
 
-interface Format {
+// You can move the helper below into a separate file (eg: times-helper.ts) to support server-side use.
+
+const DEFAULT_LOCALES: Intl.LocalesArgument = "id-ID";
+
+interface GetTimeOptions extends Intl.DateTimeFormatOptions {
+  locales?: Intl.LocalesArgument;
+}
+export function getTime(date: Date | string, opts: GetTimeOptions = {}) {
+  const { locales = DEFAULT_LOCALES, day = "2-digit", year = "numeric", month = "long" } = opts;
+  return new Date(date).toLocaleString(locales, {
+    day,
+    year,
+    month
+  });
+}
+
+export interface TimeAgoFormat {
   diff?: "days" | "short" | "long" | "growth";
   locales?: Intl.LocalesArgument;
   formatGrowth?: Intl.DateTimeFormatOptions;
 }
-export const getTimeAgo = (date: Date, format: Format = {}): string => {
-  const { diff = "short", locales = "en-US", formatGrowth = {} } = format;
+export const getTimeAgo = (date: Date, format: TimeAgoFormat = {}): string => {
+  const { diff = "short", locales = DEFAULT_LOCALES, formatGrowth = {} } = format;
   const { hour12 = false, minute = "2-digit", hour = "2-digit", day = "2-digit", month = "short", year = "numeric", ...opt } = formatGrowth;
   const now = new Date();
   const newdiff = date.getTime() - now.getTime();

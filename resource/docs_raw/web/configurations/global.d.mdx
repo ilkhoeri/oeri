@@ -1,0 +1,263 @@
+---
+title: global.d.ts
+description: Utility types for object transformation, key manipulation, and type inference in TypeScript
+date: 2025-04-23
+summary: This file provides a collection of advanced TypeScript utility types to support operations such as deep key path resolution, nullable handling, and required key extraction.
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Declare Type
+
+Utility types for object transformation, key manipulation, and type inference in TypeScript
+
+### nullable
+
+```ts
+type nullable = null | undefined;
+```
+
+Represents values that can be either `null` or `undefined`.
+
+---
+
+### falsy
+
+- [`learn`](https://www.learn-ts.org/en/Truthy_and_Falsy)
+
+```ts
+type falsy = false | 0 | "" | null | undefined | (number & { __falsyNaN__: void });
+```
+
+In TypeScript, as in JavaScript, a _"falsy"_ value is a value that is treated as false when encountered in a Boolean context, such as in an if statement or when using the logical NOT operator `(!)`. There are six falsy values in TypeScript:
+
+- `false`: The boolean value false.
+- `0`: The number zero.
+- `""` (empty string): An empty string.
+- `null`: Represents the absence of a value.
+- `undefined`: Indicates that a variable has not been assigned a value.
+- `NaN`: "Not a Number," often resulting from invalid mathematical operations (represented using a branded intersection type because TypeScript does not support `NaN` as a literal type).
+
+All other values in TypeScript are considered _"truthy,"_ meaning they evaluate to true in a Boolean context. This includes:
+
+- Any number other than 0, including negative numbers.
+- Non-empty strings.
+- Arrays (even empty arrays []).
+- Objects (even empty objects {}).
+- Functions.
+
+**Note:** This type is primarily for static type checking and should be used with caution if exact runtime validation of `NaN` is needed.
+
+---
+
+### RequiredKeys
+
+```ts
+type RequiredKeys<T> = T extends string ? T | `${T}.required` : never;
+```
+
+Expands a string type to include a `.required` suffix, indicating a key that is required.
+
+---
+
+### SplitKey
+
+```ts
+type SplitKey<K> = K extends `${infer Key}.required` ? { key: Key; required: true } : { key: K; required: false };
+```
+
+Splits a string key into its base key and a `required` flag. If the key ends in `.required`, the flag is set to `true`.
+
+---
+
+### ExtractParsedKey
+
+```ts
+type ExtractParsedKey<T, K extends string, IsRequired extends boolean> = {
+  [P in K]: SplitKey<P> extends infer R ? (R extends { key: infer K2; required: infer R2 } ? (K2 extends keyof T ? (R2 extends IsRequired ? K2 : never) : never) : never) : never;
+}[K];
+```
+
+Extracts the keys from type `T` that match the parsed key format and are either required or optional, depending on `IsRequired`.
+
+---
+
+### ParsedKeyUnion
+
+```ts
+type ParsedKeyUnion<K extends string> = {
+  [P in K]: SplitKey<P>["key"];
+}[K];
+```
+
+Maps a union of keys with optional `.required` suffixes to their base key strings.
+
+---
+
+### Join
+
+```ts
+type Join<K, P> = K extends string ? (P extends string ? `${K}.${P}` : never) : never;
+```
+
+Joins two strings into a dot-separated path, useful for generating deep key paths.
+
+---
+
+### Prev
+
+```ts
+type Prev = [never, 0, 1, 2, ..., 21];
+```
+
+Provides an array-based utility to calculate the previous number. Often used to limit recursion depth in utility types.
+
+---
+
+### IgnoringSuffix
+
+```ts
+type IgnoringSuffix<T> = Date | string[] | number[] | Array<T>;
+```
+
+Defines types that should stop recursion when resolving deep paths.
+
+---
+
+### DeepValueType
+
+```ts
+type DeepValueType<T, P extends string> = ...
+```
+
+Resolves the type of a deeply nested property from object `T` using a dot-separated string path `P`.
+
+---
+
+### Booleanish
+
+```ts
+type Booleanish = boolean | "true" | "false";
+```
+
+Represents values that are either `boolean` or their string equivalents.
+
+---
+
+### Direction
+
+```ts
+type Direction = "ltr" | "rtl";
+```
+
+Defines text directionality, either left-to-right or right-to-left.
+
+---
+
+### InferType
+
+```ts
+type InferType<T> = T extends (...args: any[]) => infer R ? R : never;
+```
+
+Infers the return type of a function type.
+
+---
+
+### DeepPaths
+
+```ts
+type DeepPaths<T, Prev extends string = ""> = ...
+```
+
+Recursively computes all possible deep paths in a nested object type `T`, returning them as dot-separated strings. Stops at arrays.
+
+---
+
+### Paths
+
+```ts
+type Paths<T, D extends number = 4> = ...
+```
+
+Computes dot-separated paths to all nested properties within object `T`, up to a maximum depth `D`. Stops when it reaches types defined in `IgnoringSuffix`.
+
+---
+
+### Merge
+
+```ts
+type Merge<T> = {
+  [K in keyof T]: T[K];
+};
+```
+
+Creates a new type by shallow-merging all properties of `T`. Useful for resolving type intersections.
+
+---
+
+### Nullable
+
+```ts
+type Nullable<T, K extends RequiredKeys<keyof T> | void = never, N extends nullable = null> = ...
+```
+
+Makes properties of `T` nullable. You can control which keys are required/optional using the `K` generic, and customize the nullable type via `N`.
+
+---
+
+### Except
+
+```ts
+type Except<T, K extends keyof T> = { [P in Exclude<keyof T, K>]: T[P] };
+```
+
+Creates a type by omitting the specified keys `K` from type `T`.
+
+---
+
+### NonNullables
+
+```ts
+type NonNullables<T> = {
+  [K in keyof Required<T>]: NonNullable<T[K]>;
+};
+```
+
+Ensures all properties in `T` are required and non-nullable.
+
+---
+
+### NonNullableConstructor
+
+```ts
+type NonNullableConstructor<T, N = never> = ...
+```
+
+Recursively makes all fields non-nullable. Special handling for arrays, functions, and dates.
+
+---
+
+### KeysConstructor
+
+```ts
+type KeysConstructor<U extends [string, unknown]> = ...
+```
+
+Generates a union of string templates in the format `"key-subkey"` where `key` is from a tuple’s first element and `subkey` is each string key of the second element.
+
+---
+
+### export `{}`
+
+Required to ensure that the TypeScript file is treated as a module and applies the `declare global` block properly.
+
+---
+
+## Source Codes
+
+<SourceCodes name="global.d" />

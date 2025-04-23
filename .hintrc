@@ -1,8 +1,7 @@
 {
-  "extends": [
-    "development"
-  ],
+  "extends": ["development"],
   "hints": {
+    "apple-touch-icons": "off",
     "axe/forms": [
       "default",
       {

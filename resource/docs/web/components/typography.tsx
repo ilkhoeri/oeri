@@ -16,7 +16,7 @@ const classes = cvx({
       large: "text-lg font-semibold",
       small: "text-sm font-medium leading-none",
       ol: "my-5 ml-5 pl-5 list-decimal marker:font-normal [&:has(+ul)]:mb-0 [&:has(+ul)+ul]:my-0 [&:has(+ul)+ul]:ml-10 [&>li]:mt-2",
-      ul: "my-5 ml-5 pl-5 list-disc marker:font-normal [&>li]:mt-2 [&>li]:whitespace-pre-wrap",
+      ul: "my-5 ml-5 pl-5 list-disc marker:font-normal [&>li]:mt-2 [&>li]:whitespace-pre-wrap [&_ol]:has-[ol]:ml-0 [&_ol]:has-[ol]:my-0 [&_ol]:has-[ol]:whitespace-normal [&_ul]:has-[ul]:ml-0 [&_ul]:has-[ul]:my-0 [&_ul]:has-[ul]:whitespace-normal",
       li: "list-item [text-align:-webkit-match-parent] [unicode-bidi:isolate] leading-normal",
       code: "relative rounded bg-muted/60 border border-solid border-border px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium",
       kbd: "text-[calc(.85em*1)] rounded py-[calc(.15em*1)] px-[calc(.35em*1)] text-color [--shadow:hsl(var(--border))] [box-shadow:0_0_0_.0625em_var(--shadow),0_.09375em_0_.0625em_var(--shadow)]",

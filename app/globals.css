@@ -770,7 +770,6 @@
       }
 
       &:where([type="number"]) {
-        @apply [clip-path:circle(32px_at_center)];
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
           @apply p-0 m-0 [-moz-appearance:none] [-webkit-appearance:none] appearance-none h-auto;

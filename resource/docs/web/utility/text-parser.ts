@@ -244,9 +244,7 @@ export function toPascal(words: string) {
  */
 export function formatedProgress(input: string | undefined) {
   if (!input) return null;
-  if (/^\d+$/.test(input)) {
-    return `${input}`;
-  }
+  if (/^\d+$/.test(input)) return `${input}`;
   return input;
 }
 
@@ -277,7 +275,6 @@ function combineConsecutiveHyphens(str: string): string {
 }
 
 /**
- *
  * @param text `string | null | undefined`
  * @returns string
  * @example
@@ -288,13 +285,7 @@ function combineConsecutiveHyphens(str: string): string {
  */
 export function formatTitle(text: string | null | undefined, formatTransform: FormatTransform = "uppercaseFirst"): string {
   if (!text) return "";
-  const currentFormat = text
-    // Ubah kebab-case menjadi spasi (web-analitics -> web analitics)
-    .replace(/[-_]/g, " ")
-    // Ubah camelCase menjadi spasi (webAnalitics -> web Analitics)
-    .replace(/([a-z])([A-Z])/g, "$1 $2");
-  // Kapitalisasi setiap kata
-  // .replace(/\b\w/g, char => char.toUpperCase())
+  const currentFormat = text.replace(/[-_]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
   return transform[formatTransform](currentFormat);
 }
 
@@ -340,6 +331,41 @@ export function formatBytes<T>(obj: T): string {
   return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
 }
 
+/**
+ * This function will return true if the value is one of JavaScript's `falsy` values, including `NaN`.
+ * @param value `T`
+ * @returns `value is T`
+ */
+export function isFalsy<T = unknown>(value: T): value is T {
+  return value === false || value === 0 || value === "" || value === null || value === undefined || (typeof value === "number" && Number.isNaN(value));
+}
+
+/**
+ * Function to filter falsy values from an array
+ * @param arr `T[]`
+ * @returns `Exclude<T, falsy>[]`
+ * @example
+ * const mixed = [0, 1, false, true, null, "hello", "", undefined, NaN];
+ * const truthyValues = filterFalsy(mixed);
+ * // truthyValues: [1, true, "hello"]
+ */
+export function filterFalsy<T>(arr: T[]): Exclude<T, falsy>[] {
+  return arr.filter((item): item is Exclude<T, falsy> => !isFalsy(item));
+}
+
+/**
+ * Function to get only falsy values
+ * @param arr `T[]`
+ * @returns `Extract<T, falsy>[]`
+ * @example
+ * const falsyValues = getFalsy(mixed);
+ * // falsyValues: [0, false, null, "", undefined, NaN]
+ * getFalsy([1, "", false, "ok"]); // ["", false]
+ */
+export function getFalsy<T>(arr: T[]): Extract<T, falsy>[] {
+  return arr.filter(isFalsy) as Extract<T, falsy>[];
+}
+
 export function isNumber<T>(value: T): boolean {
   return !isNaN(Number(value)) && Number(value) > 0;
 }
@@ -348,20 +374,41 @@ export function validNumber<T, R>(value: T, defaultValue: R): number | R {
   return isNumber(value) ? Number(value) : defaultValue;
 }
 
-// Misalnya, jika paramsId adalah UUID, maka kita asumsikan itu adalah id
-// const isId = (n: string) => /^[0-9a-fA-F]{24}$/.test(n); // Contoh pola untuk UUID
 /**
- * Check if path is a UUID versi 4
+ * Check if path is a UUID version 4
  * @param input - The input string.
  * @returns
  */
-export const isUUID = (input: string) => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
+export function isUUID(input: string): boolean {
+  return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
+}
 
-export const isCUID = (input: string) => /^c[a-z0-9]{24}$/.test(input); // Pola CUID dimulai dengan "c" diikuti 24 karakter alphanumeric
+/**
+ * Pola CUID dimulai dengan "c" diikuti 24 karakter alphanumeric
+ * @param input `string`
+ * @returns `boolean`
+ */
+export function isCUID(input: string): boolean {
+  return /^c[a-z0-9]{24}$/.test(input);
+}
 
-export const isMongoObjectId = (input: string) => /^[0-9a-fA-F]{24}$/.test(input); // ObjectId MongoDB adalah 24 karakter hex
+/**
+ * ObjectId MongoDB adalah 24 karakter hex
+ * @param input `string`
+ * @returns `boolean`
+ */
+export function isMongoObjectId(input: string): boolean {
+  return /^[0-9a-fA-F]{24}$/.test(input);
+}
 
-export const isValidId = (input: string) => isUUID(input) || isCUID(input) || isMongoObjectId(input);
+/**
+ * Mengecek input apakah valid `uuid` atau `cuid` atau `ObjectId`
+ * @param input `string`
+ * @returns `boolean`
+ */
+export function isValidId(input: string): boolean {
+  return isUUID(input) || isCUID(input) || isMongoObjectId(input);
+}
 
 export function isValidURL(url: string): boolean {
   const pattern = new RegExp(

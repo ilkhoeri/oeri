@@ -1,51 +1,73 @@
+// required global.d.ts
 "use client";
 import * as React from "react";
-import { setCookies } from "./config-cookies";
+import { setCookieSync } from "./config-cookies";
 import { Cookies } from "./config-types";
-import { useDirection, type Direction } from "@/hooks/use-direction";
+import { useDirection } from "@/hooks/use-direction";
 
-export enum Booleanish {
-  true = "true",
-  false = "false"
-}
-type Theme = "dark" | "light" | "system";
-type __T_ = "dir" | "theme" | "isOpenAside"; // cookies value
-type IntrinsicAppProvider = Record<__T_, string | undefined>;
-type useAppProps = IntrinsicAppProvider & {};
-interface AppProviderProps extends IntrinsicAppProvider {
-  children: React.ReactNode;
-}
-interface CtxProps {
-  openAside: `${Booleanish}`;
-  setOpenAside: (v: `${Booleanish}`) => void;
-  setCookies(name: `${Cookies}` | (string & {}), value: string): Promise<void>;
-  toggleDirection: () => void;
-  setDirection: (dir: Direction) => void;
-  // initial type
+export type CookiesName = `${Cookies}` | (string & {});
+export type Theme = "dark" | "light" | "system";
+
+// cookies value
+type DirectedAppValue = {
   dir: Direction;
   theme: Theme;
-}
-
-export const dataBooleanish: `${Booleanish}`[] = Object.values(Booleanish);
-const ctx = React.createContext<CtxProps | undefined>(undefined);
-
-export const useApp = () => {
-  const _ctx = React.useContext(ctx);
-  if (!_ctx) {
-    throw new Error("main layout must be used within an <AppProvider>");
-  }
-  return _ctx;
+  isOpenAside: boolean;
+  // locale
+  // mssg: Record<string, MessageFormatElement[]> | Record<string, string>;
+  // lang: string;
 };
 
-function useAppFuntions(_app: useAppProps) {
-  const { theme = "system", isOpenAside = "true", dir = "ltr", ...others } = _app;
-  const [openAside, setOpenAside] = React.useState<`${Booleanish}`>(isOpenAside as `${Booleanish}`);
-  const { dir: _dir, ..._direction } = useDirection({ initialDirection: dir as Direction });
-  return { theme, dir: _dir, openAside, setOpenAside, ..._direction, ...others };
+interface AppContext extends DirectedAppValue {
+  openAside: Booleanish;
+  setOpenAside: (v: Booleanish) => void;
+  /** default value = `365` (one year) */
+  setCookieSync: (name: CookiesName, value: string, days?: number) => Promise<void>;
+  /** default value = `30` (one month) */
+  setCookie: (name: CookiesName, value: string, days?: number) => void;
+  toggleDirection: () => void;
+  setDirection: (dir: Direction) => void;
 }
 
-export function AppProvider({ children, ...props }: AppProviderProps) {
-  const { theme, ...app } = useAppFuntions({ ...props });
-  const value = { setCookies, theme: theme as Theme, ...app };
-  return <ctx.Provider {...{ value }}>{children}</ctx.Provider>;
+const ctx = React.createContext<AppContext | undefined>(undefined);
+
+export function useApp() {
+  const _ctx = React.useContext(ctx);
+  if (!_ctx) throw new Error("main layout must be used within an <AppProvider>");
+  return _ctx;
+}
+
+interface AppProviderProps extends DirectedAppValue {
+  children: React.ReactNode;
+}
+
+export function AppProvider(props: AppProviderProps) {
+  const { children, theme = "system", dir: initialDirection = "ltr", isOpenAside = true, ...others } = props;
+
+  const [openAside, setOpenAside] = React.useState<Booleanish>(isOpenAside);
+
+  const { dir, ..._direction } = useDirection({ initialDirection });
+
+  const setCookie = React.useCallback((name: string, value: string, days = 30) => {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/`;
+  }, []);
+
+  const contextValue = React.useMemo<AppContext>(
+    () => ({
+      theme,
+      dir,
+      openAside,
+      setOpenAside,
+      setCookieSync,
+      setCookie,
+      isOpenAside,
+      ..._direction,
+      ...others
+    }),
+    [theme, dir, openAside, setOpenAside, isOpenAside, setCookie, _direction, others]
+  );
+
+  return <ctx.Provider value={contextValue}>{children}</ctx.Provider>;
 }

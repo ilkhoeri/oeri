@@ -13,7 +13,7 @@ function Demo() {
 }
 
 function ConfiguratorDemo(_props: TimesProps) {
-  const { time, diff } = _props;
+  const { time, diff } = _props as any;
   return (
     <Stack>
       <Times time={time} diff={diff} />

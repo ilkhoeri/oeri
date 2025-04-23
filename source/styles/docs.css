@@ -253,7 +253,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     &[data-rehype-pretty-code-figure] {
       &:has([data-rehype-pretty-code-title]) {
         & [data-rehype-pretty-code-title] {
-          @apply -mb-6 mt-6 mx-0.5 rounded-t-lg text-muted-foreground [font-family:var(--ff-geist-mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation_Mono","Courier_New",monospace)] text-sm p-[.5rem_.75rem_.65rem] leading-normal [--fz-code:75%] border border-b-0 border-primitive-foreground bg-muted/45 [overflow-wrap:break-word];
+          @apply -mb-6 mt-6 mx-0 rounded-t-lg text-muted-foreground [font-family:var(--ff-geist-mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation_Mono","Courier_New",monospace)] text-sm p-[.5rem_.75rem_.65rem] leading-normal [--fz-code:75%] border border-b-0 border-primitive-foreground bg-muted/45 [overflow-wrap:break-word];
           & + pre code {
             @apply rounded-t-none;
           }

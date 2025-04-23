@@ -17,7 +17,7 @@ export const theming = [
 type Theme = (typeof theming)[number]["name"];
 const themeNames: Theme[] = theming.map(theme => theme.name);
 
-export const theme = { themeNames } as const;
+export const theme = { names: themeNames as string[] } as const;
 
 export function ThemeProvider({ children, enableSystem = true, attribute = "class", defaultTheme = "system", disableTransitionOnChange = true, ...props }: ThemeProviderProps) {
   return (
@@ -35,19 +35,13 @@ export function ThemeProvider({ children, enableSystem = true, attribute = "clas
   );
 }
 
-const setCookie = (name: string, value: string, days = 30) => {
-  const date = new Date();
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-  document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/`;
-};
-
-const nextValue = (current: string, themes: string[]): string => {
+function nextValue(current: string, themes: string[]): string {
   const currentIndex = themes.indexOf(current);
   return themes[(currentIndex + 1) % themes.length];
-};
+}
 
 export function useNextTheme() {
-  const { theme: setKey } = useApp();
+  const { theme: setKey, setCookieSync } = useApp();
   const { theme, setTheme } = useTheme();
 
   const [keyTheme, setKeyTheme] = React.useState<Theme>(setKey as Theme);
@@ -58,9 +52,9 @@ export function useNextTheme() {
 
       setTheme(updatedTheme);
       setKeyTheme(updatedTheme as Theme);
-      setCookie("__theme", updatedTheme);
+      setCookieSync("__theme", updatedTheme, 30);
     },
-    [setTheme]
+    [setTheme, setCookieSync]
   );
 
   useHotkeys([
@@ -80,20 +74,21 @@ export function ThemeToggle({ classNames, unstyled }: { classNames?: { wrapper?:
   return (
     <section className={cn(!unstyled?.wrapper && "relative flex flex-row items-center gap-4", classNames?.wrapper)}>
       <code className="sr-only hidden select-none tracking-wide">⌘+J</code>
-      {theming.map(i => (
+      {theming.map(theme => (
         <UnstyledButton
-          key={i.name}
+          key={theme.name}
           role="button"
-          data-state={keyTheme === i.name ? "active" : ""}
-          onClick={() => memoizedTheme(i.name)}
-          aria-label={i.name}
+          suppressHydrationWarning
+          data-state={keyTheme === theme.name ? "active" : ""}
+          onClick={() => memoizedTheme(theme.name)}
+          aria-label={theme.name}
           className={cn(
             !unstyled?.buttons &&
-              "data-[state=active]:bg-muted data-[state=active]:text-color relative flex h-[var(--ttg-sz,30px)] w-[var(--ttg-sz,30px)] cursor-pointer select-none items-center justify-center rounded-lg border border-neutral-200 p-1 text-[13px] capitalize outline-0 transition-colors focus:bg-[#e4e4e4] focus:text-neutral-900 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:focus:bg-[#373737] dark:focus:text-neutral-50",
+              "relative flex h-[var(--ttg-sz,30px)] w-[var(--ttg-sz,30px)] cursor-pointer select-none items-center justify-center rounded-lg border border-neutral-200 p-1 text-[13px] capitalize outline-0 transition-colors focus:bg-[#e4e4e4] focus:text-neutral-900 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-muted data-[state=active]:text-color dark:border-neutral-700 dark:focus:bg-[#373737] dark:focus:text-neutral-50",
             classNames?.buttons
           )}
         >
-          <i.icon />
+          <theme.icon />
         </UnstyledButton>
       ))}
     </section>

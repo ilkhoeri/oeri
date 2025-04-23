@@ -1,14 +1,61 @@
 ---
-title: Context Provider
-description: Create your project and compactness the required dependencies.
-date: 2025-01-05
-summary: Ringkasan
+title: App Context & Provider
+description: A context provider to manage application-wide state including direction, theme, and sidebar visibility using cookies.
+date: 2025-04-23
+summary: Provides a React context for directionality (LTR/RTL), theme preferences, and sidebar toggling, integrated with cookie persistence.
 component: true
 links:
   doc: https://
   # related:
   #   - label: label
   #     link: https://
+---
+
+## Overview
+
+`AppProvider` is a React context provider component used to manage application-level preferences such as UI direction (`ltr` or `rtl`), theme (`dark`, `light`, or `system`), and sidebar visibility. It also provides utility methods to manage cookies for persisting user preferences across sessions.
+
+<p className="text-h3 mt-8 font-semibold">Behavior</p>
+
+- Uses internal state to manage the open/closed status of the sidebar.
+- Initializes UI direction using the `useDirection` hook.
+- Provides methods to set cookies with expiration defaults:
+  - `setCookie`: saves a cookie for 30 days by default.
+  - `setCookieSync`: saves a cookie for 365 days by default (async/await).
+
+---
+
+### Example
+
+```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
+import { cookies } from "next/headers";
+import { AppProvider, type Theme } from "@/config/app-context";
+import { ThemeProvider } from "@/config/themes";
+
+async function cookiesValues() {
+  const cookiesStore = await cookies();
+  return {
+    dir: cookiesStore.get(Cookies.dir)?.value as Direction,
+    theme: cookiesStore.get(Cookies.theme)?.value as Theme,
+    isOpenAside: (cookiesStore.get(Cookies.isOpenAside)?.value === "true") as boolean
+  };
+}
+
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const cookieStore = await cookiesValues();
+
+  return (
+    <AppProvider {...cookieStore}>
+      <html lang="en" dir={cookieStore.dir} suppressHydrationWarning>
+        <body>
+          <ThemeProvider>{children}</ThemeProvider>
+        </body>
+      </html>
+    </AppProvider>
+  );
+}
+```
+
 ---
 
 ## Source Codes

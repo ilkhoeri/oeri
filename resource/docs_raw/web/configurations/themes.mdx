@@ -14,7 +14,9 @@ links:
 ## Root Layout
 
 ```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+import { ThemeProvider, ThemeStateHidden } from "@/config/themes";
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
