@@ -37,13 +37,7 @@ export default function Page() {
           width="114"
           {...{ style: { border: "0", borderRadius: "6px" } }}
         /> */}
-        <iframe
-          src="https://github.com/sponsors/ilkhoeri/card"
-          title="Sponsor ilkhoeri"
-          height="225"
-          width="600"
-          {...{ style: { border: "0", borderRadius: "9px", maxWidth: "100%" } }}
-        />
+        <iframe src="https://github.com/sponsors/ilkhoeri/card" title="Sponsor ilkhoeri" height="225" width="600" {...{ style: { border: "0", borderRadius: "9px", maxWidth: "100%" } }} />
         <iframe
           src="https://discord.com/widget?id=1129868548504830003&theme=dark"
           width="350"

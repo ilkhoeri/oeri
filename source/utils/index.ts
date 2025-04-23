@@ -1,8 +1,4 @@
-import {
-  camelToKebab,
-  capitalizeWords,
-  kebabToCamelCase
-} from "@/source/ondevelopment/utils";
+import { camelToKebab, capitalizeWords, kebabToCamelCase } from "@/source/ondevelopment/utils";
 
 export function cleanedIds(ids: string[], id: string): string[] {
   return ids.map(i => {
@@ -25,10 +21,7 @@ export function cleanedIdSlug(pathname: string, id: string): string {
   return capitalizeWords(id);
 }
 
-export function retitled(
-  docs: string[] | string | undefined,
-  defaultText: string = "Docs"
-) {
+export function retitled(docs: string[] | string | undefined, defaultText: string = "Docs") {
   if (docs === undefined) return defaultText;
 
   if (Array.isArray(docs)) {
@@ -71,9 +64,7 @@ export function displayNameX(str: string) {
 }
 
 export function displayName(title: string) {
-  return title.startsWith("use")
-    ? kebabToCamelCase(title)
-    : capitalizeWords(title);
+  return title.startsWith("use") ? kebabToCamelCase(title) : capitalizeWords(title);
 }
 
 export function sourceFiles(segment: string[] | undefined) {

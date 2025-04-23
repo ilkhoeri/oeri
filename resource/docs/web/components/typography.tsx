@@ -40,10 +40,7 @@ export type TypographyProps<T extends React.ElementType = "div"> = React.PropsWi
 
 type TypographyElement = <T extends React.ElementType = "div">(_props: TypographyProps<T>) => React.ReactElement;
 
-export const Typography = React.forwardRef(function Typography<T extends React.ElementType>(
-  _props: Omit<TypographyProps<T>, "ref">,
-  ref: React.ComponentPropsWithRef<T>["ref"]
-) {
+export const Typography = React.forwardRef(function Typography<T extends React.ElementType>(_props: Omit<TypographyProps<T>, "ref">, ref: React.ComponentPropsWithRef<T>["ref"]) {
   const { el, unstyled, className, prose, ...props } = _props;
   const proseElm = ["large", "lead", "muted"].includes(prose as string) ? "div" : prose;
   const Component = (el || proseElm || "div") as React.ElementType;

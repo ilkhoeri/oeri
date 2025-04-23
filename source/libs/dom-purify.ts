@@ -108,15 +108,7 @@ export function stripHtml(html: string) {
 
 export function strippedHtml(html: string) {
   const strippedHtml = html.replace(/<[^>]*>/g, "");
-  const stripped = strippedHtml
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;")
-    .replace(/\*/g, "")
-    .replace(/\_/g, "")
-    .replace(/\n/g, " ");
+  const stripped = strippedHtml.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\*/g, "").replace(/\_/g, "").replace(/\n/g, " ");
   const strip = stripped.replace("&amp;", "").replace("&lt;", "").replace("&gt;", "").replace("&quot;", "").replace("&#039;", "");
   return strip;
 }

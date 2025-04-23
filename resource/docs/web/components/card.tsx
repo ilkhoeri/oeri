@@ -58,9 +58,7 @@ CardHeader.displayName = "CardHeader";
 export const CardTitle = React.forwardRef<HTMLHeadingElement, ComponentProps<"h3">>((props, ref) => <Edge {...{ ref, selector: "title", ...props }} />);
 CardTitle.displayName = "CardTitle";
 
-export const CardDescription = React.forwardRef<HTMLParagraphElement, ComponentProps<"p">>((props, ref) => (
-  <Edge {...{ ref, selector: "description", ...props }} />
-));
+export const CardDescription = React.forwardRef<HTMLParagraphElement, ComponentProps<"p">>((props, ref) => <Edge {...{ ref, selector: "description", ...props }} />);
 CardDescription.displayName = "CardDescription";
 
 export const CardContent = React.forwardRef<HTMLDivElement, ComponentProps<"div">>((props, ref) => <Edge {...{ ref, selector: "content", ...props }} />);

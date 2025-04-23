@@ -20,11 +20,7 @@ export function isInView(el: HTMLElement): boolean {
   );
 }
 
-export function set(
-  el: Element | HTMLElement | null | undefined,
-  styles: Style,
-  ignoreCache = false
-) {
+export function set(el: Element | HTMLElement | null | undefined, styles: Style, ignoreCache = false) {
   if (!el || !(el instanceof HTMLElement)) return;
   const originalStyles: Style = {};
 
@@ -73,10 +69,7 @@ export const isVertical = (direction: DrawerDirection) => {
   }
 };
 
-export function getTranslate(
-  element: HTMLElement,
-  direction: DrawerDirection
-): number | null {
+export function getTranslate(element: HTMLElement, direction: DrawerDirection): number | null {
   if (!element) {
     return null;
   }
@@ -91,9 +84,7 @@ export function getTranslate(
   }
   // https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix
   mat = transform.match(/^matrix\((.+)\)$/);
-  return mat
-    ? parseFloat(mat[1].split(", ")[isVertical(direction) ? 5 : 4])
-    : null;
+  return mat ? parseFloat(mat[1].split(", ")[isVertical(direction) ? 5 : 4]) : null;
 }
 
 export function dampenValue(v: number) {

@@ -20,10 +20,7 @@ function Demo() {
         {open ? "Close" : "Open"}
       </Button>
       {open && (
-        <div
-          data-state={open ? "open" : "closed"}
-          className="absolute top-[calc(50%+20px)] rounded-md border bg-background p-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100"
-        >
+        <div data-state={open ? "open" : "closed"} className="absolute top-[calc(50%+20px)] rounded-md border bg-background p-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100">
           <Typography prose="muted">Scroll body removed</Typography>
         </div>
       )}

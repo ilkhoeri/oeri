@@ -4,14 +4,7 @@ export function Icon({ fill, ...props }: SvgProps) {
   return (
     <Svg currentFill="fill" {...{ fill, ...props }}>
       <defs>
-        <linearGradient
-          id="brand-IG"
-          x1="2.85"
-          y1="21.15"
-          x2="21.15"
-          y2="2.85"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="brand-IG" x1="2.85" y1="21.15" x2="21.15" y2="2.85" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#f50000" />
           <stop offset="0" stopColor="#f30004" />
           <stop offset=".08" stopColor="#e5002d" />

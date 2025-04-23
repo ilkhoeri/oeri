@@ -3,9 +3,7 @@ import { cn, rem } from "cretex";
 import { PolymorphicSlot } from "@/ui/polymorphic-slot";
 
 type CSSProperties = React.CSSProperties & { [key: string]: any };
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<
-  Omit<React.ComponentProps<T>, "style" | "color" | Exclude>
->;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 
 interface __SkeletonProps {
   visible?: boolean;
@@ -43,12 +41,8 @@ function getStyles(options: Options = {}) {
     className: cn(
       !unstyled && [
         "relative flex items-center justify-center rounded-[--skeleton-round]",
-        circle || typeof size === "object"
-          ? "size-[--skeleton-size,auto] min-h-[--skeleton-size,auto] min-w-[--skeleton-size,auto]"
-          : "h-[var(--skeleton-size,var(--skeleton-h,auto))] w-[var(--skeleton-size,var(--skeleton-w,100%))]",
-        visible
-          ? "pointer-events-none overflow-hidden before:absolute before:inset-0 before:z-[19] before:content-[''] after:absolute after:inset-0 after:z-[21] after:bg-muted after:content-['']"
-          : "before:transition-colors after:transition-colors",
+        circle || typeof size === "object" ? "size-[--skeleton-size,auto] min-h-[--skeleton-size,auto] min-w-[--skeleton-size,auto]" : "h-[var(--skeleton-size,var(--skeleton-h,auto))] w-[var(--skeleton-size,var(--skeleton-w,100%))]",
+        visible ? "pointer-events-none overflow-hidden before:absolute before:inset-0 before:z-[19] before:content-[''] after:absolute after:inset-0 after:z-[21] after:bg-muted after:content-['']" : "before:transition-colors after:transition-colors",
         { "before:bg-[--skeleton-color,hsl(var(--background))] after:animate-pulse": animate && visible },
         { "min-w-[var(--skeleton-size,var(--skeleton-h,auto))] min-h-[var(--skeleton-size,var(--skeleton-h,auto))]": asChild }
       ],

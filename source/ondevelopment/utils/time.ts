@@ -16,14 +16,10 @@ export const getTimeAgo = (date: Date, format: TimeFormats = {}): string => {
       if (years > 0) {
         const remainingMonths = Math.floor((days % 365) / 30);
         const remainingDays = (days % 365) % 30;
-        return `${years} years${
-          remainingMonths ? `, ${remainingMonths} months` : ""
-        }${remainingDays ? `, ${remainingDays} days` : ""} ago`;
+        return `${years} years${remainingMonths ? `, ${remainingMonths} months` : ""}${remainingDays ? `, ${remainingDays} days` : ""} ago`;
       } else if (months > 0) {
         const remainingDays = days % 30;
-        return `${months} months${
-          remainingDays ? `, ${remainingDays} days` : ""
-        } ago`;
+        return `${months} months${remainingDays ? `, ${remainingDays} days` : ""} ago`;
       } else if (days > 0) {
         return `${days} days ago`;
       } else if (hours > 0) {
@@ -74,11 +70,7 @@ export function isSameDate(date1: Date, date2: Date) {
   const d1 = new Date(date1);
   const d2 = new Date(date2);
 
-  return (
-    d1.getDate() === d2.getDate() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getFullYear() === d2.getFullYear()
-  );
+  return d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear();
 }
 
 export const getTimeInterval = (date1: Date, date2: Date): string => {
@@ -104,18 +96,7 @@ type TimedType = {
   options?: Intl.DateTimeFormatOptions;
 };
 
-export const sortStringDate = (
-  date: Date,
-  {
-    locales = "id-ID",
-    options: {
-      day = "2-digit",
-      year = "numeric",
-      month = "short",
-      ...restOptions
-    } = {}
-  }: TimedType = {}
-): string => {
+export const sortStringDate = (date: Date, { locales = "id-ID", options: { day = "2-digit", year = "numeric", month = "short", ...restOptions } = {} }: TimedType = {}): string => {
   const updatedOptions: Intl.DateTimeFormatOptions = {
     day,
     year,

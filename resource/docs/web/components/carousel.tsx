@@ -64,8 +64,7 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<
   },
   Exclude
 >;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CarouselSelector, Exclude> &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CarouselSelector, Exclude> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = inferType<typeof useCarousel> & {
   getStyles(selector: __CarouselSelector, options?: Options): inferType<typeof getStyles>;
 } & __CarouselProps;
@@ -164,19 +163,7 @@ export function useAnimationOffsetEffect(embla: EmblaCarouselType | null | undef
 }
 
 export function useCarousel(options: UseCarouselOptions = {}, plugins?: EmblaPluginType[]) {
-  const {
-    dragFree = true,
-    loop = true,
-    setApi,
-    dir = "ltr",
-    orientation = "horizontal",
-    withKeyboardEvents = true,
-    onItemChange,
-    onNextSlide,
-    onPreviousSlide,
-    slidesToScroll = 1,
-    ...opts
-  } = options;
+  const { dragFree = true, loop = true, setApi, dir = "ltr", orientation = "horizontal", withKeyboardEvents = true, onItemChange, onNextSlide, onPreviousSlide, slidesToScroll = 1, ...opts } = options;
   const [carouselRef, embla] = useEmblaCarousel(
     {
       loop,
@@ -412,9 +399,7 @@ Carousel.displayName = "Carousel";
 export interface CarouselContentProps extends ComponentProps<"div"> {
   title?: string;
 }
-export const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>((_props, ref) => (
-  <Edge {...{ el: "div", selector: "content", ref, ..._props }} />
-));
+export const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>((_props, ref) => <Edge {...{ el: "div", selector: "content", ref, ..._props }} />);
 CarouselContent.displayName = "CarouselContent";
 
 export interface CarouselItemProps extends ComponentProps<"div"> {

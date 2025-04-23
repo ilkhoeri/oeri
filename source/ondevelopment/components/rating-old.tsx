@@ -23,10 +23,7 @@ type RatingProps = StylesNames<"wrap" | "span" | "icon"> & {
   interactive?: boolean;
 } & Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "children">;
 
-export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(
-  { rating = 0, totalStars = 5, onRatingChange, className, classNames, style, styles, unstyled, ...props },
-  ref
-) {
+export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating({ rating = 0, totalStars = 5, onRatingChange, className, classNames, style, styles, unstyled, ...props }, ref) {
   const [isRating, setIsRating] = React.useState(rating);
   const handleRating = (rate: number) => {
     const newRating = rate === isRating ? rate - 1 : rate;

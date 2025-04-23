@@ -41,8 +41,7 @@ const classes = cvx({
       resize: "mt-4 overflow-hidden relative rounded-lg border shadow-sm bg-primitive transition-all"
     },
     statecard: {
-      expand:
-        "h-[20rem] max-h-[20rem] text-muted-foreground before:content-[''] before:absolute before:bottom-0 before:inset-x-0 before:w-full before:h-[calc(100%-48px)] before:bg-gradient-to-t before:from-primitive/85 before:z-4",
+      expand: "h-[20rem] max-h-[20rem] text-muted-foreground before:content-[''] before:absolute before:bottom-0 before:inset-x-0 before:w-full before:h-[calc(100%-48px)] before:bg-gradient-to-t before:from-primitive/85 before:z-4",
       "expand-full": "h-max min-h-max max-h-[32rem] [&_[data-code-fragment]]:overflow-auto [&_[data-code-fragment]]:max-h-[calc(32rem-3rem)]",
       collapse: "h-max max-h-max [&_[data-code-fragment]]:pb-[2.5rem] [&_[data-code-fragment]]:overflow-auto [&_[data-code-fragment]]:max-h-max",
       undefined: ""

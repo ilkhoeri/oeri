@@ -53,8 +53,7 @@ function classes(selector: NonNullable<cvxProps<typeof dialog>["selector"]>) {
 const dialog = cvx({
   variants: {
     selector: {
-      overlay:
-        "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
+      overlay: "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
       content:
         "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-100 data-[state=closed]:zoom-out-100 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[60%] data-[state=closed]:slide-out-to-top-[60%] rounded-lg",
       close: "size-4 absolute right-4 top-4 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50"
@@ -80,18 +79,9 @@ function TooltipDemo({ side }: { side?: DataSide; align?: DataAlign }) {
     }
   });
 
-
-
   return (
     <>
-      <Button
-        ref={state.triggerRef}
-        {...state.attr()}
-        onMouseEnter={state.handleOnMouseEnter}
-        onMouseLeave={state.handleOnMouseLeave}
-        onMouseMove={state.handleOnMouseMove}
-        onTouchStart={state.handleOnTouchStart}
-      >
+      <Button ref={state.triggerRef} {...state.attr()} onMouseEnter={state.handleOnMouseEnter} onMouseLeave={state.handleOnMouseLeave} onMouseMove={state.handleOnMouseMove} onTouchStart={state.handleOnTouchStart}>
         Tooltip
       </Button>
 

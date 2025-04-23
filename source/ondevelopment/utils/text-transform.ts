@@ -22,9 +22,7 @@ export function capitalizeString(str: string): string {
 export function capitalizeFirst(str: string | undefined): string {
   const string = str ?? "---";
   const words = string.split(" ");
-  const capitalizedWords = words.map(word =>
-    capitalizeString(word.replace(/-/g, " "))
-  );
+  const capitalizedWords = words.map(word => capitalizeString(word.replace(/-/g, " ")));
   const first = capitalizedWords.join(" ");
   return capitalizeString(first);
 }
@@ -187,10 +185,7 @@ console.log(firstName); // Output: sanitized-word
 export function sanitizedToParams(str: string | undefined): string {
   const string = str ?? ")*&^^(";
   const replaced = string.toLowerCase().replace(/\s/g, "-");
-  const sanitized = replaced.replace(
-    /[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!_+=]/g,
-    ""
-  );
+  const sanitized = replaced.replace(/[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!_+=]/g, "");
   const final = sanitized.replace(/-{2,}/g, "-");
   return final;
 }
@@ -209,11 +204,7 @@ export function desanitizeParams(sanitizedTitle: string): string {
   const commonWords = ["dan", "dari", "ke", "di", "yang", "untuk"];
   return sanitizedTitle
     .split("-")
-    .map(word =>
-      commonWords.includes(word)
-        ? word
-        : word.charAt(0).toUpperCase() + word.slice(1)
-    )
+    .map(word => (commonWords.includes(word) ? word : word.charAt(0).toUpperCase() + word.slice(1)))
     .join(" ");
 }
 
@@ -224,10 +215,7 @@ export function removeTrailingDash(input: string): string {
 export function sanitizedToTag(str: string | undefined): string {
   const string = str ?? ")*&^^(";
   const replaced = string.replace(/\s/g, "_");
-  const sanitized = replaced.replace(
-    /[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!+=]/g,
-    ""
-  );
+  const sanitized = replaced.replace(/[<'|">[\]{}?/,.`\\%^&~:;*()+$#@!+=]/g, "");
   const final = sanitized.replace(/-{2,}/g, "_").replace(/_{2,}/g, "_");
   return final;
 }

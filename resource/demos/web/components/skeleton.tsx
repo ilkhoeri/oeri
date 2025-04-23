@@ -8,8 +8,7 @@ import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 const codes = {
   usage:
     '"use client";\nimport { useState } from "react";\nimport { Button } from "@/ui/button";\nimport { Skeleton } from "@/ui/skeleton";\n\nexport function SkeletonDemo() {\n  const [loading, setLoading] = useState(true);\n  return (\n    <div className="m-auto flex size-full flex-col items-center justify-center px-4">\n      <div className="mb-6 flex items-start gap-4 max-md:flex-col md:flex-row">\n        <Skeleton asChild circle visible={loading} size={120}>\n          <button type="button" className="border font-heading">\n            B\n          </button>\n        </Skeleton>\n        <div className="flex flex-col items-center justify-center gap-1">\n          <Skeleton visible={loading} round={8}>\n            Lorem ipsum dolor sit amet...\n          </Skeleton>\n          <Skeleton visible={loading} round={8}>\n            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat adipisci, iste ducimus quasi ipsa autem tenetur! Exercitationem perferendis\n            mollitia omnis.\n          </Skeleton>\n          <Skeleton visible={loading} round={8}>\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro unde itaque ea corrupti maxime perferendis deserunt praesentium iure nemo,\n            consequatur obcaecati eaque, ipsum et alias saepe, ab placeat quo reiciendis.\n          </Skeleton>\n        </div>\n      </div>\n\n      <Button onClick={() => setLoading(l => !l)}>Toggle Skeleton</Button>\n    </div>\n  );\n}',
-  configurator:
-    'import { Skeleton } from "@/ui/skeleton";\nimport { Avatar } from "@/ui/avatar";\n\nexport function SkeletonDemo() {\n  return (\n    <Skeleton{{props}} asChild>\n      <Avatar fallback="el khoeri" className="border" />\n    </Skeleton>\n  );\n}'
+  configurator: 'import { Skeleton } from "@/ui/skeleton";\nimport { Avatar } from "@/ui/avatar";\n\nexport function SkeletonDemo() {\n  return (\n    <Skeleton{{props}} asChild>\n      <Avatar fallback="el khoeri" className="border" />\n    </Skeleton>\n  );\n}'
 };
 
 function Demo() {
@@ -27,12 +26,10 @@ function Demo() {
             Lorem ipsum dolor sit amet...
           </Skeleton>
           <Skeleton visible={loading} round={8}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat adipisci, iste ducimus quasi ipsa autem tenetur! Exercitationem perferendis
-            mollitia omnis.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat adipisci, iste ducimus quasi ipsa autem tenetur! Exercitationem perferendis mollitia omnis.
           </Skeleton>
           <Skeleton visible={loading} round={8}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro unde itaque ea corrupti maxime perferendis deserunt praesentium iure nemo,
-            consequatur obcaecati eaque, ipsum et alias saepe, ab placeat quo reiciendis.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro unde itaque ea corrupti maxime perferendis deserunt praesentium iure nemo, consequatur obcaecati eaque, ipsum et alias saepe, ab placeat quo reiciendis.
           </Skeleton>
         </div>
       </div>
@@ -42,11 +39,12 @@ function Demo() {
   );
 }
 
-
 function ConfiguratorDemo(props: SkeletonProps) {
   return (
     <Skeleton {...props} asChild>
-      <Avatar fallback="el khoeri" className="border">xyz</Avatar>
+      <Avatar fallback="el khoeri" className="border">
+        xyz
+      </Avatar>
     </Skeleton>
   );
 }

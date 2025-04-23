@@ -11,7 +11,11 @@ const codes = {
 function Demo() {
   const os = useOS();
   if (!os) return <Typography el="p">Detecting OS...</Typography>;
-  return <Typography prose="h4" className="m-auto font-mono">Your OS: {os}</Typography>;
+  return (
+    <Typography prose="h4" className="m-auto font-mono">
+      Your OS: {os}
+    </Typography>
+  );
 }
 
 const usage: DataTrees = {

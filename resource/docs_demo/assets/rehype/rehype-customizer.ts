@@ -161,14 +161,7 @@ export function rehypeCssBlocks() {
 }
 
 export function escapeHtml(html: string): string {
-  return html
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;")
-    .replace(/{/g, "&#123;")
-    .replace(/}/g, "&#125;");
+  return html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/{/g, "&#123;").replace(/}/g, "&#125;");
 }
 export function recallHtml(html: string): string {
   return html

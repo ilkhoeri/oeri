@@ -10,12 +10,7 @@ type Components = (string | false | React.JSXElementConstructor<any>)[];
  * @param minCount
  * @returns `true` if the condition is met, otherwise `false`.
  */
-export function hasSpecificChildren(
-  children: React.ReactNode,
-  components: Components,
-  method: "some" | "every" = "some",
-  minCount?: number | Record<string, number>
-): boolean {
+export function hasSpecificChildren(children: React.ReactNode, components: Components, method: "some" | "every" = "some", minCount?: number | Record<string, number>): boolean {
   const childArray = React.Children.toArray(children);
   const counts: Record<string, number> = {};
 

@@ -34,11 +34,9 @@ type SharedType = {
   style?: React.CSSProperties & Record<string, any>;
 };
 
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>> &
-  SharedType;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>> & SharedType;
 
-type ComponentPropsWithRef<T extends React.ElementType, Exclude extends string = never> = React.PropsWithRef<Omit<React.ComponentProps<T>, "style" | Exclude>> &
-  SharedType;
+type ComponentPropsWithRef<T extends React.ElementType, Exclude extends string = never> = React.PropsWithRef<Omit<React.ComponentProps<T>, "style" | Exclude>> & SharedType;
 
 interface SheetsContextProps {
   variant: `${SheetsVariant}`;
@@ -358,12 +356,7 @@ const SheetsItemCtx = React.createContext<SheetsItemCtxProps | undefined>(undefi
 
 const useSheetsItemCtx = () => React.useContext(SheetsItemCtx)!;
 
-export type SheetsProps =
-  | ({ variant?: "accordion" } & SheetsAccordionProps)
-  | ({ variant?: "collapsible" } & SheetsCollapsibleProps)
-  | ({ variant?: "dialog" } & SheetsDialogProps)
-  | ({ variant?: "drawer" } & SheetsDrawerProps)
-  | ({ variant?: "dropdown" } & SheetsDropdownProps);
+export type SheetsProps = ({ variant?: "accordion" } & SheetsAccordionProps) | ({ variant?: "collapsible" } & SheetsCollapsibleProps) | ({ variant?: "dialog" } & SheetsDialogProps) | ({ variant?: "drawer" } & SheetsDrawerProps) | ({ variant?: "dropdown" } & SheetsDropdownProps);
 
 export const Sheets = React.forwardRef<React.ComponentRef<"div">, SheetsProps>((_props, ref) => {
   const { variant = "accordion", ...props } = _props;
@@ -541,9 +534,7 @@ export const SheetsItem = React.forwardRef<React.ComponentRef<"div">, SheetsItem
   );
 
   if (isAccordion) {
-    return (
-      <SheetsItemCtx.Provider value={{ value, toggleId, isOpen, contentHeight, dataStateItem, contentRef: ctx?.contentRef }}>{item}</SheetsItemCtx.Provider>
-    );
+    return <SheetsItemCtx.Provider value={{ value, toggleId, isOpen, contentHeight, dataStateItem, contentRef: ctx?.contentRef }}>{item}</SheetsItemCtx.Provider>;
   }
 
   return item;
@@ -554,19 +545,7 @@ export interface SheetsTriggerProps extends ComponentProps<"button"> {
   openChangeOnContextMenu?: boolean;
 }
 export const SheetsTrigger = React.forwardRef<React.ComponentRef<"button">, SheetsTriggerProps>((_props, ref) => {
-  const {
-    openChangeOnContextMenu = false,
-    type = "button",
-    role = "button",
-    className,
-    id,
-    unstyled,
-    style,
-    onClick,
-    onContextMenu,
-    "aria-controls": arCont,
-    ...props
-  } = _props;
+  const { openChangeOnContextMenu = false, type = "button", role = "button", className, id, unstyled, style, onClick, onContextMenu, "aria-controls": arCont, ...props } = _props;
   const { variant, ...ctx } = useSheetsCtx(id);
   const ctxItem = useSheetsItemCtx();
 
@@ -848,8 +827,7 @@ const styleDefault = {
   item: "",
   trigger: "relative rounded-md font-medium group min-w-24 z-[9] bg-color text-background h-9 px-2 text-center",
   content: cvx({
-    assign:
-      "fixed z-[111] gap-4 bg-background p-6 shadow-lg transition ease-linear data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:duration-200 data-[state=closed]:duration-200",
+    assign: "fixed z-[111] gap-4 bg-background p-6 shadow-lg transition ease-linear data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:duration-200 data-[state=closed]:duration-200",
     variants: {
       side: {
         top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
@@ -859,8 +837,7 @@ const styleDefault = {
       }
     }
   }),
-  overlay:
-    "fixed inset-0 size-full z-[100] bg-background/50 supports-[backdrop-filter]:bg-background/50 cursor-default data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
+  overlay: "fixed inset-0 size-full z-[100] bg-background/50 supports-[backdrop-filter]:bg-background/50 cursor-default data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
   closed: "size-4 absolute right-4 top-4 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50"
 };
 
@@ -869,16 +846,14 @@ function styleByVariant(side: `${SheetsSide}`) {
     variants: {
       root: { accordion: "", collapsible: "", dialog: "", drawer: "", dropdown: "" },
       item: {
-        accordion:
-          "group relative flex flex-col h-auto border-0 select-none gap-[--offset] data-[side=top]:flex-col-reverse data-[side=right]:flex-row data-[side=bottom]:flex-col data-[side=left]:flex-row-reverse data-[align=start]:items-start data-[align=center]:items-center data-[align=end]:items-end border-b",
+        accordion: "group relative flex flex-col h-auto border-0 select-none gap-[--offset] data-[side=top]:flex-col-reverse data-[side=right]:flex-row data-[side=bottom]:flex-col data-[side=left]:flex-row-reverse data-[align=start]:items-start data-[align=center]:items-center data-[align=end]:items-end border-b",
         collapsible: "",
         dialog: "",
         drawer: "",
         dropdown: ""
       },
       trigger: {
-        accordion:
-          "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&>svg]:data-[state*=open]:rotate-180",
+        accordion: "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&>svg]:data-[state*=open]:rotate-180",
         collapsible: merge(styleDefault.trigger),
         dialog: merge(styleDefault.trigger),
         drawer: merge(styleDefault.trigger),
@@ -886,8 +861,7 @@ function styleByVariant(side: `${SheetsSide}`) {
       },
       content: {
         accordion: "overflow-hidden transition-all bg-transparent m-0 p-0 w-full text-left",
-        collapsible:
-          "overflow-hidden transition-all data-[state=open]:animate-collapse-open data-[state=closed]:animate-collapse-closed bg-transparent m-0 p-0 w-full text-left",
+        collapsible: "overflow-hidden transition-all data-[state=open]:animate-collapse-open data-[state=closed]:animate-collapse-closed bg-transparent m-0 p-0 w-full text-left",
         dialog:
           "fixed left-[50%] top-[50%] z-[111] min-h-80 w-80 translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[60%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[60%]",
         drawer: merge(styleDefault.content({ side })),

@@ -66,14 +66,7 @@ export async function FootNav() {
 
         <div dir="ltr" className="group flex cursor-default items-center md:ml-auto md:rtl:ml-0 md:rtl:mr-auto">
           Built by
-          <a
-            tabIndex={-1}
-            rel="noopener noreferrer nofollow"
-            target="_blank"
-            href="https://github.com/ilkhoeri"
-            aria-label="Oeri UI"
-            className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color"
-          >
+          <a tabIndex={-1} rel="noopener noreferrer nofollow" target="_blank" href="https://github.com/ilkhoeri" aria-label="Oeri UI" className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color">
             <BrandOeriIcon size={22} aria-label="oeri Logo" className="duration-200 ease-linear group-hover:scale-110" /> oeri
           </a>
         </div>

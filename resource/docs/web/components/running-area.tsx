@@ -160,35 +160,17 @@ function getStyles(selector: __Selector, opts: Options) {
   return {
     "data-direction": container ? opts.direction : undefined,
     "data-running": running,
-    className: cn(
-      opts.classNames?.[selector],
-      opts.className,
-      container && ["group overflow-hidden"],
-      content && ["min-w-max min-h-max whitespace-nowrap select-none flex items-center justify-center", runningY ? "flex-col" : "flex-row"]
-    ),
+    className: cn(opts.classNames?.[selector], opts.className, container && ["group overflow-hidden"], content && ["min-w-max min-h-max whitespace-nowrap select-none flex items-center justify-center", runningY ? "flex-col" : "flex-row"]),
     style: { ...opts?.styles?.[selector], ...opts?.style }
   };
 }
 
-export interface RunningAreaProps
-  extends Options,
-    NestedRecord<U, __Selector>,
-    Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>, "style"> {
+export interface RunningAreaProps extends Options, NestedRecord<U, __Selector>, Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>, "style"> {
   style?: CSSProperties;
 }
 
 export const RunningArea = React.forwardRef<HTMLElement, RunningAreaProps>((_props, ref) => {
-  const {
-    el = { container: "div", content: "div" },
-    direction = "right-to-left",
-    duration = 25,
-    children,
-    className,
-    style,
-    classNames,
-    styles,
-    ...rest
-  } = _props;
+  const { el = { container: "div", content: "div" }, direction = "right-to-left", duration = 25, children, className, style, classNames, styles, ...rest } = _props;
   const refs = useRunningArea({ direction, duration });
   const Container = el.container as React.ElementType;
   const Content = el.content as React.ElementType;

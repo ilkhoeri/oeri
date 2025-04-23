@@ -7,8 +7,7 @@ export function useClickOutside(handler: () => void, refs: React.RefObject<HTMLE
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       const { target } = event;
-      const shouldIgnore =
-        target instanceof HTMLElement && (target.hasAttribute("data-ignore-clickoutside") || (!document.body.contains(target) && target.tagName !== "HTML"));
+      const shouldIgnore = target instanceof HTMLElement && (target.hasAttribute("data-ignore-clickoutside") || (!document.body.contains(target) && target.tagName !== "HTML"));
       const shouldTrigger = refs.every(ref => ref.current && !ref.current.contains(target as Node));
 
       if (!shouldIgnore && shouldTrigger) handler();

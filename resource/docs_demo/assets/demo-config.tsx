@@ -37,14 +37,7 @@ const ControlComponents = {
   number: ConfiguratorNumberControl
 };
 
-export type ConfiguratorControlOptions =
-  | ConfiguratorBooleanControlOptions
-  | ConfiguratorSegmentedControlOptions
-  | ConfiguratorColorControlOptions
-  | ConfiguratorStringControlOptions
-  | ConfiguratorSelectControlOptions
-  | ConfiguratorSizeControlOptions
-  | ConfiguratorNumberControlOptions;
+export type ConfiguratorControlOptions = ConfiguratorBooleanControlOptions | ConfiguratorSegmentedControlOptions | ConfiguratorColorControlOptions | ConfiguratorStringControlOptions | ConfiguratorSelectControlOptions | ConfiguratorSizeControlOptions | ConfiguratorNumberControlOptions;
 
 export interface ConfiguratorObjectControlOptions {
   prop: string;
@@ -59,21 +52,7 @@ export interface ConfiguratorDemoProps extends DemoAreaProps {
 }
 
 export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
-  const {
-    code,
-    controls,
-    children,
-    centered,
-    maxWidth,
-    minHeight,
-    withPadding,
-    dimmed,
-    striped,
-    orientation = "horizontal",
-    defaultExpanded = true,
-    className,
-    classNames
-  } = _props;
+  const { code, controls, children, centered, maxWidth, minHeight, withPadding, dimmed, striped, orientation = "horizontal", defaultExpanded = true, className, classNames } = _props;
   const ctx = useApp();
   const tooltipSide = ctx.dir === "rtl" ? "right" : "left";
 
@@ -107,15 +86,7 @@ export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
     </DemoColumns>
   );
 
-  const _democode = (
-    <DemoCode
-      code={getCodeArray({ code, controls, state })}
-      tooltipSide={isHorizontal(tooltipSide)}
-      unstyled={isHorizontal(reUnstyled)}
-      classNames={isHorizontal(reStyles)}
-      defaultExpanded={defaultExpanded}
-    />
-  );
+  const _democode = <DemoCode code={getCodeArray({ code, controls, state })} tooltipSide={isHorizontal(tooltipSide)} unstyled={isHorizontal(reUnstyled)} classNames={isHorizontal(reStyles)} defaultExpanded={defaultExpanded} />;
 
   switch (orientation) {
     case "horizontal":

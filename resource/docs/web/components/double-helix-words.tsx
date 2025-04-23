@@ -54,20 +54,7 @@ export function useDoubleHelixWords({ el, placeholders, duration = 4000 }: Doubl
 }
 
 export const DoubleHelixWords = React.forwardRef<HTMLElement, DoubleHelixWordsProps>((_props, ref) => {
-  const {
-    el = { root: "article", backbone: "section", bases: "span" },
-    placeholders,
-    duration,
-    className,
-    classNames,
-    style,
-    styles,
-    gap = 6,
-    distance = 100,
-    speed = 400,
-    suppressHydrationWarning = true,
-    ...props
-  } = _props;
+  const { el = { root: "article", backbone: "section", bases: "span" }, placeholders, duration, className, classNames, style, styles, gap = 6, distance = 100, speed = 400, suppressHydrationWarning = true, ...props } = _props;
 
   const Root: React.ElementType = el.root as React.ElementType;
   const Backbone: React.ElementType = el.backbone as React.ElementType;

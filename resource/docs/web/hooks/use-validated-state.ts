@@ -1,18 +1,10 @@
 "use client";
 import { useState } from "react";
 
-export function useValidatedState<T>(
-  initialValue: T,
-  validation: (value: T) => boolean,
-  initialValidationState?: boolean,
-) {
+export function useValidatedState<T>(initialValue: T, validation: (value: T) => boolean, initialValidationState?: boolean) {
   const [value, setValue] = useState<T>(initialValue);
-  const [lastValidValue, setLastValidValue] = useState<T | undefined>(
-    validation(initialValue) ? initialValue : undefined,
-  );
-  const [valid, setValid] = useState<boolean>(
-    typeof initialValidationState === "boolean" ? initialValidationState : validation(initialValue),
-  );
+  const [lastValidValue, setLastValidValue] = useState<T | undefined>(validation(initialValue) ? initialValue : undefined);
+  const [valid, setValid] = useState<boolean>(typeof initialValidationState === "boolean" ? initialValidationState : validation(initialValue));
 
   const onChange = (val: T) => {
     if (validation(val)) {

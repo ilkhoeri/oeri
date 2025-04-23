@@ -12,13 +12,11 @@ import { cn, cvx, type inferType, type cvxProps } from "cretex";
 const classes = cvx({
   variants: {
     selector: {
-      overlay:
-        "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=closed]:fade-out-0",
+      overlay: "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=closed]:fade-out-0",
       content:
         "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-90 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[50%] data-[state=closed]:slide-out-to-top-[50%] rounded-lg overflow-hidden p-0 md:w-[520px] md:h-[360px] flex flex-col",
       searchWrap: "flex flex-row items-center border-b px-3 gap-2 [&_svg]:shrink-0 [&_svg]:pointer-events-none",
-      search:
-        "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
+      search: "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
       searchLabel: "",
       closeCommand: "size-4 absolute right-3 rtl:right-auto rtl:left-3 top-3 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50",
       empty: "flex items-center justify-center text-center font-medium text-muted-foreground pt-10 text-sm",
@@ -32,8 +30,7 @@ const classes = cvx({
       actionLabel: "flex flex-row items-center px-2 text-sm font-medium select-none [&_mark]:rounded-sm",
       actionInner: "",
       highlight: "",
-      actionDescription:
-        "flex flex-col items-start justify-center text-xs px-2 text-muted-foreground select-none [&>:nth-child(2)]:block [&>:nth-child(2)]:text-xs [&>:nth-child(2)]:text-muted-foreground empty:hidden",
+      actionDescription: "flex flex-col items-start justify-center text-xs px-2 text-muted-foreground select-none [&>:nth-child(2)]:block [&>:nth-child(2)]:text-xs [&>:nth-child(2)]:text-muted-foreground empty:hidden",
       actionLeftSection: "",
       actionRightSection: "",
       footer: "border-t"
@@ -64,9 +61,7 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<
   },
   Exclude
 >;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CommandSelector> & {} & React.PropsWithoutRef<
-    Omit<React.ComponentProps<T>, "style" | "color" | Exclude>
-  >;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CommandSelector> & {} & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = {
   getStyles(selector: __CommandSelector, options?: Options): inferType<typeof getStyles>;
   query: string;
@@ -145,23 +140,7 @@ const useCommandContext = () => React.useContext(ctx)!;
 export const useCommand = (store: CommandStore) => useStore(store);
 
 export const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(_props, ref) {
-  const {
-    searchProps,
-    actions,
-    limit = Infinity,
-    filter = defaultFilter,
-    highlightQuery = false,
-    nothingFound = "Nothing found...",
-    styles,
-    unstyled,
-    children,
-    classNames,
-    query,
-    onQueryChange,
-    clearQueryOnClose = true,
-    closeCommandOnTrigger,
-    ...props
-  } = _props;
+  const { searchProps, actions, limit = Infinity, filter = defaultFilter, highlightQuery = false, nothingFound = "Nothing found...", styles, unstyled, children, classNames, query, onQueryChange, clearQueryOnClose = true, closeCommandOnTrigger, ...props } = _props;
 
   const [_query, setQuery] = useUncontrolled({
     value: query,
@@ -207,11 +186,7 @@ export const Command = React.forwardRef<HTMLDivElement, CommandProps>(function C
     </>
   );
 
-  return (
-    <CommandRoot {...{ ref, query: _query, onQueryChange: setQuery, clearQueryOnClose, closeCommandOnTrigger, ...props, ...stylesApi }}>
-      {children || content}
-    </CommandRoot>
-  );
+  return <CommandRoot {...{ ref, query: _query, onQueryChange: setQuery, clearQueryOnClose, closeCommandOnTrigger, ...props, ...stylesApi }}>{children || content}</CommandRoot>;
 }) as CommandComponent;
 
 // Root
@@ -306,18 +281,14 @@ CommandRoot.displayName = "Command/CommandRoot";
 export interface CommandFooterProps extends ComponentProps<"div"> {
   title?: string;
 }
-export const CommandFooter = React.forwardRef<HTMLDivElement, CommandFooterProps>((_props, ref) => (
-  <Edge {...{ el: "div", selector: "footer", ref, ..._props }} />
-));
+export const CommandFooter = React.forwardRef<HTMLDivElement, CommandFooterProps>((_props, ref) => <Edge {...{ el: "div", selector: "footer", ref, ..._props }} />);
 CommandFooter.displayName = "Command/CommandFooter";
 
 // Empty
 export interface CommandEmptyProps extends ComponentProps<"div"> {
   title?: string;
 }
-export const CommandEmpty = React.forwardRef<HTMLDivElement, CommandFooterProps>((_props, ref) => (
-  <Edge {...{ el: "div", selector: "empty", ref, ..._props }} />
-));
+export const CommandEmpty = React.forwardRef<HTMLDivElement, CommandFooterProps>((_props, ref) => <Edge {...{ el: "div", selector: "empty", ref, ..._props }} />);
 CommandEmpty.displayName = "Command/CommandEmpty";
 
 export interface CommandActionsGroupProps extends ComponentProps<"div"> {
@@ -380,12 +351,7 @@ export const CommandAction = React.forwardRef<HTMLAnchorElement, CommandActionPr
   const ctx = useCommandContext();
   const stylesApi = { unstyled, classNames, styles };
 
-  const labelNode =
-    highlightQuery && typeof label === "string" ? (
-      <CommandHighlight highlight={ctx.query} text={label} {...ctx.getStyles("actionLabel", stylesApi)} />
-    ) : (
-      <Edge {...{ el: "span", selector: "actionLabel", ...stylesApi }}>{label}</Edge>
-    );
+  const labelNode = highlightQuery && typeof label === "string" ? <CommandHighlight highlight={ctx.query} text={label} {...ctx.getStyles("actionLabel", stylesApi)} /> : <Edge {...{ el: "span", selector: "actionLabel", ...stylesApi }}>{label}</Edge>;
 
   const defaultChild = (
     <>
@@ -432,11 +398,7 @@ export const CommandHighlight = React.forwardRef<HTMLParagraphElement, CommandHi
   const { text, highlight = "", children, ...props } = _props;
   const parts = getHighlightedSearch(children || text, highlight);
 
-  return (
-    <Edge {...{ el: "p", ref, selector: "highlight", ...props }}>
-      {parts.map(({ part, highlighted }, _i) => (highlighted ? <mark key={_i}>{part}</mark> : part))}
-    </Edge>
-  );
+  return <Edge {...{ el: "p", ref, selector: "highlight", ...props }}>{parts.map(({ part, highlighted }, _i) => (highlighted ? <mark key={_i}>{part}</mark> : part))}</Edge>;
 });
 CommandHighlight.displayName = "CommandHighlight";
 
@@ -533,15 +495,7 @@ const RightSection = React.forwardRef<HTMLButtonElement, React.ComponentProps<"b
   return (
     rightSection ?? (
       <Edge {...{ el: "button", ref, selector: "closeCommand", type, tabIndex, onClick: handleClick, ...props }}>
-        <svg
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 6l-12 12" />
           <path d="M6 6l12 12" />
         </svg>

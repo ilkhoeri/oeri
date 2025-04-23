@@ -12,8 +12,7 @@ const codes = {
     '"use client";\nimport { CopyButton } from "@/ui/copy-button";\nimport { Tooltip } from "@/ui/tooltip";\nimport { CopyCheckIcon, CopyIcon } from "@/icons/*";\n\nexport function CopyButtonDemo() {\n  return (\n    <CopyButton{{props}}>\n      {({ copied, copy }) => (\n        <Tooltip content={copied ? "Copied" : "Copy code"} side="top" onClick={copy} aria-label={copied ? "Copied" : "Copy code"}>\n          {copied ? <CopyCheckIcon size="sm" /> : <CopyIcon size="sm" />}\n        </Tooltip>\n      )}\n    </CopyButton>\n  );\n}'
 };
 
-const value =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse veritatis molestias ex architecto maxime, exercitationem sint perferendis nulla aperiam doloremque?";
+const value = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse veritatis molestias ex architecto maxime, exercitationem sint perferendis nulla aperiam doloremque?";
 
 function Demo() {
   return (

@@ -7,10 +7,7 @@ export interface UseMediaQueryOptions {
 
 type MediaQueryCallback = (event: { matches: boolean; media: string }) => void;
 
-function attachMediaListener(
-  query: MediaQueryList,
-  callback: MediaQueryCallback
-) {
+function attachMediaListener(query: MediaQueryList, callback: MediaQueryCallback) {
   try {
     query.addEventListener("change", callback);
     return () => query.removeEventListener("change", callback);
@@ -40,20 +37,14 @@ export function useMediaQuery(
     getInitialValueInEffect: true
   }
 ) {
-  const [matches, setMatches] = useState(
-    getInitialValueInEffect
-      ? initialValue
-      : getInitialValue(query, initialValue)
-  );
+  const [matches, setMatches] = useState(getInitialValueInEffect ? initialValue : getInitialValue(query, initialValue));
   const queryRef = useRef<MediaQueryList>();
 
   useEffect(() => {
     if ("matchMedia" in window) {
       queryRef.current = window.matchMedia(query);
       setMatches(queryRef.current.matches);
-      return attachMediaListener(queryRef.current, event =>
-        setMatches(event.matches)
-      );
+      return attachMediaListener(queryRef.current, event => setMatches(event.matches));
     }
 
     return undefined;

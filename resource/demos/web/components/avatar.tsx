@@ -3,16 +3,11 @@ import { StarIcon } from "@/icons/index";
 import { Avatar, AvatarGroupProps } from "@/ui/avatar";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
-export const avatars = [
-  "https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Andrea",
-  "https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brian",
-  "https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=y"
-];
+export const avatars = ["https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Andrea", "https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brian", "https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=y"];
 
 export const names = ["John Doe", "Jane Mol", "Alex Lump", "Sarah Condor", "Mike Johnson", "Kate Kok", "Tom Smith"];
 
-export const namesCode =
-  'const names = [\n  "John Doe",\n  "Jane Mol",\n  "Alex Lump",\n  "Sarah Condor",\n  "Mike Johnson",\n  "Kate Kok",\n  "Tom Smith"\n];';
+export const namesCode = 'const names = [\n  "John Doe",\n  "Jane Mol",\n  "Alex Lump",\n  "Sarah Condor",\n  "Mike Johnson",\n  "Kate Kok",\n  "Tom Smith"\n];';
 
 const codes = {
   usage:

@@ -3,27 +3,9 @@ import React from "react";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { Factory, factory, useProps } from "../factory";
 import { CommandSearch, CommandSearchProps } from "./command-search";
-import {
-  CommandAction,
-  CommandActionProps,
-  CommandHighlight,
-  CommandActionsList,
-  CommandActionsGroup
-} from "./command-actions";
-import {
-  DetailsCommandContent,
-  CommandContent,
-  CommandContentProps,
-  CommandFooter,
-  CommandEmpty
-} from "./command-content";
-import {
-  commandStore,
-  command,
-  actionsGroup,
-  limitActions,
-  defaultFilter
-} from "./command-store";
+import { CommandAction, CommandActionProps, CommandHighlight, CommandActionsList, CommandActionsGroup } from "./command-actions";
+import { DetailsCommandContent, CommandContent, CommandContentProps, CommandFooter, CommandEmpty } from "./command-content";
+import { commandStore, command, actionsGroup, limitActions, defaultFilter } from "./command-store";
 import type { CommandOrigin } from "./command-store";
 
 export interface CommandActionData extends CommandActionProps {
@@ -36,10 +18,7 @@ export interface CommandActionGroupData {
 }
 type CommandType = CommandFactory & DetailsCommandContent;
 export type CommandActions = CommandActionData | CommandActionGroupData;
-export type CommandFilterFunction = (
-  query: string,
-  actions: CommandActions[]
-) => CommandActions[];
+export type CommandFilterFunction = (query: string, actions: CommandActions[]) => CommandActions[];
 
 export interface CommandProps extends CommandContentProps {
   searchProps?: CommandSearchProps;
@@ -74,36 +53,27 @@ export const Command = factory<CommandType>(function Command(_props, ref) {
     onChange: onQueryChange
   });
 
-  const filteredActions = limitActions(filter!(_query, actions), limit!).map(
-    i => {
-      if (actionsGroup(i)) {
-        return (
-          <CommandActionsGroup key={i.group} label={i.group}>
-            {/* @ts-ignore */}
-            {i.actions.map(({ id, group, ...actionData }) => (
-              <CommandAction
-                key={id}
-                {...{ id, "data-group": group, highlightQuery, ...actionData }}
-              />
-            ))}
-          </CommandActionsGroup>
-        );
-      }
-
-      return <CommandAction key={i.id} {...{ highlightQuery, ...i }} />;
+  const filteredActions = limitActions(filter!(_query, actions), limit!).map(i => {
+    if (actionsGroup(i)) {
+      return (
+        <CommandActionsGroup key={i.group} label={i.group}>
+          {/* @ts-ignore */}
+          {i.actions.map(({ id, group, ...actionData }) => (
+            <CommandAction key={id} {...{ id, "data-group": group, highlightQuery, ...actionData }} />
+          ))}
+        </CommandActionsGroup>
+      );
     }
-  );
+
+    return <CommandAction key={i.id} {...{ highlightQuery, ...i }} />;
+  });
 
   return (
-    <CommandContent
-      {...{ ref, query: _query, onQueryChange: setQuery, ...rest }}
-    >
+    <CommandContent {...{ ref, query: _query, onQueryChange: setQuery, ...rest }}>
       <CommandSearch {...searchProps} />
       <CommandActionsList>
         {filteredActions}
-        {filteredActions.length === 0 && nothingFound && (
-          <CommandEmpty>{nothingFound}</CommandEmpty>
-        )}
+        {filteredActions.length === 0 && nothingFound && <CommandEmpty>{nothingFound}</CommandEmpty>}
       </CommandActionsList>
     </CommandContent>
   );

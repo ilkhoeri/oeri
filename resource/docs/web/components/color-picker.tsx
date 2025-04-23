@@ -19,8 +19,7 @@ const classes = cvx({
       slider: "relative mx-[calc(var(--cp-size)/2)] h-[--slider-h] select-none outline-0",
       preview: "h-[--h] w-[--w] rounded-[--round] cursor-default relative outline outline-1 outline-muted flex items-center justify-center",
       sliderOverlay: "absolute inset-y-0 inset-x-[calc(var(--cp-size)*-1/2-calc(.0625rem*1))] rounded-full",
-      thumb:
-        "absolute overflow-hidden cursor-pointer left-[--left] top-[--top] size-[--cp-size] rounded-full border-2 border-solid border-white [box-shadow:0_0_1px_rgba(0,0,0,0.6)]",
+      thumb: "absolute overflow-hidden cursor-pointer left-[--left] top-[--top] size-[--cp-size] rounded-full border-2 border-solid border-white [box-shadow:0_0_1px_rgba(0,0,0,0.6)]",
       swatch: "m-0.5 cursor-pointer flex-[1_0_var(--rows)] border-0",
       swatches: "-mx-0.5 flex flex-wrap [--round:--cp-swatch-round]",
       shadowOverlay: "absolute z-1 inset-0 size-full rounded-[--round]",
@@ -310,10 +309,7 @@ export const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>((_
 });
 ColorPicker.displayName = "ColorPicker";
 
-const Div = React.forwardRef<HTMLDivElement, ComponentProps<"div"> & { selector: "root" | "body" | "sliders" }>(function Div(
-  { unstyled, className, classNames, style, styles, selector, ...props },
-  ref
-) {
+const Div = React.forwardRef<HTMLDivElement, ComponentProps<"div"> & { selector: "root" | "body" | "sliders" }>(function Div({ unstyled, className, classNames, style, styles, selector, ...props }, ref) {
   const ctx = useColorPicker();
   return (
     <div
@@ -341,24 +337,7 @@ interface ColorSliderProps extends ComponentProps<"div", "onChange"> {
   round: boolean;
 }
 export const ColorSlider = React.forwardRef<HTMLDivElement, ColorSliderProps>(function ColorSlider(_props, ref) {
-  const {
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    onChange,
-    onChangeEnd,
-    focusable = true,
-    value,
-    overlays,
-    onScrubStart,
-    round,
-    onScrubEnd,
-    maxValue,
-    thumbColor = "transparent",
-    ...props
-  } = _props;
+  const { unstyled, className, classNames, style, styles, onChange, onChangeEnd, focusable = true, value, overlays, onScrubStart, round, onScrubEnd, maxValue, thumbColor = "transparent", ...props } = _props;
   const ctx = useColorPicker();
   const stylesApi = { unstyled, classNames, styles };
 
@@ -450,8 +429,7 @@ export const HueSlider = React.forwardRef<HTMLDivElement, Omit<ColorSliderProps,
         "data-hue": "",
         overlays: [
           {
-            backgroundImage:
-              "linear-gradient(to right,hsl(0,100%,50%),hsl(60,100%,50%),hsl(120,100%,50%),hsl(170,100%,50%),hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%))"
+            backgroundImage: "linear-gradient(to right,hsl(0,100%,50%),hsl(60,100%,50%),hsl(120,100%,50%),hsl(170,100%,50%),hsl(240,100%,50%),hsl(300,100%,50%),hsl(360,100%,50%))"
           },
           { boxShadow: `rgba(0, 0, 0, .1) 0 0 0 ${rem(1)} inset, rgb(0, 0, 0, .15) 0 0 ${rem(4)} inset` }
         ],
@@ -474,11 +452,7 @@ export const AlphaSlider = React.forwardRef<HTMLDivElement, Omit<ColorSliderProp
         maxValue: 1,
         round: false,
         "data-alpa": "",
-        overlays: [
-          { background: "var(--rectangles)" },
-          { backgroundImage: `linear-gradient(90deg, transparent, ${color})` },
-          { boxShadow: `rgba(0, 0, 0, .1) 0 0 0 ${rem(1)} inset, rgb(0, 0, 0, .15) 0 0 ${rem(4)} inset` }
-        ],
+        overlays: [{ background: "var(--rectangles)" }, { backgroundImage: `linear-gradient(90deg, transparent, ${color})` }, { boxShadow: `rgba(0, 0, 0, .1) 0 0 0 ${rem(1)} inset, rgb(0, 0, 0, .15) 0 0 ${rem(4)} inset` }],
         ...props
       }}
     />
@@ -496,22 +470,7 @@ export interface SaturationProps extends ComponentProps<"div", "onChange"> {
   focusable?: boolean;
 }
 export const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>(function Saturation(_props, ref) {
-  const {
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    onChange,
-    onChangeEnd,
-    value,
-    saturationLabel,
-    focusable = true,
-    color,
-    onScrubStart,
-    onScrubEnd,
-    ...props
-  } = _props;
+  const { unstyled, className, classNames, style, styles, onChange, onChangeEnd, value, saturationLabel, focusable = true, color, onScrubStart, onScrubEnd, ...props } = _props;
   const ctx = useColorPicker();
   const stylesApi = { unstyled, classNames, styles };
 

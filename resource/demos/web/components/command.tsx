@@ -110,8 +110,7 @@ const dataGroup: CommandActionGroupData[] = [
         id: "5-2",
         href: "https://git-scm.com/",
         label: "Git",
-        description:
-          "A free and open-source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
+        description: "A free and open-source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
       }
     ]
   }
@@ -126,17 +125,7 @@ function CommandDataTypesGroupDemo() {
 }
 
 function CommandConfiguratorDemo(props: CommandProps) {
-  return (
-    <Command
-      {...props}
-      store={configuratorStore}
-      modal={false}
-      forceOpened
-      actions={dataGroup}
-      searchProps={{ autoFocus: false, leftSection: <FolderSearchIcon stroke={1.5} /> }}
-      classNames={{ closeCommand: "not-sr-only flex" }}
-    />
-  );
+  return <Command {...props} store={configuratorStore} modal={false} forceOpened actions={dataGroup} searchProps={{ autoFocus: false, leftSection: <FolderSearchIcon stroke={1.5} /> }} classNames={{ closeCommand: "not-sr-only flex" }} />;
 }
 <div className=""></div>;
 const [firstStore, firstStoreState] = createCommand();

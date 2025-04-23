@@ -2,32 +2,13 @@ import { Svg, type SvgProps } from "@/ui/svg";
 
 export function Icon({ fill, role = "img", ...props }: SvgProps) {
   return (
-    <Svg
-      currentFill="fill"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      {...{ fill, role, ...props }}
-    >
+    <Svg currentFill="fill" xmlnsXlink="http://www.w3.org/1999/xlink" {...{ fill, role, ...props }}>
       <defs>
-        <linearGradient
-          id="triangle"
-          x1="3.45"
-          y1="17.82"
-          x2="16.22"
-          y2=".47"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="triangle" x1="3.45" y1="17.82" x2="16.22" y2=".47" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#41d1ff" />
           <stop offset="1" stopColor="#bd34fe" />
         </linearGradient>
-        <linearGradient
-          id="blitz"
-          x1="12.56"
-          y1="24.75"
-          x2="14.88"
-          y2="8.81"
-          gradientTransform="translate(0 26) scale(1 -1)"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="blitz" x1="12.56" y1="24.75" x2="14.88" y2="8.81" gradientTransform="translate(0 26) scale(1 -1)" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#ffea83" />
           <stop offset=".08" stopColor="#ffdd35" />
           <stop offset="1" stopColor="#ffa800" />

@@ -4,11 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 function getFullscreenElement(): HTMLElement | null {
   const _document = window.document as any;
 
-  const fullscreenElement =
-    _document.fullscreenElement ||
-    _document.webkitFullscreenElement ||
-    _document.mozFullScreenElement ||
-    _document.msFullscreenElement;
+  const fullscreenElement = _document.fullscreenElement || _document.webkitFullscreenElement || _document.mozFullScreenElement || _document.msFullscreenElement;
 
   return fullscreenElement;
 }
@@ -16,14 +12,10 @@ function getFullscreenElement(): HTMLElement | null {
 async function exitFullscreen() {
   const _document = window.document as any;
 
-  if (typeof _document.exitFullscreen === "function")
-    return _document.exitFullscreen();
-  if (typeof _document.msExitFullscreen === "function")
-    return _document.msExitFullscreen();
-  if (typeof _document.webkitExitFullscreen === "function")
-    return _document.webkitExitFullscreen();
-  if (typeof _document.mozCancelFullScreen === "function")
-    return _document.mozCancelFullScreen();
+  if (typeof _document.exitFullscreen === "function") return _document.exitFullscreen();
+  if (typeof _document.msExitFullscreen === "function") return _document.msExitFullscreen();
+  if (typeof _document.webkitExitFullscreen === "function") return _document.webkitExitFullscreen();
+  if (typeof _document.mozCancelFullScreen === "function") return _document.mozCancelFullScreen();
 
   return null;
 }
@@ -31,24 +23,12 @@ async function exitFullscreen() {
 async function enterFullScreen(element: HTMLElement) {
   const _element = element as any;
 
-  return (
-    _element.requestFullscreen?.() ||
-    _element.msRequestFullscreen?.() ||
-    _element.webkitEnterFullscreen?.() ||
-    _element.webkitRequestFullscreen?.() ||
-    _element.mozRequestFullscreen?.()
-  );
+  return _element.requestFullscreen?.() || _element.msRequestFullscreen?.() || _element.webkitEnterFullscreen?.() || _element.webkitRequestFullscreen?.() || _element.mozRequestFullscreen?.();
 }
 
 const prefixes = ["", "webkit", "moz", "ms"];
 
-function addEvents(
-  element: HTMLElement,
-  {
-    onFullScreen,
-    onError
-  }: { onFullScreen: (event: Event) => void; onError: (event: Event) => void }
-) {
+function addEvents(element: HTMLElement, { onFullScreen, onError }: { onFullScreen: (event: Event) => void; onError: (event: Event) => void }) {
   prefixes.forEach(prefix => {
     element.addEventListener(`${prefix}fullscreenchange`, onFullScreen);
     element.addEventListener(`${prefix}fullscreenerror`, onError);
@@ -78,9 +58,7 @@ export function useFullscreen<T extends HTMLElement = any>() {
     (event: Event) => {
       setFullscreen(false);
       // eslint-disable-next-line no-console
-      console.error(
-        `[use-fullscreen]: Error attempting full-screen mode method: ${event} (${event.target})`
-      );
+      console.error(`[use-fullscreen]: Error attempting full-screen mode method: ${event} (${event.target})`);
     },
     [setFullscreen]
   );

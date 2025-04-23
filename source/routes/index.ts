@@ -1,15 +1,4 @@
-import {
-  ComponentsIcon,
-  Components2Icon,
-  WebhookIcon,
-  UtilityIcon,
-  CommandIcon,
-  IconsIcon,
-  BrandDiscordFillIcon,
-  BrandGithubFillIcon,
-  HeartIcon,
-  AppsIcon
-} from "@/icons/*";
+import { ComponentsIcon, Components2Icon, WebhookIcon, UtilityIcon, CommandIcon, IconsIcon, BrandDiscordFillIcon, BrandGithubFillIcon, HeartIcon, AppsIcon } from "@/icons/*";
 
 export type InnerRoutes = { title: string; href: string };
 export type SingleRoute = { title: string; data: InnerRoutes[] };

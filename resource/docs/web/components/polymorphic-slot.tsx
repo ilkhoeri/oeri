@@ -8,9 +8,7 @@ export type PolymorphicRef<T> = T extends React.ElementType ? React.ComponentPro
 export type ExtendedProps<Props = object, OverrideProps = object> = OverrideProps & Omit<Props, keyof OverrideProps>;
 export type PropsOf<T extends ElementType> = JSX.LibraryManagedAttributes<T, React.ComponentPropsWithoutRef<T>>;
 export type InheritedProps<T extends ElementType, Props = object> = ExtendedProps<PropsOf<T>, Props>;
-export type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<
-  Omit<React.ComponentProps<T>, "style" | Exclude>
-> & {
+export type ComponentProps<T extends React.ElementType, Exclude extends string = never> = React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>> & {
   style?: CSSProperties;
 };
 export type CreatePolymorphicType<T, Props = object> = T extends React.ElementType
@@ -228,10 +226,7 @@ export type PolymorphicProps<T extends React.ElementType = "div", Props = object
 };
 type PolymorphicElement = <T extends React.ElementType = "div">(_props: PolymorphicProps<T>) => React.ReactElement;
 // @ts-ignore
-export const Polymorphic = React.forwardRef(function Polymorphic<T extends React.ElementType = "div">(
-  _props: Omit<PolymorphicProps<T>, "ref">,
-  ref: PolymorphicRef<T>
-) {
+export const Polymorphic = React.forwardRef(function Polymorphic<T extends React.ElementType = "div">(_props: Omit<PolymorphicProps<T>, "ref">, ref: PolymorphicRef<T>) {
   const { asChild = false, el, ...props } = _props;
   const Component = asChild ? PolymorphicSlot : ((el || "div") as React.ElementType);
   return <Component {...{ ref, ...props }} />;

@@ -54,20 +54,7 @@ export type TransformProps = Omit<React.DetailedHTMLProps<React.HTMLAttributes<H
   transform?: {
     before?: "scale(0)" | "translateY(6rem)" | "translateX(-6rem)" | "translateX(-2rem)" | "none" | (string & {});
     after?: "scale(1)" | "translateX(0)" | "translateY(0)" | "none" | (string & {});
-    origin?:
-      | "0 0"
-      | "center"
-      | "top"
-      | "right"
-      | "bottom"
-      | "left"
-      | "-moz-initial"
-      | "inherit"
-      | "initial"
-      | "revert"
-      | "revert-layer"
-      | "unset"
-      | (string & {});
+    origin?: "0 0" | "center" | "top" | "right" | "bottom" | "left" | "-moz-initial" | "inherit" | "initial" | "revert" | "revert-layer" | "unset" | (string & {});
     box?: React.CSSProperties["transformBox"];
     style?: React.CSSProperties["transformStyle"];
   };
@@ -113,7 +100,7 @@ export const observeIntersection = (ref: React.RefObject<HTMLElement>, { hold = 
 };
 
 export const Transform = React.forwardRef<HTMLElement, TransformProps>((props, ref) => {
-  const { style, el = "div", hold, opacity, withoutOpacity, transform, transition , ...others } = props;
+  const { style, el = "div", hold, opacity, withoutOpacity, transform, transition, ...others } = props;
   const componentRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {

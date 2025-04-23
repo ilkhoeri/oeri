@@ -16,31 +16,11 @@ export type ProseProps<T extends React.ElementType = "div"> = React.PropsWithout
 
 type ProseElement = <T extends React.ElementType = "div">(_props: ProseProps<T>) => React.ReactElement;
 
-export const Prose = React.forwardRef(function Prose<T extends React.ElementType>(
-  _props: Omit<ProseProps<T>, "ref">,
-  ref: React.ComponentPropsWithRef<T>["ref"]
-) {
-  const {
-    el,
-    children,
-    unstyled,
-    className,
-    __html,
-    dangerouslySetInnerHTML,
-    suppressHydrationWarning = true,
-    suppressContentEditableWarning = true,
-    color = "based",
-    size = "lg",
-    dir = "auto",
-    ...props
-  } = _props;
+export const Prose = React.forwardRef(function Prose<T extends React.ElementType>(_props: Omit<ProseProps<T>, "ref">, ref: React.ComponentPropsWithRef<T>["ref"]) {
+  const { el, children, unstyled, className, __html, dangerouslySetInnerHTML, suppressHydrationWarning = true, suppressContentEditableWarning = true, color = "based", size = "lg", dir = "auto", ...props } = _props;
 
   const Component = (el || "div") as React.ElementType;
-  const setInnerHTML = __html
-    ? { dangerouslySetInnerHTML: htmlPurify(__html) }
-    : dangerouslySetInnerHTML
-      ? { dangerouslySetInnerHTML: htmlPurify(dangerouslySetInnerHTML.__html) }
-      : undefined;
+  const setInnerHTML = __html ? { dangerouslySetInnerHTML: htmlPurify(__html) } : dangerouslySetInnerHTML ? { dangerouslySetInnerHTML: htmlPurify(dangerouslySetInnerHTML.__html) } : undefined;
 
   // Validation
   if (setInnerHTML && children) {
@@ -48,13 +28,7 @@ export const Prose = React.forwardRef(function Prose<T extends React.ElementType
   }
 
   return (
-    <Component
-      {...{ ...props, suppressHydrationWarning, suppressContentEditableWarning }}
-      data-prose-container
-      ref={ref}
-      {...getStyles({ unstyled, className, color, size, dir })}
-      {...setInnerHTML}
-    >
+    <Component {...{ ...props, suppressHydrationWarning, suppressContentEditableWarning }} data-prose-container ref={ref} {...getStyles({ unstyled, className, color, size, dir })} {...setInnerHTML}>
       {!setInnerHTML ? children : null}
     </Component>
   );

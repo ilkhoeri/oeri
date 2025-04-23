@@ -67,15 +67,7 @@ ocx(
 );
 // Output: {"a":1,"b":2,"c":3,"d":4}
 
-ocx<React.CSSProperties>([
-  { baz: "hello", size: !false },
-  () => ({ foo: "world" }),
-  undefined,
-  [true && { margin: "10px" }, () => ({ padd: "5px", "--index": 0 })],
-  false && [{ out: "1px" }, { border: "cya", "--index": 11 }],
-  null,
-  [[true && { bar: null, baz: false, qux: "qux!" }]]
-]);
+ocx<React.CSSProperties>([{ baz: "hello", size: !false }, () => ({ foo: "world" }), undefined, [true && { margin: "10px" }, () => ({ padd: "5px", "--index": 0 })], false && [{ out: "1px" }, { border: "cya", "--index": 11 }], null, [[true && { bar: null, baz: false, qux: "qux!" }]]]);
 // Output: {"baz":false,"size":true,"foo":"world","margin":"10px","padd":"5px","--index":11,"bar":null,"qux":"qux!"} as `React.CSSProperties & Record<string, any>`
 ```
 

@@ -36,15 +36,7 @@ function ValidateJsonDemo() {
       <Typography prose="label" htmlFor="textarea-validatejson-demo">
         Textarea with validate JSON
       </Typography>
-      <Textarea
-        validateJson
-        formatOnBlur
-        id="textarea-validatejson-demo"
-        validationError="Invalid JSON"
-        onValidationError={error => setError(error)}
-        className="max-w-xl"
-        placeholder="Enter JSON here, e.g. [{}]"
-      />
+      <Textarea validateJson formatOnBlur id="textarea-validatejson-demo" validationError="Invalid JSON" onValidationError={error => setError(error)} className="max-w-xl" placeholder="Enter JSON here, e.g. [{}]" />
       <Typography el="label" htmlFor="textarea-validatejson-demo" hidden={!error} className="-my-2 text-sm text-destructive">
         {error?.message}
       </Typography>

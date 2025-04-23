@@ -4,19 +4,11 @@ import { DoubleHelixWords, type DoubleHelixWordsProps } from "@/ui/double-helix-
 const codes = {
   usage:
     'import { DoubleHelixWords } from "@/ui/double-helix-words";\n\nexport function DoubleHelixWordsDemo() {\n  return (\n    <DoubleHelixWords\n      gap={4}\n      distance={80}\n      placeholders="This world is truly fair"\n      className="tracking-tight relative h-72 text-[clamp(1.125rem,11px+3.5vw,1.875rem)] font-bold leading-4"\n    />\n  );\n}',
-  configurator:
-    'import { DoubleHelixWords } from "@/ui/double-helix-words";\n\nexport function DoubleHelixWordsDemo() {\n  return <DoubleHelixWords{{props}} className="relative h-80 text-xl" />;\n}'
+  configurator: 'import { DoubleHelixWords } from "@/ui/double-helix-words";\n\nexport function DoubleHelixWordsDemo() {\n  return <DoubleHelixWords{{props}} className="relative h-80 text-xl" />;\n}'
 };
 
 function Demo() {
-  return (
-    <DoubleHelixWords
-      gap={4}
-      distance={80}
-      placeholders="This world is truly fair"
-      className="relative h-72 text-[clamp(1.125rem,11px+3.5vw,1.875rem)] font-bold leading-4 tracking-tight"
-    />
-  );
+  return <DoubleHelixWords gap={4} distance={80} placeholders="This world is truly fair" className="relative h-72 text-[clamp(1.125rem,11px+3.5vw,1.875rem)] font-bold leading-4 tracking-tight" />;
 }
 
 function ConfiguratorDemo(props: DoubleHelixWordsProps) {

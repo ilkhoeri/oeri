@@ -10,12 +10,8 @@ const classes = {
     root: merge("mb-20 rounded-[.5rem] border border-solid border-[--demo-border] [--demo-border:hsl(var(--border))]")
   },
   columns: {
-    root: merge(
-      "flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]"
-    ),
-    controls: merge(
-      "flex-[0_0_var(--basis)] border-l border-solid border-[--demo-border] p-[.25rem] pb-[.625rem] rtl:border-l-0 rtl:border-r [@media(max-width:55em)]:!border-x-0 [@media(max-width:55em)]:border-t"
-    ),
+    root: merge("flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]"),
+    controls: merge("flex-[0_0_var(--basis)] border-l border-solid border-[--demo-border] p-[.25rem] pb-[.625rem] rtl:border-l-0 rtl:border-r [@media(max-width:55em)]:!border-x-0 [@media(max-width:55em)]:border-t"),
     wrapTitle: merge("mx-[-.25rem] mb-[.625rem] border-b border-solid border-[--demo-border] px-[1rem] pb-[.625rem] pt-[calc(1rem-.25rem)]"),
     title: merge("mb-[.3125rem] font-medium"),
     description: merge("text-[.6875rem] leading-[1.45] text-muted-foreground")
@@ -24,13 +20,10 @@ const classes = {
     root: merge("overflow-hidden rounded-b-[.5rem] border-t border-solid border-[--demo-border]")
   },
   demoArea: {
-    demoArea: merge(
-      "max-w-[calc(100%-var(--basis,0))] flex-1 overflow-hidden rounded-t-[calc(.5rem-.0625rem)] data-[centered]:flex data-[centered]:items-center data-[centered]:justify-center data-[dimmed]:bg-muted data-[with-padding]:p-4"
-    ),
+    demoArea: merge("max-w-[calc(100%-var(--basis,0))] flex-1 overflow-hidden rounded-t-[calc(.5rem-.0625rem)] data-[centered]:flex data-[centered]:items-center data-[centered]:justify-center data-[dimmed]:bg-muted data-[with-padding]:p-4"),
     demoInner: merge("mx-[--demo-margin-y,unset] min-h-[--demo-min-height,unset] max-w-[--demo-max-width,100%] flex-[--demo-flex]"),
     striped: merge("data-[striped]:rounded-tl-[calc(.5rem-.0625rem)] data-[striped]:[--stripe-color:#00000008] data-[striped]:dark:[--stripe-color:#ffffff08]"),
-    stripedBg:
-      "repeating-linear-gradient(45deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px), repeating-linear-gradient(135deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px)"
+    stripedBg: "repeating-linear-gradient(45deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px), repeating-linear-gradient(135deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px)"
   }
 };
 
@@ -101,12 +94,7 @@ export function DemoCode(_props: DemoCodeProps & Omit<CodeHighlightTabsProps, ke
   const { code, defaultExpanded = true, withExpandButton = true, code: _, className, ...props } = _props;
   const _code: CodeHighlightTabsCode | CodeHighlightTabsCode[] | undefined = typeof code === "string" ? { code, fileName: "Demo.tsx", language: "tsx" } : code;
 
-  return _code ? (
-    <CodeHighlightTabs
-      className={merge(classes.highlightTabs.root, className, props.classNames?.root)}
-      {...{ code: _code, withExpandButton, defaultExpanded, getFileIcon: getCodeFileIcon, ...props }}
-    />
-  ) : null;
+  return _code ? <CodeHighlightTabs className={merge(classes.highlightTabs.root, className, props.classNames?.root)} {...{ code: _code, withExpandButton, defaultExpanded, getFileIcon: getCodeFileIcon, ...props }} /> : null;
 }
 
 export interface DemoAreaProps {

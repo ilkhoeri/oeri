@@ -1,6 +1,4 @@
-export type RequestCookies =
-  | { name: string; value: "true" | "false" | (string & {}) }
-  | undefined;
+export type RequestCookies = { name: string; value: "true" | "false" | (string & {}) } | undefined;
 
 export enum Cookies {
   dir = "__dir",

@@ -146,12 +146,7 @@ function Custom1Demo() {
             </Tabs.Tab>
           ))}
 
-          <FloatingIndicator
-            target={controlsRefs[hover ?? active]}
-            parent={parentRef}
-            transitionDuration={350}
-            className="bg-muted/60 border-muted-foreground/60 rounded-md rounded-b-none border-b-transparent -z-1 shadow-md border-2"
-          />
+          <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={350} className="bg-muted/60 border-muted-foreground/60 rounded-md rounded-b-none border-b-transparent -z-1 shadow-md border-2" />
         </Tabs.List>
 
         {data.map((i, _i) => (

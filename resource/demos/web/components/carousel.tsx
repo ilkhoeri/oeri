@@ -25,9 +25,7 @@ function CarouselDemo(props: CarouselProps) {
     <Carousel {...props}>
       {[...Array(5)].map((_, index) => (
         <Carousel.Item key={index}>
-          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">
-            {index + 1}
-          </div>
+          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">{index + 1}</div>
         </Carousel.Item>
       ))}
     </Carousel>
@@ -39,9 +37,7 @@ function CarouselUsage() {
     <Carousel opts={{ dragFree: false }}>
       {[...Array(5)].map((_, index) => (
         <Carousel.Item key={index}>
-          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">
-            {index + 1}
-          </div>
+          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">{index + 1}</div>
         </Carousel.Item>
       ))}
     </Carousel>
@@ -53,9 +49,7 @@ function CarouselAutoScrollDemo() {
     <Carousel plugins={[AutoScroll({ playOnInit: true, speed: 0.35, direction: "forward" })]}>
       {[...Array(5)].map((_, index) => (
         <Carousel.Item key={index}>
-          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">
-            {index + 1}
-          </div>
+          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">{index + 1}</div>
         </Carousel.Item>
       ))}
     </Carousel>
@@ -67,9 +61,7 @@ function CarouselAutoPlayDemo() {
     <Carousel plugins={[AutoPlay({ playOnInit: true })]}>
       {[...Array(5)].map((_, index) => (
         <Carousel.Item key={index}>
-          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">
-            {index + 1}
-          </div>
+          <div className="flex h-64 w-[300px] min-w-[300px] items-center justify-center rounded-lg border bg-background text-muted shadow-sm font-heading">{index + 1}</div>
         </Carousel.Item>
       ))}
     </Carousel>

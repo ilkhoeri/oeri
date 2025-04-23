@@ -61,19 +61,7 @@ export function NavLinkItem(_props: NavLinkItemTypes) {
           ...props
         }}
       >
-        {image && (
-          <Image
-            alt=""
-            draggable="false"
-            src={image || "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"}
-            height={20}
-            width={20}
-            loading="lazy"
-            data-linkitem="img"
-            className={classNames?.img}
-            onContextMenu={e => e.preventDefault()}
-          />
-        )}
+        {image && <Image alt="" draggable="false" src={image || "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"} height={20} width={20} loading="lazy" data-linkitem="img" className={classNames?.img} onContextMenu={e => e.preventDefault()} />}
         {Icon && <Icon data-linkitem="icon" className={cn(classNames?.icon, iconProps?.className)} {...iconProps} />}
         <span data-linkitem="title" className={classNames?.title}>
           {title}

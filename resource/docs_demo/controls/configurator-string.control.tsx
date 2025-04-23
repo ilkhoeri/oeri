@@ -7,10 +7,7 @@ import { SelectData, SelectDataItem, transformSelectData } from "./transform-sel
 import { merge } from "cretex";
 import { purify } from "@/source/libs/dom-purify";
 
-export type ConfiguratorStringControlOptions = ConfiguratorControl<
-  "string",
-  { initialValue: string | null; data?: SelectData; inputType?: ComponentProps<"input">["type"] }
->;
+export type ConfiguratorStringControlOptions = ConfiguratorControl<"string", { initialValue: string | null; data?: SelectData; inputType?: ComponentProps<"input">["type"] }>;
 
 export interface ConfiguratorStringControlProps extends ComponentProps<"input", "onChange" | "value" | "size" | "type"> {
   value: string;
@@ -31,15 +28,7 @@ export function ConfiguratorStringControl(_props: ConfiguratorStringControlProps
   const transformData = data && transformSelectData(data);
   return (
     <Input.Wrapper label={getControlLabel(prop)} unstyled classNames={{ root: __cn("control"), label: __cn("label") }}>
-      <Input
-        {...others}
-        type={inputType}
-        value={purify(validString(value))}
-        onChange={event => onChange(event.currentTarget.value)}
-        placeholder="Enter prop value"
-        className={merge(__cn("input"), className)}
-        list={`${prop}-list`}
-      />
+      <Input {...others} type={inputType} value={purify(validString(value))} onChange={event => onChange(event.currentTarget.value)} placeholder="Enter prop value" className={merge(__cn("input"), className)} list={`${prop}-list`} />
 
       {data && (
         <datalist id={`${prop}-list`}>

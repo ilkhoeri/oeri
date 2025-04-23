@@ -10,11 +10,7 @@ export const Expand = React.forwardRef<HTMLDivElement, React.ComponentProps<"div
     <div
       {...{
         ref,
-        className: merge(
-          use.classes({ statecard: use.expand, card: "resize" }),
-          "[&_pre>code[data-language]]:min-w-max [&_pre>code[data-language]]:border-0 [&_pre[data-language]]:my-0",
-          className
-        ),
+        className: merge(use.classes({ statecard: use.expand, card: "resize" }), "[&_pre>code[data-language]]:min-w-max [&_pre>code[data-language]]:border-0 [&_pre[data-language]]:my-0", className),
         ...props
       }}
     >

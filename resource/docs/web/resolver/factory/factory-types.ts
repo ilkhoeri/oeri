@@ -81,9 +81,7 @@ export type StylesApiRecord<Payload extends FactoryPayload, DataType> = Payload[
     ? StylesRecord<Payload["stylesNames"], DataType>
     : never
   : Payload["stylesNames"] extends string
-    ?
-        | StylesRecord<Payload["stylesNames"], DataType>
-        | ((theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => StylesRecord<Payload["stylesNames"], DataType>)
+    ? StylesRecord<Payload["stylesNames"], DataType> | ((theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => StylesRecord<Payload["stylesNames"], DataType>)
     : never;
 
 export type Styles<Payload extends FactoryPayload> = StylesApiRecord<Payload, CSSProperties>;
@@ -104,10 +102,7 @@ export interface StylesApiProps<Payload extends FactoryPayload> {
 
 export interface CompoundStylesApiProps<Payload extends FactoryPayload> extends StylesApiProps<Payload> {}
 
-export type ElementProps<ElementType extends React.ElementType, PropsToOmit extends string = never> = Omit<
-  React.ComponentPropsWithoutRef<ElementType>,
-  "style" | PropsToOmit
->;
+export type ElementProps<ElementType extends React.ElementType, PropsToOmit extends string = never> = Omit<React.ComponentPropsWithoutRef<ElementType>, "style" | PropsToOmit>;
 
 export type ColorsTuple = readonly [string, string, string, string, string, string, string, string, string, string, ...string[]];
 
@@ -169,11 +164,7 @@ export type PartialTransformVars<V> = {
 
 export type VarsResolver<Payload extends FactoryPayload> = (theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => TransformVars<Payload["vars"]>;
 
-export type PartialVarsResolver<Payload extends FactoryPayload> = (
-  theme: Theme,
-  props: Payload["props"],
-  ctx: Payload["ctx"]
-) => PartialTransformVars<Payload["vars"]>;
+export type PartialVarsResolver<Payload extends FactoryPayload> = (theme: Theme, props: Payload["props"], ctx: Payload["ctx"]) => PartialTransformVars<Payload["vars"]>;
 
 export interface ThemeComponent {
   classNames?: any;
@@ -195,9 +186,7 @@ export interface ExtendsRootComponent<Payload extends FactoryPayload> {
   vars?: PartialVarsResolver<Payload>;
 }
 
-export type ExtendComponent<Payload extends FactoryPayload> = Payload["compound"] extends true
-  ? ExtendCompoundComponent<Payload>
-  : ExtendsRootComponent<Payload>;
+export type ExtendComponent<Payload extends FactoryPayload> = Payload["compound"] extends true ? ExtendCompoundComponent<Payload> : ExtendsRootComponent<Payload>;
 
 export type StaticComponents<Input> = Input extends Record<string, any> ? Input : Record<string, never>;
 
@@ -209,12 +198,9 @@ export type ComponentClasses<Payload extends FactoryPayload> = {
   classes: Payload["stylesNames"] extends string ? (variant?: cvxResult<{ selector: { [key: string]: string } }>) => string : never;
 };
 
-export type ComponentStaticProperties<Payload extends FactoryPayload> = ThemeExtend<Payload> &
-  ComponentClasses<Payload> &
-  StaticComponents<Payload["staticComponents"]>;
+export type ComponentStaticProperties<Payload extends FactoryPayload> = ThemeExtend<Payload> & ComponentClasses<Payload> & StaticComponents<Payload["staticComponents"]>;
 
-export type Component<Payload extends FactoryPayload> = React.ForwardRefExoticComponent<Payload["props"] & React.RefAttributes<Payload["ref"]>> &
-  ComponentStaticProperties<Payload>;
+export type Component<Payload extends FactoryPayload> = React.ForwardRefExoticComponent<Payload["props"] & React.RefAttributes<Payload["ref"]>> & ComponentStaticProperties<Payload>;
 
 export type FilterPropsRes<T extends Record<string, any>> = {
   [Key in keyof T]-?: T[Key] extends undefined ? never : T[Key];
@@ -289,24 +275,5 @@ export type AnchorTargets = {
    *
    * **`_external`** : A special value that can be specified by a custom implementation to open a link to an external context or a custom application.
    */
-  target?:
-    | "_about"
-    | "_blank"
-    | "_calendar"
-    | "_contacts"
-    | "_email"
-    | "_external"
-    | "_file"
-    | "_ftp"
-    | "_media"
-    | "_messaging"
-    | "_noopener"
-    | "_noreferrer"
-    | "_parent"
-    | "_search"
-    | "_self"
-    | "_sms"
-    | "_tel"
-    | "_top"
-    | (string & NonNullable<unknown>);
+  target?: "_about" | "_blank" | "_calendar" | "_contacts" | "_email" | "_external" | "_file" | "_ftp" | "_media" | "_messaging" | "_noopener" | "_noreferrer" | "_parent" | "_search" | "_self" | "_sms" | "_tel" | "_top" | (string & NonNullable<unknown>);
 };

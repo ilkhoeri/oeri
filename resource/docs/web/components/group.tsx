@@ -13,19 +13,7 @@ export interface GroupProps extends React.ComponentProps<"div"> {
 }
 
 export const Group = React.forwardRef<HTMLDivElement, GroupProps>((_props, ref) => {
-  const {
-    unstyled,
-    className,
-    style,
-    grow,
-    children,
-    gap = "12",
-    wrap = "wrap",
-    align = "stretch",
-    justify = "center",
-    preventGrowOverflow = true,
-    ...props
-  } = _props;
+  const { unstyled, className, style, grow, children, gap = "12", wrap = "wrap", align = "stretch", justify = "center", preventGrowOverflow = true, ...props } = _props;
   const filteredChildren = filterFalsyChildren(children);
   const childrenCount = filteredChildren.length;
   const isGrow = grow && preventGrowOverflow;
@@ -37,10 +25,7 @@ export const Group = React.forwardRef<HTMLDivElement, GroupProps>((_props, ref) 
       {...{
         ref,
         "data-grow": isGrow || undefined,
-        className: cn(
-          [{ "flex flex-row w-full h-full": !unstyled }, { "[&:where([data-grow])>*]:grow [&:where([data-grow])>*]:max-w-[--group-child-width]": isGrow }],
-          className
-        ),
+        className: cn([{ "flex flex-row w-full h-full": !unstyled }, { "[&:where([data-grow])>*]:grow [&:where([data-grow])>*]:max-w-[--group-child-width]": isGrow }], className),
         style: {
           flexWrap: wrap,
           gap: resolvedGap,

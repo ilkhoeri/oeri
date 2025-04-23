@@ -9,8 +9,7 @@ const classes = cvx({
       root: "h-full w-full overflow-hidden",
       viewport: "group/sa !flex flex-nowrap size-full",
       scrollbar: "flex touch-none select-none p-0.5 bg-[--bg] ease-out transition-colors [transition-duration:160ms]",
-      thumb:
-        "relative flex-1 rounded-full bg-[--sa-thumb-color] cursor-grab active:cursor-grabbing before:absolute before:size-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:min-h-11 before:min-w-[250%]",
+      thumb: "relative flex-1 rounded-full bg-[--sa-thumb-color] cursor-grab active:cursor-grabbing before:absolute before:size-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:min-h-11 before:min-w-[250%]",
       corner: "bg-[--sa-track-color,transparent]"
     },
     viewport: {
@@ -64,15 +63,7 @@ function getStyles(selector: __Selector, options: Options = {}) {
       classNames?.[selector],
       className
     ),
-    style: ocx(
-      styles?.[selector],
-      style,
-      root && [
-        typeof color === "object" ? { "--sa-track-color": color.track, "--sa-thumb-color": color.thumb } : { "--sa-thumb-color": color },
-        { "--sa-thumb-size": rem(size) }
-      ],
-      type === "never" && scrollbar && { display: "none", visibility: "hidden" }
-    )
+    style: ocx(styles?.[selector], style, root && [typeof color === "object" ? { "--sa-track-color": color.track, "--sa-thumb-color": color.thumb } : { "--sa-thumb-color": color }, { "--sa-thumb-size": rem(size) }], type === "never" && scrollbar && { display: "none", visibility: "hidden" })
   };
 }
 
@@ -86,22 +77,7 @@ export interface ScrollAreaProps extends PropsOf<Primitive.ScrollAreaProps, "col
   viewportProps?: PropsOf<Primitive.ScrollAreaViewportProps & React.ComponentProps<"div"> & Record<string, string>>;
 }
 export const ScrollArea = React.forwardRef<React.ElementRef<typeof Primitive.Root>, ScrollAreaProps>((_props, ref) => {
-  const {
-    orientation = "vertical",
-    className,
-    type,
-    classNames,
-    color,
-    style,
-    styles,
-    unstyled,
-    children,
-    asChild = true,
-    size,
-    dangerouslySetInnerHTML,
-    viewportProps,
-    ...props
-  } = _props;
+  const { orientation = "vertical", className, type, classNames, color, style, styles, unstyled, children, asChild = true, size, dangerouslySetInnerHTML, viewportProps, ...props } = _props;
   const stylesApi = { classNames, styles, unstyled };
   const stylesRest = { orientation, ...stylesApi };
 

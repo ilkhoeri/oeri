@@ -1,22 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 
-type LocationPart =
-  | "address"
-  | "road"
-  | "neighbourhood"
-  | "number"
-  | "suburb"
-  | "village"
-  | "town"
-  | "city"
-  | "county"
-  | "state"
-  | "country"
-  | "zip";
-export type CoordinateLocations = Record<"loading", boolean> &
-  Record<"latitude" | "longitude", number | null> &
-  Record<LocationPart, string | null>;
+type LocationPart = "address" | "road" | "neighbourhood" | "number" | "suburb" | "village" | "town" | "city" | "county" | "state" | "country" | "zip";
+export type CoordinateLocations = Record<"loading", boolean> & Record<"latitude" | "longitude", number | null> & Record<LocationPart, string | null>;
 
 export function useGeoLocation() {
   const [location, setLocation] = useState<CoordinateLocations>({
@@ -31,9 +17,7 @@ export function useGeoLocation() {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
-          fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-          ) // use `openstreetmap`
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`) // use `openstreetmap`
             .then(response => response.json())
             .then(data => {
               const loading = latitude === null && longitude === null;

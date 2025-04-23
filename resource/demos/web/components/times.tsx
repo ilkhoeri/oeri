@@ -4,10 +4,8 @@ import { Stack } from "@/ui/stack";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
-  usage:
-    '"use client";\nimport { Times } from "@/ui/times";\n\nexport function TimesDemo() {\n  return <Times.Posted withInterval diff="long" times={{ createdAt: new Date("2019-11-22T16:30"), updatedAt: new Date("2024-02-22T16:30") }} />;\n}',
-  configurator:
-    '"use client";\nimport { Times } from "@/ui/times";\n\nexport function TimesDemo() {\n  return (\n    <Stack>\n      <Times{{props}} />\n      <Times.Posted{{props}} withInterval times={{ createdAt: new Date("2019-11-22T16:30"), updatedAt: new Date("2024-02-22T16:30") }} />\n    </Stack>\n  );\n}'
+  usage: '"use client";\nimport { Times } from "@/ui/times";\n\nexport function TimesDemo() {\n  return <Times.Posted withInterval diff="long" times={{ createdAt: new Date("2019-11-22T16:30"), updatedAt: new Date("2024-02-22T16:30") }} />;\n}',
+  configurator: '"use client";\nimport { Times } from "@/ui/times";\n\nexport function TimesDemo() {\n  return (\n    <Stack>\n      <Times{{props}} />\n      <Times.Posted{{props}} withInterval times={{ createdAt: new Date("2019-11-22T16:30"), updatedAt: new Date("2024-02-22T16:30") }} />\n    </Stack>\n  );\n}'
 };
 
 function Demo() {

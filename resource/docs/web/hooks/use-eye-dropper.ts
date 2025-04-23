@@ -19,9 +19,7 @@ export function useEyeDropper() {
   }, []);
 
   const open = useCallback(
-    (
-      options: EyeDropperOpenOptions = {}
-    ): Promise<EyeDropperOpenReturnType | undefined> => {
+    (options: EyeDropperOpenOptions = {}): Promise<EyeDropperOpenReturnType | undefined> => {
       if (supported) {
         const eyeDropper = new (window as any).EyeDropper();
         return eyeDropper.open(options);
@@ -39,10 +37,7 @@ export function useEyeDropper() {
         setError(null);
       }
     } catch (e: any) {
-      if (
-        e.name === "AbortError" ||
-        e.message === "The user canceled the selection."
-      ) {
+      if (e.name === "AbortError" || e.message === "The user canceled the selection.") {
         setError(null);
       } else {
         setError(e);

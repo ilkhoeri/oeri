@@ -6,10 +6,7 @@ interface DemoComponent {
   component: React.FC<any>;
 }
 
-export type DataTrees =
-  | ({ type: "code" } & DemoComponent & CodeDemoProps)
-  | ({ type: "configurator" } & DemoComponent & ConfiguratorDemoProps)
-  | ({ type: "styles-api" } & DemoComponent & StylesApiDemoProps);
+export type DataTrees = ({ type: "code" } & DemoComponent & CodeDemoProps) | ({ type: "configurator" } & DemoComponent & ConfiguratorDemoProps) | ({ type: "styles-api" } & DemoComponent & StylesApiDemoProps);
 
 interface DemoProps {
   data: DataTrees;

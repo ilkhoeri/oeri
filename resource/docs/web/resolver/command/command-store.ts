@@ -1,25 +1,9 @@
 "use client";
 import { HotkeyItem } from "@/hooks/use-hotkeys";
-import {
-  clamp,
-  createStore,
-  useStore,
-  StoreValue,
-  Factory,
-  Portal,
-  createSafeContext,
-  CSSProperties,
-  FactoryPayload,
-  GetStylesApiOptions
-} from "../factory";
+import { clamp, createStore, useStore, StoreValue, Factory, Portal, createSafeContext, CSSProperties, FactoryPayload, GetStylesApiOptions } from "../factory";
 import { CommandContentFactory } from "./command-content";
 
-import type {
-  CommandFilterFunction,
-  CommandActionData,
-  CommandActionGroupData,
-  CommandActions
-} from "./command";
+import type { CommandFilterFunction, CommandActionData, CommandActionGroupData, CommandActions } from "./command";
 import { Selectors } from "./command-styles";
 
 export type CommandOrigin = Selectors;
@@ -38,17 +22,7 @@ export interface CommandState {
   query: string;
   empty: boolean;
   registeredActions: Set<string>;
-  Portal({
-    render,
-    children,
-    container,
-    key
-  }: {
-    render: boolean;
-    children: React.ReactNode;
-    container?: Element | DocumentFragment | null;
-    key?: null | string;
-  }): React.ReactPortal | null;
+  Portal({ render, children, container, key }: { render: boolean; children: React.ReactNode; container?: Element | DocumentFragment | null; key?: null | string }): React.ReactPortal | null;
 }
 
 export type CommandStore = StoreValue<CommandState>;
@@ -80,17 +54,11 @@ type CommandContextValue = {
   closeOnActionTrigger: boolean | undefined;
 };
 
-export const [CommandProvider, useCommandContext] =
-  createSafeContext<CommandContextValue>(
-    "Command component was not found in tree"
-  );
+export const [CommandProvider, useCommandContext] = createSafeContext<CommandContextValue>("Command component was not found in tree");
 
 export const useCommand = (store: CommandStore) => useStore(store);
 
-export function updateCommandStateAction(
-  update: (state: CommandState) => Partial<CommandState>,
-  store: CommandStore
-) {
+export function updateCommandStateAction(update: (state: CommandState) => Partial<CommandState>, store: CommandStore) {
   const state = store.getState();
   store.setState({ ...state, ...update(store.getState()) });
 }
@@ -118,14 +86,9 @@ export function setListId(id: string, store: CommandStore) {
 export function selectAction(index: number, store: CommandStore): number {
   const state = store.getState();
   const actionsList = document.getElementById(state.listId);
-  const selected =
-    actionsList?.querySelector<HTMLAnchorElement>("[data-selected]");
-  const actions =
-    actionsList?.querySelectorAll<HTMLAnchorElement>(
-      `[data-command="action"]`
-    ) ?? [];
-  const nextIndex =
-    index === -1 ? actions.length - 1 : index === actions.length ? 0 : index;
+  const selected = actionsList?.querySelector<HTMLAnchorElement>("[data-selected]");
+  const actions = actionsList?.querySelectorAll<HTMLAnchorElement>(`[data-command="action"]`) ?? [];
+  const nextIndex = index === -1 ? actions.length - 1 : index === actions.length ? 0 : index;
 
   const selectedIndex = clamp(nextIndex, 0, actions.length - 1);
   selected?.removeAttribute("data-selected");
@@ -146,9 +109,7 @@ export function selectPreviousAction(store: CommandStore) {
 
 export function triggerSelectedAction(store: CommandStore) {
   const state = store.getState();
-  const selected = document.querySelector<HTMLAnchorElement>(
-    `#${state.listId} [data-selected]`
-  );
+  const selected = document.querySelector<HTMLAnchorElement>(`#${state.listId} [data-selected]`);
   selected?.click();
 }
 
@@ -166,20 +127,14 @@ export function setQuery(query: string, store: CommandStore) {
     selectAction(0, store);
     updateCommandStateAction(
       state => ({
-        empty:
-          (state.query.trim().length > 0 &&
-            state.registeredActions.size === 0) ||
-          false
+        empty: (state.query.trim().length > 0 && state.registeredActions.size === 0) || false
       }),
       store
     );
   });
 }
 
-export function clearCommandState(
-  { clearQuery }: { clearQuery: boolean | undefined },
-  store: CommandStore
-) {
+export function clearCommandState({ clearQuery }: { clearQuery: boolean | undefined }, store: CommandStore) {
   store.updateState(state => ({
     ...state,
     selected: -1,
@@ -216,11 +171,7 @@ export function createCommand() {
 }
 
 export const [commandStore, command] = createCommand();
-export const {
-  open: openCommand,
-  close: closeCommand,
-  toggle: toggleCommand
-} = command;
+export const { open: openCommand, close: closeCommand, toggle: toggleCommand } = command;
 
 function getKeywords(keywords: string | string[] | undefined) {
   if (Array.isArray(keywords)) {
@@ -241,10 +192,7 @@ function getKeywords(keywords: string | string[] | undefined) {
 function getFlatActions(data: CommandActions[]) {
   return data.reduce<CommandActionData[]>((acc, item) => {
     if ("actions" in item) {
-      return [
-        ...acc,
-        ...item.actions.map(action => ({ ...action, group: item.group }))
-      ];
+      return [...acc, ...item.actions.map(action => ({ ...action, group: item.group }))];
     }
 
     return [...acc, item];
@@ -252,10 +200,7 @@ function getFlatActions(data: CommandActions[]) {
 }
 
 function flatActionsToGroups(data: CommandActionData[]) {
-  const groups: Record<
-    string,
-    { pushed: boolean; data: CommandActionGroupData }
-  > = {};
+  const groups: Record<string, { pushed: boolean; data: CommandActionGroupData }> = {};
   const result: CommandActions[] = [];
 
   data.forEach(action => {
@@ -288,10 +233,7 @@ export const defaultFilter: CommandFilterFunction = (_query, data) => {
   flatActions.forEach(item => {
     if (item.label?.toLowerCase().includes(query)) {
       priorityMatrix[0].push(item);
-    } else if (
-      item.description?.toLowerCase().includes(query) ||
-      getKeywords(item.keywords).includes(query)
-    ) {
+    } else if (item.description?.toLowerCase().includes(query) || getKeywords(item.keywords).includes(query)) {
       priorityMatrix[1].push(item);
     }
   });
@@ -307,10 +249,7 @@ export const fuzzyFilter: CommandFilterFunction = (_query, data) => {
   flatActions.forEach(item => {
     if (item.label?.toLowerCase().includes(query)) {
       priorityMatrix[0].push(item);
-    } else if (
-      item.description?.toLowerCase().includes(query) ||
-      getKeywords(item.keywords).includes(query)
-    ) {
+    } else if (item.description?.toLowerCase().includes(query) || getKeywords(item.keywords).includes(query)) {
       priorityMatrix[1].push(item);
     }
   });
@@ -333,10 +272,7 @@ export function fuzzySearch(query: string, terms: string[]): string {
   function fuzzy(text: string, query: string) {
     const normalizedQuery = query.trim().toLowerCase();
     const sanitizedQuery = normalizedQuery.replace(/[.*+?^${}()|[\]\\]/g, "");
-    const regex = new RegExp(
-      `\\b${sanitizedQuery.split("").join(".*")}\\b`,
-      "i"
-    );
+    const regex = new RegExp(`\\b${sanitizedQuery.split("").join(".*")}\\b`, "i");
     return regex.test(text) || text.toLowerCase().includes(normalizedQuery);
   }
 
@@ -352,9 +288,7 @@ export function fuzzySearch(query: string, terms: string[]): string {
 }
 
 export function levenshteinDistance(term: string, query: string): number {
-  const matrix = Array.from({ length: query.length + 1 }, () =>
-    Array(term.length + 1).fill(0)
-  );
+  const matrix = Array.from({ length: query.length + 1 }, () => Array(term.length + 1).fill(0));
 
   for (let i = 0; i <= query.length; i++) {
     matrix[i][0] = i;
@@ -367,11 +301,7 @@ export function levenshteinDistance(term: string, query: string): number {
       if (query[i - 1] === term[j - 1]) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j - 1] + 1
-        );
+        matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + 1);
       }
     }
   }
@@ -379,10 +309,7 @@ export function levenshteinDistance(term: string, query: string): number {
   return matrix[query.length][term.length];
 }
 
-export function getHotkeys(
-  hotkeys: string | string[] | null | undefined,
-  store: CommandStore
-): HotkeyItem[] {
+export function getHotkeys(hotkeys: string | string[] | null | undefined, store: CommandStore): HotkeyItem[] {
   if (!hotkeys) return [];
 
   const open = () => commandActions.open(store);
@@ -393,9 +320,7 @@ export function getHotkeys(
   return [[hotkeys, open]];
 }
 
-export function actionsGroup(
-  item: CommandActionData | CommandActionGroupData
-): item is CommandActionGroupData {
+export function actionsGroup(item: CommandActionData | CommandActionGroupData): item is CommandActionGroupData {
   const _item = item as CommandActionGroupData;
   return _item.group !== undefined && Array.isArray(_item.actions);
 }
@@ -412,10 +337,7 @@ export function limitActions(actions: CommandActions[], limit: number) {
     if (actionsGroup(item)) {
       result.push({
         group: item.group,
-        actions: limitActions(
-          item.actions,
-          limit - result.length
-        ) as CommandActionData[]
+        actions: limitActions(item.actions, limit - result.length) as CommandActionData[]
       });
     }
 

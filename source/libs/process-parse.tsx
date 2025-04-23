@@ -67,7 +67,5 @@ export function parseText(text: string): string[] {
 }
 
 export function processParseText(n: string): React.JSX.Element[] {
-  return parseText(n).map((part, index) => (
-    <React.Fragment key={index}>{part}</React.Fragment>
-  ));
+  return parseText(n).map((part, index) => <React.Fragment key={index}>{part}</React.Fragment>);
 }

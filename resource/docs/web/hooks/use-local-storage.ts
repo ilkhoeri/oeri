@@ -33,10 +33,7 @@ function createStorageHandler(type: StorageType) {
     try {
       return window[type].getItem(key);
     } catch (error) {
-      console.warn(
-        "use-local-storage: Failed to get value from storage, localStorage is blocked",
-        error
-      );
+      console.warn("use-local-storage: Failed to get value from storage, localStorage is blocked", error);
       return null;
     }
   };
@@ -45,10 +42,7 @@ function createStorageHandler(type: StorageType) {
     try {
       window[type].setItem(key, value);
     } catch (error: any) {
-      console.warn(
-        "use-local-storage: Failed to set value to storage, localStorage is blocked",
-        error
-      );
+      console.warn("use-local-storage: Failed to set value to storage, localStorage is blocked", error);
     }
   };
 
@@ -56,10 +50,7 @@ function createStorageHandler(type: StorageType) {
     try {
       window[type].removeItem(key);
     } catch (error: any) {
-      console.warn(
-        "use-local-storage: Failed to remove value from storage, localStorage is blocked",
-        error
-      );
+      console.warn("use-local-storage: Failed to remove value from storage, localStorage is blocked", error);
     }
   };
 
@@ -67,27 +58,16 @@ function createStorageHandler(type: StorageType) {
 }
 
 export function createStorage<T>(type: StorageType, hookName: string) {
-  const eventName =
-    type === "localStorage" ? "oeri-local-storage" : "oeri-session-storage";
+  const eventName = type === "localStorage" ? "oeri-local-storage" : "oeri-session-storage";
   const { getItem, setItem, removeItem } = createStorageHandler(type);
 
-  return function useStorage({
-    key,
-    initialValue = undefined,
-    getInitialValueInEffect = true,
-    deserialize = deserializeJSON,
-    serialize = (value: T) => serializeJSON(value, hookName)
-  }: StorageProperties<T>) {
+  return function useStorage({ key, initialValue = undefined, getInitialValueInEffect = true, deserialize = deserializeJSON, serialize = (value: T) => serializeJSON(value, hookName) }: StorageProperties<T>) {
     const readStorageValue = useCallback(
       (skipStorage?: boolean): T => {
         let storageBlockedOrSkipped;
 
         try {
-          storageBlockedOrSkipped =
-            typeof window === "undefined" ||
-            !(type in window) ||
-            window[type] === null ||
-            !!skipStorage;
+          storageBlockedOrSkipped = typeof window === "undefined" || !(type in window) || window[type] === null || !!skipStorage;
         } catch (_e) {
           storageBlockedOrSkipped = true;
         }
@@ -97,16 +77,12 @@ export function createStorage<T>(type: StorageType, hookName: string) {
         }
 
         const storageValue = getItem(key);
-        return storageValue !== null
-          ? deserialize(storageValue)
-          : (initialValue as T);
+        return storageValue !== null ? deserialize(storageValue) : (initialValue as T);
       },
       [key, initialValue]
     );
 
-    const [value, setValue] = useState<T>(
-      readStorageValue(getInitialValueInEffect)
-    );
+    const [value, setValue] = useState<T>(readStorageValue(getInitialValueInEffect));
 
     const setStorageValue = useCallback(
       (val: T | ((prevState: T) => T)) => {
@@ -123,9 +99,7 @@ export function createStorage<T>(type: StorageType, hookName: string) {
           });
         } else {
           setItem(key, serialize(val));
-          window.dispatchEvent(
-            new CustomEvent(eventName, { detail: { key, value: val } })
-          );
+          window.dispatchEvent(new CustomEvent(eventName, { detail: { key, value: val } }));
           setValue(val);
         }
       },
@@ -134,9 +108,7 @@ export function createStorage<T>(type: StorageType, hookName: string) {
 
     const removeStorageValue = useCallback(() => {
       removeItem(key);
-      window.dispatchEvent(
-        new CustomEvent(eventName, { detail: { key, value: initialValue } })
-      );
+      window.dispatchEvent(new CustomEvent(eventName, { detail: { key, value: initialValue } }));
     }, []);
 
     useWindowEvent("storage", event => {
@@ -162,11 +134,7 @@ export function createStorage<T>(type: StorageType, hookName: string) {
       if (val !== undefined) setStorageValue(val);
     }, []);
 
-    return [
-      value === undefined ? initialValue : value,
-      setStorageValue,
-      removeStorageValue
-    ] as [T, (val: T | ((prevState: T) => T)) => void, () => void];
+    return [value === undefined ? initialValue : value, setStorageValue, removeStorageValue] as [T, (val: T | ((prevState: T) => T)) => void, () => void];
   };
 }
 
@@ -179,18 +147,11 @@ export const readLocalStorageValue = readValue("localStorage");
 export function readValue(type: StorageType) {
   const { getItem } = createStorageHandler(type);
 
-  return function read<T>({
-    key,
-    initialValue,
-    deserialize = deserializeJSON
-  }: StorageProperties<T>) {
+  return function read<T>({ key, initialValue, deserialize = deserializeJSON }: StorageProperties<T>) {
     let storageBlockedOrSkipped;
 
     try {
-      storageBlockedOrSkipped =
-        typeof window === "undefined" ||
-        !(type in window) ||
-        window[type] === null;
+      storageBlockedOrSkipped = typeof window === "undefined" || !(type in window) || window[type] === null;
     } catch (_e) {
       storageBlockedOrSkipped = true;
     }
@@ -200,8 +161,6 @@ export function readValue(type: StorageType) {
     }
 
     const storageValue = getItem(key);
-    return storageValue !== null
-      ? deserialize(storageValue)
-      : (initialValue as T);
+    return storageValue !== null ? deserialize(storageValue) : (initialValue as T);
   };
 }

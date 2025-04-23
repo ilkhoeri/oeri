@@ -1,14 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-export function useHover<T extends HTMLElement | null>(
-  elements?: Array<T | null>,
-  {
-    touch = false,
-    open,
-    setOpen
-  }: { touch?: boolean; open?: boolean; setOpen?: (v: boolean) => void } = {}
-) {
+export function useHover<T extends HTMLElement | null>(elements?: Array<T | null>, { touch = false, open, setOpen }: { touch?: boolean; open?: boolean; setOpen?: (v: boolean) => void } = {}) {
   const [opened, setOpened] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const hovered = open !== undefined ? open : opened;
@@ -103,15 +96,7 @@ export function useHover<T extends HTMLElement | null>(
         detachListeners(current);
       }
     };
-  }, [
-    elements,
-    onMouseEnter,
-    onMouseLeave,
-    onMouseMove,
-    onTouchStart,
-    onTouchEnd,
-    touch
-  ]);
+  }, [elements, onMouseEnter, onMouseLeave, onMouseMove, onTouchStart, onTouchEnd, touch]);
 
   return { ref, hovered, setHovered };
 }

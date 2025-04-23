@@ -4,14 +4,7 @@ import plugin from "tailwindcss/plugin";
 export default {
   prefix: "",
   darkMode: ["class"],
-  content: [
-    "./app/**/*.{js,jsx,ts,tsx,md,mdx}",
-    "./source/**/*.{js,jsx,ts,tsx,md,mdx}",
-    "./resource/**/*.{js,jsx,ts,tsx,md,mdx}",
-    "./components/**/*.{js,jsx,ts,tsx,md,mdx}",
-    "./pages/**/*.{js,jsx,ts,tsx,md,mdx}",
-    "./src/**/*.{js,jsx,ts,tsx,md,mdx}"
-  ],
+  content: ["./app/**/*.{js,jsx,ts,tsx,md,mdx}", "./source/**/*.{js,jsx,ts,tsx,md,mdx}", "./resource/**/*.{js,jsx,ts,tsx,md,mdx}", "./components/**/*.{js,jsx,ts,tsx,md,mdx}", "./pages/**/*.{js,jsx,ts,tsx,md,mdx}", "./src/**/*.{js,jsx,ts,tsx,md,mdx}"],
   theme: {
     container: {
       center: true,
@@ -351,8 +344,7 @@ export default {
           }
         },
         ".timeline-item": {
-          "--tli-line":
-            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-line-active-style, var(--tl-line-style)) var(--tli-line-clr, var(--tl-line-clr))",
+          "--tli-line": "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-line-active-style, var(--tl-line-style)) var(--tli-line-clr, var(--tl-line-clr))",
           "&::before": {
             content: '""',
             position: "absolute",
@@ -387,8 +379,7 @@ export default {
           width: "var(--tl-bullet-size)",
           height: "var(--tl-bullet-size)",
           borderRadius: "var(--tl-bullet-round)",
-          outline:
-            "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-bullet-ring, var(--tl-line-clr)))",
+          outline: "var(--tli-line-width, var(--tl-line-width)) var(--tli-has-bullet-active-style, var(--tl-bullet-style)) var(--tli-line-clr, var(--tl-bullet-ring, var(--tl-line-clr)))",
           "&[data-active]": {
             outlineColor: "var(--active-ring, var(--bullet-active-ring, var(--tl-line-clr)))"
           },
@@ -416,8 +407,7 @@ export default {
               right: "var(--inset-tr)",
               borderRadius: "inherit",
               backgroundColor: "var(--notice-clr, var(--tli-notice-clr))",
-              boxShadow:
-                "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notice-clr, var(--tli-notice-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notice-ring, var(--tli-notice-ring))"
+              boxShadow: "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notice-clr, var(--tli-notice-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notice-ring, var(--tli-notice-ring))"
             }
           }
         },

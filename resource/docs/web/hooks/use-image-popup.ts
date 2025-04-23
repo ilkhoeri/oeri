@@ -55,10 +55,7 @@ export function useImagePopup(selectors: Selectors = ".embeded-image", options: 
 
         imgPopup.getBoundingClientRect();
 
-        imgPopup.style.setProperty(
-          "--translate-in",
-          `${(window.innerWidth / 2 - rect.left - rect.width / 2) * -1}px, ${(window.innerHeight / 2 - rect.top - rect.height / 2) * -1}px`
-        );
+        imgPopup.style.setProperty("--translate-in", `${(window.innerWidth / 2 - rect.left - rect.width / 2) * -1}px, ${(window.innerHeight / 2 - rect.top - rect.height / 2) * -1}px`);
 
         const closePopup = () => {
           attributeState(imgPopup, "closed");

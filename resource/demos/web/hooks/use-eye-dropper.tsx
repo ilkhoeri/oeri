@@ -26,10 +26,7 @@ function Demo() {
       <Typography prose="p" className="absolute -top-2 left-2 font-bold z-9">
         {message}
       </Typography>
-      <div
-        className="absolute inset-0 flex size-full min-h-full min-w-full items-center justify-center rounded-lg"
-        {...{ style: { backgroundColor: color } }}
-      />
+      <div className="absolute inset-0 flex size-full min-h-full min-w-full items-center justify-center rounded-lg" {...{ style: { backgroundColor: color } }} />
     </>
   );
 }

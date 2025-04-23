@@ -12,13 +12,9 @@ export interface StoreValue<Value> {
   subscribe(callback: StoreSubscriber<Value>): () => void;
 }
 
-export type StoreValues<Store extends StoreValue<any>> = ReturnType<
-  Store["getState"]
->;
+export type StoreValues<Store extends StoreValue<any>> = ReturnType<Store["getState"]>;
 
-export function createStore<Value extends Record<string, any>>(
-  initialState: Value
-): StoreValue<Value> {
+export function createStore<Value extends Record<string, any>>(initialState: Value): StoreValue<Value> {
   let state = initialState;
   let initialized = false;
   const listeners = new Set<StoreSubscriber<Value>>();
@@ -59,11 +55,7 @@ export function useStore<Store extends StoreValue<any>>(store: Store) {
   );
 }
 
-export function clamp(
-  value: number,
-  min: number | undefined,
-  max: number | undefined
-) {
+export function clamp(value: number, min: number | undefined, max: number | undefined) {
   if (min === undefined && max === undefined) {
     return value;
   }

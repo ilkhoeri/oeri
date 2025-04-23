@@ -12,7 +12,6 @@ const codes = {
     'import { Tooltip } from "@/ui/tooltip";\n\nfunction Inline({ label }: { label: string }) {\n  return (\n    <Tooltip\n      touch\n      asChild\n      side="top"\n      content={`What\'s ${label}?`}\n      className="[@media_not_all_and_(hover:hover)]:select-none"\n      contentProps={{\n        className: "bg-color text-background [&_[data-tooltip]]:text-color font-medium"\n      }}\n    >\n      <mark>{label}</mark>\n    </Tooltip>\n  );\n}\n\nexport function TooltipInlineDemo() {\n  return (\n    <div className="m-auto size-full max-w-lg p-6">\n      <p className="w-full max-w-full text-justify text-sm">\n        In the world of modern <Inline label="technology" />, staying updated is no longer optional—it’s a necessity. Innovations in <Inline label="artificial intelligence" /> have reshaped how we interact with systems, enabling a more personalized and efficient experience. Yet, with rapid advancements come challenges. Developers must navigate the complexities of <Inline label="scalability" />, ensuring applications grow seamlessly without compromising performance. Similarly, the rise of <Inline label="cybersecurity" /> concerns has pushed teams to prioritize safeguarding user data while maintaining accessibility. Every step forward in this digital age is an opportunity to create impactful solutions, but it also demands a commitment to learning, adapting, and overcoming.\n      </p>\n    </div>\n  );\n}'
 };
 
-
 function Demo() {
   return (
     <Tooltip side="top" asChild content={<span>Brian and Brothers</span>} contentProps={{ className: "block" }}>
@@ -23,12 +22,7 @@ function Demo() {
 
 function ConfiguratorDemo(props: TooltipProps) {
   return (
-    <Tooltip
-      {...props}
-      asChild
-      content="Double check the data you want to send"
-      contentProps={{ className: "inline-flex" }}
-    >
+    <Tooltip {...props} asChild content="Double check the data you want to send" contentProps={{ className: "inline-flex" }}>
       <Button variant="outline" color="grape">
         Continue
       </Button>
@@ -57,7 +51,9 @@ function InlineDemo() {
   return (
     <div className="m-auto size-full max-w-lg p-6">
       <p className="w-full max-w-full text-justify text-sm">
-        In the world of modern <Inline label="technology" />, staying updated is no longer optional—it’s a necessity. Innovations in <Inline label="artificial intelligence" /> have reshaped how we interact with systems, enabling a more personalized and efficient experience. Yet, with rapid advancements come challenges. Developers must navigate the complexities of <Inline label="scalability" />, ensuring applications grow seamlessly without compromising performance. Similarly, the rise of <Inline label="cybersecurity" /> concerns has pushed teams to prioritize safeguarding user data while maintaining accessibility. Every step forward in this digital age is an opportunity to create impactful solutions, but it also demands a commitment to learning, adapting, and overcoming.
+        In the world of modern <Inline label="technology" />, staying updated is no longer optional—it’s a necessity. Innovations in <Inline label="artificial intelligence" /> have reshaped how we interact with systems, enabling a more personalized and efficient experience. Yet, with rapid advancements come challenges.
+        Developers must navigate the complexities of <Inline label="scalability" />, ensuring applications grow seamlessly without compromising performance. Similarly, the rise of <Inline label="cybersecurity" /> concerns has pushed teams to prioritize safeguarding user data while maintaining accessibility. Every step
+        forward in this digital age is an opportunity to create impactful solutions, but it also demands a commitment to learning, adapting, and overcoming.
       </p>
     </div>
   );

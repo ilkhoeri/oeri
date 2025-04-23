@@ -3,8 +3,7 @@ import { Label } from "@/ui/label";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
-  usage:
-    'import { Input } from "@/ui/input";\nimport { Label } from "@/ui/label";\n\nexport function LabelDemo() {\n  return (\n    <div className="flex items-center space-x-2">\n      <Input id="terms" type="checkbox" />\n      <Label htmlFor="terms">Accept terms and conditions</Label>\n    </div>\n  );\n}',
+  usage: 'import { Input } from "@/ui/input";\nimport { Label } from "@/ui/label";\n\nexport function LabelDemo() {\n  return (\n    <div className="flex items-center space-x-2">\n      <Input id="terms" type="checkbox" />\n      <Label htmlFor="terms">Accept terms and conditions</Label>\n    </div>\n  );\n}',
   configurator: ""
 };
 

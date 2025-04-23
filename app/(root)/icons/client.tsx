@@ -21,11 +21,7 @@ import { cleanHTML } from "@/source/libs/dom-purify";
 const FallbackComponent = (slug: string) => (
   <div>
     <p className=" border-b pb-1 pt-2">Component not found</p>
-    <a
-      href={`https://github.com/ilkhoeri/oeri/edit/main/resource/icons/${slug}.tsx`}
-      target="_blank"
-      className="w-max justify-start gap-2 pb-1.5 pt-3 text-sm text-muted-foreground transition-colors underline-hover hover:text-constructive"
-    >
+    <a href={`https://github.com/ilkhoeri/oeri/edit/main/resource/icons/${slug}.tsx`} target="_blank" className="w-max justify-start gap-2 pb-1.5 pt-3 text-sm text-muted-foreground transition-colors underline-hover hover:text-constructive">
       Edit this page on GitHub <FileIcon arrow />
     </a>
   </div>
@@ -69,8 +65,7 @@ export function LoadComponent({
         asChild
         content={`${toPascal(files.file.replace(".tsx", "Icon"))}`}
         classNames={{
-          trigger:
-            "aspect-square cursor-pointer flex items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
+          trigger: "aspect-square cursor-pointer flex items-center justify-center rounded-lg border bg-background text-muted-foreground shadow-md hover:text-color [@media(@supports_(hover:hover))]:hover:bg-muted/60",
           content: "font-geist-mono"
         }}
       >
@@ -176,64 +171,27 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
             <div className="mb-3 flex items-center justify-center">
               <h2 className="mr-auto text-base font-bold leading-4 text-muted-foreground">Customizer</h2>
 
-              <button
-                className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-110 [&>svg]:active:text-constructive"
-                type="button"
-                aria-label="reset"
-                title="Reset"
-                onClick={() => setReset(true)}
-              >
+              <button className="inline-flex rounded-md border-0 bg-transparent p-0 [&>svg]:active:rotate-45 [&>svg]:active:scale-110 [&>svg]:active:text-constructive" type="button" aria-label="reset" title="Reset" onClick={() => setReset(true)}>
                 <Svg className="size-5 [transition:ease_.25s_transform]">
                   <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
                   <path d="M21 3v5h-5"></path>
                 </Svg>
               </button>
 
-              <button
-                className="ml-4 flex items-center justify-center rounded-md border-0 bg-transparent p-0 text-destructive md:!hidden"
-                type="button"
-                aria-label="closed"
-                title="Closed"
-                onClick={() => setOpen(false)}
-              >
+              <button className="ml-4 flex items-center justify-center rounded-md border-0 bg-transparent p-0 text-destructive md:!hidden" type="button" aria-label="closed" title="Closed" onClick={() => setOpen(false)}>
                 <XIcon size={22} />
               </button>
             </div>
 
             <div className="relative flex w-full flex-row items-center gap-4">
-              <Input
-                id="color"
-                title="color"
-                name="color"
-                type="color"
-                className="size-9 min-w-9"
-                value={ctx.hexColor}
-                onChange={e => ctx.setColor(e.target.value)}
-              />
-              <input
-                id="input-color"
-                title="input-color"
-                name="input-color"
-                type="text"
-                className="h-9 w-full rounded-md border px-3 text-sm"
-                value={ctx.color}
-                onChange={e => ctx.setColor(e.target.value)}
-              />
+              <Input id="color" title="color" name="color" type="color" className="size-9 min-w-9" value={ctx.hexColor} onChange={e => ctx.setColor(e.target.value)} />
+              <input id="input-color" title="input-color" name="input-color" type="text" className="h-9 w-full rounded-md border px-3 text-sm" value={ctx.color} onChange={e => ctx.setColor(e.target.value)} />
             </div>
 
             <div className="relative flex w-full flex-row items-center justify-between">
               <label htmlFor="current-fill" className="flex cursor-pointer select-none items-center">
                 <div className="relative">
-                  <input
-                    aria-label="fill"
-                    type="checkbox"
-                    id="current-fill"
-                    name="current-fill"
-                    checked={fill}
-                    hidden
-                    onChange={() => setFill(!fill)}
-                    className="peer sr-only hidden"
-                  />
+                  <input aria-label="fill" type="checkbox" id="current-fill" name="current-fill" checked={fill} hidden onChange={() => setFill(!fill)} className="peer sr-only hidden" />
                   <div className="h-5 w-14 rounded-full bg-muted shadow-inner ring-2 ring-inset ring-transparent focus-visible:ring-constructive/60 peer-checked:bg-color" />
                   <div className="absolute -top-1 left-0 flex size-7 items-center justify-center rounded-full bg-color shadow-md transition peer-checked:translate-x-full peer-checked:bg-white peer-checked:[&>span]:bg-constructive">
                     <span className="size-4 rounded-full bg-muted-foreground shadow-sm" />
@@ -248,15 +206,7 @@ export function LayoutIconsPage({ children }: { children: React.ReactNode }) {
               <label htmlFor="set-stroke-width" className="inline-flex w-full items-center justify-between">
                 <span>strokeWidth</span> <span>&#123;{stroke / 10}&#125;</span>
               </label>
-              <Input
-                type="range"
-                name="set-stroke-width"
-                id="set-stroke-width"
-                min="5"
-                max="35"
-                value={stroke}
-                onChange={e => setStroke(Number(e.target.value))}
-              />
+              <Input type="range" name="set-stroke-width" id="set-stroke-width" min="5" max="35" value={stroke} onChange={e => setStroke(Number(e.target.value))} />
             </div>
 
             <div className="relative w-full gap-3">

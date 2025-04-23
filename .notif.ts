@@ -1,6 +1,6 @@
 export const NEW_LIST = [""];
 
-export const UPDATED_LIST = ["checker", "table", "svg"];
+export const UPDATED_LIST = ["text-parser", "checker", "table", "svg", "input", "prose"];
 
 const DATE_UNTIL = { date: "2025-05-01", time: "23:30:00" };
 // YYYY-MM-DDTHH:mm:ss

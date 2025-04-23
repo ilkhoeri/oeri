@@ -187,12 +187,7 @@ export function OnboardingStepper({ cookies, children, tourSteps, sideOffset = 0
 
       {isTourActive && initialValue === "false" && (
         <>
-          <div
-            ref={guidesRef}
-            role="dialog"
-            className="absolute text-color bg-muted border rounded-2xl max-md:max-w-[50%] max-w-72 z-99 flex flex-col items-center justify-center"
-            {...{ style }}
-          >
+          <div ref={guidesRef} role="dialog" className="absolute text-color bg-muted border rounded-2xl max-md:max-w-[50%] max-w-72 z-99 flex flex-col items-center justify-center" {...{ style }}>
             <article role="article" className="relative flex flex-col w-full p-3 md:p-4">
               <h4 className="text-base font-semibold">{transform.capitalize(camelToKebab(currentStep.selector))}</h4>
 
@@ -211,37 +206,18 @@ export function OnboardingStepper({ cookies, children, tourSteps, sideOffset = 0
 
             <div role="group" className="relative w-full flex flex-row justify-between flex-nowrap items-center px-3 pb-3 gap-4">
               {stepIndex !== 0 && (
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  disabled={stepIndex === 0}
-                  className={cn(
-                    "text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background block truncate disabled:opacity-30 disabled:pointer-events-none "
-                  )}
-                >
+                <button type="button" onClick={prevStep} disabled={stepIndex === 0} className={cn("text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background block truncate disabled:opacity-30 disabled:pointer-events-none ")}>
                   Previous
                 </button>
               )}
-              <button
-                type="button"
-                onClick={nextStep}
-                className={cn("text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background min-w-max ml-auto")}
-              >
+              <button type="button" onClick={nextStep} className={cn("text-sm font-geist-mono rounded-md border shadow px-2 py-1 bg-background min-w-max ml-auto")}>
                 {stepIndex === tourSteps.length - 1 ? "Finish" : "Next"}
               </button>
             </div>
-            <i
-              data-side={side}
-              data-align={align}
-              className="bg-muted size-4 rotate-45 absolute rounded-sm data-[align=center]:data-[side=right]:-left-2 data-[align=end]:data-[side=bottom]:right-8 data-[side=bottom]:-top-2 "
-            />
+            <i data-side={side} data-align={align} className="bg-muted size-4 rotate-45 absolute rounded-sm data-[align=center]:data-[side=right]:-left-2 data-[align=end]:data-[side=bottom]:right-8 data-[side=bottom]:-top-2 " />
           </div>
 
-          <div
-            role="presentation"
-            className="size-full pointer-events-none fixed inset-0 overflow-hidden z-[90] bg-background/50 mix-blend-hard-light"
-            {...{ style: {} }}
-          >
+          <div role="presentation" className="size-full pointer-events-none fixed inset-0 overflow-hidden z-[90] bg-background/50 mix-blend-hard-light" {...{ style: {} }}>
             <div
               onClick={nextStep}
               className="cursor-pointer absolute rounded-xl bg-gray-400 opacity-100 pointer-events-auto transition-opacity duration-200"

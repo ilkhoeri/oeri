@@ -1,11 +1,7 @@
 "use client";
 import * as React from "react";
 
-export function useMutationObserver<T extends HTMLElement = any>(
-  callback: MutationCallback,
-  options: MutationObserverInit,
-  target?: HTMLElement | (() => HTMLElement) | null
-) {
+export function useMutationObserver<T extends HTMLElement = any>(callback: MutationCallback, options: MutationObserverInit, target?: HTMLElement | (() => HTMLElement) | null) {
   const observer = React.useRef<MutationObserver | null>(null);
   const ref = React.useRef<T>(null);
 

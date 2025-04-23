@@ -36,14 +36,7 @@ export function ConfiguratorColorControl(_props: ConfiguratorColorControlProps) 
   const colors = swatches
     .filter(color => color !== "dark")
     .map(color => (
-      <ColorSwatch
-        color={color}
-        key={color}
-        withShadow
-        onClick={() => onChange(color)}
-        className="flex flex-[1_0_calc(15%-0px)] cursor-pointer items-center justify-center overflow-hidden text-white"
-        aria-label={color}
-      >
+      <ColorSwatch color={color} key={color} withShadow onClick={() => onChange(color)} className="flex flex-[1_0_calc(15%-0px)] cursor-pointer items-center justify-center overflow-hidden text-white" aria-label={color}>
         {value === color && <CheckIcon size="sm" />}
       </ColorSwatch>
     ));
@@ -73,13 +66,7 @@ export function ConfiguratorColorControl(_props: ConfiguratorColorControlProps) 
               swatches={["#2e2e2e", "#868e96", "#fa5252", "#F3457B", "#be4bdb", "#965BA0", "#7950f2", "#228be6", "#15aabf", "#12b886"]}
               classNames={{ swatch: "flex flex-[1_0_calc(15%-0px)] items-center justify-center overflow-hidden rounded-sm text-white [--cp-swatch-h:24px]" }}
             />
-            <Input
-              value={colorPickerColor}
-              onChange={event => handleColorPickerChange(event.currentTarget.value)}
-              placeholder="Enter color"
-              id="enter-color"
-              className="mt-2 rounded-[6px]"
-            />
+            <Input value={colorPickerColor} onChange={event => handleColorPickerChange(event.currentTarget.value)} placeholder="Enter color" id="enter-color" className="mt-2 rounded-[6px]" />
           </Sheets.Content>
         </Sheets>
       </Group>

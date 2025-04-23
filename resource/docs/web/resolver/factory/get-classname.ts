@@ -122,10 +122,7 @@ export function getResolvedClassNames({ selector, stylesCtx, theme, classNames, 
   return resolveClassNames({ theme, classNames, props, stylesCtx })[selector];
 }
 
-type __ClassNames =
-  | undefined
-  | Partial<Record<string, string>>
-  | ((theme: Theme, props: Record<string, any>, ctx: Record<string, any> | undefined) => Partial<Record<string, string>>);
+type __ClassNames = undefined | Partial<Record<string, string>> | ((theme: Theme, props: Record<string, any>, ctx: Record<string, any> | undefined) => Partial<Record<string, string>>);
 
 export type _ClassNames = __ClassNames | __ClassNames[];
 

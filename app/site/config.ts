@@ -10,26 +10,9 @@ export const siteConfig = {
   email: "khoeriilham@gmail.com",
   name: "Oeri UI",
   ogImage: "/assets/images/homepage.webp",
-  description:
-    "The Good Choice for Development Application based on React, components server, hooks, and more functions.",
+  description: "The Good Choice for Development Application based on React, components server, hooks, and more functions.",
   archives: ["https://github.com/ilkhoeri/ioeri"],
-  keywords: [
-    "ui",
-    "hooks",
-    "web",
-    "primitive",
-    "primitive ui",
-    "tailwind",
-    "component server",
-    "function",
-    "component",
-    "development web",
-    "web app",
-    "straightforward dependencies",
-    "dependencies",
-    "npm",
-    "package"
-  ],
+  keywords: ["ui", "hooks", "web", "primitive", "primitive ui", "tailwind", "component server", "function", "component", "development web", "web app", "straightforward dependencies", "dependencies", "npm", "package"],
   links: {
     twitter: "https://x.com/ilkhoeri",
     github: "https://github.com/ilkhoeri"

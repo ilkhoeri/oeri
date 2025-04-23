@@ -27,8 +27,7 @@ type StylesNames<T extends __Loader> = {
   duration?: number;
 };
 
-type LoaderSyntheticProps<K extends __Loader, T extends React.ElementType = "div", Exclude extends string = never> = StylesNames<K> &
-  Omit<React.ComponentPropsWithoutRef<T>, "style" | Exclude>;
+type LoaderSyntheticProps<K extends __Loader, T extends React.ElementType = "div", Exclude extends string = never> = StylesNames<K> & Omit<React.ComponentPropsWithoutRef<T>, "style" | Exclude>;
 
 function clamp(value: number, precision: number = 1): number {
   const factor = Math.pow(10, precision);
@@ -40,8 +39,7 @@ function getStyles<T extends __Loader>(loader: T, selector: __Selector<T>, optio
     (acc, key) => {
       const value = options?.[key as keyof typeof options];
       if (value !== undefined) {
-        acc[`--${loader}-${key}`] =
-          key === "duration" ? `${clamp(value as number)}s` : key === "size" && typeof value === "number" ? `${value}px` : String(value);
+        acc[`--${loader}-${key}`] = key === "duration" ? `${clamp(value as number)}s` : key === "size" && typeof value === "number" ? `${value}px` : String(value);
       }
       return acc;
     },

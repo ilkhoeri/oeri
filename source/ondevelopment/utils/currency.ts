@@ -5,14 +5,14 @@
 
 export const formatterIDR = new Intl.NumberFormat("id-ID", {
   style: "currency",
-  currency: "IDR",
+  currency: "IDR"
 });
 
 export const formatterLong = new Intl.NumberFormat("id-ID", {
   style: "currency",
   currency: "IDR",
   minimumFractionDigits: 0, // Menetapkan jumlah digit di belakang koma
-  maximumFractionDigits: 0, // Menetapkan jumlah maksimum digit di belakang koma
+  maximumFractionDigits: 0 // Menetapkan jumlah maksimum digit di belakang koma
 });
 
 export const formatterIDRK = (value: number) => {

@@ -17,15 +17,8 @@ export function useOrientation() {
   };
 
   useIsomorphicEffect(() => {
-    window.screen.orientation?.addEventListener(
-      "change",
-      handleOrientationChange
-    );
-    return () =>
-      window.screen.orientation?.removeEventListener(
-        "change",
-        handleOrientationChange
-      );
+    window.screen.orientation?.addEventListener("change", handleOrientationChange);
+    return () => window.screen.orientation?.removeEventListener("change", handleOrientationChange);
   }, []);
 
   return orientation;

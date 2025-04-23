@@ -32,13 +32,7 @@ function Demo() {
 
   const items = values.map((value, index) => (
     <Group key={index} className="w-max">
-      <Input
-        type="checkbox"
-        id={sanitizedWord(value.label)}
-        className="ml-8"
-        checked={value.checked}
-        onChange={event => handlers.setItemProp(index, "checked", event.currentTarget.checked)}
-      />
+      <Input type="checkbox" id={sanitizedWord(value.label)} className="ml-8" checked={value.checked} onChange={event => handlers.setItemProp(index, "checked", event.currentTarget.checked)} />
       <label htmlFor={sanitizedWord(value.label)} className="text-sm text-muted-foreground">
         {value.label}
       </label>
@@ -49,13 +43,7 @@ function Demo() {
     <Stack className="m-auto">
       <Stack className="m-auto mb-8">
         <Group className="w-max">
-          <Input
-            type="checkbox"
-            checked={allChecked}
-            indeterminate={indeterminate}
-            id="all-notifications"
-            onChange={() => handlers.setState(current => current.map(value => ({ ...value, checked: !allChecked })))}
-          />
+          <Input type="checkbox" checked={allChecked} indeterminate={indeterminate} id="all-notifications" onChange={() => handlers.setState(current => current.map(value => ({ ...value, checked: !allChecked })))} />
           <label htmlFor="all-notifications" className="text-sm text-muted-foreground">
             Receive all notifications
           </label>
@@ -107,30 +95,7 @@ const configurator: DataTrees = {
       type: "select",
       initialValue: "text",
       libraryValue: null,
-      data: [
-        "button",
-        "checkbox",
-        "color",
-        "date",
-        "datetime-local",
-        "email",
-        "file",
-        "hidden",
-        "image",
-        "month",
-        "number",
-        "password",
-        "radio",
-        "range",
-        "reset",
-        "search",
-        "submit",
-        "tel",
-        "text",
-        "time",
-        "url",
-        "week"
-      ]
+      data: ["numeric", "phone", "float", "button", "checkbox", "color", "date", "datetime-local", "email", "file", "hidden", "image", "month", "number", "password", "radio", "range", "reset", "search", "submit", "tel", "text", "time", "url", "week"]
     }
   ]
 };

@@ -4,8 +4,7 @@ import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
   usage: 'import { Loader } from "@/ui/loader";\n\nexport function LoaderDemo() {\n  return <Loader size={48} />;\n}',
-  configurator:
-    'import { Loader } from "@/ui/loader";\nimport { BrandOeriIcon } from "@/icons/*";\n\nexport function LoaderDemo() {\n  return (\n    <Loader{{props}}>\n      <BrandOeriIcon />\n    </Loader>\n  );\n}'
+  configurator: 'import { Loader } from "@/ui/loader";\nimport { BrandOeriIcon } from "@/icons/*";\n\nexport function LoaderDemo() {\n  return (\n    <Loader{{props}}>\n      <BrandOeriIcon />\n    </Loader>\n  );\n}'
 };
 
 function Demo() {

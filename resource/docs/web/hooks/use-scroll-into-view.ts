@@ -15,27 +15,16 @@ interface ScrollIntoViewParams {
   cancelable?: boolean;
   isList?: boolean;
 }
-interface ScrollIntoViewReturnType<
-  Target extends HTMLElement,
-  Parent extends HTMLElement | null = null
-> {
+interface ScrollIntoViewReturnType<Target extends HTMLElement, Parent extends HTMLElement | null = null> {
   scrollableRef: React.MutableRefObject<Parent>;
   targetRef: React.MutableRefObject<Target>;
   scrollIntoView: (params?: ScrollIntoViewAnimation) => void;
   cancel: () => void;
 }
 
-export const easeInOutQuad = (t: number) =>
-  t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+export const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
-export const getRelativePosition = ({
-  axis,
-  target,
-  parent,
-  alignment,
-  offset,
-  isList
-}: any): number => {
+export const getRelativePosition = ({ axis, target, parent, alignment, offset, isList }: any): number => {
   if (!target || (!parent && typeof document === "undefined")) {
     return 0;
   }
@@ -44,8 +33,7 @@ export const getRelativePosition = ({
   const parentPosition = parentElement.getBoundingClientRect();
   const targetPosition = target.getBoundingClientRect();
 
-  const getDiff = (property: "top" | "left"): number =>
-    targetPosition[property] - parentPosition[property];
+  const getDiff = (property: "top" | "left"): number => targetPosition[property] - parentPosition[property];
 
   if (axis === "y") {
     const diff = getDiff("top");
@@ -54,20 +42,16 @@ export const getRelativePosition = ({
 
     if (alignment === "start") {
       const distance = diff - offset;
-      const shouldScroll =
-        distance <= targetPosition.height * (isList ? 0 : 1) || !isList;
+      const shouldScroll = distance <= targetPosition.height * (isList ? 0 : 1) || !isList;
 
       return shouldScroll ? distance : 0;
     }
 
-    const parentHeight = isCustomParent
-      ? parentPosition.height
-      : window.innerHeight;
+    const parentHeight = isCustomParent ? parentPosition.height : window.innerHeight;
 
     if (alignment === "end") {
       const distance = diff + offset - parentHeight + targetPosition.height;
-      const shouldScroll =
-        distance >= -targetPosition.height * (isList ? 0 : 1) || !isList;
+      const shouldScroll = distance >= -targetPosition.height * (isList ? 0 : 1) || !isList;
 
       return shouldScroll ? distance : 0;
     }
@@ -91,9 +75,7 @@ export const getRelativePosition = ({
       return shouldScroll ? distance : 0;
     }
 
-    const parentWidth = isCustomParent
-      ? parentPosition.width
-      : window.innerWidth;
+    const parentWidth = isCustomParent ? parentPosition.width : window.innerWidth;
 
     if (alignment === "end") {
       const distance = diff + offset - parentWidth + targetPosition.width;
@@ -145,18 +127,7 @@ export const setScrollParam = ({ axis, parent, distance }: any) => {
   }
 };
 
-export function useScrollIntoView<
-  Target extends HTMLElement,
-  Parent extends HTMLElement | null = null
->({
-  duration = 1250,
-  axis = "y",
-  onScrollFinish,
-  easing = easeInOutQuad,
-  offset = 0,
-  cancelable = true,
-  isList = false
-}: ScrollIntoViewParams = {}) {
+export function useScrollIntoView<Target extends HTMLElement, Parent extends HTMLElement | null = null>({ duration = 1250, axis = "y", onScrollFinish, easing = easeInOutQuad, offset = 0, cancelable = true, isList = false }: ScrollIntoViewParams = {}) {
   const frameID = useRef(0);
   const startTime = useRef(0);
   const shouldStop = useRef(false);
@@ -180,8 +151,7 @@ export function useScrollIntoView<
         cancel();
       }
 
-      const start =
-        getScrollStart({ parent: scrollableRef.current, axis }) ?? 0;
+      const start = getScrollStart({ parent: scrollableRef.current, axis }) ?? 0;
 
       const change =
         getRelativePosition({

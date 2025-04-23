@@ -213,15 +213,7 @@ function ThumbDemo(props: { thumbSize?: SliderProps["thumbSize"] }) {
         Thumb Icon
       </Typography>
       <Slider {...props} thumbChildren={<StarIcon size="75%" />} color="#f08c00" label={null} defaultValue={40} styles={styles} />
-      <RangeSlider
-        {...props}
-        color="red"
-        label={null}
-        defaultValue={[20, 60]}
-        thumbChildren={[<SunIcon size="75%" key="1" />, <MoonStarIcon size="75%" key="2" />]}
-        styles={styles}
-        className="mt-6"
-      />
+      <RangeSlider {...props} color="red" label={null} defaultValue={[20, 60]} thumbChildren={[<SunIcon size="75%" key="1" />, <MoonStarIcon size="75%" key="2" />]} styles={styles} className="mt-6" />
     </div>
   );
 }

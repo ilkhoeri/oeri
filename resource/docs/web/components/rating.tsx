@@ -11,13 +11,10 @@ const classes = cvx({
     selector: {
       root: "flex w-max [&:where(:has(input:disabled))]:pointer-events-none [--rating-base-color:#666]",
       symbolGroup: "relative [transition:transform_100ms_ease] [&:where([data-active])]:z-1 [&:where([data-active])]:scale-110",
-      input:
-        "sr-only [-webkit-tap-highlight-color:transparent] [&:focus-visible+label]:outline-2 [&:focus-visible+label]:outline-offset-2 [&:focus-visible+label]:outline-[--rating-color]",
-      label:
-        "absolute left-0 top-0 z-[--rating-item-z-index,0] block cursor-pointer [-webkit-tap-highlight-color:transparent] [&:where(:last-of-type)]:relative [&:where([data-read-only])]:cursor-default",
+      input: "sr-only [-webkit-tap-highlight-color:transparent] [&:focus-visible+label]:outline-2 [&:focus-visible+label]:outline-offset-2 [&:focus-visible+label]:outline-[--rating-color]",
+      label: "absolute left-0 top-0 z-[--rating-item-z-index,0] block cursor-pointer [-webkit-tap-highlight-color:transparent] [&:where(:last-of-type)]:relative [&:where([data-read-only])]:cursor-default",
       symbolBody: "[clip-path:--rating-symbol-clip-path]",
-      starSymbol:
-        "block size-[--rating-sz,var(--rating-size)] fill-[--rating-base-color] stroke-[--rating-base-color] [&:where([data-filled])]:fill-[--rating-color] [&:where([data-filled])]:stroke-[--rating-color]"
+      starSymbol: "block size-[--rating-sz,var(--rating-size)] fill-[--rating-base-color] stroke-[--rating-base-color] [&:where([data-filled])]:fill-[--rating-color] [&:where([data-filled])]:stroke-[--rating-color]"
     }
   }
 });
@@ -37,8 +34,7 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<
   },
   Exclude
 >;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
 type CtxProps = {
   getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
   dir?: "ltr" | "rtl";
@@ -286,26 +282,7 @@ export interface RatingItemProps extends ComponentProps<"input", "value" | "size
   onInputChange: (event: React.ChangeEvent<HTMLInputElement> | number) => void;
 }
 const RatingItem = React.forwardRef<HTMLInputElement, RatingItemProps>((_props, ref) => {
-  const {
-    getSymbolLabel,
-    emptyIcon,
-    fullIcon,
-    full,
-    active,
-    value,
-    readOnly,
-    fractionValue,
-    id,
-    onBlur,
-    onChange,
-    onInputChange,
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    ...props
-  } = _props;
+  const { getSymbolLabel, emptyIcon, fullIcon, full, active, value, readOnly, fractionValue, id, onBlur, onChange, onInputChange, unstyled, className, classNames, style, styles, ...props } = _props;
 
   const ctx = useRating();
   const _fullIcon = typeof fullIcon === "function" ? fullIcon(value) : fullIcon;
@@ -354,12 +331,7 @@ const RatingItem = React.forwardRef<HTMLInputElement, RatingItemProps>((_props, 
             ...ctx.getStyles("symbolBody", {
               ...stylesApi,
               style: {
-                "--rating-symbol-clip-path":
-                  fractionValue === 1
-                    ? undefined
-                    : currentDir === "ltr"
-                      ? `inset(0 ${active ? 100 - fractionValue * 100 : 100}% 0 0)`
-                      : `inset(0 0 0 ${active ? 100 - fractionValue * 100 : 100}% )`
+                "--rating-symbol-clip-path": fractionValue === 1 ? undefined : currentDir === "ltr" ? `inset(0 ${active ? 100 - fractionValue * 100 : 100}% 0 0)` : `inset(0 0 0 ${active ? 100 - fractionValue * 100 : 100}% )`
               }
             })
           }}

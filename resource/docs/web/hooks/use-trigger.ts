@@ -1,11 +1,5 @@
 "use client";
-import {
-  DependencyList,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import { DependencyList, useCallback, useEffect, useRef, useState } from "react";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 
 interface UseTrigger {
@@ -17,17 +11,8 @@ interface UseTrigger {
   delay?: number;
 }
 
-export function useTrigger<T extends HTMLElement | null>(
-  handle: UseTrigger = {}
-) {
-  const {
-    modal,
-    popstate = false,
-    open: exOpen,
-    setOpen: exSetOpen,
-    defaultOpen = false,
-    delay = 115
-  } = handle;
+export function useTrigger<T extends HTMLElement | null>(handle: UseTrigger = {}) {
+  const { modal, popstate = false, open: exOpen, setOpen: exSetOpen, defaultOpen = false, delay = 115 } = handle;
   const [inOpen, inSetOpen] = useState(defaultOpen);
   const open = exOpen !== undefined ? exOpen : inOpen;
   const setOpen = exSetOpen !== undefined ? exSetOpen : inSetOpen;
@@ -81,11 +66,7 @@ export function useTrigger<T extends HTMLElement | null>(
   return { ref, open, setOpen, initialOpen, render, toggle };
 }
 
-export function useRender(
-  open: boolean,
-  { delay = 150, modal = false } = {},
-  depend?: DependencyList
-) {
+export function useRender(open: boolean, { delay = 150, modal = false } = {}, depend?: DependencyList) {
   const [render, setRender] = useState(open);
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
@@ -108,10 +89,7 @@ export function useRender(
   return render;
 }
 
-function usePopState(
-  popstate?: boolean,
-  { open, setOpen }: { open?: boolean; setOpen?: (v: boolean) => void } = {}
-) {
+function usePopState(popstate?: boolean, { open, setOpen }: { open?: boolean; setOpen?: (v: boolean) => void } = {}) {
   useEffect(() => {
     const historyPopState = () => {
       if (open && setOpen) {

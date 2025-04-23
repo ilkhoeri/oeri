@@ -32,9 +32,7 @@ export type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
 };
 
-export type LinkButtonProps =
-  | ({ el?: "button" } & ButtonType & cvxProps<typeof variantLinkButton>)
-  | ({ el?: "link" } & LinkType & cvxProps<typeof variantLinkButton>);
+export type LinkButtonProps = ({ el?: "button" } & ButtonType & cvxProps<typeof variantLinkButton>) | ({ el?: "link" } & LinkType & cvxProps<typeof variantLinkButton>);
 
 export const LinkButton = (props: LinkButtonProps) => {
   const { el = "link", className, color = "base", variant = "badge", ...rest } = props;

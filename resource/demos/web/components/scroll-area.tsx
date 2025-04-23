@@ -17,10 +17,7 @@ function Demo() {
       color={{ thumb: "hsl(var(--muted-foreground))", track: "hsl(var(--muted))" }}
       className="rounded-md border p-4 data-[orientation=horizontal]:h-max data-[orientation=vertical]:h-72 data-[orientation=vertical]:w-48"
     >
-      <Typography
-        prose="h6"
-        className="inline-flex min-w-max max-w-max items-center rounded-sm border border-constructive bg-constructive/30 px-1.5 py-1 leading-none text-constructive-emphasis group-data-[orientation=horizontal]/sa:mr-4 group-data-[orientation=vertical]/sa:mb-4"
-      >
+      <Typography prose="h6" className="inline-flex min-w-max max-w-max items-center rounded-sm border border-constructive bg-constructive/30 px-1.5 py-1 leading-none text-constructive-emphasis group-data-[orientation=horizontal]/sa:mr-4 group-data-[orientation=vertical]/sa:mb-4">
         Scrollbar area
       </Typography>
       {TAGS.map(tag => (
@@ -39,14 +36,8 @@ const TAGS = Array.from({ length: 58 }).map((_, i, a) => `v1.2.0-beta.${a.length
 
 function ConfiguratorDemo(props: ScrollAreaProps) {
   return (
-    <ScrollArea
-      {...props}
-      className="rounded-md border p-4 data-[orientation=horizontal]:h-max data-[orientation=vertical]:h-72 data-[orientation=vertical]:w-full"
-    >
-      <Typography
-        prose="h6"
-        className="inline-flex min-w-max max-w-max items-center rounded-sm border border-constructive bg-constructive/30 px-1.5 py-1 leading-none text-constructive-emphasis group-data-[orientation=horizontal]/sa:mr-4 group-data-[orientation=vertical]/sa:mb-4"
-      >
+    <ScrollArea {...props} className="rounded-md border p-4 data-[orientation=horizontal]:h-max data-[orientation=vertical]:h-72 data-[orientation=vertical]:w-full">
+      <Typography prose="h6" className="inline-flex min-w-max max-w-max items-center rounded-sm border border-constructive bg-constructive/30 px-1.5 py-1 leading-none text-constructive-emphasis group-data-[orientation=horizontal]/sa:mr-4 group-data-[orientation=vertical]/sa:mb-4">
         Scrollbar area
       </Typography>
       {TAGS.map(tag => (

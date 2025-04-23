@@ -26,15 +26,7 @@ function WithRefDemo() {
   return (
     <Stack align="center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={refImage}
-        src="/icons/oeri-asset.png"
-        alt="oeri logo"
-        width={96}
-        height={96}
-        onClick={onClickImage}
-        className="mt-8 size-24 rounded-lg border bg-black"
-      />
+      <img ref={refImage} src="/icons/oeri-asset.png" alt="oeri logo" width={96} height={96} onClick={onClickImage} className="mt-8 size-24 rounded-lg border bg-black" />
       <Typography prose="span">Click image to view fullscreen</Typography>
     </Stack>
   );

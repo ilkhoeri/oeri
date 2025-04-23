@@ -24,11 +24,5 @@ export function NavigationBreadcrumb() {
     </Link>
   ));
 
-  return (
-    <Breadcrumb
-      items={items}
-      separator={<Breadcrumb.Icons icon="chevron" />}
-      classNames={{ root: "mb-8", breadcrumb: "[font-size:clamp(0.75rem,0.35rem+0.8vw,1rem)]" }}
-    />
-  );
+  return <Breadcrumb items={items} separator={<Breadcrumb.Icons icon="chevron" />} classNames={{ root: "mb-8", breadcrumb: "[font-size:clamp(0.75rem,0.35rem+0.8vw,1rem)]" }} />;
 }

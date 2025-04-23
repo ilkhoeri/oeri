@@ -17,7 +17,6 @@ function Demo() {
   );
 }
 
-
 const usage: DataTrees = {
   type: "code",
   component: Demo,

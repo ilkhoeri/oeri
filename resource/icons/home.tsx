@@ -1,10 +1,6 @@
 import { Svg, type SvgProps } from "@/ui/svg";
 
-export function Icon({
-  strokeWidth = 0.25,
-  fill = "currentColor",
-  ...props
-}: SvgProps) {
+export function Icon({ strokeWidth = 0.25, fill = "currentColor", ...props }: SvgProps) {
   return (
     <Svg strokeWidth={strokeWidth} fill={fill} {...props}>
       <path

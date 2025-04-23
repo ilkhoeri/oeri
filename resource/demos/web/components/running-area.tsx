@@ -48,7 +48,7 @@ const usage: DataTrees = {
   type: "code",
   component: Demo,
   code: codes.usage,
-  classNames: { demoInner: "w-full centered" },
+  classNames: { demoInner: "w-full centered" }
 };
 
 const configurator: DataTrees = {

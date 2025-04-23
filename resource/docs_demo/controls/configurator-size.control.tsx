@@ -32,16 +32,7 @@ export function ConfiguratorSizeControl(_props: ConfiguratorSizeControlProps) {
 
   return (
     <Input.Wrapper dir={ctx.dir} labelElement="div" label={getControlLabel(prop)} {...others} unstyled={{ label: true }} classNames={{ label: __cn("label") }}>
-      <Slider
-        dir={ctx.dir}
-        thumbLabel="Size"
-        value={_value}
-        onChange={handleChange}
-        styles={{ markLabel: { display: "none" } }}
-        step={25}
-        label={val => MARKSIZE.find(mark => mark.value === val)!.label}
-        marks={MARKSIZE}
-      />
+      <Slider dir={ctx.dir} thumbLabel="Size" value={_value} onChange={handleChange} styles={{ markLabel: { display: "none" } }} step={25} label={val => MARKSIZE.find(mark => mark.value === val)!.label} marks={MARKSIZE} />
     </Input.Wrapper>
   );
 }

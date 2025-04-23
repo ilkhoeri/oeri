@@ -67,10 +67,7 @@ export function TabsSwitchPage(_props: TabsSwitchPageProps) {
             onClick={() => {
               router.push(createQuery(query, slug.key), { scroll: false });
             }}
-            className={cn(
-              "rounded-lg border border-transparent font-medium data-[state=active]:border-teal-600 data-[state=active]:bg-teal-600/10 data-[state=active]:text-teal-600",
-              classNames?.trigger
-            )}
+            className={cn("rounded-lg border border-transparent font-medium data-[state=active]:border-teal-600 data-[state=active]:bg-teal-600/10 data-[state=active]:text-teal-600", classNames?.trigger)}
           >
             {formatTitle(slug.key, labelTransform)}
           </Tabs.Tab>

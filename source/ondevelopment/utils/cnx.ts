@@ -30,7 +30,7 @@ export type ClassArray = ClassValue[];
 export function cnx(...inputs: ClassValue[]): string {
   const classes: string[] = [];
 
-  inputs.forEach((input) => {
+  inputs.forEach(input => {
     if (!input) return;
 
     if (typeof input === "string" || typeof input === "number") {
@@ -59,18 +59,14 @@ export type CSXType = { className?: string | string[]; style?: CSSProperties };
  * <div {...getCSX("bg-white font-bold", {"--color": "black"})}>
  * ```
  */
-export function getCSX(
-  className?: (string | string[] | false | undefined) | (string | string[] | false | undefined)[],
-  style?: CSSProperties,
-  ...additionalClassNames: (string | false | undefined | null)[]
-) {
+export function getCSX(className?: (string | string[] | false | undefined) | (string | string[] | false | undefined)[], style?: CSSProperties, ...additionalClassNames: (string | false | undefined | null)[]) {
   let classNamesArray = Array.isArray(className) ? className : [className];
 
-  classNamesArray = classNamesArray.filter((className) => typeof className === "string");
+  classNamesArray = classNamesArray.filter(className => typeof className === "string");
 
   const combinedClassNames = [...classNamesArray];
 
-  additionalClassNames.forEach((classes) => {
+  additionalClassNames.forEach(classes => {
     if (className && classes) {
       combinedClassNames.push(classes);
     }

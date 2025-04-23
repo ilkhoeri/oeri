@@ -28,10 +28,7 @@ async function generatedFilesDocs(docs: string, segments: string[]) {
       }
     }
 
-    const content =
-      `// Generated automatically. Do not edit manually.\n` +
-      `// generated: bun run generated:flesdocs\n\n` +
-      `export const fileDocsWeb = [\n${data.join(",\n")}\n];\n`;
+    const content = `// Generated automatically. Do not edit manually.\n` + `// generated: bun run generated:flesdocs\n\n` + `export const fileDocsWeb = [\n${data.join(",\n")}\n];\n`;
 
     await fs.writeFile(fileOutput, content, "utf8");
 

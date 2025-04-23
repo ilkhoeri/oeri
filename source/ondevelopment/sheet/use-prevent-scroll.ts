@@ -3,8 +3,7 @@
 
 import { useEffect, useLayoutEffect } from "react";
 
-export const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+export const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface PreventScrollOptions {
   /** Whether the scroll lock is disabled. */
@@ -47,9 +46,7 @@ export function isIOS(): boolean | undefined {
 }
 
 function testPlatform(re: RegExp): boolean | undefined {
-  return typeof window !== "undefined" && window.navigator != null
-    ? re.test(window.navigator.platform)
-    : undefined;
+  return typeof window !== "undefined" && window.navigator != null ? re.test(window.navigator.platform) : undefined;
 }
 
 // @ts-ignore
@@ -57,9 +54,7 @@ const visualViewport = typeof document !== "undefined" && window.visualViewport;
 
 export function isScrollable(node: Element): boolean {
   const style = window.getComputedStyle(node);
-  return /(auto|scroll)/.test(
-    style.overflow + style.overflowX + style.overflowY
-  );
+  return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
 }
 
 export function getScrollParent(node: Element): Element {
@@ -75,17 +70,7 @@ export function getScrollParent(node: Element): Element {
 }
 
 // HTML input types that do not cause the software keyboard to appear.
-const nonTextInputTypes = new Set([
-  "checkbox",
-  "radio",
-  "range",
-  "color",
-  "file",
-  "image",
-  "button",
-  "submit",
-  "reset"
-]);
+const nonTextInputTypes = new Set(["checkbox", "radio", "range", "color", "file", "image", "button", "submit", "reset"]);
 
 // The number of active usePreventScroll calls. Used to determine whether to revert back to the original page style/scroll position
 let preventScrollCount = 0;
@@ -126,11 +111,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
 // add some padding to prevent the page from shifting when the scrollbar is hidden.
 function preventScrollStandard() {
   return chain(
-    setStyle(
-      document.documentElement,
-      "paddingRight",
-      `${window.innerWidth - document.documentElement.clientWidth}px`
-    )
+    setStyle(document.documentElement, "paddingRight", `${window.innerWidth - document.documentElement.clientWidth}px`)
     // setStyle(document.documentElement, 'overflow', 'hidden'),
   );
 }
@@ -167,10 +148,7 @@ function preventScrollMobileSafari() {
   const onTouchStart = (e: TouchEvent) => {
     // Store the nearest scrollable parent element from the element that the user touched.
     scrollable = getScrollParent(e.target as Element);
-    if (
-      scrollable === document.documentElement &&
-      scrollable === document.body
-    ) {
+    if (scrollable === document.documentElement && scrollable === document.body) {
       return;
     }
 
@@ -179,11 +157,7 @@ function preventScrollMobileSafari() {
 
   const onTouchMove = (e: TouchEvent) => {
     // Prevent scrolling the window.
-    if (
-      !scrollable ||
-      scrollable === document.documentElement ||
-      scrollable === document.body
-    ) {
+    if (!scrollable || scrollable === document.documentElement || scrollable === document.body) {
       e.preventDefault();
       return;
     }
@@ -248,11 +222,7 @@ function preventScrollMobileSafari() {
           } else {
             // Otherwise, wait for the visual viewport to resize before scrolling so we can
             // measure the correct position to scroll to.
-            visualViewport.addEventListener(
-              "resize",
-              () => scrollIntoView(target),
-              { once: true }
-            );
+            visualViewport.addEventListener("resize", () => scrollIntoView(target), { once: true });
           }
         }
       });
@@ -272,11 +242,7 @@ function preventScrollMobileSafari() {
   const scrollY = window.pageYOffset;
 
   const restoreStyles = chain(
-    setStyle(
-      document.documentElement,
-      "paddingRight",
-      `${window.innerWidth - document.documentElement.clientWidth}px`
-    )
+    setStyle(document.documentElement, "paddingRight", `${window.innerWidth - document.documentElement.clientWidth}px`)
     // setStyle(document.documentElement, 'overflow', 'hidden'),
     // setStyle(document.body, 'marginTop', `-${scrollY}px`),
   );
@@ -323,12 +289,7 @@ function setStyle(element: HTMLElement, style: string, value: string) {
 }
 
 // Adds an event listener to an element, and returns a function to remove it.
-function addEvent<K extends keyof GlobalEventHandlersEventMap>(
-  target: EventTarget,
-  event: K,
-  handler: (this: Document, ev: GlobalEventHandlersEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions
-) {
+function addEvent<K extends keyof GlobalEventHandlersEventMap>(target: EventTarget, event: K, handler: (this: Document, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions) {
   // @ts-ignore
   target.addEventListener(event, handler, options);
 
@@ -343,11 +304,7 @@ function scrollIntoView(target: Element) {
   while (target && target !== root) {
     // Find the parent scrollable element and adjust the scroll position if the target is not already in view.
     const scrollable = getScrollParent(target);
-    if (
-      scrollable !== document.documentElement &&
-      scrollable !== document.body &&
-      scrollable !== target
-    ) {
+    if (scrollable !== document.documentElement && scrollable !== document.body && scrollable !== target) {
       const scrollableTop = scrollable.getBoundingClientRect().top;
       const targetTop = target.getBoundingClientRect().top;
       const targetBottom = target.getBoundingClientRect().bottom;
@@ -364,10 +321,5 @@ function scrollIntoView(target: Element) {
 }
 
 export function isInput(target: Element) {
-  return (
-    (target instanceof HTMLInputElement &&
-      !nonTextInputTypes.has(target.type)) ||
-    target instanceof HTMLTextAreaElement ||
-    (target instanceof HTMLElement && target.isContentEditable)
-  );
+  return (target instanceof HTMLInputElement && !nonTextInputTypes.has(target.type)) || target instanceof HTMLTextAreaElement || (target instanceof HTMLElement && target.isContentEditable);
 }

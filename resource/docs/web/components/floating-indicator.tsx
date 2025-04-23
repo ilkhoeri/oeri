@@ -144,11 +144,7 @@ function getStyles(options: Options) {
     "data-hidden": isActive(hidden),
     "aria-hidden": arHide || isActive(hidden),
     "data-initialized": isActive(initialized),
-    className: cn(
-      !unstyled &&
-        "pointer-events-none absolute left-0 top-0 z-0 bg-[--floating-color] duration-0 ease-ease [transition-property:transform,width,height] aria-hidden:hidden data-[initialized]:[transition-duration:--transition-duration]",
-      className
-    ),
+    className: cn(!unstyled && "pointer-events-none absolute left-0 top-0 z-0 bg-[--floating-color] duration-0 ease-ease [transition-property:transform,width,height] aria-hidden:hidden data-[initialized]:[transition-duration:--transition-duration]", className),
     style: ocx(style, {
       "--floating-color": color,
       "--transition-duration": typeof transitionDuration === "number" ? `${transitionDuration}ms` : transitionDuration
@@ -170,19 +166,7 @@ export interface FloatingIndicatorProps extends React.PropsWithoutRef<ElementPro
   displayAfterTransitionEnd?: boolean;
 }
 export const FloatingIndicator = React.forwardRef<HTMLDivElement, FloatingIndicatorProps>((_props, ref) => {
-  const {
-    unstyled,
-    className,
-    style,
-    parent,
-    target,
-    displayAfterTransitionEnd,
-    hidden: _hidden,
-    "aria-hidden": arHide,
-    transitionDuration = 200,
-    color = "hsl(var(--constructive))",
-    ...props
-  } = _props;
+  const { unstyled, className, style, parent, target, displayAfterTransitionEnd, hidden: _hidden, "aria-hidden": arHide, transitionDuration = 200, color = "hsl(var(--constructive))", ...props } = _props;
   const innerRef = React.useRef<HTMLDivElement>(null);
   const mergedRef = useMergedRef(ref, innerRef);
   const { initialized, hidden } = useFloatingIndicator({

@@ -42,11 +42,7 @@ type CtxProps = __PaginationProps & {
 function getStyles(selector: __Selector, options?: Options) {
   return {
     "data-pgn": cn(selector),
-    className: cn(
-      !options?.unstyled?.[selector] && classes({ selector, active: options?.active ? "true" : undefined }),
-      options?.classNames?.[selector],
-      options?.className
-    ),
+    className: cn(!options?.unstyled?.[selector] && classes({ selector, active: options?.active ? "true" : undefined }), options?.classNames?.[selector], options?.className),
     style: {
       ...options?.styles?.[selector],
       ...options?.style
@@ -204,8 +200,7 @@ const PaginationRoot = React.forwardRef<HTMLDivElement, PaginationRootProps>((_p
 });
 PaginationRoot.displayName = "Pagination/PaginationRoot";
 
-type InheritedProps<T extends React.ElementType, OverrideProps = object> = OverrideProps &
-  Omit<JSX.LibraryManagedAttributes<T, React.ComponentPropsWithoutRef<T>>, keyof OverrideProps>;
+type InheritedProps<T extends React.ElementType, OverrideProps = object> = OverrideProps & Omit<JSX.LibraryManagedAttributes<T, React.ComponentPropsWithoutRef<T>>, keyof OverrideProps>;
 type PolymorphicType<T extends React.ElementType, Props = object> = InheritedProps<T, { el?: T | (React.ElementType & {}) } & Props>;
 type PolymorphicRef<T extends React.ElementType> = React.ComponentPropsWithRef<T>["ref"];
 
@@ -250,9 +245,7 @@ const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props:
   const ctx = usePaginationCtx();
   const disabled = type === "next" ? ctx.active === ctx.total : ctx.active === 1;
   return (
-    <PaginationControl
-      {...{ ref, title: title || action.replace("on", ""), disabled: ctx.disabled || disabled, onClick: onClick || ctx[action], withPadding: false, ...props }}
-    >
+    <PaginationControl {...{ ref, title: title || action.replace("on", ""), disabled: ctx.disabled || disabled, onClick: onClick || ctx[action], withPadding: false, ...props }}>
       <Icon />
     </PaginationControl>
   );
@@ -359,10 +352,7 @@ export const PaginationFirst = React.forwardRef(function PaginationFirst<T exten
   return <Edge {...{ ref, icon, type: "previous", action: "onFirst", name: "PaginationFirst", ...props }} />;
 }) as EdgeElement;
 
-export const PaginationPrevious = React.forwardRef(function PaginationPrevious<T extends React.ElementType>(
-  _props: PaginationActions<T>,
-  ref: PolymorphicRef<T>
-) {
+export const PaginationPrevious = React.forwardRef(function PaginationPrevious<T extends React.ElementType>(_props: PaginationActions<T>, ref: PolymorphicRef<T>) {
   const { icon = PaginationPreviousIcon, ...props } = _props;
   return <Edge {...{ ref, icon, type: "previous", action: "onPrevious", name: "PaginationPrevious", ...props }} />;
 }) as EdgeElement;

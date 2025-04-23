@@ -1,20 +1,7 @@
 import React, { createContext, forwardRef, useContext } from "react";
 import { createPortal } from "react-dom";
 
-import type {
-  Component,
-  ComponentClasses,
-  FactoryPayload,
-  FilterPropsRes,
-  GetStylesApi,
-  PolymorphicComponentProps,
-  PolymorphicFactoryPayload,
-  StaticComponents,
-  Theme,
-  ThemeExtend,
-  UseStyles,
-  VarsResolver
-} from "./factory-types";
+import type { Component, ComponentClasses, FactoryPayload, FilterPropsRes, GetStylesApi, PolymorphicComponentProps, PolymorphicFactoryPayload, StaticComponents, Theme, ThemeExtend, UseStyles, VarsResolver } from "./factory-types";
 import { getStyle } from "./get-style";
 import { getAttrs, getId } from "./factory-store";
 import { getClassName } from "./get-classname";
@@ -23,9 +10,7 @@ export function identity<T>(value: T): T {
   return value;
 }
 
-export function factory<Payload extends FactoryPayload>(
-  ui: React.ForwardRefRenderFunction<Payload["ref"], Payload["props"]>
-) {
+export function factory<Payload extends FactoryPayload>(ui: React.ForwardRefRenderFunction<Payload["ref"], Payload["props"]>) {
   const Component = forwardRef(ui) as Component<Payload>;
 
   Component.extend = identity as any;
@@ -54,9 +39,7 @@ export function getDefaultZIndex(level: keyof typeof elevations) {
   return elevations[level];
 }
 
-export function createVarsResolver<Payload extends FactoryPayload>(
-  resolver: VarsResolver<Payload>
-) {
+export function createVarsResolver<Payload extends FactoryPayload>(resolver: VarsResolver<Payload>) {
   return resolver;
 }
 export function createSafeContext<ContextValue>(errorMessage: string) {
@@ -72,13 +55,7 @@ export function createSafeContext<ContextValue>(errorMessage: string) {
     return { ...ctx, Portal };
   };
 
-  const Provider = ({
-    children,
-    value
-  }: {
-    value: ContextValue;
-    children: React.ReactNode;
-  }) => <Context.Provider value={value}>{children}</Context.Provider>;
+  const Provider = ({ children, value }: { value: ContextValue; children: React.ReactNode }) => <Context.Provider value={value}>{children}</Context.Provider>;
 
   return [Provider, useSafeContext] as const;
 }
@@ -95,25 +72,14 @@ export function Portal(_props: PortalProps) {
   return createPortal(children, container || document.body, key);
 }
 
-export function polymorphicFactory<Payload extends PolymorphicFactoryPayload>(
-  ui: React.ForwardRefRenderFunction<Payload["defaultRef"], Payload["props"]>
-) {
+export function polymorphicFactory<Payload extends PolymorphicFactoryPayload>(ui: React.ForwardRefRenderFunction<Payload["defaultRef"], Payload["props"]>) {
   type ComponentProps<C> = PolymorphicComponentProps<C, Payload["props"]>;
 
-  type _PolymorphicComponent = <C = Payload["defaultComponent"]>(
-    props: ComponentProps<C>
-  ) => React.ReactElement;
+  type _PolymorphicComponent = <C = Payload["defaultComponent"]>(props: ComponentProps<C>) => React.ReactElement;
 
-  type ComponentProperties = Omit<
-    React.FunctionComponent<ComponentProps<any>>,
-    never
-  >;
+  type ComponentProperties = Omit<React.FunctionComponent<ComponentProps<any>>, never>;
 
-  type PolymorphicComponent = _PolymorphicComponent &
-    ComponentProperties &
-    ThemeExtend<Payload> &
-    ComponentClasses<Payload> &
-    StaticComponents<Payload["staticComponents"]>;
+  type PolymorphicComponent = _PolymorphicComponent & ComponentProperties & ThemeExtend<Payload> & ComponentClasses<Payload> & StaticComponents<Payload["staticComponents"]>;
 
   const Component = forwardRef(ui) as unknown as PolymorphicComponent;
 
@@ -131,10 +97,7 @@ export function useTheme() {
   return ctx;
 }
 
-export function useProps<
-  T extends Record<string, any>,
-  U extends Partial<T> = {}
->(
+export function useProps<T extends Record<string, any>, U extends Partial<T> = {}>(
   component: string,
   defaultProps: U,
   props: T
@@ -143,31 +106,14 @@ export function useProps<
 } {
   const theme = useTheme();
   const contextPropsPayload = theme?.components[component]?.defaultProps;
-  const contextProps =
-    typeof contextPropsPayload === "function"
-      ? contextPropsPayload(theme)
-      : contextPropsPayload;
+  const contextProps = typeof contextPropsPayload === "function" ? contextPropsPayload(theme) : contextPropsPayload;
 
   return { ...defaultProps, ...contextProps, ...filterProps(props) };
 }
 
-export function useStyles<Payload extends FactoryPayload>({
-  name,
-  classes,
-  props,
-  stylesCtx,
-  className,
-  style,
-  rootSelector = "root" as NonNullable<Payload["stylesNames"]>,
-  unstyled,
-  classNames,
-  styles,
-  classNamesPrefix
-}: UseStyles<Payload>): GetStylesApi<Payload> {
+export function useStyles<Payload extends FactoryPayload>({ name, classes, props, stylesCtx, className, style, rootSelector = "root" as NonNullable<Payload["stylesNames"]>, unstyled, classNames, styles, classNamesPrefix }: UseStyles<Payload>): GetStylesApi<Payload> {
   const theme = useTheme();
-  const themeName = (Array.isArray(name) ? name : [name]).filter(
-    n => n
-  ) as string[];
+  const themeName = (Array.isArray(name) ? name : [name]).filter(n => n) as string[];
 
   return (selector, options) => ({
     ...getAttrs({

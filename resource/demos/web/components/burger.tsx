@@ -5,10 +5,8 @@ import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 import { useDisclosure } from "@/hooks/use-disclosure";
 
 const codes = {
-  usage:
-    '"use client";\nimport { useState } from "react";\nimport { Burger } from "@/ui/burger";\nimport { useDisclosure } from "@/hooks/use-disclosure";\n\nfunction BurgerDemo() {\n  const [opened, { toggle }] = useDisclosure();\n  return <Burger open={opened} onClick={toggle} />;\n}',
-  configurator:
-    '"use client";\nimport { useState } from "react";\nimport { Burger } from "@/ui/burger";\n\nfunction BurgerConfiguratorDemo() {\n  const [open, setOpen] = useState(false);\n  return <Burger{{props}} open={open} setOpen={setOpen} className="border" />;\n}'
+  usage: '"use client";\nimport { useState } from "react";\nimport { Burger } from "@/ui/burger";\nimport { useDisclosure } from "@/hooks/use-disclosure";\n\nfunction BurgerDemo() {\n  const [opened, { toggle }] = useDisclosure();\n  return <Burger open={opened} onClick={toggle} />;\n}',
+  configurator: '"use client";\nimport { useState } from "react";\nimport { Burger } from "@/ui/burger";\n\nfunction BurgerConfiguratorDemo() {\n  const [open, setOpen] = useState(false);\n  return <Burger{{props}} open={open} setOpen={setOpen} className="border" />;\n}'
 };
 
 function BurgerDemo() {

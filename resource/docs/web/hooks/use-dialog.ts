@@ -418,17 +418,7 @@ const transitionStatuses = {
   "pre-entering": "out"
 } as const;
 
-export function getTransitionStyles({
-  transition,
-  state,
-  duration,
-  timingFunction
-}: {
-  transition: Transition;
-  state: keyof typeof transitionStatuses;
-  duration: number;
-  timingFunction: React.CSSProperties["transitionTimingFunction"];
-}): React.CSSProperties {
+export function getTransitionStyles({ transition, state, duration, timingFunction }: { transition: Transition; state: keyof typeof transitionStatuses; duration: number; timingFunction: React.CSSProperties["transitionTimingFunction"] }): React.CSSProperties {
   const shared = {
     transitionDuration: `${duration}ms`,
     transitionTimingFunction: timingFunction
@@ -455,21 +445,7 @@ export function getTransitionStyles({
   };
 }
 
-export function Transition({
-  keepMounted,
-  transition = "fade",
-  duration = 250,
-  exitDuration = duration,
-  mounted,
-  children,
-  timingFunction = "ease",
-  onExit,
-  onEntered,
-  onEnter,
-  onExited,
-  enterDelay,
-  exitDelay
-}: TransitionProps) {
+export function Transition({ keepMounted, transition = "fade", duration = 250, exitDuration = duration, mounted, children, timingFunction = "ease", onExit, onEntered, onEnter, onExited, enterDelay, exitDelay }: TransitionProps) {
   const { transitionDuration, transitionStatus, transitionTimingFunction } = useTransition({
     mounted,
     exitDuration,

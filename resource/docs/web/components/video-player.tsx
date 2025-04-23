@@ -57,12 +57,7 @@ export const VideoPlayer = React.forwardRef<React.ElementRef<"video">, VideoPlay
     <>
       <video ref={mergeRefs(videoRef, ref)} autoPlay={autoPlay} className={cn("[&~button]:hover:opacity-100", className, classNames?.video)} {...props} />
 
-      <span
-        className={cn(
-          "absolute z-5 inset-0 dark:bg-[linear-gradient(transparent_50%,_rgba(0,0,0,0.5)_100%)] [&~button]:hover:opacity-100",
-          classNames?.overlay
-        )}
-      />
+      <span className={cn("absolute z-5 inset-0 dark:bg-[linear-gradient(transparent_50%,_rgba(0,0,0,0.5)_100%)] [&~button]:hover:opacity-100", classNames?.overlay)} />
 
       <button
         {...{
@@ -76,8 +71,7 @@ export const VideoPlayer = React.forwardRef<React.ElementRef<"video">, VideoPlay
             cursor: "pointer",
             borderRadius: "9999px",
             transition: "all 0.3s ease-in",
-            boxShadow:
-              "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+            boxShadow: "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
             zIndex: "8"
           }
         }}

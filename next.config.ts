@@ -52,15 +52,7 @@ const config: NextConfig = withContentlayer({
     deviceSizes: [375, 640, 768, 1024, 1536, 1920],
     minimumCacheTTL: 60 * 60 * 24,
     formats: ["image/avif", "image/webp"],
-    domains: [
-      "api.microlink.io",
-      "api.dicebear.com",
-      "img.clerk.com",
-      "lh3.googleusercontent.com",
-      "cdn-icons-png.flaticon.com",
-      "images.unsplash.com",
-      "plus.unsplash.com"
-    ],
+    domains: ["api.microlink.io", "api.dicebear.com", "img.clerk.com", "lh3.googleusercontent.com", "cdn-icons-png.flaticon.com", "images.unsplash.com", "plus.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",

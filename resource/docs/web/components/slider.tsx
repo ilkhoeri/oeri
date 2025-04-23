@@ -33,8 +33,7 @@ type NestedRecord<U extends [string, unknown], T extends string> = {
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
 type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties }, Exclude>;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>> & { color?: CSSProperties["color"] };
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>> & { color?: CSSProperties["color"] };
 
 type CtxProps = {
   dir: "ltr" | "rtl";
@@ -537,14 +536,7 @@ export const RangeSlider = React.forwardRef<HTMLDivElement, RangeSliderProps>((_
           event.preventDefault();
           const focusedIndex = getFocusedThumbIndex();
           thumbs.current[focusedIndex].focus();
-          setRangedValue(
-            getFloatingValue(
-              Math.min(Math.max(dir === "rtl" ? valueRef.current[focusedIndex] - step! : valueRef.current[focusedIndex] + step!, min!), max!),
-              precision
-            ),
-            focusedIndex,
-            true
-          );
+          setRangedValue(getFloatingValue(Math.min(Math.max(dir === "rtl" ? valueRef.current[focusedIndex] - step! : valueRef.current[focusedIndex] + step!, min!), max!), precision), focusedIndex, true);
           break;
         }
         case "ArrowDown": {
@@ -558,14 +550,7 @@ export const RangeSlider = React.forwardRef<HTMLDivElement, RangeSliderProps>((_
           event.preventDefault();
           const focusedIndex = getFocusedThumbIndex();
           thumbs.current[focusedIndex].focus();
-          setRangedValue(
-            getFloatingValue(
-              Math.min(Math.max(dir === "rtl" ? valueRef.current[focusedIndex] + step! : valueRef.current[focusedIndex] - step!, min!), max!),
-              precision
-            ),
-            focusedIndex,
-            true
-          );
+          setRangedValue(getFloatingValue(Math.min(Math.max(dir === "rtl" ? valueRef.current[focusedIndex] + step! : valueRef.current[focusedIndex] - step!, min!), max!), precision), focusedIndex, true);
           break;
         }
         default: {
@@ -783,31 +768,7 @@ export interface ThumbProps extends ComponentProps<"div", "value"> {
   className?: string;
 }
 export const SliderThumb = React.forwardRef<HTMLDivElement, ThumbProps>((_props, ref) => {
-  const {
-    unstyled,
-    classNames,
-    styles,
-    style,
-    max,
-    min,
-    value,
-    position,
-    label,
-    dragging,
-    onMouseDown,
-    onKeyDownCapture,
-    labelTransitionProps,
-    labelAlwaysOn,
-    thumbLabel,
-    onFocus,
-    onBlur,
-    isHovered,
-    showLabelOnHover,
-    children = null,
-    disabled,
-    role = "slider",
-    ...props
-  } = _props;
+  const { unstyled, classNames, styles, style, max, min, value, position, label, dragging, onMouseDown, onKeyDownCapture, labelTransitionProps, labelAlwaysOn, thumbLabel, onFocus, onBlur, isHovered, showLabelOnHover, children = null, disabled, role = "slider", ...props } = _props;
 
   const [focused, setFocused] = React.useState(false);
   const stylesApi = { unstyled, classNames, styles };
@@ -965,13 +926,7 @@ interface IsMarkFilled {
   inverted?: boolean;
 }
 export function isMarkFilled({ mark, offset, value, inverted = false }: IsMarkFilled) {
-  return inverted
-    ? typeof offset === "number"
-      ? mark.value <= offset || mark.value >= value
-      : mark.value >= value
-    : typeof offset === "number"
-      ? mark.value >= offset && mark.value <= value
-      : mark.value <= value;
+  return inverted ? (typeof offset === "number" ? mark.value <= offset || mark.value >= value : mark.value >= value) : typeof offset === "number" ? mark.value >= offset && mark.value <= value : mark.value <= value;
 }
 
 // Export as a composite component

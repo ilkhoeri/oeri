@@ -119,26 +119,7 @@ export function getSizes(Size: SizesProps) {
 }
 
 export function svgProps(detail: DetailedSvgProps) {
-  const {
-    xmlns = "http://www.w3.org/2000/svg",
-    viewBox = "0 0 24 24",
-    "aria-hidden": ariaHidden = "true",
-    currentFill = "stroke",
-    w,
-    h,
-    size,
-    width,
-    height,
-    fill,
-    stroke,
-    strokeWidth,
-    strokeLinecap,
-    strokeLinejoin,
-    ratio,
-    color,
-    style,
-    ...props
-  } = detail;
+  const { xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", "aria-hidden": ariaHidden = "true", currentFill = "stroke", w, h, size, width, height, fill, stroke, strokeWidth, strokeLinecap, strokeLinejoin, ratio, color, style, ...props } = detail;
 
   const sz = getSizes({ size, h, w, height, width, ratio });
 

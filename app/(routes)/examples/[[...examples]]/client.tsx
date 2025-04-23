@@ -9,11 +9,7 @@ import { Loader } from "@/ui/loader";
 const FallbackComponent = (segment: string[] | undefined) => (
   <div>
     <p className=" border-b pb-1 pt-2">Component not found</p>
-    <a
-      href={`https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFiles(segment)}.mdx`}
-      target="_blank"
-      className="w-max justify-start gap-2 pb-1.5 pt-3 text-sm text-muted-foreground transition-colors underline-hover hover:text-constructive"
-    >
+    <a href={`https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFiles(segment)}.mdx`} target="_blank" className="w-max justify-start gap-2 pb-1.5 pt-3 text-sm text-muted-foreground transition-colors underline-hover hover:text-constructive">
       Edit this page on GitHub <FileIcon arrow />
     </a>
   </div>
@@ -30,9 +26,7 @@ const loadComponent = (segment: string[] | undefined) =>
         }),
     {
       ssr: false,
-      loading: () => (
-        <Loader size={22} classNames={{ root: "my-auto" }} />
-      )
+      loading: () => <Loader size={22} classNames={{ root: "my-auto" }} />
     }
   );
 
@@ -41,9 +35,7 @@ export function Examples({ segment }: { segment: string[] | undefined }) {
 
   return (
     <article className="relative mx-auto flex min-h-screen w-full max-w-screen-3xl flex-col items-center justify-center">
-      <Suspense
-        fallback={<Loader size={22} classNames={{ root: "my-auto" }} />}
-      >
+      <Suspense fallback={<Loader size={22} classNames={{ root: "my-auto" }} />}>
         <Component />
       </Suspense>
     </article>

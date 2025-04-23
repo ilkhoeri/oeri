@@ -17,8 +17,7 @@ export interface DeviceInfo {
 }
 
 export function useDeviceInfo(): DeviceInfo {
-  const useIsomorphicEffect =
-    typeof document !== "undefined" ? useLayoutEffect : useEffect;
+  const useIsomorphicEffect = typeof document !== "undefined" ? useLayoutEffect : useEffect;
   const [info, setInfo] = useState<DeviceInfo>({
     os: "undetermined",
     userAgent: "",

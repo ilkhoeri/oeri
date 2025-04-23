@@ -128,13 +128,7 @@ function Tree({ tree, level = 1, sub = 3, activeItem }: TreeProps) {
       {tree.items.map((item, index) => {
         return (
           <div key={index} className={cn("text-muted-foreground pt-2")}>
-            <a
-              href={item.url}
-              className={cn(
-                "hover:text-color inline-block no-underline transition-colors",
-                item.url === `#${activeItem}` ? "text-color" : "text-muted-foreground"
-              )}
-            >
+            <a href={item.url} className={cn("hover:text-color inline-block no-underline transition-colors", item.url === `#${activeItem}` ? "text-color" : "text-muted-foreground")}>
               {formatTitle(sanitizedName(item.title))}
             </a>
             {item.items?.length ? <Tree sub={sub} tree={item} level={level + 1} activeItem={activeItem} /> : null}

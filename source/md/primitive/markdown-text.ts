@@ -25,31 +25,19 @@ export function markdownText(text: string | undefined): string {
 
   // Replace email addresses with mailto links
   text = text.replace(/<([^>]+@[^>]+)>/g, '<a href="mailto:$1">$1</a>');
-  text = text.replace(
-    /^(.*?<a href="mailto:[^>]+>[^<]+<\/a>.*)$/gm,
-    "<p>$1</p>"
-  );
+  text = text.replace(/^(.*?<a href="mailto:[^>]+>[^<]+<\/a>.*)$/gm, "<p>$1</p>");
 
   // Replace blockquotes
-  text = text.replace(
-    /^> (.*$)/gim,
-    '<blockquote><p dir="auto">$1</p></blockquote>'
-  );
+  text = text.replace(/^> (.*$)/gim, '<blockquote><p dir="auto">$1</p></blockquote>');
   text = text.replace(/^< (.*$)/gim, "$1");
 
   // Replace ordered list items (start with a digit followed by space)
   text = text.replace(/^\d+ (.*)$/gm, "<li>$1</li>");
-  text = text.replace(
-    /(<li>.*<\/li>)(?!(<\/ol>|<\/ul>))/gim,
-    '<ol dir="auto">$1</ol>'
-  );
+  text = text.replace(/(<li>.*<\/li>)(?!(<\/ol>|<\/ul>))/gim, '<ol dir="auto">$1</ol>');
 
   // Replace unordered list items (start with a dash followed by space)
   text = text.replace(/^- (.*)$/gm, "<li>$1</li>");
-  text = text.replace(
-    /(<li>.*<\/li>)(?!(<\/ul>|<\/ol>))/gim,
-    '<ul dir="auto">$1</ul>'
-  );
+  text = text.replace(/(<li>.*<\/li>)(?!(<\/ul>|<\/ol>))/gim, '<ul dir="auto">$1</ul>');
 
   // Combine all consecutive <ol> and <ul> tags into one
   text = text.replace(/<\/ol>\s*<ol dir="auto">/gim, "");
@@ -76,12 +64,7 @@ export function markdownText(text: string | undefined): string {
 
 function stripHtml(text: string) {
   text = text.replace(/<[^>]*>/g, "");
-  text = text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   return text.trim();
 }
 

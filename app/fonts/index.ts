@@ -111,18 +111,7 @@ export const barlow = Barlow({
   display: "swap"
 });
 
-export const fontsVariable = [
-  geistSans.variable,
-  geistMono.variable,
-  inter.variable,
-  montserrat.variable,
-  poppins.variable,
-  robotoMono.variable,
-  barlow.variable,
-  montserrat.variable,
-  kanit.variable,
-  robotoMono.variable
-].join(" ");
+export const fontsVariable = [geistSans.variable, geistMono.variable, inter.variable, montserrat.variable, poppins.variable, robotoMono.variable, barlow.variable, montserrat.variable, kanit.variable, robotoMono.variable].join(" ");
 
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type stylesBodyType = { className: string; style?: CSSProperties };

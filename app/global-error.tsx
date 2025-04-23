@@ -1,19 +1,9 @@
 "use client";
 
-export default function GlobalError({
-  error,
-  reset
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   let errorMessage = null;
   if (process.env.NODE_ENV !== "production") {
-    errorMessage = (
-      <p className="font-mono text-[13px] text-muted-foreground">
-        {String(error)}
-      </p>
-    );
+    errorMessage = <p className="font-mono text-[13px] text-muted-foreground">{String(error)}</p>;
   }
   return (
     <html>
@@ -25,16 +15,10 @@ export default function GlobalError({
           <button type="button" aria-label="try-again" onClick={() => reset()}>
             Try again
           </button>
-          <button
-            type="button"
-            aria-label="reload"
-            onClick={() => window.location.reload()}>
+          <button type="button" aria-label="reload" onClick={() => window.location.reload()}>
             Reload
           </button>
-          <button
-            type="button"
-            aria-label="home"
-            onClick={() => (window.location.href = "/")}>
+          <button type="button" aria-label="home" onClick={() => (window.location.href = "/")}>
             Home
           </button>
         </div>

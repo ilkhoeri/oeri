@@ -6,15 +6,12 @@ export const compoundStyle = cvx({
       box: "flex w-full flex-col items-center rounded-lg border bg-background p-6 text-muted-foreground shadow-md transition-colors [@media(hover:hover)]:hover:bg-muted/25 dark:hover:bg-muted/45"
     },
     button: {
-      default:
-        "transition-colors rounded-md font-medium text-span bg-color text-background border border-background [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50",
+      default: "transition-colors rounded-md font-medium text-span bg-color text-background border border-background [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50",
       destructive: "transition-colors rounded-md font-medium text-span bg-destructive text-white [@media(hover:hover)]:hover:bg-destructive-foreground",
       constructive: "transition-colors rounded-md font-medium text-span bg-constructive text-white [@media(hover:hover)]:hover:bg-constructive-foreground",
       conservative: "transition-colors rounded-md font-medium text-span bg-conservative text-white [@media(hover:hover)]:hover:bg-conservative-foreground",
-      primitive:
-        "transition-colors rounded-md font-medium text-span bg-primitive-foreground/35 text-color border border-primitive-emphasis [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-primitive",
-      outline:
-        "transition-colors rounded-md font-medium text-span border bg-background text-muted-foreground [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-color",
+      primitive: "transition-colors rounded-md font-medium text-span bg-primitive-foreground/35 text-color border border-primitive-emphasis [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-primitive",
+      outline: "transition-colors rounded-md font-medium text-span border bg-background text-muted-foreground [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-color",
       link: "transition-colors rounded-md font-medium text-span text-color underline-offset-4 [@media(hover:hover)]:hover:text-constructive [@media(hover:hover)]:hover:underline"
     },
     toggle: {

@@ -38,12 +38,7 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         {title && (
           <CopyToggle timeout={1750} value={title.trimEnd()}>
             {({ copied, copy }) => (
-              <h6
-                className={cn("flex cursor-pointer flex-row items-center gap-2 text-[13px] [&_svg]:size-4", copied ? "text-color" : "text-muted-foreground", classNames?.title)}
-                onClick={copy}
-                aria-label={copied ? "Copied" : "Copy"}
-                title={copied ? "Copied" : "Copy"}
-              >
+              <h6 className={cn("flex cursor-pointer flex-row items-center gap-2 text-[13px] [&_svg]:size-4", copied ? "text-color" : "text-muted-foreground", classNames?.title)} onClick={copy} aria-label={copied ? "Copied" : "Copy"} title={copied ? "Copied" : "Copy"}>
                 {copied ? <CheckIcon animation /> : <ExtIcons ext={_ext} />} <span className="font-normal">{title}</span>
               </h6>
             )}
@@ -81,12 +76,7 @@ export function Customizer(Text: CodeCustomizer) {
   return (
     <div className={cn("mb-12 text-base", Text.className)} data-rehype-customizer="" data-code-fragment="">
       {Text.title && <h4 className={Text?.classNames?.title}>{Text.title}</h4>}
-      <div
-        className={cn("mdx_customizer relative whitespace-pre-wrap", Text?.classNames?.content)}
-        data-language="tsx"
-        data-theme="default"
-        dangerouslySetInnerHTML={Text.__html ? { __html: Text.__html } : undefined}
-      >
+      <div className={cn("mdx_customizer relative whitespace-pre-wrap", Text?.classNames?.content)} data-language="tsx" data-theme="default" dangerouslySetInnerHTML={Text.__html ? { __html: Text.__html } : undefined}>
         {Text.__html ? null : Text.code}
       </div>
     </div>
@@ -106,11 +96,7 @@ export function Reference(Text: CodeCustomizer) {
         </h4>
       )}
 
-      <div
-        className={cn("relative mb-12 mt-4 flex flex-col gap-6 whitespace-pre-wrap", Text?.classNames?.content)}
-        data-block="body"
-        dangerouslySetInnerHTML={Text.__html ? { __html: Text.__html } : undefined}
-      >
+      <div className={cn("relative mb-12 mt-4 flex flex-col gap-6 whitespace-pre-wrap", Text?.classNames?.content)} data-block="body" dangerouslySetInnerHTML={Text.__html ? { __html: Text.__html } : undefined}>
         {Text.__html ? null : Text.code}
       </div>
     </div>

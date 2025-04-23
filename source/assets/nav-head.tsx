@@ -46,21 +46,9 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
         <LinkHome open={open} className="[transition:all_0.5s_ease] max-md:data-[state=open]:translate-x-[-32px] max-md:data-[state=open]:opacity-0" />
 
         {minQuery && (
-          <div
-            dir={dir}
-            ref={setParentRef}
-            className="relative hidden h-full items-center justify-between rounded-sm text-sm font-medium md:flex ltr:ml-10 ltr:mr-auto rtl:ml-auto rtl:mr-10"
-          >
+          <div dir={dir} ref={setParentRef} className="relative hidden h-full items-center justify-between rounded-sm text-sm font-medium md:flex ltr:ml-10 ltr:mr-auto rtl:ml-auto rtl:mr-10">
             {appRoutes["services"].map(i => (
-              <Link
-                key={i.href}
-                ref={setControlRef(i.href)}
-                href={i.href}
-                role="button"
-                onClick={() => setActive(i.href)}
-                data-active={isActive(i.href)}
-                className="h-6 cursor-pointer select-none rounded-sm text-muted-foreground transition-colors centered hover:text-color data-[active]:text-color"
-              >
+              <Link key={i.href} ref={setControlRef(i.href)} href={i.href} role="button" onClick={() => setActive(i.href)} data-active={isActive(i.href)} className="h-6 cursor-pointer select-none rounded-sm text-muted-foreground transition-colors centered hover:text-color data-[active]:text-color">
                 <span className="relative z-1 px-2 py-1" onMouseEnter={() => setHover(i.href)} onMouseLeave={() => setHover(null)}>
                   {i.title}
                 </span>
@@ -80,11 +68,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
           </div>
         </div>
 
-        <ButtonAside
-          {...{ open, setOpen, onClick: toggle }}
-          hidden={minQuery || excludesPath}
-          className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]"
-        />
+        <ButtonAside {...{ open, setOpen, onClick: toggle }} hidden={minQuery || excludesPath} className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]" />
       </Polymorphic>
     </header>
   );
@@ -104,10 +88,7 @@ function LinksSection() {
         stroke: "white",
         size: 20
       }}
-      className={globalStyle(
-        { toggle: "item", size: "icon-xs" },
-        "bg-[--color] border border-background focus-visible:ring-[--color] [&_svg]:hover:text-white hover:bg-[--color] [@media(hover:hover)]:hover:bg-[--color] max-md:hidden max-md:last-of-type:flex"
-      )}
+      className={globalStyle({ toggle: "item", size: "icon-xs" }, "bg-[--color] border border-background focus-visible:ring-[--color] [&_svg]:hover:text-white hover:bg-[--color] [@media(hover:hover)]:hover:bg-[--color] max-md:hidden max-md:last-of-type:flex")}
       style={{
         "--color": i.color
       }}

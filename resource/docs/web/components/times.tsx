@@ -53,11 +53,7 @@ export interface TimesProps extends ComponentProps<"time">, __TimesProps {
 }
 export const Times = React.forwardRef<HTMLTimeElement, TimesProps>((_props, ref) => {
   const { time, style, children, suppressHydrationWarning, diff, locales, ...props } = _props;
-  return (
-    <time {...{ ref, style, dateTime: String(time), suppressHydrationWarning, ...props }}>
-      {children || (time && getTimeAgo(new Date(String(time)), { locales, diff }))}
-    </time>
-  );
+  return <time {...{ ref, style, dateTime: String(time), suppressHydrationWarning, ...props }}>{children || (time && getTimeAgo(new Date(String(time)), { locales, diff }))}</time>;
 }) as TimesComponent;
 Times.displayName = "Times";
 

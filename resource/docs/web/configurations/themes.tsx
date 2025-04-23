@@ -19,14 +19,7 @@ const themeNames: Theme[] = theming.map(theme => theme.name);
 
 export const theme = { themeNames } as const;
 
-export function ThemeProvider({
-  children,
-  enableSystem = true,
-  attribute = "class",
-  defaultTheme = "system",
-  disableTransitionOnChange = true,
-  ...props
-}: ThemeProviderProps) {
+export function ThemeProvider({ children, enableSystem = true, attribute = "class", defaultTheme = "system", disableTransitionOnChange = true, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider
       {...{
@@ -82,13 +75,7 @@ export function useNextTheme() {
   return { theme, keyTheme, memoizedTheme };
 }
 
-export function ThemeToggle({
-  classNames,
-  unstyled
-}: {
-  classNames?: { wrapper?: string; buttons?: string };
-  unstyled?: { wrapper?: boolean; buttons?: boolean };
-}) {
+export function ThemeToggle({ classNames, unstyled }: { classNames?: { wrapper?: string; buttons?: string }; unstyled?: { wrapper?: boolean; buttons?: boolean } }) {
   const { keyTheme, memoizedTheme } = useNextTheme();
   return (
     <section className={cn(!unstyled?.wrapper && "relative flex flex-row items-center gap-4", classNames?.wrapper)}>

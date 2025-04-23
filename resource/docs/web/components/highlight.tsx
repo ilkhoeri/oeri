@@ -8,13 +8,8 @@ type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
-type StylesNames<T extends string, Exclude extends string = never> = Omit<
-  NestedRecord<Styles, T> & { color?: React.CSSProperties["color"]; className?: string; style?: CSSProperties },
-  Exclude
->;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & {} & React.PropsWithoutRef<
-    Omit<React.ComponentProps<T>, "style" | "color" | Exclude>
-  >;
+type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { color?: React.CSSProperties["color"]; className?: string; style?: CSSProperties }, Exclude>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & {} & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 
 function getStyles(selector: __Selector, options: Options = {}) {
   return {
@@ -36,10 +31,7 @@ export type HighlightProps<T extends React.ElementType = "p"> = ComponentProps<T
     el?: T;
   };
 
-export const Highlight = React.forwardRef(function Highlight<T extends React.ElementType>(
-  _props: HighlightProps<T>,
-  ref: React.ComponentPropsWithRef<T>["ref"]
-) {
+export const Highlight = React.forwardRef(function Highlight<T extends React.ElementType>(_props: HighlightProps<T>, ref: React.ComponentPropsWithRef<T>["ref"]) {
   const { el, className, classNames, style, styles, children, text = "", highlight = "", color = "#fcc419", ...props } = _props;
   const Root = (el || "p") as React.ElementType;
   const highlightChunks = highlighter(children || text, highlight);

@@ -22,7 +22,9 @@ function Demo() {
         <Avatar data-has-popup fallback="Brian and Frend Paual" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=Brian" />
         <Avatar data-has-popup fallback="oliver" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=oliver" />
         <Avatar data-has-popup fallback="y" src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=y" />
-        <Avatar data-has-popup initialLimit="4">+999</Avatar>
+        <Avatar data-has-popup initialLimit="4">
+          +999
+        </Avatar>
       </Avatar.Group>
     </Stack>
   );

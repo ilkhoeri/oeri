@@ -22,12 +22,8 @@ type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
-type StylesNames<T extends string, Exclude extends string = never> = Omit<
-  NestedRecord<Styles, T> & { className?: string; style?: CSSProperties; align?: __Align },
-  Exclude
->;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
+type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties; align?: __Align }, Exclude>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
 type CtxProps = {
   align: __Align;
   getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
@@ -118,26 +114,9 @@ export interface TimelineItemProps extends ComponentProps<"div", "title" | "cont
   content?: React.ReactNode;
 }
 export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>((_props, ref) => {
-  const {
-    children,
-    bullet,
-    title,
-    content,
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    lineStyle,
-    active,
-    notice,
-    role = "listbox",
-    activeStyle = {},
-    noticeStyle = {},
-    ...props
-  } = _props;
+  const { children, bullet, title, content, unstyled, className, classNames, style, styles, lineStyle, active, notice, role = "listbox", activeStyle = {}, noticeStyle = {}, ...props } = _props;
   const { bg = "hsl(var(--pure-white))", clr = "hsl(var(--pure-black))", line = "hsl(var(--constructive))", ring = "var(--tli-active-line)" } = activeStyle;
-  const { clr: noticeClr = "hsl(42deg 100% 50%)", ring:noticeRing = "hsl(var(--background))" } = noticeStyle;
+  const { clr: noticeClr = "hsl(42deg 100% 50%)", ring: noticeRing = "hsl(var(--background))" } = noticeStyle;
   const stylesApi = { unstyled, classNames, styles };
   return (
     <Component
@@ -156,7 +135,7 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
           "--tli-active-line": active ? line : undefined,
           "--tli-notice-clr": notice ? noticeClr : undefined,
           "--tli-notice-ring": notice ? noticeRing : undefined,
-          "--bullet-active-ring": active? ring :undefined,
+          "--bullet-active-ring": active ? ring : undefined,
           ...style
         } as React.CSSProperties,
         ...stylesApi,

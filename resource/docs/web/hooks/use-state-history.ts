@@ -15,37 +15,37 @@ export interface StateHistory<T> {
 export function useStateHistory<T>(initialValue: T): [T, UseStateHistoryHandlers<T>, StateHistory<T>] {
   const [state, setState] = useState<StateHistory<T>>({
     history: [initialValue],
-    current: 0,
+    current: 0
   });
 
   const set = useCallback(
     (val: T) =>
-      setState((currentState) => {
+      setState(currentState => {
         const nextState = [...currentState.history.slice(0, currentState.current + 1), val];
         return {
           history: nextState,
-          current: nextState.length - 1,
+          current: nextState.length - 1
         };
       }),
-    [],
+    []
   );
 
   const back = useCallback(
     (steps = 1) =>
-      setState((currentState) => ({
+      setState(currentState => ({
         history: currentState.history,
-        current: Math.max(0, currentState.current - steps),
+        current: Math.max(0, currentState.current - steps)
       })),
-    [],
+    []
   );
 
   const forward = useCallback(
     (steps = 1) =>
-      setState((currentState) => ({
+      setState(currentState => ({
         history: currentState.history,
-        current: Math.min(currentState.history.length - 1, currentState.current + steps),
+        current: Math.min(currentState.history.length - 1, currentState.current + steps)
       })),
-    [],
+    []
   );
 
   const handlers = useMemo(() => ({ set, forward, back }), []);

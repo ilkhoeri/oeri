@@ -5,8 +5,7 @@ const classes = cvx({
   variants: {
     selector: {
       root: "relative",
-      indicator:
-        "absolute z-[200] flex items-center justify-center whitespace-nowrap text-xs leading-none [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
+      indicator: "absolute z-[200] flex items-center justify-center whitespace-nowrap text-xs leading-none [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
     },
     processing: {
       true: "before:absolute before:inset-0 before:bg-[var(--indicator-color,inherit)] before:rounded-[--indicator-round,9999px] before:-z-1 data-[processing]:before:content-[''] data-[processing]:before:[animation:processing_1000ms_linear_infinite]"
@@ -56,15 +55,7 @@ function getStyles(selector: __Selector, options: Options) {
     className: cn(
       !removeStyle && classes({ selector, position: selected("indicator", position), processing: selected("indicator", is(processing)) }),
       selected("root", inline ? "inline-block" : "block"),
-      selected(
-        "indicator",
-        cnx(
-          is(opt.withBorder, "outline outline-2 outline-background"),
-          size ? "h-[--indicator-size] min-w-[--indicator-size]" : "h-2.5 min-w-2.5",
-          round ? "rounded-[--indicator-round]" : "rounded-full",
-          color ? "bg-[--indicator-color]" : "bg-constructive"
-        )
-      ),
+      selected("indicator", cnx(is(opt.withBorder, "outline outline-2 outline-background"), size ? "h-[--indicator-size] min-w-[--indicator-size]" : "h-2.5 min-w-2.5", round ? "rounded-[--indicator-round]" : "rounded-full", color ? "bg-[--indicator-color]" : "bg-constructive")),
       opt.classNames?.[selector],
       opt.className
     ),
@@ -108,26 +99,7 @@ export interface IndicatorProps extends React.PropsWithoutRef<ElementProps>, __I
   title?: string;
 }
 export const Indicator = React.forwardRef<HTMLDivElement, IndicatorProps>((_props, ref) => {
-  const {
-    label,
-    children,
-    classNames,
-    className,
-    style,
-    styles,
-    unstyled,
-    color,
-    size = 10,
-    round,
-    offset = 0,
-    inline = false,
-    disabled = false,
-    processing = false,
-    withBorder = false,
-    position = "top-end",
-    "aria-disabled": arDis,
-    ...props
-  } = _props;
+  const { label, children, classNames, className, style, styles, unstyled, color, size = 10, round, offset = 0, inline = false, disabled = false, processing = false, withBorder = false, position = "top-end", "aria-disabled": arDis, ...props } = _props;
   const stylesApi = { unstyled, classNames, styles, color, disabled, label, withBorder, processing, inline, position, size, round, offset, arDis };
   return (
     <div {...{ ref, ...getStyles("root", { className, style, ...stylesApi }), ...props }}>

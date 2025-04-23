@@ -24,22 +24,14 @@ function getStyles(opt: Options) {
   };
 }
 
-export interface AnchorProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target">,
-    Omit<cvxProps<typeof classes>, "role">,
-    Omit<Link.LinkProps, "href">,
-    AnchorTargets {
+export interface AnchorProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target">, Omit<cvxProps<typeof classes>, "role">, Omit<Link.LinkProps, "href">, AnchorTargets {
   unstyled?: boolean;
   href?: Link.LinkProps["href"];
   role?: React.AriaRole | "anchor";
   style?: React.CSSProperties & Record<string, any>;
 }
 
-export const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(
-  ({ rel = "noopener noreferrer nofollow", href = "", role, className, unstyled, underline = "never", ...props }, ref) => (
-    <Link.default {...{ ref, rel, href, role, ...getStyles({ className, unstyled, underline, role }), ...props }} />
-  )
-);
+export const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({ rel = "noopener noreferrer nofollow", href = "", role, className, unstyled, underline = "never", ...props }, ref) => <Link.default {...{ ref, rel, href, role, ...getStyles({ className, unstyled, underline, role }), ...props }} />);
 Anchor.displayName = "Anchor";
 
 export type AnchorTargets = {
@@ -84,24 +76,5 @@ export type AnchorTargets = {
    *
    * **`_external`** : A special value that can be specified by a custom implementation to open a link to an external context or a custom application.
    */
-  target?:
-    | "_about"
-    | "_blank"
-    | "_calendar"
-    | "_contacts"
-    | "_email"
-    | "_external"
-    | "_file"
-    | "_ftp"
-    | "_media"
-    | "_messaging"
-    | "_noopener"
-    | "_noreferrer"
-    | "_parent"
-    | "_search"
-    | "_self"
-    | "_sms"
-    | "_tel"
-    | "_top"
-    | (string & NonNullable<unknown>);
+  target?: "_about" | "_blank" | "_calendar" | "_contacts" | "_email" | "_external" | "_file" | "_ftp" | "_media" | "_messaging" | "_noopener" | "_noreferrer" | "_parent" | "_search" | "_self" | "_sms" | "_tel" | "_top" | (string & NonNullable<unknown>);
 };

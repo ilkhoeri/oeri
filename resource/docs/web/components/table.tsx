@@ -5,8 +5,7 @@ import { cn, cvx, inferType, rem } from "cretex";
 const classes = cvx({
   variants: {
     variant: {
-      default:
-        "stylelayer-table-table rounded-lg bg-background [--bg-table-tr-hover:hsl(var(--primitive-foreground))] [--vertical-align:middle] [--table-border-color:hsl(var(--border))]",
+      default: "stylelayer-table-table rounded-lg bg-background [--bg-table-tr-hover:hsl(var(--primitive-foreground))] [--vertical-align:middle] [--table-border-color:hsl(var(--border))]",
       tile: "stylelayer-table-tile [--shape-rounded:1rem] [--background-th:var(--palette-background-neutral)] [--table-border-color:hsl(var(--border))] [--color-cell:hsl(var(--color))] [--color-icon:hsl(var(--muted-foreground))] [--table-hover-color:hsl(var(--muted)/0.5)] [--padding-cell:1.5rem] [--palette-TableCell-border:var(--palette-divider)]"
     },
     selector: {
@@ -271,21 +270,7 @@ const DEFAULT_SPACE: Record<__TableProps["variant"], Record<keyof NonNullable<Ta
   tile: { x: 0, y: 10 }
 };
 const TableRoot = React.forwardRef<HTMLTableElement, TableRootProps>((_props, ref) => {
-  const {
-    unstyled: unstyledProp,
-    className,
-    style,
-    layout,
-    spacing = {},
-    stickyHeaderOffset,
-    borderColor,
-    stripedColor = "hsl(var(--primitive))",
-    highlightOnHoverColor = "var(--bg-table-tr-hover)",
-    "aria-orientation": ariaOrientation,
-    dir: dirProp,
-    rootProps,
-    ...props
-  } = _props;
+  const { unstyled: unstyledProp, className, style, layout, spacing = {}, stickyHeaderOffset, borderColor, stripedColor = "hsl(var(--primitive))", highlightOnHoverColor = "var(--bg-table-tr-hover)", "aria-orientation": ariaOrientation, dir: dirProp, rootProps, ...props } = _props;
 
   const { dir: dirCtx, orientation, unstyled: unstyledCtx, classNames, styles, ...ctx } = useTable();
 
@@ -346,9 +331,7 @@ interface TableHeadProps extends ComponentProps<"th"> {
   __areaSelector?: "thead.tr.th";
 }
 export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(({ scope = "col", "aria-colindex": aCI, __areaIndex, __areaSelector, ...props }, ref) => (
-  <Edge<"th">
-    {...{ ...props, ref, el: "th", scope, "aria-colindex": aCI ?? (typeof __areaIndex !== "undefined" ? __areaIndex + 1 : undefined), __areaIndex, selector: __areaSelector }}
-  />
+  <Edge<"th"> {...{ ...props, ref, el: "th", scope, "aria-colindex": aCI ?? (typeof __areaIndex !== "undefined" ? __areaIndex + 1 : undefined), __areaIndex, selector: __areaSelector }} />
 ));
 TableHead.displayName = "TableHead";
 
@@ -356,9 +339,7 @@ interface TableDataProps extends ComponentProps<"td"> {
   __areaSelector?: "tbody.tr.td" | "tfoot.tr.td";
 }
 export const TableData = React.forwardRef<HTMLTableCellElement, TableDataProps>(({ scope = "col", "aria-colindex": aCI, __areaIndex, __areaSelector, ...props }, ref) => (
-  <Edge<"td">
-    {...{ ...props, ref, el: "td", scope, "aria-colindex": aCI ?? (typeof __areaIndex !== "undefined" ? __areaIndex + 1 : undefined), __areaIndex, selector: __areaSelector }}
-  />
+  <Edge<"td"> {...{ ...props, ref, el: "td", scope, "aria-colindex": aCI ?? (typeof __areaIndex !== "undefined" ? __areaIndex + 1 : undefined), __areaIndex, selector: __areaSelector }} />
 ));
 TableData.displayName = "TableData";
 
@@ -376,33 +357,31 @@ interface TableResizerProps extends ComponentProps<"div", "__areaIndex"> {
   resizing?: boolean | undefined;
   setsize?: number | null | undefined;
 }
-export const TableResizer = React.forwardRef<HTMLDivElement, TableResizerProps>(
-  ({ onMouseDown, onTouchStart, "aria-setsize": aSS, setsize, onResize, resizing, dir, style, resizeMode, ...props }, ref) => (
-    <Edge<"div">
-      {...{
-        ...props,
-        ref,
-        dir,
-        el: "div",
-        selector: "resizer",
-        "aria-setsize": aSS || (setsize ?? undefined),
-        "data-resizing": resizing || undefined,
-        onMouseDown: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-          onMouseDown?.(e);
-          onResize?.(e);
-        },
-        onTouchStart: (e: React.TouchEvent<HTMLDivElement>) => {
-          onTouchStart?.(e);
-          onResize?.(e);
-        },
-        style: {
-          transform: resizeMode === "onEnd" && resizing ? `translateX(${(dir === "rtl" ? -1 : 1) * (setsize ?? 0)}px)` : "",
-          ...style
-        }
-      }}
-    />
-  )
-);
+export const TableResizer = React.forwardRef<HTMLDivElement, TableResizerProps>(({ onMouseDown, onTouchStart, "aria-setsize": aSS, setsize, onResize, resizing, dir, style, resizeMode, ...props }, ref) => (
+  <Edge<"div">
+    {...{
+      ...props,
+      ref,
+      dir,
+      el: "div",
+      selector: "resizer",
+      "aria-setsize": aSS || (setsize ?? undefined),
+      "data-resizing": resizing || undefined,
+      onMouseDown: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        onMouseDown?.(e);
+        onResize?.(e);
+      },
+      onTouchStart: (e: React.TouchEvent<HTMLDivElement>) => {
+        onTouchStart?.(e);
+        onResize?.(e);
+      },
+      style: {
+        transform: resizeMode === "onEnd" && resizing ? `translateX(${(dir === "rtl" ? -1 : 1) * (setsize ?? 0)}px)` : "",
+        ...style
+      }
+    }}
+  />
+));
 TableResizer.displayName = "TableResizer";
 
 function Edge<T extends React.ElementType>(_props: React.ComponentPropsWithRef<T> & ComposedProps & { el?: T; selector?: Selector }) {

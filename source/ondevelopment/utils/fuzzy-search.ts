@@ -46,7 +46,7 @@ export function levenshteinDistanceIncludes(a: string, b: string): number {
       matrix[i][j] = Math.min(
         matrix[i - 1][j] + 1, // Hapus karakter dari a
         matrix[i][j - 1] + 1, // Tambahkan karakter ke b
-        matrix[i - 1][j - 1] + cost, // Substitusi atau tidak
+        matrix[i - 1][j - 1] + cost // Substitusi atau tidak
       );
     }
   }
@@ -101,7 +101,7 @@ export function levenshteinDistanceB(a: string, b: string): number {
       matrix[i][j] = Math.min(
         matrix[i - 1][j] + 1, // Hapus karakter dari a
         matrix[i][j - 1] + 1, // Tambahkan karakter ke b
-        matrix[i - 1][j - 1] + cost, // Substitusi atau tidak
+        matrix[i - 1][j - 1] + cost // Substitusi atau tidak
       );
     }
   }
@@ -129,7 +129,7 @@ export function levenshteinDistance(a: string, b: string): number {
         matrix[i][j] = Math.min(
           matrix[i - 1][j] + 1, // deletion
           matrix[i][j - 1] + 1, // insertion
-          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i - 1][j - 1] + 1 // substitution
         );
       }
     }
@@ -139,12 +139,10 @@ export function levenshteinDistance(a: string, b: string): number {
 }
 
 export function fuzzy(query: string, terms: string[]): string {
-  const directMatch = terms.find((term) => fuzzySearch(term, query));
+  const directMatch = terms.find(term => fuzzySearch(term, query));
   if (directMatch) return directMatch;
 
-  const sortedTerms = terms
-    .map((term) => ({ term, distance: levenshteinDistance(query, term) }))
-    .sort((a, b) => a.distance - b.distance);
+  const sortedTerms = terms.map(term => ({ term, distance: levenshteinDistance(query, term) })).sort((a, b) => a.distance - b.distance);
 
   return sortedTerms[0]?.term ?? "";
 }
@@ -179,10 +177,7 @@ export function levenshteinDistanceC(a: string, b: string): number {
   }
   for (let i = 1; i <= b.length; i++) {
     for (let j = 1; j <= a.length; j++) {
-      matrix[i][j] =
-        a[j - 1] === b[i - 1]
-          ? matrix[i - 1][j - 1]
-          : Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+      matrix[i][j] = a[j - 1] === b[i - 1] ? matrix[i - 1][j - 1] : Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
     }
   }
   return matrix[b.length][a.length];
@@ -203,7 +198,7 @@ export function levenshteinDistanceX(a: string, b: string): number {
         matrix[i][j] = Math.min(
           matrix[i - 1][j] + 1, // deletion
           matrix[i][j - 1] + 1, // insertion
-          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i - 1][j - 1] + 1 // substitution
         );
       }
     }

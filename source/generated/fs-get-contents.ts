@@ -61,12 +61,7 @@ export async function getRawIcons(basePath: string, replace: Record<string, stri
   return await getRepo(`${git_raw}${basePath}`, replace, {});
 }
 
-export async function getContent(
-  basePath: string,
-  extensions: string[] = [".tsx", ".ts"],
-  replace: Record<string, string> = {},
-  options: GetContentOptions = {}
-) {
+export async function getContent(basePath: string, extensions: string[] = [".tsx", ".ts"], replace: Record<string, string> = {}, options: GetContentOptions = {}) {
   const { lang = "tsx showLineNumbers", wrap = true } = options;
 
   try {

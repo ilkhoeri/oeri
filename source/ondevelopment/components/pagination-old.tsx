@@ -81,33 +81,26 @@ const PaginationExamples: React.FC<{
 };
 
 // dibawah ini adalah yang lama
-export const Pagination = React.forwardRef<HTMLElement, React.ComponentProps<"nav">>(
-  ({ className, role = "navigation", "aria-label": al = "pagination", ...props }, ref) => (
-    <nav
-      {...{
-        ref,
-        role,
-        "aria-label": al,
-        className: cn("mx-auto flex w-full justify-center", className),
-        ...props
-      }}
-    />
-  )
-);
+export const Pagination = React.forwardRef<HTMLElement, React.ComponentProps<"nav">>(({ className, role = "navigation", "aria-label": al = "pagination", ...props }, ref) => (
+  <nav
+    {...{
+      ref,
+      role,
+      "aria-label": al,
+      className: cn("mx-auto flex w-full justify-center", className),
+      ...props
+    }}
+  />
+));
 Pagination.displayName = "Pagination";
 
-export const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(({ className, ...props }, ref) => (
-  <ul ref={ref} className={cn("flex flex-row items-center gap-1", className)} {...props} />
-));
+export const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(({ className, ...props }, ref) => <ul ref={ref} className={cn("flex flex-row items-center gap-1", className)} {...props} />);
 PaginationContent.displayName = "PaginationContent";
 
 export const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>(({ ...props }, ref) => <li ref={ref} {...props} />);
 PaginationItem.displayName = "PaginationItem";
 
-export const PaginationButton = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<"button"> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">
->(({ className, isActive, type = "button", role = "button", variant, size = "icon", "aria-current": ac, ...props }, ref) => (
+export const PaginationButton = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">>(({ className, isActive, type = "button", role = "button", variant, size = "icon", "aria-current": ac, ...props }, ref) => (
   <button
     {...{
       ref,
@@ -127,10 +120,7 @@ export const PaginationButton = React.forwardRef<
 ));
 PaginationButton.displayName = "PaginationButton";
 
-export const PaginationLink = React.forwardRef<
-  HTMLAnchorElement,
-  React.ComponentProps<typeof Anchor> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">
->(({ className, isActive, variant, size = "icon", ...props }, ref) => (
+export const PaginationLink = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof Anchor> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">>(({ className, isActive, variant, size = "icon", ...props }, ref) => (
   <Anchor
     {...{
       ref,
@@ -147,69 +137,63 @@ export const PaginationLink = React.forwardRef<
 ));
 PaginationLink.displayName = "PaginationLink";
 
-export const PaginationPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(
-  ({ className, "aria-label": al = "Go to previous page", children, size = "default", ...props }, ref) => (
-    <PaginationButton
-      {...{
-        ref,
-        size,
-        "aria-label": al,
-        className: cn(
-          "inline-flex h-9 items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 pl-2.5 text-sm font-medium transition-colors hover:bg-background hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive disabled:pointer-events-none disabled:opacity-50",
-          className
-        ),
-        ...props
-      }}
-    >
-      {children || (
-        <>
-          <ChevronIcon chevron="left" className="h-4 w-4" />
-          <span>Previous</span>
-        </>
-      )}
-    </PaginationButton>
-  )
-);
+export const PaginationPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(({ className, "aria-label": al = "Go to previous page", children, size = "default", ...props }, ref) => (
+  <PaginationButton
+    {...{
+      ref,
+      size,
+      "aria-label": al,
+      className: cn(
+        "inline-flex h-9 items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 pl-2.5 text-sm font-medium transition-colors hover:bg-background hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive disabled:pointer-events-none disabled:opacity-50",
+        className
+      ),
+      ...props
+    }}
+  >
+    {children || (
+      <>
+        <ChevronIcon chevron="left" className="h-4 w-4" />
+        <span>Previous</span>
+      </>
+    )}
+  </PaginationButton>
+));
 PaginationPrevious.displayName = "PaginationPrevious";
 
-export const PaginationNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(
-  ({ className, "aria-label": al = "Go to next page", children, size = "default", ...props }, ref) => (
-    <PaginationButton
-      {...{
-        ref,
-        size,
-        "aria-label": al,
-        className: cn(
-          "inline-flex h-9 items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 pr-2.5 text-sm font-medium transition-colors hover:bg-background hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive disabled:pointer-events-none disabled:opacity-50",
-          className
-        ),
-        ...props
-      }}
-    >
-      {children || (
-        <>
-          <span>Next</span>
-          <ChevronIcon chevron="right" className="h-4 w-4" />
-        </>
-      )}
-    </PaginationButton>
-  )
-);
+export const PaginationNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof PaginationButton>>(({ className, "aria-label": al = "Go to next page", children, size = "default", ...props }, ref) => (
+  <PaginationButton
+    {...{
+      ref,
+      size,
+      "aria-label": al,
+      className: cn(
+        "inline-flex h-9 items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 pr-2.5 text-sm font-medium transition-colors hover:bg-background hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive disabled:pointer-events-none disabled:opacity-50",
+        className
+      ),
+      ...props
+    }}
+  >
+    {children || (
+      <>
+        <span>Next</span>
+        <ChevronIcon chevron="right" className="h-4 w-4" />
+      </>
+    )}
+  </PaginationButton>
+));
 PaginationNext.displayName = "PaginationNext";
 
-export const PaginationEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentProps<"span">>(
-  ({ className, "aria-hidden": ah = "true", "aria-label": al = "More pages", children, ...props }, ref) => (
-    <span
-      {...{
-        ref,
-        "aria-hidden": ah,
-        "aria-label": al,
-        className: cn("flex size-9 items-center justify-center", className),
-        ...props
-      }}
-    >
-      {children || <DotsIcon className="h-4 w-4" />}
-    </span>
-  )
-);
+export const PaginationEllipsis = React.forwardRef<HTMLSpanElement, React.ComponentProps<"span">>(({ className, "aria-hidden": ah = "true", "aria-label": al = "More pages", children, ...props }, ref) => (
+  <span
+    {...{
+      ref,
+      "aria-hidden": ah,
+      "aria-label": al,
+      className: cn("flex size-9 items-center justify-center", className),
+      ...props
+    }}
+  >
+    {children || <DotsIcon className="h-4 w-4" />}
+  </span>
+));
 PaginationEllipsis.displayName = "PaginationEllipsis";

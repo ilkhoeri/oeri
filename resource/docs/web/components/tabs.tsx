@@ -30,8 +30,7 @@ type StylesRecord = NestedRecord<Styles, __TabsSelector> & {
   unstyled?: boolean | Partial<Record<__TabsSelector, boolean>>;
 };
 type StylesNames<Exclude extends string = never> = Omit<StylesRecord & { className?: string; style?: CSSProperties; color?: TabsProps["color"] }, Exclude>;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = __CtxProps & {
   getTabId: (value: string) => string;
   getPanelId: (value: string) => string;
@@ -191,30 +190,7 @@ interface TabsTabProps extends ComponentProps<"button"> {
   leftSection?: React.ReactNode;
 }
 export const TabsTab = React.forwardRef<HTMLButtonElement, TabsTabProps>((_props, ref) => {
-  const {
-    role = "tab",
-    type = "button",
-    tabIndex,
-    "aria-selected": arsel,
-    "aria-controls": arcon,
-    "aria-disabled": ardis,
-    children,
-    rightSection,
-    leftSection,
-    value,
-    onClick,
-    onKeyDown,
-    disabled,
-    color,
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    dir,
-    id,
-    ...props
-  } = _props;
+  const { role = "tab", type = "button", tabIndex, "aria-selected": arsel, "aria-controls": arcon, "aria-disabled": ardis, children, rightSection, leftSection, value, onClick, onKeyDown, disabled, color, unstyled, className, classNames, style, styles, dir, id, ...props } = _props;
   const { unstyled: _unstyled, classNames: _classNames, styles: _styles, ...ctx } = useTabs();
 
   const active = value === ctx.value;
@@ -225,9 +201,7 @@ export const TabsTab = React.forwardRef<HTMLButtonElement, TabsTabProps>((_props
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     onKeyDown?.(event);
-    const elements = Array.from(findElementAncestor(event.currentTarget, '[role="tablist"]')?.querySelectorAll<HTMLButtonElement>('[role="tab"]') || []).filter(
-      node => onSameLevel(event.currentTarget, node, '[role="tablist"]')
-    );
+    const elements = Array.from(findElementAncestor(event.currentTarget, '[role="tablist"]')?.querySelectorAll<HTMLButtonElement>('[role="tab"]') || []).filter(node => onSameLevel(event.currentTarget, node, '[role="tablist"]'));
 
     const current = elements.findIndex(el => event.currentTarget === el);
     const _nextIndex = getNextIndex(current, elements, ctx.loop);
@@ -341,21 +315,7 @@ interface TabsPanelProps extends ComponentProps<"div", " color"> {
   color?: CSSProperties["color"];
 }
 export const TabsPanel = React.forwardRef<HTMLDivElement, TabsPanelProps>((_props, ref) => {
-  const {
-    role = "tabpanel",
-    "aria-labelledby": arlab,
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    dir,
-    value,
-    keepMounted,
-    children,
-    id,
-    ...props
-  } = _props;
+  const { role = "tabpanel", "aria-labelledby": arlab, unstyled, className, classNames, style, styles, dir, value, keepMounted, children, id, ...props } = _props;
   const { unstyled: _unstyled, classNames: _classNames, styles: _styles, ...ctx } = useTabs();
   const active = ctx.value === value;
   const content = ctx.keepMounted || keepMounted ? children : active ? children : null;
@@ -408,9 +368,7 @@ function getStyles(selector: __TabsSelector, options: Options = {}) {
     style: {
       ...selected("root", {
         "--tabs-round": rem(round),
-        ...(typeof color === "object"
-          ? { "--tabs-color": color.bg, "--tabs-text-color": color.text }
-          : { "--tabs-color": color, "--tabs-text-color": "hsl(var(--background))" })
+        ...(typeof color === "object" ? { "--tabs-color": color.bg, "--tabs-text-color": color.text } : { "--tabs-color": color, "--tabs-text-color": "hsl(var(--background))" })
       }),
       ...styles?.[selector],
       ...style

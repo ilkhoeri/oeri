@@ -373,16 +373,7 @@
     },
     {
       "name": "Constant, Function Argument, Tag Attribute, Embedded",
-      "scope": [
-        "variable.other.constant",
-        "constant.language",
-        "keyword.other.type.php",
-        "storage.type.php",
-        "support.constant",
-        "constant.character",
-        "constant.escape",
-        "keyword.other.unit"
-      ],
+      "scope": ["variable.other.constant", "constant.language", "keyword.other.type.php", "storage.type.php", "support.constant", "constant.character", "constant.escape", "keyword.other.unit"],
       "settings": {
         "foreground": "hsl(var(--purple-900))"
       }
@@ -405,16 +396,7 @@
     },
     {
       "name": "String, Symbols, Inherited Class, Markup Heading",
-      "scope": [
-        "string",
-        "constant.other.symbol",
-        "constant.other.key",
-        "entity.other.inherited-class",
-        "markup.heading",
-        "markup.inserted.git_gutter",
-        "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js",
-        "meta.attribute-selector"
-      ],
+      "scope": ["string", "constant.other.symbol", "constant.other.key", "entity.other.inherited-class", "markup.heading", "markup.inserted.git_gutter", "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js", "meta.attribute-selector"],
       "settings": {
         "fontStyle": "",
         "foreground": "hsl(var(--green-900))"
@@ -429,13 +411,7 @@
     },
     {
       "name": "Object Key",
-      "scope": [
-        "string.alias.graphql",
-        "string.unquoted.graphql",
-        "string.unquoted.alias.graphql",
-        "meta.field.declaration.ts variable.object.property",
-        "variable.object.property"
-      ],
+      "scope": ["string.alias.graphql", "string.unquoted.graphql", "string.unquoted.alias.graphql", "meta.field.declaration.ts variable.object.property", "variable.object.property"],
       "settings": {
         "foreground": "hsl(var(--gray-1000))"
       }
@@ -492,17 +468,7 @@
     },
     {
       "name": "Class, Support",
-      "scope": [
-        "entity.name",
-        "support.type",
-        "support.class",
-        "support.orther.namespace.use.php",
-        "meta.use.php",
-        "support.other.namespace.php",
-        "markup.changed.git_gutter",
-        "entity.other.inherited-class",
-        "support.type.sys-types"
-      ],
+      "scope": ["entity.name", "support.type", "support.class", "support.orther.namespace.use.php", "meta.use.php", "support.other.namespace.php", "markup.changed.git_gutter", "entity.other.inherited-class", "support.type.sys-types"],
       "settings": {
         "foreground": "hsl(var(--blue-1000))"
       }
@@ -708,27 +674,21 @@
     },
     {
       "name": "JSON Key - Level 1",
-      "scope": [
-        "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"
-      ],
+      "scope": ["source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"],
       "settings": {
         "foreground": "#65bcff"
       }
     },
     {
       "name": "JSON Key - Level 2",
-      "scope": [
-        "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"
-      ],
+      "scope": ["source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"],
       "settings": {
         "foreground": "#ff757f"
       }
     },
     {
       "name": "JSON Key - Level 3",
-      "scope": [
-        "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"
-      ],
+      "scope": ["source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json"],
       "settings": {
         "foreground": "#fca7ea"
       }
@@ -827,14 +787,7 @@
     },
     {
       "name": "Markup - Bold-Italic",
-      "scope": [
-        "markup.bold markup.italic",
-        "markup.italic markup.bold",
-        "markup.quote markup.bold",
-        "markup.bold markup.italic string",
-        "markup.italic markup.bold string",
-        "markup.quote markup.bold string"
-      ],
+      "scope": ["markup.bold markup.italic", "markup.italic markup.bold", "markup.quote markup.bold", "markup.bold markup.italic string", "markup.italic markup.bold string", "markup.quote markup.bold string"],
       "settings": {
         "fontStyle": "bold",
         "foreground": "#ff757f"

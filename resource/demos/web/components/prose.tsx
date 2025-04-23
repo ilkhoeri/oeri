@@ -28,23 +28,18 @@ const content = html`
   <h5>What Makes Luffy <a href="">Unstoppable</a>?</h5>
 
   <p>
-    It all began with <a href="">Gol D. Roger</a>, the Pirate King, whose final words set the seas ablaze with ambition: "My treasure? It's yours if you want
-    it. I left everything I gathered in one place. Now you just have to find it!" This declaration created the Great Pirate Era, where countless adventurers set
-    sail to find the legendary <strong>One Piece</strong>.
+    It all began with <a href="">Gol D. Roger</a>, the Pirate King, whose final words set the seas ablaze with ambition: "My treasure? It's yours if you want it. I left everything I gathered in one place. Now you just have to find it!" This declaration created the Great Pirate Era, where countless adventurers set sail
+    to find the legendary <strong>One Piece</strong>.
   </p>
 
   <p>
-    Among them is Monkey D. Luffy, a boy with a dream to become the next Pirate King. With his trusty straw hat, gifted by the legendary Shanks, and the power
-    of the <code>Gomu Gomu no Mi</code>, Luffy is destined to change the world. Alongside his diverse and loyal crew, they face challenges, explore mysterious
+    Among them is Monkey D. Luffy, a boy with a dream to become the next Pirate King. With his trusty straw hat, gifted by the legendary Shanks, and the power of the <code>Gomu Gomu no Mi</code>, Luffy is destined to change the world. Alongside his diverse and loyal crew, they face challenges, explore mysterious
     islands, and uncover secrets of the world’s history.
   </p>
 
   <hr />
 
-  <p>
-    The journey isn’t easy. Each step requires bravery, camaraderie, and perseverance. From battling the ruthless <strong>Warlords of the Sea</strong> to
-    confronting the secrets of the <em>Void Century</em>, the Straw Hat Pirates remain undeterred. Here’s a glimpse of their remarkable story:
-  </p>
+  <p>The journey isn’t easy. Each step requires bravery, camaraderie, and perseverance. From battling the ruthless <strong>Warlords of the Sea</strong> to confronting the secrets of the <em>Void Century</em>, the Straw Hat Pirates remain undeterred. Here’s a glimpse of their remarkable story:</p>
 `;
 
 function Demo() {
@@ -55,10 +50,7 @@ const blockquote = html`
   <h3>Quotes</h3>
   <blockquote>"If you don’t take risks, you can’t create a future." - Monkey D. Luffy</blockquote>
   <p>And it can span into multiple lines:</p>
-  <blockquote>
-    "Inherited will, the swelling of the changing times, and the dreams of people, these are things that cannot be stopped. As long as people continue to seek
-    the meaning of freedom, these things will never cease to be!" - Gol D. Roger
-  </blockquote>
+  <blockquote>"Inherited will, the swelling of the changing times, and the dreams of people, these are things that cannot be stopped. As long as people continue to seek the meaning of freedom, these things will never cease to be!" - Gol D. Roger</blockquote>
   <li>
     <ul>
       <li>list 1</li>
@@ -279,27 +271,19 @@ const configuratorHtml = html`
 
   <h1>Exploring the Universe of Web Development</h1>
   <p>
-    Web development is a vast and <a href="#">ever-evolving</a> field. Whether you are crafting your first website or optimizing complex applications, staying
-    updated with the latest trends is essential. The rise of frameworks like React, Vue, and Svelte has changed how we approach building web interfaces.
-    Remember, the journey of mastering web development begins with a single <code>line of code</code>. Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save your
-    progress and keep moving forward.
+    Web development is a vast and <a href="#">ever-evolving</a> field. Whether you are crafting your first website or optimizing complex applications, staying updated with the latest trends is essential. The rise of frameworks like React, Vue, and Svelte has changed how we approach building web interfaces. Remember,
+    the journey of mastering web development begins with a single <code>line of code</code>. Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save your progress and keep moving forward.
   </p>
 
   <br />
 
   <h3>Building Blocks of Innovation</h3>
-  <p>
-    Imagine a world where every click, scroll, and interaction is seamless. As developers, we have the power to create experiences that inspire and empower. By
-    combining design principles with functional programming, we can build websites that are both aesthetic and performant. The possibilities are endless.
-  </p>
+  <p>Imagine a world where every click, scroll, and interaction is seamless. As developers, we have the power to create experiences that inspire and empower. By combining design principles with functional programming, we can build websites that are both aesthetic and performant. The possibilities are endless.</p>
 
   <hr />
 
   <h5>Stay Curious, Keep Learning</h5>
-  <p>
-    Challenges will arise, but every error is an opportunity to grow. Debugging is a skill that sharpens with practice. Never be afraid to experiment with new
-    ideas, break things, and rebuild them better than before.
-  </p>
+  <p>Challenges will arise, but every error is an opportunity to grow. Debugging is a skill that sharpens with practice. Never be afraid to experiment with new ideas, break things, and rebuild them better than before.</p>
 
   <hr />
 

@@ -16,7 +16,8 @@ const classes = cvx({
     as: {
       wrapper: "w-full min-w-full grid sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-4 mt-5 sm:gap-6",
       label: "absolute left-0 z-9 cursor-pointer font-bold tracking-normal transition-all",
-      input: "peer mb-12 mt-1 w-full min-w-full border-b bg-transparent pb-3 leading-none transition-colors placeholder:min-h-8 placeholder:leading-none placeholder:text-transparent placeholder-shown:bg-transparent autofill:bg-transparent valid:bg-transparent focus:bg-transparent focus-visible:border-b-color focus-visible:outline-0 focus-visible:ring-0 focus-visible:placeholder:text-muted-foreground"
+      input:
+        "peer mb-12 mt-1 w-full min-w-full border-b bg-transparent pb-3 leading-none transition-colors placeholder:min-h-8 placeholder:leading-none placeholder:text-transparent placeholder-shown:bg-transparent autofill:bg-transparent valid:bg-transparent focus:bg-transparent focus-visible:border-b-color focus-visible:outline-0 focus-visible:ring-0 focus-visible:placeholder:text-muted-foreground"
     },
     labelState: {
       true: "top-[-24px] text-[100%]",
@@ -51,7 +52,9 @@ function renderNestedRoute(routes: NestedRoute[], value: string) {
       if (!filtered.length) return null;
       return (
         <div key={index} className="mt-12 w-full min-w-full first-of-type:mt-0">
-          <Title el="h4" id={sanitizedWord(subRoute.title)}>{subRoute.title}</Title>
+          <Title el="h4" id={sanitizedWord(subRoute.title)}>
+            {subRoute.title}
+          </Title>
 
           <div className={classes({ as: "wrapper" })}>
             {filtered.map((item, index) => (
@@ -78,17 +81,7 @@ export function FilterDocs(props: FilterDocsProps) {
   const _id = sanitizedWord(id);
   return (
     <>
-      <input
-        id={_id}
-        name={_id}
-        value={value}
-        onChange={onChange}
-        autoFocus={autoFocus}
-        className={cn(classes({ as: "input" }), className)}
-        placeholder="Search"
-        autoComplete="true"
-        type="text"
-      />
+      <input id={_id} name={_id} value={value} onChange={onChange} autoFocus={autoFocus} className={cn(classes({ as: "input" }), className)} placeholder="Search" autoComplete="true" type="text" />
       <label role="presentation" htmlFor={_id} className={classes({ as: "label", labelState: value ? "true" : "false" })}>
         {transform.capitalize(id)}
       </label>

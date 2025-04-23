@@ -3,10 +3,7 @@ import * as React from "react";
 export interface CSSProperties extends React.CSSProperties {
   [key: string]: any;
 }
-export type ElementType<
-  T extends React.ElementType,
-  Exclude extends string = never
-> = Omit<React.ComponentPropsWithoutRef<T>, "style" | Exclude> & {
+export type ElementType<T extends React.ElementType, Exclude extends string = never> = Omit<React.ComponentPropsWithoutRef<T>, "style" | Exclude> & {
   style?: CSSProperties;
 };
 /** @usage
@@ -77,37 +74,12 @@ export type AnchorTargets = {
    *
    * **`_external`** : A special value that can be specified by a custom implementation to open a link to an external context or a custom application.
    */
-  target?:
-    | "_about"
-    | "_blank"
-    | "_calendar"
-    | "_contacts"
-    | "_email"
-    | "_external"
-    | "_file"
-    | "_ftp"
-    | "_media"
-    | "_messaging"
-    | "_noopener"
-    | "_noreferrer"
-    | "_parent"
-    | "_search"
-    | "_self"
-    | "_sms"
-    | "_tel"
-    | "_top"
-    | (string & NonNullable<unknown>);
+  target?: "_about" | "_blank" | "_calendar" | "_contacts" | "_email" | "_external" | "_file" | "_ftp" | "_media" | "_messaging" | "_noopener" | "_noreferrer" | "_parent" | "_search" | "_self" | "_sms" | "_tel" | "_top" | (string & NonNullable<unknown>);
 };
 
 export type Commons = "inherit" | "initial" | "revert" | "unset";
 
-export type Globals =
-  | "-moz-initial"
-  | "inherit"
-  | "initial"
-  | "revert"
-  | "revert-layer"
-  | "unset";
+export type Globals = "-moz-initial" | "inherit" | "initial" | "revert" | "revert-layer" | "unset";
 
 export type NamedColor =
   | "aliceblue"

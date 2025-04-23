@@ -1,15 +1,7 @@
 "use client";
 import { useEffect, useLayoutEffect, useState } from "react";
 
-export type OS =
-  | "undetermined"
-  | "old"
-  | "macos"
-  | "ios"
-  | "windows"
-  | "android"
-  | "linux"
-  | "UNIX";
+export type OS = "undetermined" | "old" | "macos" | "ios" | "windows" | "android" | "linux" | "UNIX";
 
 function getOldOS(userAgent: string) {
   let osName;
@@ -36,8 +28,7 @@ export function getOS(): OS {
   if (windowsPlatforms.test(userAgent)) return "windows";
   if (/Android/i.test(userAgent)) return "android";
   if (/Linux/i.test(userAgent)) return "linux";
-  if (/X11/.test(userAgent) && !/Win/.test(userAgent) && !/Mac/.test(userAgent))
-    return "UNIX";
+  if (/X11/.test(userAgent) && !/Win/.test(userAgent) && !/Mac/.test(userAgent)) return "UNIX";
   getOldOS(userAgent);
 
   return "undetermined";
@@ -48,11 +39,8 @@ interface UseOsOptions {
 }
 
 export function useOS(options: UseOsOptions = { getValueInEffect: true }): OS {
-  const [os, setOs] = useState<OS>(
-    options.getValueInEffect ? "undetermined" : getOS()
-  );
-  const useIsomorphicEffect =
-    typeof document !== "undefined" ? useLayoutEffect : useEffect;
+  const [os, setOs] = useState<OS>(options.getValueInEffect ? "undetermined" : getOS());
+  const useIsomorphicEffect = typeof document !== "undefined" ? useLayoutEffect : useEffect;
 
   useIsomorphicEffect(() => {
     if (options.getValueInEffect) {

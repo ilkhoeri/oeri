@@ -29,13 +29,7 @@ function Demo() {
   const isActive = (index: number) => (active === index ? "true" : undefined);
 
   const controls = data.map((item, index) => (
-    <UnstyledButton
-      key={item}
-      className="touch-manipulation appearance-none rounded-md text-sm font-medium leading-none text-muted-foreground transition-[color] hover:text-color data-[active]:text-color"
-      ref={setControlRef(index)}
-      onClick={() => setActive(index)}
-      data-active={isActive(index)}
-    >
+    <UnstyledButton key={item} className="touch-manipulation appearance-none rounded-md text-sm font-medium leading-none text-muted-foreground transition-[color] hover:text-color data-[active]:text-color" ref={setControlRef(index)} onClick={() => setActive(index)} data-active={isActive(index)}>
       <span className="relative z-1 px-3 py-[.4375rem]" onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(null)}>
         {item}
       </span>
@@ -56,8 +50,7 @@ const classes = cvx({
       root: "m-auto relative w-max p-2 rounded-lg border bg-muted/60",
       indicator: "bg-muted/60 rounded-md shadow-md border border-solid",
       controls: "flex",
-      control:
-        "size-[50px] flex items-center justify-center text-muted-foreground rounded-md data-[active]:text-color hover:text-color hover:bg-muted/60 [&>svg]:block [&>svg]:relative [&>svg]:z-1"
+      control: "size-[50px] flex items-center justify-center text-muted-foreground rounded-md data-[active]:text-color hover:text-color hover:bg-muted/60 [&>svg]:block [&>svg]:relative [&>svg]:z-1"
     }
   }
 });
@@ -114,9 +107,7 @@ const configurator: DataTrees = {
   code: codes.configurator,
   centered: true,
   classNames: { demoInner: "h-72 flex items-center justify-center" },
-  controls: [
-    { prop: "transitionDuration", type: "number", initialValue: 200, libraryValue: 200, min: 100, max: 1500 }
-  ]
+  controls: [{ prop: "transitionDuration", type: "number", initialValue: 200, libraryValue: 200, min: 100, max: 1500 }]
 };
 
 export const FloatingIndicatorDemos = {

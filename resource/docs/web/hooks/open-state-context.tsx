@@ -11,9 +11,7 @@ export function createSafeContext<ContextValue>(errorMessage: string) {
     }
     return { ...ctx, Portal };
   };
-  const Provider = ({ children, value }: { value: ContextValue; children: React.ReactNode }) => (
-    <Context.Provider value={value}>{children}</Context.Provider>
-  );
+  const Provider = ({ children, value }: { value: ContextValue; children: React.ReactNode }) => <Context.Provider value={value}>{children}</Context.Provider>;
 
   return [Provider, useSafeContext] as const;
 }
@@ -33,7 +31,7 @@ export function Portal(_props: PortalProps) {
 type Components = (string | false | React.JSXElementConstructor<any>)[];
 
 export const modifyChildren = (children: React.ReactNode, components: Components, props: any): React.ReactNode => {
-  return React.Children.map(children, (child) => {
+  return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child;
 
     if (components.includes(child.type)) {
@@ -45,7 +43,7 @@ export const modifyChildren = (children: React.ReactNode, components: Components
 };
 
 export const hasSpecificChildren = (children: React.ReactNode, components: Components): boolean => {
-  return React.Children.toArray(children).some((child) => {
+  return React.Children.toArray(children).some(child => {
     const isChild = React.isValidElement(child) && child.type;
     return components.includes(isChild);
   });

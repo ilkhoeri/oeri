@@ -13,10 +13,7 @@ type NestedRecord<U extends [string, unknown], T extends string> = {
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
 type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties }, Exclude>;
-export interface ScrollAreaProps
-  extends UseScrollAreaType,
-    StylesNames<__Selector>,
-    React.DetailedHTMLProps<Omit<React.HTMLAttributes<HTMLDivElement>, "style">, HTMLDivElement> {
+export interface ScrollAreaProps extends UseScrollAreaType, StylesNames<__Selector>, React.DetailedHTMLProps<Omit<React.HTMLAttributes<HTMLDivElement>, "style">, HTMLDivElement> {
   el?: React.ElementType;
 }
 
@@ -327,13 +324,7 @@ export const ScrollArea = React.forwardRef<React.ElementRef<"div">, ScrollAreaPr
           ref,
           "data-overflow": overflow,
           "data-state": "acroll-area",
-          className: cn(
-            "peer will-change-scroll",
-            overflow === "y" && "overflow-y-auto overflow-x-hidden",
-            overflow === "x" && "overflow-x-auto overflow-y-hidden",
-            className,
-            classNames?.content
-          ),
+          className: cn("peer will-change-scroll", overflow === "y" && "overflow-y-auto overflow-x-hidden", overflow === "x" && "overflow-x-auto overflow-y-hidden", className, classNames?.content),
           style: { ...style, ...styles?.content },
           ...props
         }}
@@ -345,12 +336,7 @@ export const ScrollArea = React.forwardRef<React.ElementRef<"div">, ScrollAreaPr
           "data-overflow": overflow,
           "data-state": "thumb",
           "aria-label": "thumb",
-          className: cn(
-            "thumb rounded-full hover:bg-muted peer-hover:bg-muted data-[scroll=active]:bg-muted-foreground peer-hover:data-[scroll=active]:bg-muted-foreground absolute z-2 will-change-scroll",
-            overflow === "y" && "right-8 w-1.5 min-w-1.5",
-            overflow === "x" && "bottom-8 h-1.5 min-h-1.5",
-            classNames?.thumb
-          ),
+          className: cn("thumb rounded-full hover:bg-muted peer-hover:bg-muted data-[scroll=active]:bg-muted-foreground peer-hover:data-[scroll=active]:bg-muted-foreground absolute z-2 will-change-scroll", overflow === "y" && "right-8 w-1.5 min-w-1.5", overflow === "x" && "bottom-8 h-1.5 min-h-1.5", classNames?.thumb),
           style: styles?.thumb
         }}
       />

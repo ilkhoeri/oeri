@@ -11,27 +11,17 @@ export const size = {
 };
 
 // Image generation
-export default async function Image({
-  url,
-  params
-}: {
-  url: string;
-  params: Promise<{ slug: string }>;
-}) {
+export default async function Image({ url, params }: { url: string; params: Promise<{ slug: string }> }) {
   // slug / path params id
   const slug = (await params).slug;
   // fetch data
   const post = await fetch(`${url}/${slug}`).then(res => res.json());
 
   // logo image
-  const logoSrc = await fetch(
-    new URL("/favicon/asset-umk-transparent.png", import.meta.url)
-  ).then(res => res.arrayBuffer());
+  const logoSrc = await fetch(new URL("/favicon/asset-umk-transparent.png", import.meta.url)).then(res => res.arrayBuffer());
 
   // Font
-  const interSemiBold = fetch(
-    new URL("./Inter-SemiBold.ttf", import.meta.url)
-  ).then(res => res.arrayBuffer());
+  const interSemiBold = fetch(new URL("./Inter-SemiBold.ttf", import.meta.url)).then(res => res.arrayBuffer());
 
   return new ImageResponse(
     (
@@ -48,7 +38,8 @@ export default async function Image({
             alignItems: "center",
             justifyContent: "center"
           }
-        }}>
+        }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={String(logoSrc)} alt="" height="100" />
         {post.title}

@@ -25,11 +25,7 @@ interface useMoveHandlers {
   onScrubEnd?: () => void;
 }
 
-export function useMove<T extends HTMLElement = HTMLDivElement>(
-  onChange: (value: UseMovePosition) => void,
-  handlers?: useMoveHandlers,
-  dir: "ltr" | "rtl" = "ltr"
-) {
+export function useMove<T extends HTMLElement = HTMLDivElement>(onChange: (value: UseMovePosition) => void, handlers?: useMoveHandlers, dir: "ltr" | "rtl" = "ltr") {
   const ref = useRef<T>(null);
   // const ref = useRef<T | null>(null);
   const mounted = useRef<boolean>(false);

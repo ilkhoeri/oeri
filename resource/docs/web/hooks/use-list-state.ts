@@ -83,8 +83,7 @@ export function useListState<T>(initialValue: T[] = []): UseListState<T> {
       return cloned;
     });
 
-  const applyWhere = (condition: (item: T, index: number) => boolean, fn: (item: T, index?: number) => T) =>
-    setState(current => current.map((item, index) => (condition(item, index) ? fn(item, index) : item)));
+  const applyWhere = (condition: (item: T, index: number) => boolean, fn: (item: T, index?: number) => T) => setState(current => current.map((item, index) => (condition(item, index) ? fn(item, index) : item)));
 
   const filter = (fn: (item: T, i: number) => boolean) => {
     setState(current => current.filter(fn));

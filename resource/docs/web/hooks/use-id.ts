@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import { useIsomorphicEffect } from "./use-isomorphic-effect";
 
-const __useId: () => string | undefined =
-  (React as any)["useId".toString()] || (() => undefined);
+const __useId: () => string | undefined = (React as any)["useId".toString()] || (() => undefined);
 
 export function useReactId() {
   const id = __useId();
@@ -42,9 +41,7 @@ function generateHierarchyId<T extends HTMLElement = HTMLElement>(el: T) {
   while (currentElement) {
     const parentElement: HTMLElement | null = currentElement.parentElement;
     if (parentElement) {
-      const children: HTMLElement[] = Array.from(
-        parentElement.children
-      ) as HTMLElement[];
+      const children: HTMLElement[] = Array.from(parentElement.children) as HTMLElement[];
       const index = children.indexOf(currentElement);
 
       total += index;

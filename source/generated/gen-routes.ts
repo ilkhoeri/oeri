@@ -82,10 +82,7 @@ export function docsToRoutes(docs: string[]) {
   };
 }
 
-export function docFilterBySegment(
-  allDocs: string[],
-  targetSegment: string
-): { single: SingleRoute[]; nested: NestedRoute[] } {
+export function docFilterBySegment(allDocs: string[], targetSegment: string): { single: SingleRoute[]; nested: NestedRoute[] } {
   // Filter berdasarkan segmen pertama
   const filteredDocs = allDocs.filter(path => {
     const [firstSegment] = path.split("/").slice(3).filter(Boolean); // Ambil segmen pertama
@@ -99,12 +96,7 @@ const hooks = docFilterBySegment(routes, "hooks").single;
 const components = docFilterBySegment(routes, "components").single;
 const configurations = docFilterBySegment(routes, "configurations").single;
 
-export const docsRoutes = [
-  ...configurations,
-  ...utility,
-  ...components,
-  ...hooks
-];
+export const docsRoutes = [...configurations, ...utility, ...components, ...hooks];
 export const resRoutes = {
   configurations,
   utility,

@@ -47,12 +47,7 @@ const data = [
 
 function Demo() {
   return (
-    <Timeline.List
-      align="left"
-      bulletStyle={{ size: 25 }}
-      lineStyle={{ width: 3, variant: "double", clr: "hsla(45, 90%, 45%, 0.25)" }}
-      className="max-w-5xl py-12 pl-10"
-    >
+    <Timeline.List align="left" bulletStyle={{ size: 25 }} lineStyle={{ width: 3, variant: "double", clr: "hsla(45, 90%, 45%, 0.25)" }} className="max-w-5xl py-12 pl-10">
       {data.map(i => {
         const isActive = ["1", "2", "4"].includes(i.id);
         return (
@@ -64,14 +59,7 @@ function Demo() {
             lineStyle={{ variant: cnx({ dotted: isActive }) }}
             bullet={
               <ClientOnly>
-                <Tooltip
-                  touch
-                  withArrow
-                  defaultOpen={!isActive}
-                  side="top"
-                  content={i.title}
-                  classNames={{ trigger: "size-full flex items-center justify-center", content: "py-1 px-1.5" }}
-                >
+                <Tooltip touch withArrow defaultOpen={!isActive} side="top" content={i.title} classNames={{ trigger: "size-full flex items-center justify-center", content: "py-1 px-1.5" }}>
                   {i.icons}
                 </Tooltip>
               </ClientOnly>
@@ -124,14 +112,7 @@ function ConfiguratorDemo(props: TimelineProps) {
   return (
     <Timeline {...props} bulletStyle={{ round: 8, size: 32 }} lineStyle={{ width: 1 }}>
       {data2.map(i => (
-        <Timeline.Item
-          key={i.id}
-          title={i.title}
-          active={["1", "2", "4"].includes(i.id)}
-          notice={["2", "3"].includes(i.id)}
-          bullet={i.icons}
-          activeStyle={{ line: "hsl(var(--color)/0.6)", ring: "transparent" }}
-        >
+        <Timeline.Item key={i.id} title={i.title} active={["1", "2", "4"].includes(i.id)} notice={["2", "3"].includes(i.id)} bullet={i.icons} activeStyle={{ line: "hsl(var(--color)/0.6)", ring: "transparent" }}>
           <p className="mt-2 text-xs text-muted-foreground">{i.description}</p>
           <time dateTime={String(i.createdAt)} className="mt-2 text-xs text-muted-foreground">
             {String(i.createdAt)}

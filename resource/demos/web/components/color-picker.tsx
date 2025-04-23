@@ -13,24 +13,7 @@ const codes = {
     '"use client";\nimport { useState } from "react";\nimport { Input } from "@/ui/input";\nimport { ColorPicker } from "@/ui/color-picker";\n\nexport function ColorPickerDemo() {\n  const [value, onChange] = useState("rgba(47, 119, 150, 0.7)");\n  const swatches = ["#ffffff", "#000000", "#2e2e2e", "#868e96", "#fa5252", "#e64980", "#be4bdb", "#639", "#4c6ef5", "#228be6", "#15aabf", "#12b886", "#40c057", "#82c91e", "#fab005", "#fd7e14" ];\n  return (\n      <ColorPicker{{props}} value={value} onChange={onChange} swatches={swatches}>\n      <Input\n        value={value}\n        onChange={e => onChange(e.target.value)}\n        className="mt-[--cp-space] h-auto rounded-[--cp-input-round] p-[--cp-input-p] leading-none [font-size:--cp-input-fz]"\n      />\n      </ColorPicker>\n  );\n}'
 };
 
-const swatches = [
-  "#ffffff",
-  "#000000",
-  "#2e2e2e",
-  "#868e96",
-  "#fa5252",
-  "#e64980",
-  "#be4bdb",
-  "#639",
-  "#4c6ef5",
-  "#228be6",
-  "#15aabf",
-  "#12b886",
-  "#40c057",
-  "#82c91e",
-  "#fab005",
-  "#fd7e14"
-];
+const swatches = ["#ffffff", "#000000", "#2e2e2e", "#868e96", "#fa5252", "#e64980", "#be4bdb", "#639", "#4c6ef5", "#228be6", "#15aabf", "#12b886", "#40c057", "#82c91e", "#fab005", "#fd7e14"];
 
 function ColorPickerDemo() {
   const [value, onChange] = useState("#639");
@@ -41,11 +24,7 @@ function ColorPickerDemo() {
       </Svg>
 
       <ColorPicker withPicker={false} format="hsla" size={18} value={value} onChange={onChange} swatches={swatches} selectedIcon={<CheckIcon size="sm" />}>
-        <Input
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          className="mt-[--cp-space] h-auto rounded-[--cp-input-round] p-[--cp-input-p] leading-none [font-size:--cp-input-fz]"
-        />
+        <Input value={value} onChange={e => onChange(e.target.value)} className="mt-[--cp-space] h-auto rounded-[--cp-input-round] p-[--cp-input-p] leading-none [font-size:--cp-input-fz]" />
       </ColorPicker>
     </div>
   );
@@ -62,11 +41,7 @@ function ColorPickerConfiguratorDemo(props: ColorPickerProps) {
   const [value, onChange] = useState("rgba(47, 119, 150, 0.7)");
   return (
     <ColorPicker {...props} value={value} onChange={onChange} swatches={swatches}>
-      <Input
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        className="mt-[--cp-space] h-auto rounded-[--cp-input-round] p-[--cp-input-p] leading-none [font-size:--cp-input-fz]"
-      />
+      <Input value={value} onChange={e => onChange(e.target.value)} className="mt-[--cp-space] h-auto rounded-[--cp-input-round] p-[--cp-input-p] leading-none [font-size:--cp-input-fz]" />
     </ColorPicker>
   );
 }

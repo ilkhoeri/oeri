@@ -89,15 +89,7 @@ function ConfiguratorDemo(props: TableProps) {
     ),
     head: [
       <Label key={"select-all"} htmlFor="select-all" aria-label="select-all" className="mt-1.5 h-[17px] cursor-pointer">
-        <Input
-          type="checkbox"
-          id="select-all"
-          name="select-all"
-          aria-label="Select All"
-          checked={data.length > 0 && isAllSelected}
-          indeterminate={isSomeSelected}
-          onChange={handleSelectAll}
-        />
+        <Input type="checkbox" id="select-all" name="select-all" aria-label="Select All" checked={data.length > 0 && isAllSelected} indeterminate={isSomeSelected} onChange={handleSelectAll} />
         &nbsp;&nbsp;All
       </Label>,
       "Element name",
@@ -109,14 +101,7 @@ function ConfiguratorDemo(props: TableProps) {
     body: dataRenderer(data, [
       (item, index) => (
         <div className="flex flex-row items-center justify-start gap-1">
-          <Input
-            type="checkbox"
-            id={name(item.name)}
-            name={name(item.name)}
-            aria-label="Select row"
-            checked={selectedRows.includes(item.name)}
-            onChange={event => setSelectedRows(event.currentTarget.checked ? [...selectedRows, item.name] : selectedRows.filter(name => name !== item.name))}
-          />
+          <Input type="checkbox" id={name(item.name)} name={name(item.name)} aria-label="Select row" checked={selectedRows.includes(item.name)} onChange={event => setSelectedRows(event.currentTarget.checked ? [...selectedRows, item.name] : selectedRows.filter(name => name !== item.name))} />
           &nbsp;&nbsp;{index + 1}
         </div>
       ),

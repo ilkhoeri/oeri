@@ -11,30 +11,12 @@ export function MarkdownText() {
 
   const edit = (
     <>
-      <Textarea
-        name="playground"
-        data-rehype-pretty-code-fragment=""
-        id="playground"
-        title="playground"
-        aria-label="playground"
-        cols={30}
-        rows={10}
-        className="relative !border-0 !bg-transparent scrollbar"
-        spellCheck={false}
-        value={text}
-        onChange={e => setText(e.currentTarget.value)}
-      />
+      <Textarea name="playground" data-rehype-pretty-code-fragment="" id="playground" title="playground" aria-label="playground" cols={30} rows={10} className="relative !border-0 !bg-transparent scrollbar" spellCheck={false} value={text} onChange={e => setText(e.currentTarget.value)} />
       <CopyButton className="absolute right-4 top-4 z-9" value={text} />
     </>
   );
 
-  const preview = (
-    <div
-      data-rehype-pretty-code-fragment=""
-      className="textarea_class markdown-body relative flex-col whitespace-pre-line !border-0 !bg-transparent scrollbar"
-      dangerouslySetInnerHTML={{ __html: markdownText(text) }}
-    />
-  );
+  const preview = <div data-rehype-pretty-code-fragment="" className="textarea_class markdown-body relative flex-col whitespace-pre-line !border-0 !bg-transparent scrollbar" dangerouslySetInnerHTML={{ __html: markdownText(text) }} />;
 
   return (
     <Tabs defaultValue="preview" id="preview" className="mb-auto size-full scroll-m-20">

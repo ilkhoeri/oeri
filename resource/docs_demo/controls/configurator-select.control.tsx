@@ -16,15 +16,7 @@ export interface ConfiguratorSelectControlProps extends ComponentProps<"select",
 }
 
 export function ConfiguratorSelectControl({ value, onChange, prop, data, ...others }: ConfiguratorSelectControlProps) {
-  return (
-    <NativeSelect
-      value={value}
-      onChange={event => onChange(event.currentTarget.value)}
-      label={getControlLabel(prop)}
-      data={transformSelectData(data)}
-      {...others}
-    />
-  );
+  return <NativeSelect value={value} onChange={event => onChange(event.currentTarget.value)} label={getControlLabel(prop)} data={transformSelectData(data)} {...others} />;
 }
 
 interface NativeSelectProps extends ComponentProps<"select"> {

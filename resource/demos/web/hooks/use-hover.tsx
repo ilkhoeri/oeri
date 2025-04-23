@@ -18,10 +18,7 @@ function Demo({ touch = false }: { touch?: boolean }) {
       </Button>
 
       {hovered && (
-        <div
-          role="tooltip"
-          className="absolute top-[calc(50%+20px)] rounded-md border bg-background p-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100"
-        >
+        <div role="tooltip" className="absolute top-[calc(50%+20px)] rounded-md border bg-background p-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100">
           {touch ? "You can also use touch" : "onTouch can't be used"}
         </div>
       )}

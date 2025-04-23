@@ -9,30 +9,28 @@ export interface BurgerProps extends UnstyledButtonProps<"children"> {
   size?: number | string;
   unstyled?: boolean;
 }
-export const Burger = React.forwardRef<HTMLButtonElement, BurgerProps>(
-  function Burger(_props, ref) {
-    const { setOpen, open, unstyled, className, style, size = 32, color = "hsl(var(--color))", ...props } = _props;
-    return (
-      <UnstyledButton
-        {...{
-          ref,
-          ...getStyles({ classes: "root", open, size, className, unstyled, style, color }),
-          onClick: e => {
-            setOpen?.(!open);
-            props?.onClick?.(e);
-          },
-          ...props
-        }}
-      >
-        <Svg currentFill="fill" {...getStyles({ classes: "svg", open })}>
-          {[...Array(3)].map((_, index) => (
-            <path key={index} {...getStyles({ path: String(index) as Index, open, index })} />
-          ))}
-        </Svg>
-      </UnstyledButton>
-    );
-  }
-);
+export const Burger = React.forwardRef<HTMLButtonElement, BurgerProps>(function Burger(_props, ref) {
+  const { setOpen, open, unstyled, className, style, size = 32, color = "hsl(var(--color))", ...props } = _props;
+  return (
+    <UnstyledButton
+      {...{
+        ref,
+        ...getStyles({ classes: "root", open, size, className, unstyled, style, color }),
+        onClick: e => {
+          setOpen?.(!open);
+          props?.onClick?.(e);
+        },
+        ...props
+      }}
+    >
+      <Svg currentFill="fill" {...getStyles({ classes: "svg", open })}>
+        {[...Array(3)].map((_, index) => (
+          <path key={index} {...getStyles({ path: String(index) as Index, open, index })} />
+        ))}
+      </Svg>
+    </UnstyledButton>
+  );
+});
 
 type Index = "0" | "1" | "2";
 type Selector = cvxProps<typeof burger>;
@@ -50,22 +48,15 @@ function getStyles(selector: Selector & Options = {}) {
   return {
     "data-state": classes ? (open ? "open" : "closed") : undefined,
     className: cn(!unstyled && burger(selector), className),
-    d: (path
-      ? burger({ path: String(index) as Index })
-      : undefined) as React.SVGAttributes<SVGPathElement>["d"],
+    d: (path ? burger({ path: String(index) as Index }) : undefined) as React.SVGAttributes<SVGPathElement>["d"],
     style: {
       ...(path
         ? {
             transition: "transform .35s ease",
             transform: open ? burger({ isOpen: String(index) as Index }) : "none"
           }
-        : undefined
-      ),
-      ...(
-        selector.classes === "root"
-        ? { "--burger-size": rem(size), "--burger-color": color }
-        : undefined
-      ),
+        : undefined),
+      ...(selector.classes === "root" ? { "--burger-size": rem(size), "--burger-color": color } : undefined),
       ...style
     } as React.CSSProperties
   };

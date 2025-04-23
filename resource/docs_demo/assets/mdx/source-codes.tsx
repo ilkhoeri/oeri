@@ -26,28 +26,22 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
 
   const childs: Record<string, React.JSX.Element | null> = {};
 
+  const classNames = {
+    content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", "[--pre-p:.625rem_0rem]", {
+      "pointer-events-none overflow-hidden after:absolute after:inset-0 after:z-[21] after:bg-background/60 after:content-[''] after:animate-pulse": !mounted
+    }),
+    inner:
+      "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--fz-code:.8125rem] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--p-code:0] [&>figure>pre>code:is([data-language][data-line-numbers])]:border-0"
+  };
+
   if (css) {
-    const shiki = ctx?.shiki(css?.trim(), "css");
-    childs.css = <Code code={css} title="globals.css" __html={purify(shiki.code)} />;
+    const shiki = ctx?.rehype(css?.trim(), "css");
+    childs.css = <Code code={css} title="globals.css" __html={purify(shiki.code)} classNames={classNames} />;
   }
   if (code) {
     const shiki = ctx?.rehype(code, "ts");
     const loaded = (code: string | null | undefined) => (mounted && shiki.highlighted ? code : null);
-    childs.code = (
-      <Code
-        title={`${name}${ext}`}
-        code={loaded(code)}
-        repo={loaded(repo) as string | undefined}
-        __html={loaded(shiki.code)}
-        classNames={{
-          content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", "[--pre-p:.625rem_0rem]", {
-            "pointer-events-none overflow-hidden after:absolute after:inset-0 after:z-[21] after:bg-background/60 after:content-[''] after:animate-pulse": !mounted
-          }),
-          inner:
-            "whitespace-pre-wrap inline-block rounded-[.125rem] p-[var(--code-p,.0625rem_.1875rem)] font-mono [font-size:var(--code-fz,.8125rem)] leading-[--code-line-height,1.55] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--fz-code:.8125rem] [&>figure>pre>code:is([data-language][data-line-numbers])]:[--p-code:0] [&>figure>pre>code:is([data-language][data-line-numbers])]:border-0"
-        }}
-      />
-    );
+    childs.code = <Code title={`${name}${ext}`} code={loaded(code)} repo={loaded(repo) as string | undefined} __html={loaded(shiki.code)} classNames={classNames} />;
   }
 
   if (!childs) return null;

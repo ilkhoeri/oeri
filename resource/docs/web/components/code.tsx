@@ -1,9 +1,7 @@
 import * as React from "react";
 import { cn, cvx, type cvxProps } from "cretex";
 
-const classRoot = cn(
-  "block max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]"
-);
+const classRoot = cn("block max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]");
 
 const classes = cvx({
   variants: {
@@ -45,13 +43,7 @@ function getStyles(selector: __CodeSelector, options: Options = {}) {
   const switchClass = [classes({ block: is(block) }), classes({ quote: is(quote) }), classes({ label: is(label) })];
   return {
     dir: dir,
-    className: cn(
-      !unstyled?.[selector] && classes({ selector }),
-      selector === "pre" && switchRoot && [switchClass, "grid grid-flow-row space-y-4"],
-      selector === "code" && !switchRoot && !unstyled?.code && [switchClass, { "[&>samp]:whitespace-normal": block }],
-      classNames?.[selector],
-      className
-    ),
+    className: cn(!unstyled?.[selector] && classes({ selector }), selector === "pre" && switchRoot && [switchClass, "grid grid-flow-row space-y-4"], selector === "code" && !switchRoot && !unstyled?.code && [switchClass, { "[&>samp]:whitespace-normal": block }], classNames?.[selector], className),
     style: {
       "--bg": selector === "code" && bg,
       "--color": selector === "code" && color,
@@ -71,10 +63,7 @@ interface __CodeProps {
   bg?: React.CSSProperties["color"];
   color?: React.CSSProperties["color"];
 }
-export interface CodeProps
-  extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>, "ref" | "color" | "style" | "dir">,
-    StylesNames<__CodeSelector>,
-    __CodeProps {
+export interface CodeProps extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>, "ref" | "color" | "style" | "dir">, StylesNames<__CodeSelector>, __CodeProps {
   children?: string;
 }
 export const Code = React.forwardRef<HTMLPreElement, CodeProps>(function Code(_props, ref) {

@@ -11,7 +11,9 @@ const codes = {
 function Demo() {
   return (
     <PolymorphicSlot className={buttonStyle({ variant: "outline", color: "grape" }, "w-4 h-4")}>
-      <button type="button" className="w-max h-9 rounded-lg">My Button</button>
+      <button type="button" className="w-max h-9 rounded-lg">
+        My Button
+      </button>
     </PolymorphicSlot>
   );
 }

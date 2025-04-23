@@ -80,31 +80,7 @@ interface SwitchGroupProps extends ComponentProps<"div", "children" | "color" | 
 }
 
 export const SwitchGroup = React.forwardRef<HTMLDivElement, SwitchGroupProps>((_props, ref) => {
-  const {
-    children,
-    value,
-    defaultValue,
-    onChange,
-    size,
-    labelPosition,
-    readOnly,
-    required,
-    color,
-    round,
-    disabled,
-    label,
-    description,
-    className,
-    classNames,
-    style,
-    styles,
-    unstyled,
-    error,
-    role = "presentation",
-    id: defaulId,
-    wrapperProps: wp,
-    ...props
-  } = _props;
+  const { children, value, defaultValue, onChange, size, labelPosition, readOnly, required, color, round, disabled, label, description, className, classNames, style, styles, unstyled, error, role = "presentation", id: defaulId, wrapperProps: wp, ...props } = _props;
   const id = useId(defaulId);
   const stylesApi = {
     id,
@@ -181,32 +157,7 @@ interface SwitchProps extends ComponentProps<"input", "size" | "children" | "col
 }
 
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>((_props, ref) => {
-  const {
-    classNames,
-    className,
-    style,
-    styles,
-    unstyled,
-    color,
-    label,
-    offLabel,
-    onLabel,
-    id,
-    size,
-    round,
-    thumbIcon,
-    checked,
-    defaultChecked,
-    onChange,
-    labelPosition,
-    description,
-    error,
-    disabled,
-    required,
-    rootRef,
-    wrapperProps: wp,
-    ...props
-  } = _props;
+  const { classNames, className, style, styles, unstyled, color, label, offLabel, onLabel, id, size, round, thumbIcon, checked, defaultChecked, onChange, labelPosition, description, error, disabled, required, rootRef, wrapperProps: wp, ...props } = _props;
 
   const uuid = useId(id);
   const ctx = useSwitchGroupCtx();
@@ -318,22 +269,7 @@ function switchGroupStyles(selector: __Selector<"switchGroup">, options: StylesN
   };
 }
 function switchStyles(selector: __Selector<"switch">, options: StylesNames<"switch"> & __SwitchProps = {}) {
-  const {
-    unstyled,
-    className,
-    classNames,
-    style,
-    styles,
-    disabled,
-    required,
-    onLabel,
-    offLabel,
-    error,
-    size = 20,
-    round = 9999,
-    labelPosition = "right",
-    color = "hsl(var(--constructive))"
-  } = options;
+  const { unstyled, className, classNames, style, styles, disabled, required, onLabel, offLabel, error, size = 20, round = 9999, labelPosition = "right", color = "hsl(var(--constructive))" } = options;
   function selected<T>(select: __Selector<"switch">, state: T) {
     return selector === select ? (state as T) : undefined;
   }

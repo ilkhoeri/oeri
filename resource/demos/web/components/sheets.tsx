@@ -44,11 +44,7 @@ function AccordionDemo(props: SheetsProps) {
   return (
     <Sheets {...props} variant="accordion" defaultOpen="accessibility" className="w-full max-w-96 rounded-lg border px-6">
       {data.map((i, index) => (
-        <SheetsItem
-          key={index}
-          value={String(i.title.replace(/\s/g, "-").toLowerCase())}
-          className="group relative flex h-auto select-none flex-col border-b last-of-type:border-b-transparent"
-        >
+        <SheetsItem key={index} value={String(i.title.replace(/\s/g, "-").toLowerCase())} className="group relative flex h-auto select-none flex-col border-b last-of-type:border-b-transparent">
           <SheetsTrigger>
             {i.title}
             <ChevronIcon chevron="down" data-sheets="chevron" />
@@ -76,23 +72,13 @@ function CollapsibleDemo(props: SheetsCollapsibleProps) {
         </Typography>
       </Sheets.Trigger>
 
-      <Typography
-        el="a"
-        data-ignore-clickoutside
-        href="#sheets-variant-collapsible"
-        className="hover:bg-muted/60 mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-      >
+      <Typography el="a" data-ignore-clickoutside href="#sheets-variant-collapsible" className="hover:bg-muted/60 mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
         @sheets/collapsible
       </Typography>
 
       <Sheets.Content className="space-y-2">
         {["accordion", "dialog", "drawer", "dropdown"].map(i => (
-          <Typography
-            el="a"
-            key={i}
-            href={`#sheets-variant-${i}`}
-            className="hover:bg-muted/60 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
-          >
+          <Typography el="a" key={i} href={`#sheets-variant-${i}`} className="hover:bg-muted/60 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
             @sheets/{i}
           </Typography>
         ))}
@@ -112,12 +98,9 @@ function CollapsibleRootDemo() {
       </Button>
       <Sheets variant="collapsible" open={isOpen} onOpenChange={setIsOpen} className="w-96 max-w-full text-justify text-sm">
         <Typography prose="span" className="max-w-full text-wrap">
-          Long ago, during the era of Gol D. Roger, the Pirate King, the seas were filled with tales of adventure, danger, and mystery. His final words before
-          execution ignited the "Great Pirate Era": "My treasure? It's yours if you want it. I left everything I gathered in one place." These words inspired
-          countless pirates, including a young boy named Monkey D. Luffy, who dreamed of finding the legendary <em>One Piece</em> and becoming the next Pirate
-          King. With a straw hat gifted by the infamous Shanks and the power of the Gomu Gomu no Mi, a mysterious Devil Fruit, Luffy set out on a journey that
-          would bring together an unforgettable crew and face unimaginable challenges. From battling fierce Warlords to uncovering secrets of the Void Century,
-          their adventure is a testament to loyalty, courage, and the unbreakable bonds of friendship.
+          Long ago, during the era of Gol D. Roger, the Pirate King, the seas were filled with tales of adventure, danger, and mystery. His final words before execution ignited the "Great Pirate Era": "My treasure? It's yours if you want it. I left everything I gathered in one place." These words inspired countless
+          pirates, including a young boy named Monkey D. Luffy, who dreamed of finding the legendary <em>One Piece</em> and becoming the next Pirate King. With a straw hat gifted by the infamous Shanks and the power of the Gomu Gomu no Mi, a mysterious Devil Fruit, Luffy set out on a journey that would bring together
+          an unforgettable crew and face unimaginable challenges. From battling fierce Warlords to uncovering secrets of the Void Century, their adventure is a testament to loyalty, courage, and the unbreakable bonds of friendship.
         </Typography>
         <Button variant="link" onClick={() => setIsOpen(false)}>
           close
@@ -132,12 +115,7 @@ function DialogDemo() {
   return (
     <Sheets variant="dialog">
       <SheetsTrigger>
-        <Typography
-          el="span"
-          data-labelopen="Open Dialog"
-          data-labelclosed="Close Dialog"
-          className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]"
-        />
+        <Typography el="span" data-labelopen="Open Dialog" data-labelclosed="Close Dialog" className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]" />
       </SheetsTrigger>
 
       <SheetsContent className="flex flex-col gap-4 overflow-hidden max-md:max-h-96 md:h-[438px] md:w-[528px]">
@@ -148,10 +126,8 @@ function DialogDemo() {
           <Typography prose="muted">Explore the strength of ambitions and the stories of those who dare to dream beyond the horizon.</Typography>
         </Stack>
         <Typography prose="p" className="flex size-full flex-col overflow-y-auto">
-          Every great journey begins with a dream. It is the courage to pursue the unknown, the resilience to face challenges, and the belief in oneself that
-          turns visions into reality. Whether it’s the quest for knowledge, the pursuit of adventure, or the desire to leave a lasting legacy, dreams shape the
-          world we live in. From the innovators who redefined technology to explorers who mapped uncharted territories, their stories remind us that nothing is
-          impossible when driven by purpose. So, what’s your dream, and how far will you go to achieve it?
+          Every great journey begins with a dream. It is the courage to pursue the unknown, the resilience to face challenges, and the belief in oneself that turns visions into reality. Whether it’s the quest for knowledge, the pursuit of adventure, or the desire to leave a lasting legacy, dreams shape the world we
+          live in. From the innovators who redefined technology to explorers who mapped uncharted territories, their stories remind us that nothing is impossible when driven by purpose. So, what’s your dream, and how far will you go to achieve it?
         </Typography>
 
         <SheetsClose />
@@ -232,12 +208,7 @@ function DrawerDemo(props: SheetsDrawerProps) {
   return (
     <Sheets {...props} variant="drawer">
       <SheetsTrigger id="drawer">
-        <Typography
-          el="span"
-          data-labelopen="Open Drawer"
-          data-labelclosed="Close Drawer"
-          className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]"
-        />
+        <Typography el="span" data-labelopen="Open Drawer" data-labelclosed="Close Drawer" className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]" />
       </SheetsTrigger>
 
       <SheetsContent className="flex flex-col gap-4">
@@ -248,9 +219,8 @@ function DrawerDemo(props: SheetsDrawerProps) {
           <Typography prose="muted">Tenetur fugiat aspernatur aut quas ex praesentium molestias officiis. repudiandae.</Typography>
         </Stack>
         <Typography prose="p" className="flex size-full flex-col overflow-y-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur fugiat aspernatur aut quas ex praesentium molestias officiis fugit accusamus
-          expedita alias repudiandae, exercitationem maiores velit quos reiciendis recusandae, quod iusto earum? Fugiat fuga dolor atque nobis esse dignissimos
-          temporibus vel incidunt maxime provident ut dolorem hic explicabo corrupti, praesentium.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur fugiat aspernatur aut quas ex praesentium molestias officiis fugit accusamus expedita alias repudiandae, exercitationem maiores velit quos reiciendis recusandae, quod iusto earum? Fugiat fuga dolor atque nobis esse dignissimos temporibus vel
+          incidunt maxime provident ut dolorem hic explicabo corrupti, praesentium.
         </Typography>
 
         <SheetsClose />
@@ -310,11 +280,7 @@ function DropdownDemo(props: SheetsDropdownProps) {
   return (
     <Sheets {...props} variant="dropdown">
       <Sheets.Trigger id="dropdown-demo" className="m-auto">
-        <span
-          data-labelopen="Dropdown"
-          data-labelclosed="Dropdown"
-          className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]"
-        />
+        <span data-labelopen="Dropdown" data-labelclosed="Dropdown" className="group-data-[state=closed]:before:content-[attr(data-labelopen)] group-data-[state=open]:before:content-[attr(data-labelclosed)]" />
       </Sheets.Trigger>
 
       <Sheets.Content className="h-[178px] w-44">

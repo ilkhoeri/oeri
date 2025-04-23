@@ -98,11 +98,7 @@ function getStyles(selector: __Selector, opts?: Options) {
       // isGroup && opts?.size && { '--avatar-size': rem(opts?.size) },
       selector === "root" && opts?.size && { "--avatar-size": rem(opts?.size) },
       selector === "group" && { "--ag-spacing": rem(opts?.gap), "--ag-offset": " calc(var(--ag-spacing, calc(var(--avatar-size) / 1.85)) * -1)" },
-      selector === "root" && [
-        { "--avatar-fz": `calc(var(--avatar-size) / max(${opts?.lengthInitial}, 2.35))` },
-        opts?.round && { "--avatar-round": rem(opts?.round) },
-        opts?.color && [{ "--avatar-bg": opts.color }, isInitials && { "--avatar-color": getContrastColor(opts.color) }]
-      ]
+      selector === "root" && [{ "--avatar-fz": `calc(var(--avatar-size) / max(${opts?.lengthInitial}, 2.35))` }, opts?.round && { "--avatar-round": rem(opts?.round) }, opts?.color && [{ "--avatar-bg": opts.color }, isInitials && { "--avatar-color": getContrastColor(opts.color) }]]
     )
   };
 }
