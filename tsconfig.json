@@ -36,18 +36,6 @@
     },
     "typeRoots": ["resource/docs/*", "./node_modules/@types"]
   },
-  "include": [
-    "./src",
-    "./types",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.md",
-    "**/*.mdx",
-    ".next/types/**/*.ts",
-    "resource/docs/**/*.ts",
-    "resource/docs/**/*.tsx",
-    ".contentlayer/generated"
-  ],
+  "include": ["./src", "./types", "next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.md", "**/*.mdx", ".next/types/**/*.ts", "resource/docs/**/*.ts", "resource/docs/**/*.tsx", ".contentlayer/generated", ".notif.ts"],
   "exclude": ["node_modules"]
 }

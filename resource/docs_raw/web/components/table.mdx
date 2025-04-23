@@ -109,7 +109,7 @@ export function TableDemo() {
 ### Declarative Props API
 
 ```tsx
-import { Table, dataRenderer, type TableDataProps } from "@/ui/table";
+import { Table, dataRenderer, type DataTableProps } from "@/ui/table";
 
 const data = [
   {
@@ -129,14 +129,14 @@ const data = [
   // others
 ];
 
-const tableData: TableDataProps = {
+const tableData: DataTableProps = {
   caption: "Some elements from periodic table",
   head: ["Element name", "Symbol", "Element position", "Atomic mass", "Description"],
   body: dataRenderer(data, ["name", "symbol", "position", "mass", "description"])
 };
 
 export function TableDemo() {
-  return <Table data={tableData} overflow spacing={{ x: "16px", y: "20px" }} />;
+  return <Table data={tableData} tableOverflow spacing={{ x: "16px", y: "20px" }} />;
 }
 ```
 
@@ -147,44 +147,53 @@ export function TableDemo() {
 ### Styles API
 
 ```ts
-type T = "root" | "table" | "thead" | "tbody" | "tfoot" | "tr" | "th" | "td" | "caption";
+type SeLv_0 = "root" | "table" | "caption" | "resizer";
+type SeLv_1 = "thead" | "tbody" | "tfoot";
+type SeLv_2 = `${SeLv_1}.tr`;
+type SeLv_3 = "thead.tr.th" | "tbody.tr.td" | "tfoot.tr.td";
+type SeLv_S = "tr" | "th" | "td";
+type Selector = NonNullable<SeLv_0 | SeLv_1 | SeLv_2 | SeLv_3 | SeLv_S>;
+
+export type StyleComposed<R> = Partial<Record<SeLv_0 | SeLv_1 | SeLv_S, R>> & Partial<Record<SeLv_2 | SeLv_3, R | ((index: number) => R)>>;
+
+type CSSProperties = React.CSSProperties & { [key: string]: any };
 ```
 
 | Styles API    | Type                                | Default     | Annotation                                |
 | ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
-| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| variant`?`    | `"default" \| "tile"`               | `default`   | defined style and classes                 |
 | className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
-| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
 | style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
-| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+| unstyled`?`   | `boolean \| StyleComposed<boolean>` | `false`     | if `true`, default styles will be removed |
+| classNames`?` | `StyleComposed<string \| false>`    | `undefined` |                                           |
+| styles`?`     | `StyleComposed<CSSProperties>`      | `undefined` |                                           |
 
 ### Props API
 
 ```ts
 type Spacing = { x?: number | string; y?: number | string };
-type Striped = boolean | "odd" | "even";
-type Variant = "horizontal" | "vertical";
+type Striped = boolean | "odd" | "even" | undefined;
 ```
 
-| Props API                | Type                | Default                      | Annotation                                                                                     |
-| ------------------------ | ------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------- |
-| data`?`                  | `TableData`         | `undefined`                  | Data that should be used to generate table, ignored if `children` prop is set                  |
-| variant`?`               | `Variant`           | `horizontal`                 | Determines whether the first column in each row is sticky or not                               |
-| layout`?`                | `["tableLayout"]`   | `auto`                       | Value of `table-layout` style                                                                  |
-| striped`?`               | `Striped`           | `undefined`                  | Determines whether every odd/even row background should be changed to `strippedColor`          |
-| captionSide`?`           | `"top" \| "bottom"` | `bottom`                     | Determines on which side `Table.Caption` is displayed                                          |
-| tableOverflow`?`         | `boolean`           | `true`                       | Set table scroll area                                                                          |
-| stickyHeader`?`          | `boolean`           | `true`                       | Determines whether `Table.Thead` should be sticky                                              |
-| stickyHeaderOffset`?`    | `number \| string`  | `0`                          | Offset from top at which `Table.Thead` should become sticky                                    |
-| spacing`?`               | `Spacing`           | `{ x = 0, y = 8 }`           | x = Horizontal, y = Vertical cells spacing or any valid CSS value for padding                  |
-| highlightOnHover`?`      | `boolean`           | `true`                       | Determines whether table rows background should change to `highlightOnHoverColor` when hovered |
-| withTableBorder`?`       | `boolean`           | `true`                       | Determines whether the table should have outer border                                          |
-| withColumnBorders`?`     | `boolean`           | `false`                      | Determines whether the table should have borders between columns                               |
-| withRowBorders`?`        | `boolean`           | `true`                       | Determines whether the table should have borders between rows                                  |
-| stickyHeader`?`          | `boolean`           | `false`                      | Set table scroll area                                                                          |
-| highlightOnHoverColor`?` | `Property.Color`    | `hsl(var(--primitive))`      | Background color of table rows when hovered, key of CSS color                                  |
-| borderColor`?`           | `Property.Color`    | `hsl(var(--border))`         | Color of table borders, key of CSS color                                                       |
-| stripedColor`?`          | `Property.Color`    | `hsl(var(--background-box))` | Background color of striped rows, key of CSS color                                             |
+| Props API                | Type                         | Default                        | Annotation                                                                                     |
+| ------------------------ | ---------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| data`?`                  | `DataTableProps`             | `undefined`                    | Data that should be used to generate table, ignored if `children` prop is set                  |
+| orientation`?`           | `"horizontal" \| "vertical"` | `"horizontal"`                 | Determines whether the first column in each row is sticky or not                               |
+| layout`?`                | `["tableLayout"]`            | `auto`                         | Value of `table-layout` style                                                                  |
+| striped`?`               | `Striped`                    | `undefined`                    | Determines whether every odd/even row background should be changed to `strippedColor`          |
+| captionSide`?`           | `"top" \| "bottom"`          | `bottom`                       | Determines on which side `Table.Caption` is displayed                                          |
+| tableOverflow`?`         | `boolean`                    | `true`                         | Set table scroll area                                                                          |
+| stickyHeader`?`          | `boolean`                    | `true`                         | Determines whether `Table.Thead` should be sticky                                              |
+| stickyHeaderOffset`?`    | `number \| string`           | `0`                            | Offset from top at which `Table.Thead` should become sticky                                    |
+| spacing`?`               | `Spacing`                    | `DEFAULT_SPACE` \(by variant\) | x = Horizontal, y = Vertical cells spacing or any valid CSS value for padding                  |
+| highlightOnHover`?`      | `boolean`                    | `true`                         | Determines whether table rows background should change to `highlightOnHoverColor` when hovered |
+| withTableBorder`?`       | `boolean`                    | `true`                         | Determines whether the table should have outer border                                          |
+| withColumnBorders`?`     | `boolean`                    | `false`                        | Determines whether the table should have borders between columns                               |
+| withRowBorders`?`        | `boolean`                    | `true`                         | Determines whether the table should have borders between rows                                  |
+| stickyHeader`?`          | `boolean`                    | `false`                        | Set table scroll area                                                                          |
+| highlightOnHoverColor`?` | `Property.Color`             | `hsl(var(--primitive))`        | Background color of table rows when hovered, key of CSS color                                  |
+| borderColor`?`           | `Property.Color`             | `hsl(var(--border))`           | Color of table borders, key of CSS color                                                       |
+| stripedColor`?`          | `Property.Color`             | `hsl(var(--background-box))`   | Background color of striped rows, key of CSS color                                             |
 
 ---
 

@@ -32,7 +32,7 @@ export async function FootNav() {
       <Polymorphic el="section" className={Styles({ as: "section", section: "top" })}>
         <div className="col-span-1 w-max lg:col-span-2">
           <Link href="/" className="flex flex-initial items-center rounded-lg font-semibold text-muted-foreground hover:text-color" aria-label="HOME">
-            <BrandOeriIcon className="mr-2 flex h-[36px] w-[36px] flex-none items-center justify-center rounded-xl border bg-background p-1" />
+            <BrandOeriIcon size={36} className="mr-2 flex flex-none items-center justify-center rounded-xl border bg-background p-1" />
           </Link>
         </div>
 
@@ -47,18 +47,12 @@ export async function FootNav() {
         </Polymorphic>
       </Polymorphic>
 
-      <Polymorphic
-        el="section"
-        className="relative flex w-full flex-row flex-nowrap justify-end gap-px border-b border-b-muted px-4 pb-4 pt-2 text-muted-foreground"
-      >
+      <Polymorphic el="section" className="relative flex w-full flex-row flex-nowrap justify-end gap-px border-b border-b-muted px-4 pb-4 pt-2 text-muted-foreground">
         <ThemeToggle
           unstyled={{ wrapper: true, buttons: true }}
           classNames={{
             wrapper: globalStyle({ toggle: "group" }, "p-[3px] border rounded-full w-max"),
-            buttons: globalStyle(
-              { toggle: "item", size: "icon-xs" },
-              "rounded-full hover:bg-transparent data-[state=active]:bg-muted data-[state=active]:text-color"
-            )
+            buttons: globalStyle({ toggle: "item", size: "icon-xs" }, "rounded-full hover:bg-transparent data-[state=active]:bg-muted data-[state=active]:text-color")
           }}
         />
       </Polymorphic>
@@ -80,7 +74,7 @@ export async function FootNav() {
             aria-label="Oeri UI"
             className="mx-2 cursor-pointer gap-2 rounded-lg transition-colors duration-200 hover:text-color"
           >
-            <BrandOeriIcon size={28} aria-label="oeri Logo" className="duration-200 ease-linear group-hover:scale-110" /> oeri
+            <BrandOeriIcon size={22} aria-label="oeri Logo" className="duration-200 ease-linear group-hover:scale-110" /> oeri
           </a>
         </div>
       </Polymorphic>

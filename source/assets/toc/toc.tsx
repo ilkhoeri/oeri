@@ -49,13 +49,13 @@ export function TableOfContents({ toc, sub }: TocProps) {
   const editPageLink = paths.length > 1 ? `https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFile(paths)}.mdx` : "";
 
   return (
-    <aside className="m-0 mt-[calc(var(--navbar)*-1)] h-[--aside-h] max-h-[--aside-h] w-full overflow-hidden bg-background-theme pt-[calc(var(--navbar)+18px)] [--aside-h:100dvh] [--aside-w:calc(var(--aside)-1rem)] max-lg:sr-only max-lg:z-[-111] max-lg:hidden lg:sticky lg:top-0 lg:w-[--aside-w] lg:min-w-[--aside-w] lg:max-w-[--aside-w] lg:pl-8 lg:pr-4 lg:transition-none lg:[--aside-h:calc(100dvh-2rem)] lg:rtl:pl-4 lg:rtl:pr-8">
+    <aside className="bg-background-theme m-0 mt-[calc(var(--navbar)*-1)] h-[--aside-h] max-h-[--aside-h] w-full overflow-hidden pt-[calc(var(--navbar)+18px)] [--aside-h:100dvh] [--aside-w:calc(var(--aside)-1rem)] max-lg:sr-only max-lg:z-[-111] max-lg:hidden lg:sticky lg:top-0 lg:w-[--aside-w] lg:min-w-[--aside-w] lg:max-w-[--aside-w] lg:pl-8 lg:pr-4 lg:transition-none lg:[--aside-h:calc(100dvh-2rem)] lg:rtl:pl-4 lg:rtl:pr-8">
       {min_lg && (
         <>
           {toc?.items?.length && (
-            <nav className="sticky flex flex-col flex-nowrap items-start justify-start overflow-y-auto overflow-x-hidden pl-3 pt-4 webkit-scrollbar max-lg:pb-24 max-lg:pt-0 lg:pb-20 rtl:pl-0 rtl:pr-3">
+            <nav className="webkit-scrollbar sticky flex flex-col flex-nowrap items-start justify-start overflow-y-auto overflow-x-hidden pl-3 pt-4 max-lg:pb-24 max-lg:pt-0 lg:pb-20 rtl:pl-0 rtl:pr-3">
               <hgroup>
-                <h4 role="presentation" className="mb-2 font-medium text-paragraph">
+                <h4 role="presentation" className="text-paragraph mb-2 font-medium">
                   On This Page
                 </h4>
               </hgroup>
@@ -68,9 +68,9 @@ export function TableOfContents({ toc, sub }: TocProps) {
         </>
       )}
 
-      <Link href={editPageLink} target="_blank" rel="noopener noreferrer nofollow" className="group mt-5 h-4 justify-start gap-1 pb-1.5 text-muted-foreground">
-        <span className="truncate text-sm transition-all underline-hover group-hover:text-constructive">Edit this page on GitHub</span>
-        <ArrowsSquareIcon arrow="right" square={false} className="-rotate-45 stroke-[1.25] sizer [--sz:28px]" />
+      <Link href={editPageLink} target="_blank" rel="noopener noreferrer nofollow" className="text-muted-foreground group mt-5 h-4 justify-start gap-1 pb-1.5">
+        <span className="underline-hover group-hover:text-constructive truncate text-sm transition-all">Edit this page on GitHub</span>
+        <ArrowsSquareIcon arrow="right" square={false} className="sizer -rotate-45 stroke-[1.25] [--sz:28px]" />
       </Link>
     </aside>
   );
@@ -121,17 +121,17 @@ interface TreeProps {
 function Tree({ tree, level = 1, sub = 3, activeItem }: TreeProps) {
   return tree?.items?.length && level < sub ? (
     <div
-      className={cn("list-none text-span", {
+      className={cn("text-span list-none", {
         "pl-4 rtl:pl-0 rtl:pr-4": level !== 1
       })}
     >
       {tree.items.map((item, index) => {
         return (
-          <div key={index} className={cn("pt-2 text-muted-foreground")}>
+          <div key={index} className={cn("text-muted-foreground pt-2")}>
             <a
               href={item.url}
               className={cn(
-                "inline-block no-underline transition-colors hover:text-color",
+                "hover:text-color inline-block no-underline transition-colors",
                 item.url === `#${activeItem}` ? "text-color" : "text-muted-foreground"
               )}
             >

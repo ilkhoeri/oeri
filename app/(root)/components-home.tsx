@@ -17,7 +17,7 @@ const classes = cvx({
   variants: {
     selector: {
       header:
-        "relative flex h-[90vh] max-h-[42.5rem] w-full max-w-7xl flex-col items-center justify-around px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
+        "relative flex h-[calc(100dvh-var(--navbar))] w-full max-w-7xl flex-col items-center justify-avenly px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
       wrapTop: "relative z-9 mx-auto flex size-full animate-[fade-in_0.6s_ease-in_forwards] flex-col items-center justify-center gap-16 text-left",
       h1: "relative grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
       lineTop: "max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max",

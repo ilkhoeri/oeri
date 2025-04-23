@@ -28,6 +28,9 @@
     }
   ],
   "scripts": {
+    "prettier:fix": "prettier --write ./* --ignore-unknown --no-error-on-unmatched-pattern",
+    "prettier:check": "prettier --check ./* --no-error-on-unmatched-pattern",
+    "prettier": "bun prettier:fix && bun prettier:check",
     "vercel": "vercel dev --listen 5005",
     "dev": "next dev",
     "build": "bun run generated:icons && next build",
@@ -127,7 +130,7 @@
   },
   "prettier": {
     "tabWidth": 2,
-    "printWidth": 160,
+    "printWidth": 320,
     "semi": true,
     "useTabs": false,
     "singleQuote": false,

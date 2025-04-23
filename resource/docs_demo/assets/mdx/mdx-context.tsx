@@ -53,7 +53,7 @@ export function MDXComponent({ code }: MdxProps) {
   const Component = useMDXComponent(code, {});
   return (
     <div className="mdx_customizer">
-      <ShikiProvider loadShiki={loadShiki}>
+      <ShikiProvider loadShiki={loadShiki} code={code}>
         <Component components={components} />
       </ShikiProvider>
     </div>

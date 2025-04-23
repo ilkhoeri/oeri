@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Svg, SvgProps } from "@/ui/svg";
-import { ShikiLanguage } from "./types";
+import { CodeLanguage } from "./types";
 import { ComponentProps, CSSProperties } from "../types/component";
 import { UnstyledButton } from "@/ui/button";
 import { ScrollArea } from "@/ui/scroll-area";
@@ -61,7 +61,7 @@ export function getStyles(selector: __Selector, opt: Options = {}) {
 }
 
 export interface CodeHighlightTabsCode {
-  language?: ShikiLanguage;
+  language?: CodeLanguage;
   code: string;
   fileName?: string;
   icon?: React.ReactNode;
@@ -134,7 +134,7 @@ export const CodeHighlightTabs = React.forwardRef<HTMLDivElement, CodeHighlightT
 
   const ctx = useShiki();
 
-  const highlighted = ctx?.highlight(currentCode.code.trim(), currentCode.language || "tsx");
+  const highlighted = ctx?.shiki(currentCode.code, currentCode.language || "tsx");
 
   const language = currentCode.language || "tsx";
 
@@ -202,12 +202,7 @@ export const CodeHighlightTabs = React.forwardRef<HTMLDivElement, CodeHighlightT
           </pre>
         ) : null}
       </ScrollArea>
-      <UnstyledButton
-        {...getStyles("showCodeButton", stylesApi)}
-        data-hidden={is(!_expanded)}
-        aria-hidden={is(!_expanded)}
-        onClick={() => setExpanded(!_expanded)}
-      >
+      <UnstyledButton {...getStyles("showCodeButton", stylesApi)} data-hidden={is(!_expanded)} aria-hidden={is(!_expanded)} onClick={() => setExpanded(!_expanded)}>
         {_expanded ? collapseCodeLabel : expandCodeLabel}
       </UnstyledButton>
     </div>

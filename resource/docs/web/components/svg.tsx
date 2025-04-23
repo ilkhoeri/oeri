@@ -14,7 +14,7 @@ export enum InitialSize {
   xxxl = "xxxl"
 }
 
-export type IconType = (props: DetailedSvgProps) => JSX.Element;
+export type IconType = (props: DetailedSvgProps) => React.JSX.Element;
 export type Sizes = `${InitialSize}` | (string & {}) | number | undefined;
 export type Colors = React.CSSProperties["color"] | "currentColor";
 export type SvgProps<OverrideProps = object> = Omit<DetailedSvgProps, "children" | "currentFill" | "ratio"> & {
@@ -31,7 +31,7 @@ export interface DetailedSvgProps extends Omit<React.SVGAttributes<SVGElement>, 
   color?: Colors;
   stroke?: number | Colors;
   style?: React.CSSProperties & { [key: string]: any };
-  currentFill?: "fill" | "stroke" | "fill-stroke";
+  currentFill?: "fill" | "stroke" | "fill-stroke" | "none";
 }
 
 export interface SizesProps {
@@ -44,15 +44,28 @@ export interface SizesProps {
    * `unset: undefined` | `xs: "10px"` | `xxs: "12px"` | `xxxs: "14px"` | `base: "16px"` | `sm: "18px"` | `md: "22px"` | `lg: "32px"` | `xl: "48px"` | `xxl: "86px"` | `xxxl: "112px"`
    */
   size?: Sizes;
-  h?: string | number;
   w?: string | number;
+  h?: string | number;
   width?: string | number;
   height?: string | number;
-  ratio?: { h?: number; w?: number };
+  /**
+   * Nilai viewBox="0 0 24 24" merujuk pada sistem koordinat yang digunakan untuk menggambarkan ruang gambar dalam elemen SVG. Nilai ini terdiri dari empat angka:
+   *
+   * - **0** (nilai pertama) – Posisi horizontal **x** dari sudut kiri atas area tampilan (viewBox). Jadi, posisi horizontal dimulai dari koordinat x = 0.
+   * - **0** (nilai kedua) – Posisi vertikal **y** dari sudut kiri atas area tampilan. Posisi vertikal dimulai dari koordinat y = 0.
+   * - **24** (nilai ketiga) – Lebar area tampilan dalam unit yang digunakan (biasanya pixel atau unit SVG). Dengan kata lain, lebar area tampilan adalah 24 unit.
+   * - **24** (nilai keempat) – Tinggi area tampilan dalam unit yang digunakan (biasanya pixel atau unit SVG). Jadi, tinggi area tampilan adalah 24 unit.
+   */
+  ratio?: {
+    /** Menentukan rasio lebar area tampilan dalam unit yang digunakan. */
+    w?: number;
+    /** Menentukan rasio tinggi area tampilan dalam unit yang digunakan. */
+    h?: number;
+  };
 }
 
 export declare function SvgIcon(data: IconTree): (props: DetailedSvgProps) => React.JSX.Element;
-export declare function SvgBase(props: DetailedSvgProps & { attr?: Record<string, string> }): JSX.Element;
+export declare function SvgBase(props: DetailedSvgProps & { attr?: Record<string, string> }): React.JSX.Element;
 
 export const getInitialSizes = (size: Sizes): string | undefined => {
   const sizeMap: Record<InitialSize, string | undefined> = {
@@ -71,21 +84,33 @@ export const getInitialSizes = (size: Sizes): string | undefined => {
   return sizeMap[size as InitialSize];
 };
 
+// const isValidSize = typeof size === 'string' && (size.startsWith('calc(') || size.startsWith('clamp(') || size.startsWith('var('));
+
+function isValidSize(size: number | string | undefined): boolean {
+  return typeof size === "string" && /^(calc|clamp|var)\(/.test(size);
+}
+
+function parseSize(sz: string | number): number {
+  return typeof sz === "number" ? sz : parseFloat(sz.replace(/[^\d.-]/g, ""));
+}
+
+function applyRatio(sz: string | number | undefined, ratio: number | undefined = 1): string | undefined {
+  if (!sz) return;
+  const newSize = parseSize(sz) * ratio;
+  return typeof sz === "number" ? `${newSize / 16}rem` : sz;
+}
+
 export function getSizes(Size: SizesProps) {
   const { size = "16px", height, width, h, w, ratio } = Size;
   const sizeMap = getInitialSizes(size);
   const inSz = Object.values(InitialSize) as string[];
+
   const initialSize = (sz: string) => inSz.includes(sz);
-  function parseSize(sz: string | number) {
-    return typeof sz === "number" ? sz : parseFloat(sz.replace(/[^\d.-]/g, ""));
-  }
-  function applyRatio(sz: string | number | undefined, ratio: number | undefined = 1) {
-    if (!sz) return;
-    const newSize = parseSize(sz) * ratio;
-    return typeof sz === "number" ? `${newSize / 16}rem` : sz;
-  }
+
   const sz = (sz: Sizes) => (initialSize(sz as string) ? sizeMap : sz);
+
   const sizer = (rt: number | undefined) => (initialSize(size as string) ? applyRatio(sizeMap, rt) : applyRatio(size, rt));
+
   return {
     sz,
     h: height || h || sz(sizer(ratio?.h)),
@@ -93,7 +118,7 @@ export function getSizes(Size: SizesProps) {
   };
 }
 
-export function getSvg(Svg: DetailedSvgProps) {
+export function svgProps(detail: DetailedSvgProps) {
   const {
     xmlns = "http://www.w3.org/2000/svg",
     viewBox = "0 0 24 24",
@@ -111,13 +136,13 @@ export function getSvg(Svg: DetailedSvgProps) {
     strokeLinejoin,
     ratio,
     color,
+    style,
     ...props
-  } = Svg;
+  } = detail;
 
   const sz = getSizes({ size, h, w, height, width, ratio });
-  const attr = { viewBox, xmlns, height: sz.h, width: sz.w, "aria-hidden": ariaHidden, ...props };
 
-  // Helper functions to check if stroke is a valid color or a valid number
+  // Check if stroke is a valid color or a valid number
   const isNumber = (value: any): boolean => !isNaN(Number(value)) && Number(value) > 0;
   const isColor = (value: any): boolean =>
     typeof value === "string" &&
@@ -130,45 +155,58 @@ export function getSvg(Svg: DetailedSvgProps) {
   const strokeIsColor = typeof stroke === "string" && isColor(stroke) ? stroke : undefined;
   const strokeIsWidth = strokeWidth || (isNumber(stroke) ? stroke : undefined);
 
-  const _props_ = {
+  const __props = {
     fill,
     stroke: strokeIsColor,
     strokeWidth: strokeIsWidth,
     strokeLinecap,
     strokeLinejoin,
-    ...attr
+    viewBox,
+    xmlns,
+    height: !isValidSize(size) ? sz.h : undefined,
+    width: !isValidSize(size) ? sz.w : undefined,
+    style: { ...style, height: sz.h, width: sz.w, minHeight: sz.h, minWidth: sz.w },
+    "aria-hidden": ariaHidden,
+    ...props
   } as React.SVGAttributes<SVGSVGElement>;
 
   switch (currentFill) {
     case "stroke":
-      _props_.fill = fill || "none";
-      _props_.stroke = strokeIsColor || color || "currentColor";
-      _props_.strokeWidth = strokeIsWidth || "2";
-      _props_.strokeLinecap = strokeLinecap || "round";
-      _props_.strokeLinejoin = strokeLinejoin || "round";
+      __props.fill = fill || "none";
+      __props.stroke = strokeIsColor || color || "currentColor";
+      __props.strokeWidth = strokeIsWidth || "2";
+      __props.strokeLinecap = strokeLinecap || "round";
+      __props.strokeLinejoin = strokeLinejoin || "round";
       break;
     case "fill":
-      _props_.fill = fill || color || "currentColor";
-      _props_.stroke = strokeIsColor || "none";
-      _props_.strokeWidth = strokeIsWidth || "0";
-      _props_.strokeLinecap = undefined;
-      _props_.strokeLinejoin = undefined;
+      __props.fill = fill || color || "currentColor";
+      __props.stroke = strokeIsColor || "none";
+      __props.strokeWidth = strokeIsWidth || "0";
+      __props.strokeLinecap = strokeLinecap;
+      __props.strokeLinejoin = strokeLinejoin;
       break;
     case "fill-stroke":
-      _props_.fill = fill || color || "currentColor";
-      _props_.stroke = strokeIsColor || "currentColor";
-      _props_.strokeWidth = strokeIsWidth || "2";
-      _props_.strokeLinecap = strokeLinecap || "round";
-      _props_.strokeLinejoin = strokeLinejoin || "round";
+      __props.fill = fill || color || "currentColor";
+      __props.stroke = strokeIsColor || "currentColor";
+      __props.strokeWidth = strokeIsWidth || "2";
+      __props.strokeLinecap = strokeLinecap || "round";
+      __props.strokeLinejoin = strokeLinejoin || "round";
+      break;
+    case "none":
+      __props.fill = fill || color;
+      __props.stroke = strokeIsColor;
+      __props.strokeWidth = strokeIsWidth;
+      __props.strokeLinecap = strokeLinecap;
+      __props.strokeLinejoin = strokeLinejoin;
       break;
     default:
       break;
   }
 
-  return { props: _props_, ...sz };
+  return { props: __props, ...sz };
 }
 
-export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg {...{ ref, ...getSvg({ ...props }).props }} />);
+export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg {...{ ref, ...svgProps({ ...props }).props }} />);
 Svg.displayName = "Svg";
 
 export default Svg;

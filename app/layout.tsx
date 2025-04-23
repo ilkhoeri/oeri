@@ -122,7 +122,7 @@ export default async function RootLayout({
     <AppProvider {...await cookiesValues()}>
       <html lang="en" dir={(await cookiesValues()).dir} suppressHydrationWarning data-themeid-light="default" data-themeid-dark="default" data-theme="default">
         <head>
-          <link rel="icon" sizes="any" href="/favicon.ico" />
+          <link rel="icon" sizes="any" type="image/x-icon" href="/favicon.ico" />
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>
         <body {...bodyConfig()}>

@@ -1,37 +1,21 @@
 import { Svg, type SvgProps } from "@/ui/svg";
 
-export function Icon(_props: SvgProps<{
-  chevron?: "up" | "right" | "down" | "left" | "up-down" | "left-right";
-}>) {
+const chevronMap = {
+  up: ["M6 15l6 -6l6 6"],
+  right: ["M9 6l6 6l-6 6"],
+  down: ["M6 9l6 6l6 -6"],
+  left: ["M15 6l-6 6l6 6"],
+  "up-down": ["m7 9 5-5 5 5", "m7 15 5 5 5-5"],
+  "left-right": ["m9 7-5 5 5 5", "m15 7 5 5-5 5"]
+} as const;
+
+export function Icon(_props: SvgProps<{ chevron?: keyof typeof chevronMap }>) {
   const { chevron = "up", ...props } = _props;
-  let d: string | undefined;
-  let dd: string | undefined;
-  switch (chevron) {
-    case "up":
-      d = "M6 15l6 -6l6 6";
-      break;
-    case "right":
-      d = "M9 6l6 6l-6 6";
-      break;
-    case "down":
-      d = "M6 9l6 6l6 -6";
-      break;
-    case "left":
-      d = "M15 6l-6 6l6 6";
-      break;
-    case "up-down":
-      d = "m7 9 5-5 5 5";
-      dd = "m7 15 5 5 5-5";
-      break;
-    case "left-right":
-      d = "m9 7-5 5 5 5";
-      dd = "m15 7 5 5-5 5";
-      break;
-  }
   return (
     <Svg {...props}>
-      <path d={d} />
-      {dd && <path d={dd} />}
+      {chevronMap[chevron].map(d => (
+        <path key={d} d={d} />
+      ))}
     </Svg>
   );
 }

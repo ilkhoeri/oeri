@@ -1,1 +1,1 @@
-export type ShikiLanguage = "ts" | "tsx" | "scss" | "css" | "html" | "bash" | "json";
+export type CodeLanguage = "ts" | "tsx" | "scss" | "css" | "html" | "bash" | "json";

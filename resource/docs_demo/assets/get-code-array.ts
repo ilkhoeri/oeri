@@ -1,11 +1,11 @@
-import { ShikiLanguage } from "./shiki/types";
+import { CodeLanguage } from "./shiki/types";
 import { clearProps } from "./clear-props";
 import type { ConfiguratorControlOptions } from "./demo-config";
 import { injectProps } from "./inject-props";
 
 type CodePayload = string | ((props: Record<string, any>) => string);
 
-export type Code = CodePayload | { code: CodePayload; language: ShikiLanguage; fileName: string }[];
+export type Code = CodePayload | { code: CodePayload; language: CodeLanguage; fileName: string }[];
 
 interface GetCodeArrayInput {
   code: Code;

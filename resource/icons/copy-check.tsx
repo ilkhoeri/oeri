@@ -1,6 +1,6 @@
 import { Svg, type SvgProps } from "@/ui/svg";
 
-export function Icon({ ...props }: SvgProps) {
+export function Icon(props: SvgProps) {
   return (
     <Svg {...props}>
       <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />

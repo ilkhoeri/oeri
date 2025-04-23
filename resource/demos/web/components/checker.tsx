@@ -17,7 +17,7 @@ const codes = {
   changeIconLabels:
     '"use client";\nimport { useState } from "react";\nimport { Checker } from "@/ui/checker";\nimport { MoonStarIcon, SunIcon } from "@/icons/*";\n\n\nexport function CheckerChangeIconLabels() {\n  return (\n    <Checker\n      {{props}}\n      color="#543a7b"\n      label="Icon Labels"\n      onLabel={<SunIcon size={16} stroke={2} color="#fff" />}\n      offLabel={<MoonStarIcon size={16} stroke={2} color="rgb(34, 139, 230)" />}\n      className="cursor-pointer rounded-lg border px-3 py-2.5 font-medium transition-colors [&:has(input:checked)]:bg-[#6e5494]"\n    />\n  );\n}',
   changeThumbIcon:
-    '"use client";\nimport { useState } from "react";\nimport { Checker } from "@/ui/checker";\nimport { CheckIcon, XIcon } from "@/icons/*";\n\n\nexport function CheckerChangeThumbIcon() {\n  const [checked, setChecked] = useState(false);\n  return (\n    <Checker\n      {{props}}\n      color="#930464"\n      label="Icon Labels"\n      checked={checked}\n      onChange={event => setChecked(event.currentTarget.checked)}\n      icon={checked ? <CheckIcon size={12} stroke={3} color="green" /> : <XIcon size={12} stroke={3} color="red" />}\n    />\n  );\n}',
+    '"use client";\nimport { useState } from "react";\nimport { Checker } from "@/ui/checker";\nimport { CheckIcon, XIcon } from "@/icons/*";\n\n\nexport function CheckerChangeThumbIcon() {\n  const [checked, setChecked] = useState(false);\n  return (\n    <Checker\n      {{props}}\n      size={36}\n      color="#930464"\n      label="Icon Labels"\n      checked={checked}\n      onChange={event => setChecked(event.currentTarget.checked)}\n      onLabel="ON"\n      offLabel="OFF"\n      icon={checked ? <CheckIcon animation size={22} stroke={3} /> : <XIcon animation size={22} stroke={3} />}\n      classNames={{ track: "[&_svg]:text-red-500 [&>svg]:data-[checkbox]:data-[checked]:text-blue-900 [&>svg]:data-[radio]:data-[checked]:text-color", thumb: "[&>svg]:data-[switch]:data-[checked]:text-red-900" }}\n    />\n  );\n}',
   group:
     '"use client";\nimport { useState } from "react";\nimport { Checker } from "@/ui/checker";\nimport { Group } from "@/ui/group";\n\nconst data = [\n  { value: "react", label: "React" },\n  { value: "svelte", label: "Svelte" },\n  { value: "ng", label: "Angular" },\n  { value: "vue", label: "Vue" }\n];\n\nexport function CheckerGroupDemo() {\n  const [value, setValue] = useState<string[] | string | null>(["react", "ng"]);\n  return (\n    <Checker.Group{{props}} value={value} onChange={setValue}>\n      <Group>\n        {data.map(i => (\n          <Checker key={i.value} id={i.value} {...i} />\n        ))}\n      </Group>\n    </Checker.Group>\n  );\n}',
   groupCard:
@@ -48,14 +48,7 @@ function CheckerDemo(props: CheckerProps) {
 
 function CheckerChangeIconLabels(props: CheckerProps) {
   return (
-    <Checker
-      {...props}
-      label="Icon Labels"
-      color="#543a7b"
-      onLabel={<SunIcon size={16} stroke={2} color="#fff" />}
-      offLabel={<MoonStarIcon size={16} stroke={2} color="rgb(34, 139, 230)" />}
-      className="cursor-pointer rounded-lg border px-3 py-2.5 font-medium transition-colors [&:has(input:checked)]:bg-[#6e5494]"
-    />
+    <Checker {...props} label="Icon Labels" color="#543a7b" onLabel={<SunIcon size={16} stroke={2} color="#fff" />} offLabel={<MoonStarIcon size={16} stroke={2} color="rgb(34, 139, 230)" />} className="cursor-pointer rounded-lg border px-3 py-2.5 font-medium transition-colors [&:has(input:checked)]:bg-[#6e5494]" />
   );
 }
 
@@ -65,15 +58,20 @@ function CheckerChangeThumbIcon(props: CheckerProps) {
   return (
     <Checker
       {...props}
+      size={36}
       color="#930464"
       label="Icon Labels"
       checked={checked}
       onChange={event => setChecked(event.currentTarget.checked)}
-      icon={checked ? <CheckIcon size={12} stroke={3} color="green" /> : <XIcon size={12} stroke={3} color="red" />}
+      onLabel="ON"
+      offLabel="OFF"
+      icon={checked ? <CheckIcon animation size={22} stroke={3} /> : <XIcon animation size={22} stroke={3} />}
+      classNames={{ track: "[&_svg]:text-red-500 [&>svg]:data-[checkbox]:data-[checked]:text-blue-900 [&>svg]:data-[radio]:data-[checked]:text-color", thumb: "[&>svg]:data-[switch]:data-[checked]:text-red-900" }}
     />
   );
 }
 
+<div className=" "></div>;
 const data2 = [
   { value: "react", label: "React" },
   { value: "svelte", label: "Svelte" },
@@ -111,12 +109,7 @@ const data3 = [
   { value: "react", label: "React", description: "A JavaScript library for building user interfaces." },
   { value: "svelte", label: "Svelte", description: "A compiler that generates minimal and efficient JavaScript code." },
   { value: "ng", label: "Angular", description: "A platform for building mobile and desktop web applications." },
-  {
-    value: "vue",
-    label: "Vue",
-    description: "A progressive JavaScript framework for building UI.",
-    error: "Compatibility issues with older versions of Internet Explorer."
-  }
+  { value: "vue", label: "Vue", description: "A progressive JavaScript framework for building UI.", error: "Compatibility issues with older versions of Internet Explorer." }
 ];
 
 function CheckerCurrentSelectedDemo(props: CheckerGroupProps) {
@@ -165,11 +158,7 @@ function CheckerMultipleSelectedDemo(props: CheckerGroupProps) {
       <Checker.Group {...props} multiple value={value} onChange={setValue} classNames={{ group: "gap-3" }}>
         {datamultipleSelect.map(i => (
           <Checker.Card key={i.value} value={i.value}>
-            <Checker
-              {...i}
-              id={i.value}
-              icon={value?.includes(i.value) ? <CheckIcon size={12} stroke={3} color="green" /> : <XIcon size={12} stroke={3} color="red" />}
-            />
+            <Checker {...i} id={i.value} icon={value?.includes(i.value) ? <CheckIcon size={12} stroke={3} color="green" /> : <XIcon size={12} stroke={3} color="red" />} />
           </Checker.Card>
         ))}
       </Checker.Group>
@@ -190,26 +179,11 @@ function CheckerIndeterminateStateDemo() {
   const allChecked = values.every(value => value.checked);
   const indeterminate = values.some(value => value.checked) && !allChecked;
 
-  const items = values.map((value, index) => (
-    <Checker
-      type="checkbox"
-      key={index}
-      label={value.label}
-      className="ml-8 mt-2"
-      checked={value.checked}
-      onChange={event => handlers.setItemProp(index, "checked", event.currentTarget.checked)}
-    />
-  ));
+  const items = values.map((value, index) => <Checker type="checkbox" key={index} label={value.label} className="ml-8 mt-2" checked={value.checked} onChange={event => handlers.setItemProp(index, "checked", event.currentTarget.checked)} />);
 
   return (
     <div className="m-auto grid grid-flow-row">
-      <Checker
-        type="checkbox"
-        checked={allChecked}
-        indeterminate={indeterminate}
-        label="Receive all notifications"
-        onChange={() => handlers.setState(current => current.map(value => ({ ...value, checked: !allChecked })))}
-      />
+      <Checker type="checkbox" checked={allChecked} indeterminate={indeterminate} label="Receive all notifications" onChange={() => handlers.setState(current => current.map(value => ({ ...value, checked: !allChecked })))} />
       {items}
     </div>
   );

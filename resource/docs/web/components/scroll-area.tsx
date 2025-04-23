@@ -10,7 +10,7 @@ const classes = cvx({
       viewport: "group/sa !flex flex-nowrap size-full",
       scrollbar: "flex touch-none select-none p-0.5 bg-[--bg] ease-out transition-colors [transition-duration:160ms]",
       thumb:
-        "relative flex-1 rounded-full bg-[--sa-thumb-color] cursor-grab active:cursor-grabbing before:absolute before:size-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:min-h-11 before:min-w-11",
+        "relative flex-1 rounded-full bg-[--sa-thumb-color] cursor-grab active:cursor-grabbing before:absolute before:size-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:min-h-11 before:min-w-[250%]",
       corner: "bg-[--sa-track-color,transparent]"
     },
     viewport: {

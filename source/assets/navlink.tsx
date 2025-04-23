@@ -16,9 +16,10 @@ export interface NavLinkItemProps {
   href: string;
   title?: string;
   icon?: IconType | undefined;
-  iconProps?: DetailedSvgProps;
+  iconProps?: DetailedSvgProps & { ["data-animation"]?: boolean };
   image?: string | undefined;
   isNew?: boolean | undefined;
+  isUpdated?: boolean | undefined;
   style?: React.CSSProperties & { [key: string]: any };
 }
 export interface NavLinkProps extends Omit<AnchorProps, "href">, NavLinkClass {
@@ -38,11 +39,14 @@ interface NavLinkItemTypes extends Omit<AnchorProps, "href">, NavLinkItemProps, 
   includePath?: boolean;
 }
 export function NavLinkItem(_props: NavLinkItemTypes) {
-  const { href = "", title, icon: Icon, image, isNew, scroll = false, className, classNames, includePath, iconProps, style, ...props } = _props;
+  const { href = "", title, icon: Icon, image, isNew, isUpdated, scroll = false, className, classNames, includePath, iconProps, style, ...props } = _props;
   const pathname = usePathname();
-
   const pathSegments = getPathSegments(pathname);
   const pathActive = includePath ? pathSegments.includes(href) : pathname === href;
+
+  const isMark = isNew || isUpdated;
+  const labelIsMark = isNew ? "New" : isUpdated ? "Updated" : null;
+  const markVariant: React.ComponentProps<typeof Mark>["variant"] = isNew ? "new" : isUpdated ? "updated" : undefined;
 
   return (
     <>
@@ -51,7 +55,7 @@ export function NavLinkItem(_props: NavLinkItemTypes) {
           href,
           scroll,
           "data-path": pathActive ? "active" : undefined,
-          "data-mark": isNew ? "true" : undefined,
+          "data-mark": isMark ? "true" : undefined,
           className: cn(className, classNames?.link, pathActive && classNames?.active),
           style,
           ...props
@@ -76,7 +80,7 @@ export function NavLinkItem(_props: NavLinkItemTypes) {
         </span>
       </Anchor>
 
-      {isNew && <Mark mark={true} childTrue="NEW" className={classNames?.mark} />}
+      <Mark active={isMark} variant={markVariant} label={labelIsMark} className={classNames?.mark} />
     </>
   );
 }

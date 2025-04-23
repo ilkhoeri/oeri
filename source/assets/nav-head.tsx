@@ -66,21 +66,16 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
                 </span>
               </Link>
             ))}
-            <FloatingIndicator
-              target={controlsRefs[hover ?? active]}
-              parent={parentRef}
-              transitionDuration={450}
-              className="rounded-md border bg-background/15 shadow-md"
-            />
+            <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={450} className="rounded-md border bg-background/15 shadow-md" />
           </div>
         )}
 
-        <div dir={dir} className={globalStyle({ toggle: "group" }, { "max-md:pr-2 rtl:max-md:pr-0 rtl:max-md:pl-2": excludesPath }, "ltr:ml-auto rtl:mr-auto [&_svg]:size-[1.375rem] gap-1.5")}>
+        <div dir={dir} className={globalStyle({ toggle: "group" }, { "max-md:pr-2 rtl:max-md:pr-0 rtl:max-md:pl-2": excludesPath }, "ltr:ml-auto rtl:mr-auto gap-1.5")}>
           <CommandDialog routes={routes} />
           <div className="grid grid-flow-col gap-0.5">
             <LinksSection />
-            <Button size="icon" variant="outline" onClick={toggleDirection} className="max-md:hidden">
-              <TextDirectionIcon dir={dir} stroke={1.5} />
+            <Button size="icon" variant="outline" onClick={toggleDirection} className="bg-color text-background transition-colors max-md:hidden [&_svg]:transition-colors">
+              <TextDirectionIcon dir={dir} size={20} stroke={2} />
             </Button>
           </div>
         </div>
@@ -106,7 +101,8 @@ function LinksSection() {
       iconProps={{
         currentFill: i.label.includes("Collective") ? "fill-stroke" : "fill",
         fill: "white",
-        stroke: "white"
+        stroke: "white",
+        size: 20
       }}
       className={globalStyle(
         { toggle: "item", size: "icon-xs" },
@@ -121,12 +117,7 @@ function LinksSection() {
 
 export function LinkHome({ open, className }: { open?: boolean; className?: string }) {
   return (
-    <Link
-      href="/"
-      aria-label="oeri"
-      data-state={open ? "open" : "closed"}
-      className={merge("gap-2 rounded-lg px-2 py-1 font-geist-mono text-lg font-medium leading-none", className)}
-    >
+    <Link href="/" aria-label="oeri" data-state={open ? "open" : "closed"} className={merge("gap-2 rounded-lg px-2 py-1 font-geist-mono text-lg font-medium leading-none", className)}>
       <BrandOeriIcon size={30} />
       <span>oeri</span>
     </Link>

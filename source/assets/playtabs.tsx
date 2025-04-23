@@ -113,8 +113,7 @@ export function PlayTabs(_Play: PlayTabsProps) {
     onClick: () => setActive(key),
     onMouseEnter: () => setHover(key),
     onMouseLeave: () => setHover(null),
-    className:
-      "relative flex items-center justify-center select-none whitespace-nowrap py-2 px-4 text-sm leading-none z-1 text-muted-foreground aria-selected:text-color"
+    className: "relative flex items-center justify-center select-none whitespace-nowrap py-2 px-4 text-sm leading-none z-1 text-muted-foreground aria-selected:text-color"
   });
 
   return (
@@ -132,7 +131,7 @@ export function PlayTabs(_Play: PlayTabsProps) {
           target={controlsRefs[hover ?? active]}
           parent={parentRef}
           transitionDuration={450}
-          className="bg-muted/60 border-muted-foreground/60 rounded-md shadow-md border"
+          className="rounded-lg shadow-md bg-primitive [transition:transform,box-shadow_.12s,background-color_.12s] [box-shadow:inset_0_-0.05em_0.5em_hsl(var(--muted-foreground)/0.08),inset_0_0.05em_#f1f7feb5,inset_0_0.25em_0.5em_hsl(var(--muted-foreground)/0.17),inset_0_-0.1em_hsl(var(--background)/0.9),0_0_0_0.075em_hsl(var(--muted-foreground)/0.25),0_0.08em_0.17em_hsl(var(--background)/0.95)]"
         />
       </Tabs.List>
 

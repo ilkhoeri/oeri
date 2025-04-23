@@ -1,8 +1,10 @@
+"use client";
 import * as React from "react";
 import { cn, ocx } from "cretex";
 import { sanitizedWord } from "@/utility/text-parser";
+import { CopyButton as CopyToggle } from "@/ui/copy-button";
 import { CopyButton, GetCodeButton } from "../../../../source/assets/toggle";
-import { ChainIcon, BrandCssFillIcon, BrandTypescriptFillIcon } from "@/icons/*";
+import { ChainIcon, BrandCssFillIcon, BrandTypescriptFillIcon, CheckIcon } from "@/icons/*";
 import { ScrollArea } from "@/ui/scroll-area";
 
 type CustomizerOrigin = "title" | "content" | "inner";
@@ -34,9 +36,18 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
     <>
       <div className={cn("flex h-12 w-full flex-row items-center rounded-t-[inherit] border-b bg-background p-[0_12px_0_16px]", className)}>
         {title && (
-          <h6 className={cn("flex flex-row items-center gap-2 text-[13px] text-muted-foreground [&_svg]:size-4", classNames?.title)}>
-            <ExtIcons ext={_ext} /> <span className="font-normal">{title}</span>
-          </h6>
+          <CopyToggle timeout={1750} value={title.trimEnd()}>
+            {({ copied, copy }) => (
+              <h6
+                className={cn("flex cursor-pointer flex-row items-center gap-2 text-[13px] [&_svg]:size-4", copied ? "text-color" : "text-muted-foreground", classNames?.title)}
+                onClick={copy}
+                aria-label={copied ? "Copied" : "Copy"}
+                title={copied ? "Copied" : "Copy"}
+              >
+                {copied ? <CheckIcon animation /> : <ExtIcons ext={_ext} />} <span className="font-normal">{title}</span>
+              </h6>
+            )}
+          </CopyToggle>
         )}
         <div className="ml-auto flex flex-row items-center gap-1">
           {(repo || href) && <GetCodeButton href={href} repo={repo} />}

@@ -33,7 +33,7 @@ export default async function Layout({ children, params }: DocsParams) {
     return (
       <Comp>
         <AsideLeft />
-        <Comp el="section">
+        <Comp el="section" className="min-[1334px]:px-[1.5px]">
           <NavigationBreadcrumb />
           {children}
           <NavBottom routes={docsRoutes} />

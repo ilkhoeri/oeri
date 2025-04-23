@@ -24,8 +24,7 @@ type NestedRecord<U extends [string, unknown], T extends string> = {
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
 type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties }, Exclude>;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> &
-  React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
+type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
 
 // prettier-ignore
 const DEFAULT_COLORS = ["aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "currentColor", "currentcolor", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
@@ -76,7 +75,7 @@ function getStyles(selector: __Selector, opts?: Options) {
   function selected<T>(select: __Selector, state: T) {
     return selector === select ? (state as T) : undefined;
   }
-  const isGroup = opts?.withinGroup ? selector === "group" : selector === "root";
+  // const isGroup = opts?.withinGroup ? selector === "group" : selector === "root";
   const isInitials = opts?.isInitials;
   return {
     ...selected("root", { "data-within-group": is(opts?.withinGroup) }),
@@ -96,7 +95,8 @@ function getStyles(selector: __Selector, opts?: Options) {
     style: ocx(
       opts?.styles?.[selector],
       opts?.style,
-      isGroup && opts?.size && { "--avatar-size": rem(opts?.size) },
+      // isGroup && opts?.size && { '--avatar-size': rem(opts?.size) },
+      selector === "root" && opts?.size && { "--avatar-size": rem(opts?.size) },
       selector === "group" && { "--ag-spacing": rem(opts?.gap), "--ag-offset": " calc(var(--ag-spacing, calc(var(--avatar-size) / 1.85)) * -1)" },
       selector === "root" && [
         { "--avatar-fz": `calc(var(--avatar-size) / max(${opts?.lengthInitial}, 2.35))` },
@@ -172,13 +172,13 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
     rootProps,
     onContextMenu,
     loading = "lazy",
-    color = "initials",
+    color,
     unoptimized = true,
     draggable = "false",
     allowedInitialsColors,
     initialLimit: limit,
     suppressHydrationWarning = true,
-    size = DEFAULT_SIZE,
+    size,
     ...props
   } = _props;
 
@@ -193,9 +193,9 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
     setLoad();
   }, [src]);
 
-  const _size = ctx?.size ?? size;
-  const _round = ctx?.round ?? round;
-  const _color = ctx?.color ?? color;
+  const _size = size ?? ctx?.size ?? DEFAULT_SIZE;
+  const _round = round ?? ctx?.round;
+  const _color = color ?? ctx?.color ?? "initials";
   const _name = typeof fallback === "string" ? fallback : typeof children === "string" ? children : "";
   const initialLimit = (limit ?? ctx?.initialLimit) || 2;
   const isInitials = _color === "initials";
@@ -221,9 +221,7 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
 
   const fallbackContent = typeof fallback === "string" && validString(fallback) ? stringWrap(fallback) : fallback;
 
-  const fallbackError = (typeof children === "string" && validString(children) ? stringWrap(children) : hasLoad && error && children) || fallbackContent || (
-    <AvatarPlaceholderIcon />
-  );
+  const fallbackError = (typeof children === "string" && validString(children) ? stringWrap(children) : hasLoad && error && children) || fallbackContent || <AvatarPlaceholderIcon />;
 
   return (
     <div

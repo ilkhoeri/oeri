@@ -27,12 +27,12 @@ function Demo() {
     body: dataRenderer(data, ["property", "value"])
   };
 
-  return <Table withTableBorder={false} variant="horizontal" data={tableData} />;
+  return <Table withTableBorder={false} orientation="horizontal" data={tableData} />;
 }
 
 const codes = {
   usage:
-    '"use client";\nimport { useDeviceInfo } from "@/hooks/use-device-info";\nimport { dataRenderer, Table } from "@/ui/table";\n\nexport function UseDeviceInfoDemo() {\n  const device = useDeviceInfo();\n\n  if (!device) return <p>Detecting...</p>;\n\n  const data = [\n    { property: "Operating System", value: `${device.os}` },\n    { property: "Orientation", value: `${device.orientation}` },\n    { property: "User Agent", value: `${device.userAgent}` },\n    { property: "Language", value: `${device.language}` },\n    { property: "Screen Width", value: `${device.screenWidth}px` },\n    { property: "Screen Height", value: `${device.screenHeight}px` },\n    { property: "Device Pixel Ratio", value: `${device.devicePixelRatio}` },\n    { property: "Touch Device", value: `${device.isTouchDevice ? "Yes" : "No"}` },\n    { property: "Device Memory", value: `${device.deviceMemory ?? "N/A"} GB` },\n    { property: "Hardware Concurrency", value: `${device.hardwareConcurrency ?? "N/A"} cores` }\n  ];\n\n  const tableData = {\n    caption: "Device Info",\n    head: ["Property", "Value"],\n    body: dataRenderer(data, ["property", "value"])\n  };\n\n  return <Table withTableBorder={false} variant="horizontal" data={tableData} />;\n}'
+    '"use client";\nimport { useDeviceInfo } from "@/hooks/use-device-info";\nimport { dataRenderer, Table } from "@/ui/table";\n\nexport function UseDeviceInfoDemo() {\n  const device = useDeviceInfo();\n\n  if (!device) return <p>Detecting...</p>;\n\n  const data = [\n    { property: "Operating System", value: `${device.os}` },\n    { property: "Orientation", value: `${device.orientation}` },\n    { property: "User Agent", value: `${device.userAgent}` },\n    { property: "Language", value: `${device.language}` },\n    { property: "Screen Width", value: `${device.screenWidth}px` },\n    { property: "Screen Height", value: `${device.screenHeight}px` },\n    { property: "Device Pixel Ratio", value: `${device.devicePixelRatio}` },\n    { property: "Touch Device", value: `${device.isTouchDevice ? "Yes" : "No"}` },\n    { property: "Device Memory", value: `${device.deviceMemory ?? "N/A"} GB` },\n    { property: "Hardware Concurrency", value: `${device.hardwareConcurrency ?? "N/A"} cores` }\n  ];\n\n  const tableData = {\n    caption: "Device Info",\n    head: ["Property", "Value"],\n    body: dataRenderer(data, ["property", "value"])\n  };\n\n  return <Table withTableBorder={false} orientation="horizontal" data={tableData} />;\n}'
 };
 
 const usage: DataTrees = {

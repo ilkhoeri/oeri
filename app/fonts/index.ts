@@ -1,20 +1,5 @@
 import localFont from "next/font/local";
-import {
-  Amiri,
-  Anek_Telugu,
-  Inter,
-  Kanit,
-  Koulen,
-  Montserrat,
-  Poppins,
-  Roboto_Mono,
-  Special_Elite,
-  Quicksand,
-  Dancing_Script,
-  Caveat,
-  Ubuntu,
-  Barlow
-} from "next/font/google";
+import { Amiri, Anek_Telugu, Inter, Kanit, Koulen, Montserrat, Poppins, Roboto_Mono, Special_Elite, Quicksand, Dancing_Script, Caveat, Ubuntu, Barlow } from "next/font/google";
 
 export const geistSans = localFont({
   src: "./GeistVF.woff",
@@ -135,7 +120,6 @@ export const fontsVariable = [
   robotoMono.variable,
   barlow.variable,
   montserrat.variable,
-  inter.variable,
   kanit.variable,
   robotoMono.variable
 ].join(" ");
@@ -157,10 +141,7 @@ type stylesBodyType = { className: string; style?: CSSProperties };
  * >
  * ```
  */
-export function bodyConfig(
-  className?: string | undefined,
-  style?: CSSProperties
-): stylesBodyType {
+export function bodyConfig(className?: string | undefined, style?: CSSProperties): stylesBodyType {
   let additionalClass: stylesBodyType = {
     className: fontsVariable,
     style: { ...style }

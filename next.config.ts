@@ -82,6 +82,11 @@ const config: NextConfig = withContentlayer({
       },
       {
         protocol: "https",
+        hostname: "github.com",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
         hostname: "contrib.rocks",
         pathname: "/**"
       }

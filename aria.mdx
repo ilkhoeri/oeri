@@ -1,0 +1,92 @@
+Properti `aria-` dalam HTML adalah bagian dari **ARIA** (**Accessible Rich Internet Applications**).
+Tujuannya **supaya aplikasi web lebih ramah untuk pengguna dengan kebutuhan aksesibilitas khusus** (misal: orang yang menggunakan screen reader karena gangguan penglihatan).
+
+---
+
+## 1. Apa itu atribut `aria-`?
+
+- Atribut `aria-` digunakan untuk:
+  - Memberikan informasi tambahan tentang elemen HTML kepada **teknologi bantu** seperti screen reader.
+  - Membantu menjelaskan **hubungan** antar elemen, status elemen, atau bahkan peran (role) elemen itu.
+  - **Tidak** mengubah tampilan biasa di browser, hanya memberikan "petunjuk" untuk alat bantu.
+
+---
+
+## 2. Penjelasan `aria-labelledby` dan `aria-describedby`
+
+### a) `aria-labelledby`
+
+- **Fungsi:**
+  - Menunjukkan **elemen lain** yang menjadi **judul atau label** dari elemen ini.
+- **Cara kerja:**
+  - Isi `aria-labelledby` adalah `id` dari elemen lain.
+  - Screen reader akan membaca isi teks dari elemen itu sebagai **label**.
+
+**Contoh:**
+
+```html
+<h2 id="section-title">Informasi Akun</h2>
+<div aria-labelledby="section-title">Ini adalah detail tentang akun Anda.</div>
+```
+
+- Screen reader akan membacanya sebagai:
+  "**Informasi Akun**. Ini adalah detail tentang akun Anda."
+
+---
+
+### b) `aria-describedby`
+
+- **Fungsi:**
+  - Menunjukkan **elemen lain** yang memberikan **deskripsi tambahan** tentang elemen ini.
+- **Cara kerja:**
+  - Isi `aria-describedby` adalah `id` dari elemen lain yang berisi deskripsi.
+  - Dipakai untuk memberi informasi tambahan selain label utama.
+
+**Contoh:**
+
+```html
+<label for="email">Email:</label>
+<input id="email" type="email" aria-describedby="email-help" />
+<small id="email-help">Kami tidak akan membagikan email Anda ke pihak ketiga.</small>
+```
+
+- Screen reader akan membaca:
+  "**Email**. Kami tidak akan membagikan email Anda ke pihak ketiga."
+
+---
+
+## 3. Perbedaan `aria-labelledby` vs `aria-describedby`
+
+|                | aria-labelledby               | aria-describedby                |
+| :------------- | :---------------------------- | :------------------------------ |
+| Utama untuk    | Memberi label / judul         | Memberi deskripsi tambahan      |
+| Dibaca sebagai | Nama utama elemen             | Penjelasan tambahan             |
+| Kapan dipakai  | Heading, tombol, input, kartu | Form input, error message, hint |
+
+---
+
+## 4. Cara mendefinisikannya dengan benar:
+
+- **Gunakan id yang valid** di elemen yang dijadikan label atau deskripsi.
+- **Pastikan teksnya jelas** dan deskriptif.
+- **Jangan ganti fungsi native HTML**. Misalnya `<label>` untuk `<input>` tetap digunakan, lalu `aria-` hanya jadi tambahan.
+- **Bisa menghubungkan beberapa id** (pakai spasi), contoh:
+  ```html
+  <div aria-labelledby="title subtitle">...</div>
+  ```
+
+---
+
+## 5. Atribut `aria-` lainnya (sekilas)
+
+Ada banyak atribut `aria-` lain, contoh umum:
+
+- `aria-hidden="true"` → Menyembunyikan elemen dari screen reader.
+- `aria-disabled="true"` → Menandai elemen sebagai tidak aktif.
+- `aria-expanded="true/false"` → Menandai apakah elemen expandable (seperti menu dropdown) dalam keadaan terbuka atau tertutup.
+- `aria-live="polite/assertive"` → Untuk pembaruan dinamis (seperti notifikasi), supaya screen reader membacakan perubahan.
+
+---
+
+Kalau mau, aku bisa sekalian buatin tabel daftar `aria-` penting beserta contoh penggunaannya, biar makin gampang dipahami. Mau sekalian? 🚀
+Atau kamu ada kasus spesifik yang mau dibahas dulu? (kayak form, modal, alert, dll?)

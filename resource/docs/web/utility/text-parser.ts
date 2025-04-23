@@ -1,7 +1,31 @@
+const DEFAULT_CONJUNCTIONS = ["and", "or", "of", "the", "this", "with", "dan", "atau", "yang", "untuk", "di", "ke", "dari", "oleh", "pada"];
+
+export type FormatTransform = keyof typeof transform;
+
 /** Transforms a given string based on the specified transformation type. */
 export const transform = Object.assign(
   {},
   {
+    /**
+     * @param words - The input string to transform.
+     * @returns string
+     */
+    unformated: (words: string | undefined) => {
+      if (!words) return "";
+      return words;
+    },
+    /**
+     * @param words - The input string to transform.
+     * @returns string exclude {@link DEFAULT_CONJUNCTIONS DEFAULT_CONJUNCTIONS}
+     */
+    uppercaseFirst: (words: string | undefined) => {
+      if (!words) return "";
+      return words
+        .toLowerCase()
+        .split(" ")
+        .map((word, index) => (index === 0 || !DEFAULT_CONJUNCTIONS.includes(word) ? toUpper(word) : word))
+        .join(" ");
+    },
     /**
      * @param words - The input string to transform.
      * @returns string
@@ -55,29 +79,34 @@ export const transform = Object.assign(
  * Truncates a string to a maximum length, adding an ellipsis if necessary.
  *
  * @param {string} word - The input string to truncate.
- * @param {number} [maxWord=30] - The maximum length of the truncated string.
+ * @param {number} [maxWord=30] - The maximum length of the truncated string, `{default=30}`.
  * @returns {string} - The truncated string.
  */
-export function truncate(word: string, maxWord: number = 30): string {
+export function truncate(word: string | null | undefined, maxWord: number = 30, split: "spaceslice" | "unslice" = "spaceslice"): string {
+  if (!word) return "";
+
   let slicedWords = word;
   if (slicedWords.length > maxWord) {
-    const lastSpaceIndex = slicedWords.lastIndexOf(" ", maxWord);
-    slicedWords = slicedWords.substring(0, lastSpaceIndex) + "...";
+    if (split === "spaceslice") {
+      const lastSpaceIndex = slicedWords.lastIndexOf(" ", maxWord);
+      slicedWords = slicedWords.substring(0, lastSpaceIndex) + "...";
+    }
+    if (split === "unslice") {
+      slicedWords = slicedWords.substring(0, maxWord) + "...";
+    }
   }
   return slicedWords;
 }
-
-const DEFAULT_CONJUNCTIONS = ["and", "or", "of", "the", "this", "with", "dan", "atau", "yang", "untuk", "di", "ke", "dari", "oleh"];
 
 /**
  *
  * @param name The John of Doe
  * @param limit 3
- * @param conjunctions ["of", "the"]
+ * @param conjunctions ["of", "the"], {default={@link DEFAULT_CONJUNCTIONS DEFAULT_CONJUNCTIONS}}
  * @returns JD
  */
 export function getInitials(name: string, limit: number = 3, conjunctions: string[] = DEFAULT_CONJUNCTIONS): string {
-  const limitProvide = Math.min(Math.max(limit, 1), 5);
+  const limitProvide = Math.min(Math.max(limit, 1), limit);
 
   if (!name || limitProvide < 1) return "";
 
@@ -245,6 +274,124 @@ function removePunctuation(str: string): string {
 
 function combineConsecutiveHyphens(str: string): string {
   return str.replace(/-+/g, "-");
+}
+
+/**
+ *
+ * @param text `string | null | undefined`
+ * @returns string
+ * @example
+ * console.log(formatText("web-analitics"));  // Output: "Web Analitics"
+ * console.log(formatText("webAnalitics"));   // Output: "Web Analitics"
+ * console.log(formatText("web_analitics"));  // Output: "Web Analitics"
+ * console.log(formatText("WebAnalitics"));   // Output: "Web Analitics"
+ */
+export function formatTitle(text: string | null | undefined, formatTransform: FormatTransform = "uppercaseFirst"): string {
+  if (!text) return "";
+  const currentFormat = text
+    // Ubah kebab-case menjadi spasi (web-analitics -> web analitics)
+    .replace(/[-_]/g, " ")
+    // Ubah camelCase menjadi spasi (webAnalitics -> web Analitics)
+    .replace(/([a-z])([A-Z])/g, "$1 $2");
+  // Kapitalisasi setiap kata
+  // .replace(/\b\w/g, char => char.toUpperCase())
+  return transform[formatTransform](currentFormat);
+}
+
+const round = (num: number) => Math.round(num * 100) / 100;
+export const roundNumber = (value: number) => (isNaN(value) ? 0 : round(value));
+
+type CounterType = number | `${number}` | null | undefined;
+export function getPercentage(countIs: CounterType, countAll: CounterType): string {
+  const safeValue = (value: number) => (isNaN(value) ? 0 : value);
+
+  const _countIs = safeValue(Number(countIs));
+  const _countAll = safeValue(Number(countAll));
+
+  if (_countAll === 0) return "0%"; // Hindari pembagian dengan nol
+
+  const percentage = (_countIs / _countAll) * 100;
+  return `${percentage.toFixed(2)}%`; // Format agar lebih rapi
+}
+
+// get size helper
+export function getByteSize<T>(obj: T): number {
+  const json = JSON.stringify(obj);
+  // UTF-8 byte size
+  return new TextEncoder().encode(json).length;
+}
+
+/**
+ * @param bytes number
+ * @returns string
+ */
+export function formatBytesToMB(bytes: number | null | undefined) {
+  const MB = "MB";
+  if (!bytes || bytes === 0) return `0 ${MB}`;
+  const mbSize = (bytes / (1024 * 1024)).toFixed(1);
+  return `${mbSize} ${MB}`;
+}
+
+export function formatBytes<T>(obj: T): string {
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const bytes: number = getByteSize(obj);
+  if (bytes === 0) return "0 Byte";
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
+}
+
+export function isNumber<T>(value: T): boolean {
+  return !isNaN(Number(value)) && Number(value) > 0;
+}
+
+export function validNumber<T, R>(value: T, defaultValue: R): number | R {
+  return isNumber(value) ? Number(value) : defaultValue;
+}
+
+// Misalnya, jika paramsId adalah UUID, maka kita asumsikan itu adalah id
+// const isId = (n: string) => /^[0-9a-fA-F]{24}$/.test(n); // Contoh pola untuk UUID
+/**
+ * Check if path is a UUID versi 4
+ * @param input - The input string.
+ * @returns
+ */
+export const isUUID = (input: string) => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(input);
+
+export const isCUID = (input: string) => /^c[a-z0-9]{24}$/.test(input); // Pola CUID dimulai dengan "c" diikuti 24 karakter alphanumeric
+
+export const isMongoObjectId = (input: string) => /^[0-9a-fA-F]{24}$/.test(input); // ObjectId MongoDB adalah 24 karakter hex
+
+export const isValidId = (input: string) => isUUID(input) || isCUID(input) || isMongoObjectId(input);
+
+export function isValidURL(url: string): boolean {
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)" + // protocol (http or https)
+      "((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|" + // domain name
+      // '(([a-zA-Z\\d-]+\\.)?[a-zA-Z\\d-]+\\.[a-zA-Z]{2,}|' + // Maksimal satu subdomain atau tidak ada
+      "localhost|" + // localhost
+      "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" + // IP (v4)
+      "\\[?[a-fA-F\\d:]+\\]?)" + // IP (v6)
+      "(\\:\\d+)?" + // port
+      "(\\/[-a-zA-Z\\d%@_.~+&:]*)*" + // path
+      "(\\?[;&a-zA-Z\\d%@_.,~+&:=-]*)?" + // query string
+      "(\\#[-a-zA-Z\\d_]*)?$", // fragment
+    "i"
+  );
+  return pattern.test(url);
+}
+
+export const strictUrlRegexMultiSubDomain = /^https?:\/\/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[\w-./?%&=]*)?$/;
+export const strictUrlRegex = /^https?:\/\/([a-zA-Z0-9-]+\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[\w-./?%&=]*)?$/;
+export function isValidUrl(url: string, model: "one-sub-domain" | "multi-sub-domain" = "one-sub-domain") {
+  switch (model) {
+    case "one-sub-domain":
+      return strictUrlRegex.test(url);
+    case "multi-sub-domain":
+      return strictUrlRegexMultiSubDomain.test(url);
+
+    default:
+      return false;
+  }
 }
 
 export const htmlCharacterEntities = [

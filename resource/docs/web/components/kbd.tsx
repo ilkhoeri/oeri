@@ -19,6 +19,8 @@ const classes = cvx({
   }
 });
 
+export const classesKbd = classes;
+
 export interface KbdProps extends React.PropsWithoutRef<Omit<React.ComponentProps<"kbd">, "style">>, cvxProps<typeof classes> {
   unstyled?: boolean;
   style?: React.CSSProperties & Record<string, any>;

@@ -18,10 +18,10 @@ export const classes = cvx({
         "cursor-text justify-start [--bg-required:hsl(var(--background))_var(--bg-atmail)] focus-visible:[--bg-required:hsl(var(--background))] [&:where(:is(:not([value=''])))]:[--bg-required:hsl(var(--background))]",
       file: "text-muted-foreground [&:where(:is(:not([value=''])))]:text-color [&:where(:is(:not([value=''])))]:border-constructive [&:where(:is(:not([value=''])))]:bg-constructive/30 [&:where(:is(:not([value=''])))]:ring-constructive break-words items-center justify-center rounded-2xl border-2 file:border-constructive outline-none ring-1 ring-transparent ring-offset-2 ring-offset-background pb-0 pt-[25%] px-[15%] border-dashed file:border-0 file:bg-transparent file:text-sm file:font-medium",
       hidden: "sr-only !hidden",
-      image:
-        "bg-center text-transparent align-middle items-center justify-center rounded-2xl border py-0 px-0 outline-0 outline-none [&>*]:border-0 [&>*]:outline-0 [&>*]:outline-none",
+      image: "bg-center text-transparent align-middle items-center justify-center rounded-2xl border py-0 px-0 outline-0 outline-none [&>*]:border-0 [&>*]:outline-0 [&>*]:outline-none",
       month: "min-w-52 text-muted-foreground [&:where(:is(:not([value=''])))]:text-color",
-      number: "cursor-text justify-start",
+      number:
+        "cursor-text justify-start [&[type=number]::-webkit-inner-spin-button]:[-webkit-appearance:none] [&[type=number]::-webkit-outer-spin-button]:[-webkit-appearance:none] [appearance:textfield] [-moz-appearance:textfield]",
       password: "cursor-text justify-start",
       radio: "rounded-full px-0 py-0 items-center justify-center border-muted-foreground checked:border-color",
       range:
@@ -82,10 +82,7 @@ function is<T>(state: T) {
   return (state as T) ? "true" : undefined;
 }
 
-export function getInputOffsets(
-  inputWrapperOrder: ("label" | "input" | "description" | "error")[],
-  { hasDescription, hasError }: { hasDescription: boolean; hasError: boolean }
-) {
+export function getInputOffsets(inputWrapperOrder: ("label" | "input" | "description" | "error")[], { hasDescription, hasError }: { hasDescription: boolean; hasError: boolean }) {
   const inputIndex = inputWrapperOrder.findIndex(part => part === "input");
   const aboveInput = inputWrapperOrder.slice(0, inputIndex);
   const belowInput = inputWrapperOrder.slice(inputIndex + 1);
@@ -100,6 +97,10 @@ const formatDate = (date: Date) => {
   const dd = String(date.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
 };
+
+export const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+?<>{}\/]).{8,}$/;
+
+export const phoneRegEx = /^(?:0|\+62)(?:\d{3}-\d{4}-\d{4}|\d{3}-\d{3}-\d{4}|\d{4}-\d{4}-\d{3}|\d{4}-\d{4}-\d{4})$/;
 
 function getDefaultSize({ variant, size }: InputStyles): InputStyles["size"] {
   if (size) return size;
@@ -210,8 +211,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((_props, ref
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (type === "number") {
-      const numeric = e.target.value.replace(/[^0-9]/g, "");
-      if (/^\d*$/.test(numeric)) setNumb(numeric);
+      const numeric = e.target.value.replace(/[^0-9+-]/g, "");
+      if (/^[0-9+-]*$/.test(numeric)) setNumb(numeric);
     }
     if (type === "date") {
       formatDate(new Date(e.target.value));

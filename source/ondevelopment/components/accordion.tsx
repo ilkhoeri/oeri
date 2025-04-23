@@ -172,8 +172,7 @@ export default function classes(selector: `${Selector}`, options: ClassesProps) 
     case "trigger":
       return {
         className: merge(
-          !unstyled &&
-            "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&[data-state=open]>svg]:rotate-180",
+          !unstyled && "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&[data-state=open]>svg]:rotate-180",
           className
         )
       };

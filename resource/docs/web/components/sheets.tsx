@@ -365,7 +365,7 @@ export type SheetsProps =
   | ({ variant?: "drawer" } & SheetsDrawerProps)
   | ({ variant?: "dropdown" } & SheetsDropdownProps);
 
-export const Sheets = React.forwardRef<React.ElementRef<"div">, SheetsProps>((_props, ref) => {
+export const Sheets = React.forwardRef<React.ComponentRef<"div">, SheetsProps>((_props, ref) => {
   const { variant = "accordion", ...props } = _props;
 
   switch (variant) {
@@ -495,7 +495,7 @@ export function SheetsDropdown(_props: SheetsDropdownProps) {
 SheetsDropdown.displayName = "SheetsDropdown";
 
 export interface SheetsRootProps extends ComponentProps<"div"> {}
-export const SheetsRoot = React.forwardRef<React.ElementRef<"div">, SheetsRootProps>((_props, ref) => {
+export const SheetsRoot = React.forwardRef<React.ComponentRef<"div">, SheetsRootProps>((_props, ref) => {
   const { className, unstyled, style, ...props } = _props;
 
   const { variant, ...ctx } = useSheetsCtx();
@@ -507,7 +507,7 @@ SheetsRoot.displayName = "SheetsRoot";
 export interface SheetsItemProps extends ComponentProps<"div"> {
   value?: string;
 }
-export const SheetsItem = React.forwardRef<React.ElementRef<"div">, SheetsItemProps>((_props, ref) => {
+export const SheetsItem = React.forwardRef<React.ComponentRef<"div">, SheetsItemProps>((_props, ref) => {
   const { className, unstyled, style, value, "aria-expanded": arExp, ...props } = _props;
   const { variant, multipleOpen, openId, setOpenId, toggle, defaultOpen, ...ctx } = useSheetsCtx();
 
@@ -550,13 +550,31 @@ export const SheetsItem = React.forwardRef<React.ElementRef<"div">, SheetsItemPr
 });
 SheetsItem.displayName = "SheetsItem";
 
-export interface SheetsTriggerProps extends ComponentProps<"button"> {}
-export const SheetsTrigger = React.forwardRef<React.ElementRef<"button">, SheetsTriggerProps>((_props, ref) => {
-  const { type = "button", role = "button", className, id, unstyled, style, onClick, "aria-controls": arCont, ...props } = _props;
+export interface SheetsTriggerProps extends ComponentProps<"button"> {
+  openChangeOnContextMenu?: boolean;
+}
+export const SheetsTrigger = React.forwardRef<React.ComponentRef<"button">, SheetsTriggerProps>((_props, ref) => {
+  const {
+    openChangeOnContextMenu = false,
+    type = "button",
+    role = "button",
+    className,
+    id,
+    unstyled,
+    style,
+    onClick,
+    onContextMenu,
+    "aria-controls": arCont,
+    ...props
+  } = _props;
   const { variant, ...ctx } = useSheetsCtx(id);
   const ctxItem = useSheetsItemCtx();
 
   const isAccordion = variant === SheetsVariant.Accordion;
+  const openChange = () => {
+    if (isAccordion && ctxItem) ctxItem?.toggleId();
+    ctx?.toggle();
+  };
 
   return (
     <button
@@ -570,8 +588,14 @@ export const SheetsTrigger = React.forwardRef<React.ElementRef<"button">, Sheets
         "data-value": ctx?.multipleOpen ? String(ctx?.triggerRef?.current?.id) : undefined,
         onClick: e => {
           onClick?.(e);
-          if (isAccordion && ctxItem) ctxItem?.toggleId();
-          ctx?.toggle();
+          if (!openChangeOnContextMenu) openChange();
+        },
+        onContextMenu: e => {
+          onContextMenu?.(e);
+          if (openChangeOnContextMenu) {
+            e.preventDefault();
+            openChange();
+          }
         },
         ...ctx?.attr(ctxItem ? ctxItem?.dataStateItem : undefined),
         ...getStyles("trigger", { variant, className, unstyled }),
@@ -589,7 +613,7 @@ export interface SheetsContentProps extends ComponentProps<"div"> {
   value?: string;
   side?: SheetsContextProps["side"];
 }
-export const SheetsContent = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+export const SheetsContent = React.forwardRef<React.ComponentRef<"div">, SheetsContentProps>((_props, ref) => {
   const { className, unstyled, value, side: propSide, ...props } = _props;
   const { variant = "accordion", side: ctxSide, multipleOpen } = useSheetsCtx(value);
 
@@ -609,7 +633,7 @@ export const SheetsContent = React.forwardRef<React.ElementRef<"div">, SheetsCon
 });
 SheetsContent.displayName = "SheetsContent";
 
-const SheetsContentCollapse = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+const SheetsContentCollapse = React.forwardRef<React.ComponentRef<"div">, SheetsContentProps>((_props, ref) => {
   const { "aria-disabled": arDsb, style, value, ...props } = _props;
   const ctx = useSheetsCtx(value);
   const ctxItem = useSheetsItemCtx();
@@ -644,7 +668,7 @@ const SheetsContentCollapse = React.forwardRef<React.ElementRef<"div">, SheetsCo
 });
 SheetsContentCollapse.displayName = "SheetsContentCollapse";
 
-const SheetsContentDefault = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+const SheetsContentDefault = React.forwardRef<React.ComponentRef<"div">, SheetsContentProps>((_props, ref) => {
   const { "aria-disabled": arDsb, style, value, ...props } = _props;
   const ctx = useSheetsCtx(value);
 
@@ -668,7 +692,7 @@ const SheetsContentDefault = React.forwardRef<React.ElementRef<"div">, SheetsCon
 });
 SheetsContentDefault.displayName = "SheetsContentDefault";
 
-const SheetsContentMultiple = React.forwardRef<React.ElementRef<"div">, SheetsContentProps>((_props, ref) => {
+const SheetsContentMultiple = React.forwardRef<React.ComponentRef<"div">, SheetsContentProps>((_props, ref) => {
   const { "aria-disabled": arDsb, style, value, ...props } = _props;
   const { modal, ...ctx } = useSheetsCtx(value);
 
@@ -696,7 +720,7 @@ const SheetsContentMultiple = React.forwardRef<React.ElementRef<"div">, SheetsCo
 SheetsContentMultiple.displayName = "SheetsContentMultiple";
 
 export interface SheetsCloseProps extends ComponentProps<"button"> {}
-export const SheetsClose = React.forwardRef<React.ElementRef<"button">, SheetsCloseProps>((_props, ref) => {
+export const SheetsClose = React.forwardRef<React.ComponentRef<"button">, SheetsCloseProps>((_props, ref) => {
   const { type = "button", className, unstyled, onClick, children, ...props } = _props;
   const { variant, ...ctx } = useSheetsCtx();
   return (
@@ -722,7 +746,7 @@ SheetsClose.displayName = "SheetsClose";
 export interface SheetsOverlayProps extends ComponentProps<"div"> {
   value?: string;
 }
-export const SheetsOverlay = React.forwardRef<React.ElementRef<"div">, SheetsOverlayProps>((_props, ref) => {
+export const SheetsOverlay = React.forwardRef<React.ComponentRef<"div">, SheetsOverlayProps>((_props, ref) => {
   const { className, unstyled, style, onClick, value, ...props } = _props;
   const { variant, ...ctx } = useSheetsCtx(value);
 

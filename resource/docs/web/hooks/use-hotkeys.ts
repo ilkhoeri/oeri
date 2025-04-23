@@ -17,11 +17,7 @@ export interface HotkeyItemOptions {
   preventDefault?: boolean;
 }
 
-export type HotkeyItem = [
-  string,
-  (event: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void,
-  HotkeyItemOptions?
-];
+export type HotkeyItem = [string, (event: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void, HotkeyItemOptions?];
 
 type CheckHotkeyMatch = (event: KeyboardEvent) => boolean;
 
@@ -72,11 +68,7 @@ function isExactHotkey(hotkey: Hotkey, event: KeyboardEvent): boolean {
     return false;
   }
 
-  if (
-    key &&
-    (pressedKey.toLowerCase() === key.toLowerCase() ||
-      event.code.replace("Key", "").toLowerCase() === key.toLowerCase())
-  ) {
+  if (key && (pressedKey.toLowerCase() === key.toLowerCase() || event.code.replace("Key", "").toLowerCase() === key.toLowerCase())) {
     return true;
   }
 
@@ -102,50 +94,33 @@ export function getHotkeyHandler(hotkeys: HotkeyItem[]) {
   };
 }
 
-function shouldFireEvent(
-  event: KeyboardEvent,
-  tagsToIgnore: string[],
-  triggerOnContentEditable = false
-) {
+function shouldFireEvent(event: KeyboardEvent, tagsToIgnore: string[], triggerOnContentEditable = false) {
   if (event.target instanceof HTMLElement) {
     if (triggerOnContentEditable) {
       return !tagsToIgnore.includes(event.target.tagName);
     }
 
-    return (
-      !event.target.isContentEditable &&
-      !tagsToIgnore.includes(event.target.tagName)
-    );
+    return !event.target.isContentEditable && !tagsToIgnore.includes(event.target.tagName);
   }
 
   return true;
 }
 
-export function useHotkeys(
-  hotkeys: HotkeyItem[],
-  tagsToIgnore: string[] = ["INPUT", "TEXTAREA", "SELECT"],
-  triggerOnContentEditable = false
-) {
+export function useHotkeys(hotkeys: HotkeyItem[], tagsToIgnore: string[] = ["INPUT", "TEXTAREA", "SELECT"], triggerOnContentEditable = false) {
   useEffect(() => {
     const keydownListener = (event: KeyboardEvent) => {
-      hotkeys.forEach(
-        ([hotkey, handler, options = { preventDefault: true }]) => {
-          if (
-            getHotkeyMatcher(hotkey)(event) &&
-            shouldFireEvent(event, tagsToIgnore, triggerOnContentEditable)
-          ) {
-            if (options.preventDefault) {
-              event.preventDefault();
-            }
-
-            handler(event);
+      hotkeys.forEach(([hotkey, handler, options = { preventDefault: true }]) => {
+        if (getHotkeyMatcher(hotkey)(event) && shouldFireEvent(event, tagsToIgnore, triggerOnContentEditable)) {
+          if (options.preventDefault) {
+            event.preventDefault();
           }
+
+          handler(event);
         }
-      );
+      });
     };
 
     document.documentElement.addEventListener("keydown", keydownListener);
-    return () =>
-      document.documentElement.removeEventListener("keydown", keydownListener);
+    return () => document.documentElement.removeEventListener("keydown", keydownListener);
   }, [hotkeys]);
 }

@@ -155,8 +155,34 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     @apply p-[0em_.25em] text-[85%] leading-normal transition-colors underline underline-offset-2 text-color decoration-color-muted hover:decoration-constructive hover:text-color font-geist-mono;
   }
 
+  & :where(:is(blockquote)):not(:is([data-demo-area] :is(blockquote))) {
+    @apply before:bg-[#284e83];
+    &:has(figure > pre) {
+      & figure {
+        @apply max-w-full mt-6;
+        & pre {
+          @apply mt-0 mb-2;
+        }
+      }
+    }
+  }
+
+  & :where(:is(p, li, blockquote)):not(:is([data-demo-area] :is(p, li, blockquote))) {
+    & a {
+      @apply text-constructive-foreground hover:text-constructive-emphasis;
+    }
+  }
+
   & :where(:is(h1, h2, h3, h4, h5)):not(:is([data-demo-area] :is(h1, h2, h3, h4, h5))) {
     @apply text-color mt-9 mb-1 flex items-center cursor-default w-max [&>a>svg]:hover:text-constructive max-w-full;
+    & a {
+      & code {
+        @apply [--p-code:0rem_0.5rem] [--round-code:.4375rem];
+      }
+      & svg {
+        @apply absolute left-0 rtl:left-auto rtl:right-0;
+      }
+    }
   }
   & :where(:is(h1, h2, h3, h4, h5)) {
     & a.anchor_id {
@@ -227,10 +253,10 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     &[data-rehype-pretty-code-figure] {
       &:has([data-rehype-pretty-code-title]) {
         & [data-rehype-pretty-code-title] {
-          @apply -mb-6 mt-6 rounded-t-lg text-muted-foreground p-[.5em_.65em_.65em] leading-normal [--fz-code:75%] border border-b-0 bg-muted/45 [overflow-wrap:break-word];
-        }
-        & pre code {
-          @apply rounded-t-none;
+          @apply -mb-6 mt-6 mx-0.5 rounded-t-lg text-muted-foreground [font-family:var(--ff-geist-mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation_Mono","Courier_New",monospace)] text-sm p-[.5rem_.75rem_.65rem] leading-normal [--fz-code:75%] border border-b-0 border-primitive-foreground bg-muted/45 [overflow-wrap:break-word];
+          & + pre code {
+            @apply rounded-t-none;
+          }
         }
         & [data-rehype-pretty-code-copy] {
           @apply top-[2.35rem];

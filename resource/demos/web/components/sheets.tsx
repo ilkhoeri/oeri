@@ -13,7 +13,7 @@ import { Group } from "@/ui/group";
 
 const codes = {
   accordion:
-    '// Independent Components\nimport { Sheets, SheetsItem, SheetsContent, SheetsTrigger } from "@/ui/sheets";\nimport { ChevronIcon } from "@/icons/*";\nimport { Typography } from "@/ui/typography";\n\nconst data = [\n  { title: "Accessibility", description: "Accessibility items that can be changed." },\n  { title: "Terms and Conditions", description: "You can find out more here" },\n  { title: "Preferences", description: "Change the theme, color, and font style according to your preferences" },\n  { title: "Updates", description: "Find the latest news about us here." }\n];\n\nexport function SheetsAccordionDemo() {\n  return (\n    <Sheets variant="accordion" defaultOpen="accessibility" className="w-full max-w-96 rounded-lg border px-6">\n      {data.map((i, index) => (\n        <SheetsItem\n          key={index}\n          value={String(i.title.replace(/\\s/g, "-").toLowerCase())}\n          className="group relative flex h-auto select-none flex-col border-b last-of-type:border-b-transparent"\n        >\n          <SheetsTrigger>\n            {i.title}\n            <ChevronIcon chevron="down" data-origin="arrow-collapse" />\n          </SheetsTrigger>\n\n          <SheetsContent className="text-sm">\n            <Typography prose="muted" className="pb-8">\n              {i.description}\n            </Typography>\n          </SheetsContent>\n        </SheetsItem>\n      ))}\n    </Sheets>\n  );\n}',
+    '// Independent Components\nimport { Sheets, SheetsItem, SheetsContent, SheetsTrigger } from "@/ui/sheets";\nimport { ChevronIcon } from "@/icons/*";\nimport { Typography } from "@/ui/typography";\n\nconst data = [\n  { title: "Accessibility", description: "Accessibility items that can be changed." },\n  { title: "Terms and Conditions", description: "You can find out more here" },\n  { title: "Preferences", description: "Change the theme, color, and font style according to your preferences" },\n  { title: "Updates", description: "Find the latest news about us here." }\n];\n\nexport function SheetsAccordionDemo() {\n  return (\n    <Sheets variant="accordion" defaultOpen="accessibility" className="w-full max-w-96 rounded-lg border px-6">\n      {data.map((i, index) => (\n        <SheetsItem\n          key={index}\n          value={String(i.title.replace(/\\s/g, "-").toLowerCase())}\n          className="group relative flex h-auto select-none flex-col border-b last-of-type:border-b-transparent"\n        >\n          <SheetsTrigger>\n            {i.title}\n            <ChevronIcon chevron="down" data-sheets="chevron" />\n          </SheetsTrigger>\n\n          <SheetsContent className="text-sm">\n            <Typography prose="muted" className="pb-8">\n              {i.description}\n            </Typography>\n          </SheetsContent>\n        </SheetsItem>\n      ))}\n    </Sheets>\n  );\n}',
   collapsible:
     '// Compound Components\n"use client";\nimport { Sheets } from "@/ui/sheets";\nimport { ChevronIcon } from "@/icons/*";\nimport { Typography } from "@/ui/typography";\n\nexport function SheetsCollapsibleDemo() {\n  return (\n    <Sheets{{props}} variant="collapsible" className="m-auto w-full max-w-80 space-y-2">\n      <Sheets.Trigger className="w-full justify-between bg-background font-mono text-sm text-muted-foreground data-[state=open]:text-constructive">\n        Select your &lt;Sheets /&gt;\n        <Typography className="rounded-md border p-1 transition-colors group-hover:bg-muted/90 group-data-[state=open]:border-constructive">\n          <ChevronIcon chevron="up-down" />\n        </Typography>\n      </Sheets.Trigger>\n\n      <Typography\n        el="a"\n        data-ignore-clickoutside\n        href="#sheets-variant-collapsible"\n        className="mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"\n      >\n        @sheets/collapsible\n      </Typography>\n\n      <Sheets.Content className="space-y-2">\n        {["accordion", "dialog", "drawer", "dropdown"].map(i => (\n          <Typography\n            el="a"\n            key={i}\n            href={`#sheets-variant-${i}`}\n            className="w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"\n          >\n            @sheets/{i}\n          </Typography>\n        ))}\n      </Sheets.Content>\n    </Sheets>\n  );\n}',
   collapsible2:
@@ -51,7 +51,7 @@ function AccordionDemo(props: SheetsProps) {
         >
           <SheetsTrigger>
             {i.title}
-            <ChevronIcon chevron="down" data-origin="arrow-collapse" />
+            <ChevronIcon chevron="down" data-sheets="chevron" />
           </SheetsTrigger>
 
           <SheetsContent className="text-sm">
@@ -69,9 +69,9 @@ function AccordionDemo(props: SheetsProps) {
 function CollapsibleDemo(props: SheetsCollapsibleProps) {
   return (
     <Sheets {...props} variant="collapsible" className="m-auto w-full max-w-80 space-y-2">
-      <Sheets.Trigger className="w-full justify-between bg-background font-mono text-sm text-muted-foreground data-[state=open]:text-constructive">
+      <Sheets.Trigger className="bg-background text-muted-foreground data-[state=open]:text-constructive w-full justify-between font-mono text-sm">
         Select your &lt;Sheets /&gt;
-        <Typography className="rounded-md border p-1 transition-colors group-hover:bg-muted/90 group-data-[state=open]:border-constructive">
+        <Typography className="group-hover:bg-muted/90 group-data-[state=open]:border-constructive rounded-md border p-1 transition-colors">
           <ChevronIcon chevron="up-down" />
         </Typography>
       </Sheets.Trigger>
@@ -80,7 +80,7 @@ function CollapsibleDemo(props: SheetsCollapsibleProps) {
         el="a"
         data-ignore-clickoutside
         href="#sheets-variant-collapsible"
-        className="mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"
+        className="hover:bg-muted/60 mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
       >
         @sheets/collapsible
       </Typography>
@@ -91,7 +91,7 @@ function CollapsibleDemo(props: SheetsCollapsibleProps) {
             el="a"
             key={i}
             href={`#sheets-variant-${i}`}
-            className="w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60"
+            className="hover:bg-muted/60 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm"
           >
             @sheets/{i}
           </Typography>
@@ -320,7 +320,7 @@ function DropdownDemo(props: SheetsDropdownProps) {
       <Sheets.Content className="h-[178px] w-44">
         <ScrollArea className="h-full p-4">
           {TAGS.map(tag => (
-            <p key={tag} className="flex min-w-max items-center gap-3 border-b border-muted py-1 text-sm text-muted-foreground">
+            <p key={tag} className="border-muted text-muted-foreground flex min-w-max items-center gap-3 border-b py-1 text-sm">
               <FileIcon /> {tag}
             </p>
           ))}

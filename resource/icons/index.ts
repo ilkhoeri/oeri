@@ -48,6 +48,7 @@ export { Icon as BrandGithubWordmarkIcon } from "./brand-github-wordmark";
 export { Icon as BrandGoogleFillIcon } from "./brand-google-fill";
 export { Icon as BrandGoogleIcon } from "./brand-google";
 export { Icon as BrandInstagramFillIcon } from "./brand-instagram-fill";
+export { Icon as BrandJsrIcon } from "./brand-jsr";
 export { Icon as BrandNextjsFillIcon } from "./brand-nextjs-fill";
 export { Icon as BrandOeriIcon } from "./brand-oeri";
 export { Icon as BrandReactFillIcon } from "./brand-react-fill";

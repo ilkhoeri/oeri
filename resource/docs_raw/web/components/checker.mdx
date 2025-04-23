@@ -71,7 +71,7 @@ type Icon = React.FC<{ indeterminate: boolean | undefined; className: string }>;
 | ----------------- | ------------------------------ | ----------- | ---------------------------------------------------------------------------------------------- |
 | id`?`             | `string`                       |             | Id used to bind input and label, if not passed, unique id will be generated instead            |
 | label`?`          | `React.ReactNode`              |             | Content of the `label` associated with the radio                                               |
-| icon`?`           | `Icon`                         |             | Icon displayed when checked is in checked or indeterminate state                               |
+| icon`?`           | `Icon` ↖️                      |             | Icon displayed when checked is in checked or indeterminate state                               |
 | offLabel`?`       | `React.ReactNode`              |             | Inner label when the `Checker` at `type="switch"` is in unchecked state                        |
 | onLabel`?`        | `React.ReactNode`              |             | Inner label when the `Checker` at `type="switch"` is in checked state                          |
 | color`?`          | `CSSProperties["color"]`       |             | Key of CSS color to set input color in checked state.                                          |
@@ -98,6 +98,13 @@ type Icon = React.FC<{ indeterminate: boolean | undefined; className: string }>;
 | size`?`                | `(string & {}) \| number`   | `20`        | Controls size of the `wrapper`                                                              |
 | readOnly`?`            | `boolean`                   | `false`     | If set, value cannot be changed                                                             |
 | indeterminate`?`       | `boolean`                   | `false`     | Indeterminate state of the checked. If set, `checked` prop at `type="checkbox"` is ignored. |
+
+---
+
+## Depend on
+
+- [`useId`](/docs/web/hooks/use-id)
+- [`useUncontrolled`](/docs/web/hooks/use-uncontrolled)
 
 ---
 

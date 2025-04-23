@@ -25,6 +25,10 @@ export const components = {
   Figure,
   Svg,
   TypingWords,
+  Typography,
+  _A_: ({ href = "", ...props }: Omit<LinkProps, "href"> & { href?: string }) => (
+    <Link href={href} {...props} target="_blank" rel="noopener noreferrer nofollow" />
+  ),
   a: ({ href = "", ...props }: Omit<LinkProps, "href"> & { href?: string }) => <Link href={href} {...props} />,
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <Typography prose="h1" role="presentation" {...props} />,
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <Typography prose="h2" {...props} />,
@@ -50,7 +54,7 @@ export const components = {
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
       className={cn(
-        "relative isolate my-8 flex flex-row items-center rounded-xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:left-6 before:z-[10] before:h-4/5 before:w-1 before:bg-[#202425] before:content-['']",
+        "bg-background-box relative isolate my-8 flex flex-col items-start rounded-xl py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']",
         className
       )}
       {...props}
@@ -88,7 +92,7 @@ export const components = {
   TabsTrigger: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div
       className={cn(
-        "relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-muted-foreground data-[state=active]:text-muted-foreground data-[state=active]:shadow-none",
+        "text-muted-foreground data-[state=active]:border-b-muted-foreground data-[state=active]:text-muted-foreground relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold shadow-none transition-none data-[state=active]:shadow-none",
         className
       )}
       {...props}
@@ -104,7 +108,7 @@ export const components = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center rounded-lg border bg-background p-6 text-color shadow-md transition-colors hover:bg-muted/30 dark:hover:bg-muted/50 sm:p-10",
+        "bg-background text-color hover:bg-muted/30 dark:hover:bg-muted/50 flex w-full flex-col items-center rounded-lg border p-6 shadow-md transition-colors sm:p-10",
         className
       )}
       {...props}
