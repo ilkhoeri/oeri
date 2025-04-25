@@ -1,11 +1,12 @@
 "use client";
-import { createContext, useCallback, useContext, useLayoutEffect, useState } from "react";
+import * as React from "react";
 import { CodeLanguage } from "./types";
 import type { HighlighterGeneric } from "shiki";
 
 import { classes } from "./shiki-code-highlight-tabs";
 import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
 import { highlightCode } from "../rehype/rehype-customizer";
+import { useIsomorphicEffect } from "@/hooks/use-isomorphic-effect";
 
 interface FallbackCode {
   code: string;
@@ -16,6 +17,7 @@ interface FallbackCode {
 type HighlightCode = {
   shiki: (code: string, lang: CodeLanguage) => FallbackCode;
   rehype: (code: string, lang: CodeLanguage) => FallbackCode;
+  RehypeSync: (code: string, lang: CodeLanguage) => FallbackCode;
 };
 
 function prepareHtmlCode(code: string) {
@@ -28,7 +30,7 @@ function prepareHtmlCode(code: string) {
     .replaceAll('style="background-color:#0d1117;color:#e6edf3', "");
 }
 
-const Context = createContext<HighlightCode | null>(null);
+const Context = React.createContext<HighlightCode | null>(null);
 
 interface ShikiProviderProps {
   children: React.ReactNode;
@@ -37,13 +39,13 @@ interface ShikiProviderProps {
 }
 
 export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
-  const [shikiState, setShikiState] = useState<HighlighterGeneric<any, any> | null>(null);
+  const [shikiState, setShikiState] = React.useState<HighlighterGeneric<any, any> | null>(null);
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     loadShiki().then(s => setShikiState(s));
   }, [loadShiki]);
 
-  const shiki = useCallback(
+  const shiki = React.useCallback(
     (code: string, lang: CodeLanguage = "tsx") => {
       if (!shikiState) {
         return { code, lang, highlighted: false };
@@ -58,21 +60,19 @@ export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
     [shikiState]
   );
 
-  const [highlighted, setHighlighted] = useState<Record<string, string>>({});
+  const [highlighted, setHighlighted] = React.useState<Record<string, string>>({});
 
-  const rehype = useCallback(
+  const rehype = React.useCallback(
     (code: string, lang: CodeLanguage = "tsx") => {
       // Kalau sudah ada hasil highlight sebelumnya
       if (highlighted[code]) {
         return { code: highlighted[code], lang, highlighted: true };
       }
 
-      function raw(text: string, lang: string): string {
-        return `\`\`\`${lang} showLineNumbers\n${text}\n\`\`\``.trimEnd();
-      }
+      const raw = (text: string) => `\`\`\`${lang} showLineNumbers\n${text}\n\`\`\``;
 
       // Kalau belum, return langsung, sambil proses di background
-      highlightCode(raw(code, lang))
+      highlightCode(raw(code))
         .then(result => {
           setHighlighted(prev => ({ ...prev, [code]: result }));
         })
@@ -85,17 +85,49 @@ export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
     [highlighted]
   );
 
-  return <Context.Provider value={{ shiki, rehype }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ shiki, rehype, RehypeSync: (code, lang) => ({ code, lang, highlighted: true }) }}>{children}</Context.Provider>;
+}
+
+export function useHighlighted(code: string, lang: CodeLanguage): FallbackCode {
+  const [prettyState, setPrettyState] = React.useState(code as string);
+  const [m, sM] = React.useState(false);
+
+  useIsomorphicEffect(() => {
+    sM(true);
+    if (code) {
+      async function setPretty() {
+        const raw = (text: string) => `\`\`\`${lang} showLineNumbers\n${text}\n\`\`\``;
+
+        try {
+          const textPretty = await highlightCode(raw(code));
+          setPrettyState(textPretty);
+          sM(false);
+        } catch (error) {
+          console.error("Text Pretty", error);
+          setPrettyState(code);
+          // alert('⚠️\nInput tidak sesuai');
+        }
+      }
+      setPretty();
+    }
+  }, [code, lang]);
+
+  return { code: !m ? prettyState : "", highlighted: true, lang };
 }
 
 export function useShiki(): HighlightCode {
-  const ctx = useContext(Context)!;
+  const ctx = React.useContext(Context)!;
   // if (!ctx) throw new Error("useShiki must be used within a <TableTileProvider>");
-  return ctx;
+  return {
+    ...ctx,
+    RehypeSync(code, lang) {
+      return useHighlighted(code, lang);
+    }
+  };
 }
 
 export function useShikiX() {
-  const ctx = useContext(Context);
+  const ctx = React.useContext(Context);
   /*
   const [prettyState, setPrettyState] = useState(code as string);
 

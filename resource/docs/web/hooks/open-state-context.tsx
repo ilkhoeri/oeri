@@ -35,7 +35,7 @@ export const modifyChildren = (children: React.ReactNode, components: Components
     if (!React.isValidElement(child)) return child;
 
     if (components.includes(child.type)) {
-      return React.cloneElement(child, { ...props });
+      return React.cloneElement(child, props);
     }
 
     return child;

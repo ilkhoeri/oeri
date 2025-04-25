@@ -65,20 +65,20 @@ function AccordionDemo(props: SheetsProps) {
 function CollapsibleDemo(props: SheetsCollapsibleProps) {
   return (
     <Sheets {...props} variant="collapsible" className="m-auto w-full max-w-80 space-y-2">
-      <Sheets.Trigger className="bg-background text-muted-foreground data-[state=open]:text-constructive w-full justify-between font-mono text-sm">
+      <Sheets.Trigger className="w-full justify-between bg-background font-mono text-sm text-muted-foreground data-[state=open]:text-constructive">
         Select your &lt;Sheets /&gt;
-        <Typography className="group-hover:bg-muted/90 group-data-[state=open]:border-constructive rounded-md border p-1 transition-colors">
+        <Typography className="rounded-md border p-1 transition-colors group-hover:bg-muted/90 group-data-[state=open]:border-constructive">
           <ChevronIcon chevron="up-down" />
         </Typography>
       </Sheets.Trigger>
 
-      <Typography el="a" data-ignore-clickoutside href="#sheets-variant-collapsible" className="hover:bg-muted/60 mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+      <Typography el="a" data-ignore-clickoutside href="#sheets-variant-collapsible" className="mt-4 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60">
         @sheets/collapsible
       </Typography>
 
       <Sheets.Content className="space-y-2">
         {["accordion", "dialog", "drawer", "dropdown"].map(i => (
-          <Typography el="a" key={i} href={`#sheets-variant-${i}`} className="hover:bg-muted/60 w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+          <Typography el="a" key={i} href={`#sheets-variant-${i}`} className="w-full justify-start rounded-md border px-4 py-2 font-mono text-sm shadow-sm hover:bg-muted/60">
             @sheets/{i}
           </Typography>
         ))}
@@ -286,7 +286,7 @@ function DropdownDemo(props: SheetsDropdownProps) {
       <Sheets.Content className="h-[178px] w-44">
         <ScrollArea className="h-full p-4">
           {TAGS.map(tag => (
-            <p key={tag} className="border-muted text-muted-foreground flex min-w-max items-center gap-3 border-b py-1 text-sm">
+            <p key={tag} className="flex min-w-max items-center gap-3 border-b border-muted py-1 text-sm text-muted-foreground">
               <FileIcon /> {tag}
             </p>
           ))}

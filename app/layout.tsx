@@ -1,11 +1,15 @@
 import { bodyConfig } from "./fonts";
+import { cookies } from "next/headers";
+import { Cookies, Theme } from "@/config/types";
 import { ScrollToggle } from "@/source/assets/toggle";
 import { FootNav } from "@/source/assets/nav-foot";
 import { NavProvider } from "@/source/hooks/use-nav";
 import { AppProvider } from "@/config/app-context";
-import { cookiesValues } from "@/config/config-cookies";
 import { ThemeProvider } from "@/config/themes";
+import { Comp } from "@/source/assets/components";
 import { Headnav } from "@/source/assets/nav-head";
+import { AsideLeft } from "@/source/assets/nav-aside-left";
+import { metaDocsRoute } from "@/routes";
 import { META_THEME_COLORS, SEO_VERIFICATION, siteConfig, iconsConfig, linksConfig } from "./site/config";
 
 import type { Metadata } from "next";
@@ -113,11 +117,20 @@ export const viewport = {
   ]
 };
 
-export default async function RootLayout({
-  children
-}: Readonly<{
+async function cookiesValues() {
+  const cookiesStore = await cookies();
+  return {
+    dir: cookiesStore.get(Cookies.dir)?.value as Direction,
+    theme: cookiesStore.get(Cookies.theme)?.value as Theme,
+    isOpenAside: (cookiesStore.get(Cookies.isOpenAside)?.value === "true") as boolean
+  };
+}
+
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default async function RootLayout({ children }: Readonly<RootLayoutProps>) {
   const cookieStore = await cookiesValues();
 
   return (
@@ -137,7 +150,10 @@ export default async function RootLayout({
           <ThemeProvider>
             <NavProvider>
               <Headnav />
-              {children}
+              <Comp>
+                <AsideLeft routes={metaDocsRoute} />
+                {children}
+              </Comp>
               <FootNav />
             </NavProvider>
             <ScrollToggle />

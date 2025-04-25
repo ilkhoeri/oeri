@@ -31,7 +31,7 @@ export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = t
   const minQuery = useMediaQuery(`(min-width: ${mediaQuery}px)`);
   const maxQuery = useMediaQuery(`(max-width: ${mediaQuery - 1}px)`);
 
-  const rootSegment = (pathname === "/" || pathname === "/icons") && minQuery;
+  const rootSegment = pathname === "/" && minQuery;
 
   useEffect(() => {
     const body = document.body;

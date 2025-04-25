@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { BrandOeriIcon } from "@/icons/*";
 import { Comp } from "@/source/assets/components";
-import { AsideLeft } from "@/source/assets/nav-aside-left";
 
 export default async function NotFound() {
   return (
     <Comp>
-      <AsideLeft />
       <Comp el="section">
         <article className="relative m-0 flex h-dvh w-full max-w-full flex-wrap items-start justify-center overflow-hidden p-4 pt-20 after:absolute after:bottom-0 after:h-[262px] after:w-full after:bg-gradient-to-t after:from-background after:content-['']">
           <h1 role="presentation" className="pointer-events-none absolute left-0 z-[-1] flex h-full w-full min-w-max flex-col flex-nowrap text-left text-[clamp(52px,47px_+_25vw,30rem)] font-[900] leading-[0.727] tracking-[-26px] text-[#ebebeb] dark:text-[#2e2e2e]">

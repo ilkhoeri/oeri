@@ -1,8 +1,8 @@
 ---
-title: Burger
-description: Create your project and compactness the required dependencies.
 date: 2025-01-05
-summary: Ringkasan
+title: Burger
+description: A hamburger menu component that is typically used for mobile or collapsed navigation. It toggles the visibility of a menu.
+summary: A mobile-friendly component that shows a collapsed navigation menu, often used for responsive design.
 component: true
 links:
   doc: https://
@@ -31,10 +31,10 @@ links:
 
 ### Props API
 
-| Props API  | Type                      | Default     | Annotation                                             |
-| ---------- | ------------------------- | ----------- | ------------------------------------------------------ |
-| setOpen`?` | `(open: boolean) => void` | `undefined` | Set state of the burger                                |
-| open`?`    | `boolean`                 | `false`     | State of the burger, when `true` burger is transformed |
+| Props API       | Type                                      | Default     | Annotation                                             |
+| --------------- | ----------------------------------------- | ----------- | ------------------------------------------------------ |
+| onOpenChange`?` | `(open: SetStateAction<boolean>) => void` | `undefined` | Set state of the burger                                |
+| open`?`         | `boolean`                                 | `false`     | State of the burger, when `true` burger is transformed |
 
 ---
 

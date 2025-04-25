@@ -10,7 +10,7 @@ export type RawToJsonProps = {
   raw: string;
 };
 
-export async function generateRawToJson(baseFolder: string, fileOutput: string) {
+export async function generateRawIconsToJson(baseFolder: string, fileOutput: string) {
   try {
     // Pastikan folder tujuan ada
     const outputDir = path.dirname(fileOutput);
@@ -32,7 +32,7 @@ export async function generateRawToJson(baseFolder: string, fileOutput: string) 
         // Fetch data dari URL
         const response = await fetch(url);
         if (!response.ok) {
-          log.warn(`Failed to fetch ${url}: ${response.statusText}`);
+          log.warn(`Failed to fetch ${fileName}: ${response.statusText}`);
           continue;
         }
 
@@ -46,7 +46,7 @@ export async function generateRawToJson(baseFolder: string, fileOutput: string) 
     }
 
     // Tulis hasilnya ke file JSON
-    await fs.writeFile(fileOutput, JSON.stringify(results, null, 2));
+    await fs.writeFile(fileOutput, JSON.stringify(results));
 
     log.info(`Components JSON generated at ${fileOutput}`);
   } catch (error) {
@@ -54,7 +54,7 @@ export async function generateRawToJson(baseFolder: string, fileOutput: string) 
   }
 }
 
-generateRawToJson("resource/icons", ".contentlayer/generated/resources/icons.json");
+generateRawIconsToJson("resource/icons", ".contentlayer/generated/resources/icons.json");
 
 /**
 

@@ -38,7 +38,7 @@ export const components = {
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => <Typography el="ul" prose="ul" {...props} />,
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => <Typography el="ol" prose="ol" {...props} />,
   li: (props: React.HTMLAttributes<HTMLElement>) => <Typography el="li" prose="li" {...props} />,
-  hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => <hr className="my-4 md:my-8" {...props} />,
+  hr: (props: React.HTMLAttributes<HTMLHRElement>) => <hr className="my-4 md:my-8" {...props} />,
   // eslint-disable-next-line @next/next/no-img-element
   img: ({ alt = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => <img alt={alt} {...props} />,
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
@@ -51,7 +51,7 @@ export const components = {
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => <td {...props} />,
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn("bg-background-box relative isolate my-8 flex flex-col items-start rounded-xl py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']", className)}
+      className={cn("relative isolate my-8 flex flex-col items-start rounded-xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']", className)}
       {...props}
     />
   ),
@@ -84,14 +84,14 @@ export const components = {
   TabsList: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("w-full justify-start rounded-none border-b bg-transparent p-0", className)} {...props} />,
   TabsTrigger: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div
-      className={cn("text-muted-foreground data-[state=active]:border-b-muted-foreground data-[state=active]:text-muted-foreground relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold shadow-none transition-none data-[state=active]:shadow-none", className)}
+      className={cn("relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-muted-foreground data-[state=active]:text-muted-foreground data-[state=active]:shadow-none", className)}
       {...props}
     />
   ),
   TabsContent: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-semibold", className)} {...props} />,
   FrameworkDocs: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn(className)} {...props} />,
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("font-medium underline underline-offset-4", className)} {...props} />,
-  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("bg-background text-color hover:bg-muted/30 dark:hover:bg-muted/50 flex w-full flex-col items-center rounded-lg border p-6 shadow-md transition-colors sm:p-10", className)} {...props} />,
+  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("flex w-full flex-col items-center rounded-lg border bg-background p-6 text-color shadow-md transition-colors hover:bg-muted/30 dark:hover:bg-muted/50 sm:p-10", className)} {...props} />,
   GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)} {...props} />,
   ...demoComponentsEntries,
   ...demoHooksEntries

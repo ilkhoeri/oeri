@@ -1,12 +1,10 @@
 // required global.d.ts
 "use client";
 import * as React from "react";
-import { setCookieSync } from "./config-cookies";
-import { Cookies } from "./config-types";
+import { Cookies, Theme } from "./types";
 import { useDirection } from "@/hooks/use-direction";
 
 export type CookiesName = `${Cookies}` | (string & {});
-export type Theme = "dark" | "light" | "system";
 
 // cookies value
 type DirectedAppValue = {
@@ -21,8 +19,6 @@ type DirectedAppValue = {
 interface AppContext extends DirectedAppValue {
   openAside: Booleanish;
   setOpenAside: (v: Booleanish) => void;
-  /** default value = `365` (one year) */
-  setCookieSync: (name: CookiesName, value: string, days?: number) => Promise<void>;
   /** default value = `30` (one month) */
   setCookie: (name: CookiesName, value: string, days?: number) => void;
   toggleDirection: () => void;
@@ -60,7 +56,6 @@ export function AppProvider(props: AppProviderProps) {
       dir,
       openAside,
       setOpenAside,
-      setCookieSync,
       setCookie,
       isOpenAside,
       ..._direction,

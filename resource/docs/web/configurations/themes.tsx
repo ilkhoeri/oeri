@@ -41,7 +41,7 @@ function nextValue(current: string, themes: string[]): string {
 }
 
 export function useNextTheme() {
-  const { theme: setKey, setCookieSync } = useApp();
+  const { theme: setKey, setCookie } = useApp();
   const { theme, setTheme } = useTheme();
 
   const [keyTheme, setKeyTheme] = React.useState<Theme>(setKey as Theme);
@@ -52,9 +52,9 @@ export function useNextTheme() {
 
       setTheme(updatedTheme);
       setKeyTheme(updatedTheme as Theme);
-      setCookieSync("__theme", updatedTheme, 30);
+      setCookie("__theme", updatedTheme, 30);
     },
-    [setTheme, setCookieSync]
+    [setTheme, setCookie]
   );
 
   useHotkeys([

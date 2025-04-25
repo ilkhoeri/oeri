@@ -6,38 +6,36 @@ import { NavLinkItem } from "@/source/assets/navlink";
 import { ButtonAside, LinkHome } from "./nav-head";
 import { cvx, merge } from "cretex";
 import { ScrollArea } from "@/ui/scroll-area";
-import { docsRoutes } from "../generated/gen-routes";
 import { Sheets, SheetsContent, SheetsTrigger } from "@/ui/sheets";
-import { displayName } from "../utils";
-import { Svg } from "@/icons/*";
 import { isNotif } from ".notif";
-
 import { useApp } from "@/config/app-context";
-import type { SingleRoute, NestedRoute, InnerRoutes } from "@/source/routes";
+import { Svg } from "@/ui/svg";
+
+import type { FileDocMeta, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";
 
 import style from "./aside.module.css";
 
 interface AsideLeftProps {
   classNames?: { aside?: string; overlay?: string };
-  routes?: (SingleRoute | NestedRoute)[] | null;
+  routes?: (MetaDocsRoute | NestedMetaDocsRoute)[] | null;
 }
 export function AsideLeft(_props: AsideLeftProps) {
-  const { classNames, routes = docsRoutes } = _props;
-  const { rootSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
+  const { classNames, routes = [] } = _props;
+  const { minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
   const { dir } = useApp();
 
-  if (rootSegment) return null;
+  // if (rootSegment) return null;
 
   return (
     <>
-      <aside data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
+      <aside data-controls="routes" data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
         {query && (
           <hgroup className={classes({ style: "hgroup" })}>
             <LinkHome />
             <ButtonAside
               {...{
                 open,
-                setOpen,
+                onOpenChange: setOpen,
                 hidden: minQuery,
                 onClick: toggle,
                 className: "mr-1.5 rtl:mr-0 rtl:ml-1.5"
@@ -64,18 +62,18 @@ export function AsideLeft(_props: AsideLeftProps) {
         </ScrollArea>
       </aside>
 
-      <Overlay minQuery={minQuery} open={open} setOpen={setOpen} className={classNames?.overlay} />
+      <Overlay open={!minQuery && open} setOpen={setOpen} className={classNames?.overlay} />
     </>
   );
 }
 
-function NavRoutes({ routes, query, setOpen }: { routes: (SingleRoute | NestedRoute)[] | null; query?: boolean; setOpen: (v: boolean) => void }) {
+function NavRoutes({ routes, query, setOpen }: { routes: (MetaDocsRoute | NestedMetaDocsRoute)[] | null; query?: boolean; setOpen: (v: boolean) => void }) {
   if (!routes) return null;
 
   function trigger(title: string) {
     return (
       <SheetsTrigger unstyled type="button" className={classes({ style: "trigger" })}>
-        <span className="truncate">{displayName(title)}</span>
+        <span className="truncate">{title}</span>
         <Svg size={18} className="ml-auto transition-transform group-data-[state=closed]/t:rotate-90 rtl:ml-0 rtl:mr-auto">
           <path fill="none" stroke="currentColor" strokeDasharray="12" strokeDashoffset="12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 16l-7 -7M12 16l7 -7">
             <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0" />
@@ -85,14 +83,14 @@ function NavRoutes({ routes, query, setOpen }: { routes: (SingleRoute | NestedRo
     );
   }
 
-  function linkItem(routes: InnerRoutes[]) {
+  function linkItem(routes: FileDocMeta[]) {
     return routes?.map(route => (
       <NavLinkItem
-        key={route.href}
-        href={route.href}
-        title={displayName(route.title)}
-        isNew={isNotif(route.title).new()}
-        isUpdated={isNotif(route.title).updated()}
+        key={route.path}
+        href={route.path}
+        title={route.meta.title}
+        isNew={isNotif(route.name).new()}
+        isUpdated={isNotif(route.name).updated()}
         classNames={{
           link: style.link,
           mark: "absolute z-[2] mt-[-24px] right-1 left-auto rtl:right-auto rtl:left-1"
@@ -109,21 +107,21 @@ function NavRoutes({ routes, query, setOpen }: { routes: (SingleRoute | NestedRo
   }
 
   return routes.map((route, index) => {
-    if ((route as NestedRoute).data[0].data) {
-      const nestedRoute = route as NestedRoute; // Handle NestedRoute
+    if ((route as NestedMetaDocsRoute).data[0].data) {
+      const nestedRoute = route as NestedMetaDocsRoute; // Handle NestedRoute
       return (
         <Sheets.Collapsible key={index} defaultOpen className={style.collapse}>
-          {trigger(nestedRoute.title)}
+          {trigger(nestedRoute.group)}
           <SheetsContent unstyled className="z-1 w-full">
             <NavRoutes routes={nestedRoute.data} {...{ query, setOpen }} />
           </SheetsContent>
         </Sheets.Collapsible>
       );
     } else {
-      const singleRoute = route as SingleRoute; // Handle SingleRoute
+      const singleRoute = route as MetaDocsRoute; // Handle singleRoute
       return (
         <Sheets.Collapsible key={index} defaultOpen className={style.collapse}>
-          {trigger(singleRoute.title)}
+          {trigger(singleRoute.group)}
           <SheetsContent data-inner-collapse="">{linkItem(singleRoute.data)}</SheetsContent>
         </Sheets.Collapsible>
       );
@@ -131,10 +129,10 @@ function NavRoutes({ routes, query, setOpen }: { routes: (SingleRoute | NestedRo
   });
 }
 
-function Overlay({ minQuery, open, setOpen, className }: { minQuery?: boolean; open?: boolean; setOpen: (value: boolean) => void; className?: string }) {
-  if (minQuery || !open) return null;
+function Overlay({ open, setOpen, className }: { open?: boolean; setOpen: (value: boolean) => void; className?: string }) {
+  if (!open) return null;
 
-  return <span onClick={() => setOpen(false)} className={merge(classes({ style: "overlay" }), className)} />;
+  return <span data-routes="overlay" onClick={() => setOpen(false)} className={merge(classes({ style: "overlay" }), className)} />;
 }
 
 const classes = cvx({

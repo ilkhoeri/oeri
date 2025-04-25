@@ -100,7 +100,7 @@ export function Portal(props: PortalProps) {
 }
 
 /**
-export const X = React.forwardRef<React.ElementRef<"div">, React.ComponentPropsWithoutRef<"div">>(({ ...props }, ref) => (
+export const X = React.forwardRef<React.ElementRef<"div">, React.ComponentPropsWithoutRef<"div">>((props, ref) => (
   <div ref={ref} {...props} />
 ));
 X.displayName = "X";

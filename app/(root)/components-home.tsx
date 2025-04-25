@@ -7,7 +7,8 @@ import { TypingWords } from "@/ui/typing-words";
 import { Transform } from "@/source/ondevelopment";
 import { sanitizedWord } from "@/utility/text-parser";
 import { useNextTheme } from "@/config/themes";
-import { BookOpenIcon, BrandGithubFillIcon, ArrowsSquareIcon, Svg } from "@/icons/*";
+import { Svg } from "@/ui/svg";
+import { BookOpenIcon, BrandGithubFillIcon, ArrowsSquareIcon } from "@/icons/*";
 
 import style from "@/source/styles/.module.css";
 
@@ -51,7 +52,7 @@ export function PageHome() {
             {links.map((i, index) => (
               <Link key={index} href={i.url} target={i.target} data-link={sanitizedWord(i.title)} className={merge(classes({ selector: "links" }), [{ "[&_svg]:fill-current before:bg-[#6e5494] before:ring-[#6e5494]": i.title === "Repo" }, { "before:bg-color before:ring-color": i.title === "Docs" }])}>
                 <span className="relative z-[+1] flex-row gap-2 text-base font-semibold text-background centered">
-                  <i.icon className="sizer [--sz:22px]" /> {i.title}
+                  <i.icon size={20} /> {i.title}
                 </span>
               </Link>
             ))}

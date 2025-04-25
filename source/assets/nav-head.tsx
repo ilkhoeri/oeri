@@ -13,11 +13,11 @@ import { useApp } from "@/config/app-context";
 import { Burger } from "@/ui/burger";
 import { Button } from "@/ui/button";
 
-import type { SingleRoute, NestedRoute } from "@/source/routes";
+import { metaDocsRoute, type MetaDocsRoute, type NestedMetaDocsRoute } from "@/routes";
 
 import globalStyle from "../styles/styles";
 
-export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | null }) {
+export function Headnav({ routes = metaDocsRoute }: { routes?: (MetaDocsRoute | NestedMetaDocsRoute)[] | null }) {
   const { toggleDirection, dir } = useApp();
   const { minQuery, toggle, pathname, open, setOpen } = useNavContext();
 
@@ -46,7 +46,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
         <LinkHome open={open} className="[transition:all_0.5s_ease] max-md:data-[state=open]:translate-x-[-32px] max-md:data-[state=open]:opacity-0" />
 
         {minQuery && (
-          <div dir={dir} ref={setParentRef} className="relative hidden h-full items-center justify-between rounded-sm text-sm font-medium md:flex ltr:ml-10 ltr:mr-auto rtl:ml-auto rtl:mr-10">
+          <div dir={dir} ref={setParentRef} className="relative hidden h-full items-center justify-between rounded-md text-sm font-medium md:flex ltr:ml-10 ltr:mr-auto rtl:ml-auto rtl:mr-10">
             {appRoutes["services"].map(i => (
               <Link key={i.href} ref={setControlRef(i.href)} href={i.href} role="button" onClick={() => setActive(i.href)} data-active={isActive(i.href)} className="h-6 cursor-pointer select-none rounded-sm text-muted-foreground transition-colors centered hover:text-color data-[active]:text-color">
                 <span className="relative z-1 px-2 py-1" onMouseEnter={() => setHover(i.href)} onMouseLeave={() => setHover(null)}>
@@ -54,7 +54,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
                 </span>
               </Link>
             ))}
-            <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={450} className="rounded-md border bg-background/15 shadow-md" />
+            <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={450} className="rounded-lg border bg-background/15 shadow-md" />
           </div>
         )}
 
@@ -68,7 +68,7 @@ export function Headnav({ routes }: { routes?: (SingleRoute | NestedRoute)[] | n
           </div>
         </div>
 
-        <ButtonAside {...{ open, setOpen, onClick: toggle }} hidden={minQuery || excludesPath} className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]" />
+        <ButtonAside {...{ open, onOpenChange: setOpen, onClick: toggle }} hidden={minQuery || excludesPath} className="max-md:mx-2 max-md:data-[state=open]:translate-x-[212px] max-md:data-[state=open]:opacity-0 ltr:[--x:calc(212px)] rtl:[--x:calc(212px*-1)]" />
       </Polymorphic>
     </header>
   );
@@ -106,15 +106,13 @@ export function LinkHome({ open, className }: { open?: boolean; className?: stri
 }
 
 export function ButtonAside(_props: React.ComponentProps<typeof Burger>) {
-  const { hidden, open, onClick, setOpen, className } = _props;
+  const { hidden, className, ...props } = _props;
   if (hidden) return null;
   return (
     <Burger
       {...{
-        open,
-        setOpen,
-        className: merge("relative z-10 scale-100 opacity-100 md:sr-only md:hidden lg:scale-0 lg:opacity-0", className),
-        onClick
+        ...props,
+        className: merge("relative z-10 scale-100 opacity-100 md:sr-only md:hidden lg:scale-0 lg:opacity-0", className)
       }}
     />
   );

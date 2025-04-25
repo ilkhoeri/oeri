@@ -4,11 +4,12 @@ import { cvx, cvxProps } from "cretex";
 import { Command, createCommand } from "@/ui/command";
 import { EmptyBoxIcon, FileIcon } from "@/icons/*";
 import { fuzzySearch, levenshteinDistance } from "@/source/ondevelopment/utils";
-import { appRoutes, type SingleRoute, type NestedRoute } from "@/source/routes";
-import { docsRoutes } from "../generated/gen-routes";
 import { Kbd } from "@/ui/kbd";
 
-type Routes = (SingleRoute | NestedRoute)[] | null;
+import { appRoutes } from "@/source/routes";
+import type { MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";
+
+type Routes = (MetaDocsRoute | NestedMetaDocsRoute)[] | null;
 export type CommandDialogType = { routes: Routes };
 
 export function useSearch<T>({ clearQuery = true }: { clearQuery?: boolean | undefined } = {}) {
@@ -38,7 +39,7 @@ interface FilterResult {
 
 const [appCommandStore, appCommand] = createCommand();
 
-export function CommandDialog({ routes = docsRoutes }: { routes?: (SingleRoute | NestedRoute)[] | null }) {
+export function CommandDialog({ routes = [] }: { routes?: Routes }) {
   const { query, setQuery, suggest, setSuggest } = useSearch<FilterResult>();
 
   useEffect(() => {
@@ -77,10 +78,10 @@ export function CommandDialog({ routes = docsRoutes }: { routes?: (SingleRoute |
           store: appCommandStore,
           onQueryChange: setQuery,
           actions: [...suggestMain({ query }), ...suggest],
-          nothingFound: suggest.length > 0 ? Suggest : <EmptyBoxIcon />,
+          nothingFound: suggest?.length > 0 ? Suggest : <EmptyBoxIcon />,
           classNames: {
             content: "h-2/3",
-            empty: suggest.length > 0 ? "pt-0 [display:unset]" : undefined
+            empty: suggest?.length > 0 ? "pt-0 [display:unset]" : undefined
           }
         }}
       />
@@ -92,20 +93,20 @@ function filter(routes: Routes, query: string) {
   if (!routes) return [];
 
   const filteredRoutes = routes.flatMap(route => {
-    const routeData = (route as NestedRoute).data?.[0]?.data ? (route as NestedRoute).data : [route as SingleRoute];
+    const routeData = (route as NestedMetaDocsRoute).data?.[0]?.data ? (route as NestedMetaDocsRoute).data : [route as MetaDocsRoute];
 
     return routeData.flatMap(singleRoute => {
       const actions = singleRoute.data
-        .filter(i => fuzzySearch(i.title, query))
+        .filter(i => fuzzySearch(i.name, query))
         .map(i => ({
-          id: i.title.toLowerCase().replace(" ", "-"),
-          label: i.title,
-          href: i.href,
+          id: i.name.toLowerCase().replace(" ", "-"),
+          label: i.name,
+          href: i.path,
           leftSection: <FileIcon />
         }));
 
       return {
-        group: singleRoute.title,
+        group: singleRoute.group,
         actions
       };
     });
@@ -116,22 +117,22 @@ function filter(routes: Routes, query: string) {
   }
 
   const levenshteinSuggestions = routes.flatMap(route => {
-    const routeData = (route as NestedRoute).data?.[0]?.data ? (route as NestedRoute).data : [route as SingleRoute];
+    const routeData = (route as NestedMetaDocsRoute).data?.[0]?.data ? (route as NestedMetaDocsRoute).data : [route as MetaDocsRoute];
 
     return routeData.flatMap(singleRoute => {
       const actions = singleRoute.data
-        .map(i => ({ item: i, distance: levenshteinDistance(i.title, query) }))
+        .map(i => ({ item: i, distance: levenshteinDistance(i.name, query) }))
         .filter(({ distance }) => distance <= 4)
         .sort((a, b) => a.distance - b.distance)
         .map(({ item }) => ({
-          id: item.title.toLowerCase().replace(" ", "-"),
-          label: item.title,
-          href: item.href,
+          id: item.name.toLowerCase().replace(" ", "-"),
+          label: item.name,
+          href: item.path,
           leftSection: <FileIcon arrow />
         }));
 
       return {
-        group: singleRoute.title,
+        group: singleRoute.group,
         actions
       };
     });

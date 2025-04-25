@@ -167,21 +167,23 @@ export const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>((_
     setValue(convertHsvaTo(format!, parsed));
   }, [format]);
 
+  async function copyToClipboardWithMeta(value: string) {
+    navigator.clipboard.writeText(value.trimEnd());
+  }
+
+  const copyColor = React.useCallback(() => {
+    if (withClipboard) {
+      copyToClipboardWithMeta(_value);
+      setCopied(true);
+    }
+  }, [withClipboard]);
+
   React.useEffect(() => {
     if (copied) {
       const timer = setTimeout(() => setCopied(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [copied]);
-
-  async function copyToClipboardWithMeta(value: string) {
-    navigator.clipboard.writeText(value.trimEnd());
-  }
-
-  const copyColor = React.useCallback(() => {
-    copyToClipboardWithMeta(_value);
-    setCopied(true);
-  }, []);
 
   const stylesApi = { unstyled, classNames, styles };
 

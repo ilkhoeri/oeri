@@ -1,7 +1,7 @@
 ---
-title: App Context & Provider
-description: A context provider to manage application-wide state including direction, theme, and sidebar visibility using cookies.
 date: 2025-04-23
+title: App Provider
+description: A context provider to manage application-wide state including direction, theme, and sidebar visibility using cookies.
 summary: Provides a React context for directionality (LTR/RTL), theme preferences, and sidebar toggling, integrated with cookie persistence.
 component: true
 links:
@@ -21,7 +21,6 @@ links:
 - Initializes UI direction using the `useDirection` hook.
 - Provides methods to set cookies with expiration defaults:
   - `setCookie`: saves a cookie for 30 days by default.
-  - `setCookieSync`: saves a cookie for 365 days by default (async/await).
 
 ---
 
@@ -29,8 +28,9 @@ links:
 
 ```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
 import { cookies } from "next/headers";
-import { AppProvider, type Theme } from "@/config/app-context";
+import { AppProvider } from "@/config/app-context";
 import { ThemeProvider } from "@/config/themes";
+import { Cookies, Theme } from "@/config/types";
 
 async function cookiesValues() {
   const cookiesStore = await cookies();

@@ -35,11 +35,11 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
   };
 
   if (css) {
-    const shiki = ctx?.rehype(css?.trim(), "css");
+    const shiki = ctx?.RehypeSync(css?.trim(), "css");
     childs.css = <Code code={css} title="globals.css" __html={purify(shiki.code)} classNames={classNames} />;
   }
   if (code) {
-    const shiki = ctx?.rehype(code, "ts");
+    const shiki = ctx?.RehypeSync(code, "ts");
     const loaded = (code: string | null | undefined) => (mounted && shiki.highlighted ? code : null);
     childs.code = <Code title={`${name}${ext}`} code={loaded(code)} repo={loaded(repo) as string | undefined} __html={loaded(shiki.code)} classNames={classNames} />;
   }

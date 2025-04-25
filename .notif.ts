@@ -1,6 +1,6 @@
 export const NEW_LIST = ["global.d"];
 
-export const UPDATED_LIST = ["app-context", "themes", "config-cookies", "text-parser", "checker", "svg", "table", "times", "input", "prose"];
+export const UPDATED_LIST = ["app-context", "burger", "themes", "config-cookies", "text-parser", "checker", "svg", "table", "times", "input", "prose"];
 
 const DATE_UNTIL = { date: "2025-05-01", time: "23:30:00" };
 // YYYY-MM-DDTHH:mm:ss

@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn, ocx } from "cretex";
 import { sanitizedWord } from "@/utility/text-parser";
 import { CopyButton as CopyToggle } from "@/ui/copy-button";
-import { CopyButton, GetCodeButton } from "../../../../source/assets/toggle";
+import { CopyButton, DownloadButton, GetCodeButton } from "../../../../source/assets/toggle";
 import { ChainIcon, BrandCssFillIcon, BrandTypescriptFillIcon, CheckIcon } from "@/icons/*";
 import { ScrollArea } from "@/ui/scroll-area";
 
@@ -22,15 +22,12 @@ type CodeCustomizer = {
 type ExtIconsType = { ext?: string | null };
 export function ExtIcons({ ext }: ExtIconsType) {
   if (!ext) return null;
-
   if (/.*?ts*?/.test(ext)) return <BrandTypescriptFillIcon />;
   if (/.*?css*?/.test(ext)) return <BrandCssFillIcon />;
 }
 
 export function Code(Text: CodeCustomizer & ExtIconsType) {
   const { code, __html, title, repo, href, className, classNames, children = null } = Text;
-
-  const [_, _ext] = title!.split(".");
 
   return (
     <>
@@ -39,7 +36,7 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
           <CopyToggle timeout={1750} value={title.trimEnd()}>
             {({ copied, copy }) => (
               <h6 className={cn("flex cursor-pointer flex-row items-center gap-2 text-[13px] [&_svg]:size-4", copied ? "text-color" : "text-muted-foreground", classNames?.title)} onClick={copy} aria-label={copied ? "Copied" : "Copy"} title={copied ? "Copied" : "Copy"}>
-                {copied ? <CheckIcon animation /> : <ExtIcons ext={_ext} />} <span className="font-normal">{title}</span>
+                {copied ? <CheckIcon animation /> : <ExtIcons ext={title} />} <span className="font-normal">{title}</span>
               </h6>
             )}
           </CopyToggle>
@@ -47,6 +44,7 @@ export function Code(Text: CodeCustomizer & ExtIconsType) {
         <div className="ml-auto flex flex-row items-center gap-1">
           {(repo || href) && <GetCodeButton href={href} repo={repo} />}
           {code && <CopyButton value={code} />}
+          {code && title && <DownloadButton code={code} filename={title} />}
         </div>
       </div>
       <ScrollArea

@@ -1,8 +1,8 @@
 ---
-title: useMergedRef
-description: Create your project and compactness the required dependencies.
 date: 2025-01-05
-summary: Ringkasan
+title: useMergedRef
+description: Merges multiple refs into one, so they can be passed to a single element.
+summary: Combines multiple refs into a single ref handler.
 component: true
 links:
   doc: https://
@@ -19,7 +19,7 @@ links:
 import { useRef } from "react";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 
-export const MyComponent = React.forwardRef<React.ElementRef<"div">, React.ComponentPropsWithoutRef<"div">>(({ ...props }, ref) => {
+export const MyComponent = React.forwardRef<React.ElementRef<"div">, React.ComponentPropsWithoutRef<"div">>((props, ref) => {
   const myRef = useRef();
 
   return <div ref={mergeRefs(myRef, ref)} {...props} />;

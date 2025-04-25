@@ -5,6 +5,7 @@ import { RangeSlider, Slider, type SliderProps } from "@/ui/slider";
 import { Typography } from "@/ui/typography";
 import { useApp as useAppContext } from "@/config/app-context";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
+import { MoonStarIcon, StarIcon, SunIcon } from "@/icons/*";
 
 const codes = {
   usage:
@@ -200,8 +201,6 @@ function StepDemo() {
     </div>
   );
 }
-
-import { MoonStarIcon, StarIcon, SunIcon } from "@/icons/*";
 
 function ThumbDemo(props: { thumbSize?: SliderProps["thumbSize"] }) {
   const styles = { thumb: { borderWidth: "2px", padding: "3px" } };

@@ -4,28 +4,44 @@ import { cn, cvx, rem, type cvxProps } from "cretex";
 import { UnstyledButton, type UnstyledButtonProps } from "./button";
 
 export interface BurgerProps extends UnstyledButtonProps<"children"> {
-  setOpen?: (open: boolean) => void;
+  defaultOpen?: boolean;
   open?: boolean;
-  size?: number | string;
+  onOpenChange?: (open: SetStateAction<boolean>) => void;
+  size?: number | `${number}`;
   unstyled?: boolean;
 }
 export const Burger = React.forwardRef<HTMLButtonElement, BurgerProps>(function Burger(_props, ref) {
-  const { setOpen, open, unstyled, className, style, size = 32, color = "hsl(var(--color))", ...props } = _props;
+  const { defaultOpen = false, open: openProp, onOpenChange: setOpenProp, onClick, unstyled, className, style, size = 32, color = "hsl(var(--color))", ...props } = _props;
+
+  const [_open, _setOpen] = React.useState(defaultOpen);
+  const openChange = openProp ?? _open;
+  const setOpenChange = React.useCallback(
+    (open: SetStateAction<boolean>) => {
+      const openState = typeof open === "function" ? open(openChange) : open;
+      if (setOpenProp) {
+        setOpenProp(openState);
+      } else {
+        _setOpen(openState);
+      }
+    },
+    [setOpenProp, openChange]
+  );
+
   return (
     <UnstyledButton
       {...{
         ref,
-        ...getStyles({ classes: "root", open, size, className, unstyled, style, color }),
-        onClick: e => {
-          setOpen?.(!open);
-          props?.onClick?.(e);
+        ...getStyles({ classes: "root", open: openChange, size, className, unstyled, style, color }),
+        onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          setOpenChange?.(o => !o);
+          onClick?.(e);
         },
         ...props
       }}
     >
-      <Svg currentFill="fill" {...getStyles({ classes: "svg", open })}>
+      <Svg currentFill="fill" size="calc(var(--burger-size)/1.333)" {...getStyles({ classes: "svg", open: openChange })}>
         {[...Array(3)].map((_, index) => (
-          <path key={index} {...getStyles({ path: String(index) as Index, open, index })} />
+          <path key={index} {...getStyles({ path: String(index) as Index, open: openChange, index })} />
         ))}
       </Svg>
     </UnstyledButton>
@@ -34,15 +50,9 @@ export const Burger = React.forwardRef<HTMLButtonElement, BurgerProps>(function 
 
 type Index = "0" | "1" | "2";
 type Selector = cvxProps<typeof burger>;
-type Options = {
-  className?: string;
-  unstyled?: boolean;
-  open?: boolean;
+interface Options extends Pick<BurgerProps, "style" | "size" | "unstyled" | "className" | "open" | "color"> {
   index?: number;
-  style?: React.CSSProperties & { [key: string]: any };
-  color?: React.CSSProperties["color"];
-  size?: string | number;
-};
+}
 function getStyles(selector: Selector & Options = {}) {
   const { className, open, index, classes, path, unstyled, style, size, color } = selector;
   return {
@@ -66,7 +76,7 @@ const burger = cvx({
   variants: {
     classes: {
       root: "size-[--burger-size] rounded-[calc(var(--burger-size)/5.333)] text-[--burger-color] border-solid border-[--burger-color] flex items-center justify-center relative cursor-pointer outline-none focus-visible:outline-0",
-      svg: "size-[calc(var(--burger-size)/1.333)] shrink-0 overflow-visible [transition:transform_.35s_ease] data-[state=open]:[transition-delay:.15s] data-[state=open]:rotate-45"
+      svg: "shrink-0 overflow-visible [transition:transform_.35s_ease] data-[state=open]:[transition-delay:.15s] data-[state=open]:rotate-45"
     },
     path: {
       "0": "m3.45,8.83c-.39,0-.76-.23-.92-.62-.21-.51.03-1.1.54-1.31L14.71,2.08c.51-.21,1.1.03,1.31.54.21.51-.03,1.1-.54,1.31L3.84,8.75c-.13.05-.25.08-.38.08Z",

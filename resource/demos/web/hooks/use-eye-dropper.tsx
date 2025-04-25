@@ -23,7 +23,7 @@ function Demo() {
       <Button variant="outline" size="icon" onClick={pickColor} className="relative z-[99]">
         <PickColorIcon color={color} size={20} />
       </Button>
-      <Typography prose="p" className="absolute -top-2 left-2 font-bold z-9">
+      <Typography prose="p" className="absolute -top-2 left-2 z-9 font-bold">
         {message}
       </Typography>
       <div className="absolute inset-0 flex size-full min-h-full min-w-full items-center justify-center rounded-lg" {...{ style: { backgroundColor: color } }} />

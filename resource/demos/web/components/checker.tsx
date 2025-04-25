@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Group } from "@/ui/group";
 import { Checker, type CheckerProps, type CheckerGroupProps } from "@/ui/checker";
-import { MoonStarIcon, SunIcon, CheckIcon, XIcon } from "@/icons/index";
+import { MoonStarIcon, SunIcon, CheckIcon, XIcon } from "@/icons/*";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 import { useListState } from "@/hooks/use-list-state";
 import { Stack } from "@/ui/stack";

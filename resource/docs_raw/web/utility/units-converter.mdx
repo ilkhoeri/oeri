@@ -1,0 +1,122 @@
+---
+date: 2025-01-05
+title: Units Converters
+description: Converts between CSS units such as px, rem, and em to support responsive and scalable styling.
+summary: Comprehensive set of functions for size manipulation.
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+### rem dan em
+
+rem and em functions are converters for changing values ​​in various formats into values ​​with rem or em units.
+
+#### Syntax
+
+```ts
+const rem: (value: unknown) => string;
+const em: (value: unknown) => string;
+```
+
+#### Parameters
+
+`value` (unknown): The value to convert. Can be a number, string, or supported expression (e.g. `calc`, `clamp`).
+
+**Returns:**
+
+- A string containing a value in rem or em units.
+
+#### Details
+
+1. If the input is a number, the function divides it by 16 to convert from pixels (px) to rem/em.
+2. Strings that already have the same units are returned directly unchanged.
+3. Supports complex strings such as calc, clamp, or a space- or comma-separated list of values.
+
+#### Example of Usage
+
+```ts
+rem(16);
+// Output: "1rem"
+
+em("32px");
+// Output: "2em"
+
+rem("calc(100% - 10px)");
+// Output: "calc(100% - 0.625rem)"
+```
+
+---
+
+### px
+
+The px function is used to convert a value to pixels or get a numeric value from a string in pixels, rems, or ems.
+
+#### Syntax
+
+```ts
+function px(value: unknown): string | number;
+```
+
+#### Parameters
+
+`value` (unknown): The value to convert. Can be a number or a string.
+
+**Returns:**
+
+- If value is a number, it is returned directly.
+- If value is a string:
+  If it contains px units, it is returned as a unitless number.
+  If it contains rem or em units, it is converted to pixels assuming 1 rem/em = 16 pixels.
+  If it contains an expression such as calc or var, it is returned as a string.
+
+#### Example of Usage
+
+```ts
+px(16);
+// Output: 16
+
+px("1rem");
+// Output: 16
+
+px("2em");
+// Output: 32
+
+px("calc(100% - 10px)");
+// Output: "calc(100% - 10px)"
+```
+
+### createConverter
+
+This function is a utility to create a custom converter with specific units. For example, rem and em are created using this function.
+
+#### Syntax
+
+```ts
+function createConverter(units: string, { shouldScale }?: { shouldScale?: boolean }): (value: unknown) => string;
+```
+
+#### Parameters
+
+1. `units` (string): The units used by the converter (e.g. `rem`, `em`).
+2. `options` (object) (optional):
+   `shouldScale` (boolean): Specifies whether the conversion result should be scaled using the scaleRem function.
+3. Returns: A converter function that accepts a value to convert to the specified units.
+
+#### Example of Usage:
+
+```ts
+const pt = createConverter("pt");
+pt(16);
+// Output: "1pt"
+```
+
+### Advantages and Optimizations
+
+1. `Flexible`: Supports various input formats such as numbers, strings, and complex expressions.
+2. `High Compatibility`: Can be used for various unit conversion needs in CSS, including responsive units such as rem and em.
+3. `Advanced Expressions`: Supports operations with calc, clamp, and other CSS functions.
+4. `Scalability`: The createConverter function allows the creation of custom converters for other units in the future.

@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
 import { UnistNode, UnistTree } from "../mdx/unist";
 import { sourceCodes } from "@/scripts/generated-source-codes";
-import { fileDocsWeb } from "./files-docs";
+import { fileDocsMeta } from "@/resource/docs_demo/generated/files-meta-docs";
 
 export function rehypeComponent() {
   return async (tree: UnistTree) => {
@@ -15,7 +15,7 @@ export function rehypeComponent() {
 
       if (node.name === "SourceCodes") {
         const name = getNodeAttributeByName(node, "name")?.value as string;
-        const fd = fileDocsWeb.find(obj => obj.name === name);
+        const fd = fileDocsMeta.find(obj => obj.name === name);
 
         if ((!name && !srcPath) || !fd) {
           return null;

@@ -3,37 +3,57 @@ type RequiredKeys<T> = T extends string ? T | `${T}.required` : never;
 /** Parses a key string like `'field-required'` into { key: 'field', required: true } */
 type SplitKey<K> = K extends `${infer Key}.required` ? { key: Key; required: true } : { key: K; required: false };
 
-/** Extracts keys from `K` that should be optional or required based on suffix. */
-type ExtractParsedKey<T, K extends string, IsRequired extends boolean> = {
-  [P in K]: SplitKey<P> extends infer R ? (R extends { key: infer K2; required: infer R2 } ? (K2 extends keyof T ? (R2 extends IsRequired ? K2 : never) : never) : never) : never;
-}[K];
-
-/** Builds union of key names parsed from `K` (ignoring suffix). */
-type ParsedKeyUnion<K extends string> = {
-  [P in K]: SplitKey<P>["key"];
-}[K];
-
-/**
- * Joins two string keys `K` and `P` with a dot for key paths.
- * Example: Join<'a', 'b'> = 'a.b'
- */
-type Join<K, P> = K extends string ? (P extends string ? `${K}.${P}` : never) : never;
-
 /**
  * Used to decrease depth level in recursive type `Paths<T, D>`.
  * Extend this array to allow deeper nesting.
  */
 type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
-type IgnoringSuffix<T> = Date | string[] | number[] | Array<T>;
-
-type DeepValueType<T, P extends string> = P extends `${infer K}.${infer Rest}` ? (K extends keyof T ? DeepValueType<T[K], Rest> : never) : P extends keyof T ? T[P] : never;
-
 declare global {
   type nullable = null | undefined;
   type falsy = false | 0 | "" | null | undefined | (number & { __falsyNaN__: void });
   type Booleanish = boolean | "true" | "false";
   type Direction = "ltr" | "rtl";
+
+  type IgnoringSuffix<T> = Date | string[] | number[] | Array<T>;
+
+  type DeepValueType<T, P extends string> = P extends `${infer K}.${infer Rest}` ? (K extends keyof T ? DeepValueType<T[K], Rest> : never) : P extends keyof T ? T[P] : never;
+
+  /** Extracts keys from `K` that should be optional or required based on suffix. */
+  type ExtractParsedKey<T, K extends string, IsRequired extends boolean> = {
+    [P in K]: SplitKey<P> extends infer R ? (R extends { key: infer K2; required: infer R2 } ? (K2 extends keyof T ? (R2 extends IsRequired ? K2 : never) : never) : never) : never;
+  }[K];
+
+  /** Builds union of key names parsed from `K` (ignoring suffix). */
+  type ParsedKeyUnion<K extends string> = {
+    [P in K]: SplitKey<P>["key"];
+  }[K];
+  /**
+   * Joins two string keys `K` and `P` with a dot for key paths.
+   * Example: Join<'a', 'b'> = 'a.b'
+   */
+  type Join<K, P> = K extends string ? (P extends string ? `${K}.${P}` : never) : never;
+  /**
+   * The instruction passed to a {@link Dispatch} function in {@link useState}
+   * to tell React what the next value of the {@link useState} should be.
+   *
+   * Often found wrapped in {@link Dispatch}.
+   *
+   * @template S The type of the state.
+   *
+   * @example
+   *
+   * ```tsx
+   * // This return type correctly represents the type of
+   * // `setCount` in the example below.
+   * const useCustomState = (): Dispatch<SetStateAction<number>> => {
+   *   const [count, setCount] = React.useState(0);
+   *
+   *   return setCount;
+   * }
+   * ```
+   */
+  type SetStateAction<S> = S | ((prevState: S) => S);
   /**
    * A utility type that infers the return type of a given function type.
    *

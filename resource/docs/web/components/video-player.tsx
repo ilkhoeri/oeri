@@ -57,7 +57,7 @@ export const VideoPlayer = React.forwardRef<React.ElementRef<"video">, VideoPlay
     <>
       <video ref={mergeRefs(videoRef, ref)} autoPlay={autoPlay} className={cn("[&~button]:hover:opacity-100", className, classNames?.video)} {...props} />
 
-      <span className={cn("absolute z-5 inset-0 dark:bg-[linear-gradient(transparent_50%,_rgba(0,0,0,0.5)_100%)] [&~button]:hover:opacity-100", classNames?.overlay)} />
+      <span className={cn("absolute inset-0 z-5 dark:bg-[linear-gradient(transparent_50%,_rgba(0,0,0,0.5)_100%)] [&~button]:hover:opacity-100", classNames?.overlay)} />
 
       <button
         {...{
@@ -100,3 +100,16 @@ export const PlayIcon = (props: SvgProps) => {
     </Svg>
   );
 };
+
+// ---
+// title: Video Player
+// description: A wrapper component for playing video content with default controls and styling, supporting various formats and customization options.
+// date: 2025-01-05
+// summary: A customizable video player component for embedding and playing video content.
+// component: true
+// links:
+//   doc: https://
+//   # related:
+//   #   - label: label
+//   #     link: https://
+// ---

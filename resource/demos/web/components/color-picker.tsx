@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Input } from "@/ui/input";
 import { ColorPicker, type ColorPickerProps } from "@/ui/color-picker";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
-import Svg from "@/ui/svg";
+import { Svg } from "@/ui/svg";
 import { CheckIcon } from "@/icons/*";
 
 const codes = {

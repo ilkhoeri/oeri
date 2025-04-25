@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { cvx, cn } from "cretex";
 import { Title } from "@/source/assets/components";
-import { displayName } from "@/source/utils";
+import { getDisplayName } from "@/source/utils";
 import { transform, sanitizedWord } from "@/utility/text-parser";
 
 import type { SingleRoute, NestedRoute } from "@/source/routes";
@@ -37,7 +37,7 @@ function renderSingleRoute(routes: SingleRoute[], value: string) {
         const filtered = route.data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
         return filtered.map((item, index) => (
           <Link key={index} href={item.href} title={item.title} className={globalStyle({ cards: "box" })}>
-            <span className="font-medium">{displayName(item.title)}</span>
+            <span className="font-medium">{getDisplayName(item.title)}</span>
           </Link>
         ));
       })}
@@ -59,7 +59,7 @@ function renderNestedRoute(routes: NestedRoute[], value: string) {
           <div className={classes({ as: "wrapper" })}>
             {filtered.map((item, index) => (
               <Link key={index} href={item.href} title={item.title} className={globalStyle({ cards: "box" })}>
-                <span className="font-medium">{displayName(item.title)}</span>
+                <span className="font-medium">{getDisplayName(item.title)}</span>
               </Link>
             ))}
           </div>

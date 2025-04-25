@@ -10,7 +10,7 @@ import style from "@/source/styles/.module.css";
 
 export default function Home() {
   return (
-    <Polymorphic el="main" className={cn(style.main_home, "[--hex:#f2f2f2] dark:[--hex:#171717]")}>
+    <Polymorphic el="section" data-controls="home" className={cn(style.main_home, "[--hex:#f2f2f2] dark:[--hex:#171717]")}>
       <PageHome />
     </Polymorphic>
   );

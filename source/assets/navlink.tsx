@@ -5,7 +5,7 @@ import { Mark } from "./mark";
 import { cn } from "cretex";
 import { usePathname } from "next/navigation";
 import { Anchor, type AnchorProps } from "@/ui/anchor";
-import type { IconType, DetailedSvgProps } from "@/icons/*";
+import type { IconType, DetailedSvgProps } from "@/ui/svg";
 
 type NavLinkTrees = "link" | "active" | "icon" | "img" | "title" | "mark";
 export type NavLinkClass = {

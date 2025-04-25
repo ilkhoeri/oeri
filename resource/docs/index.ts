@@ -1,6 +1,3 @@
-export * from "../icons/icons";
-export * from "./web/utility";
-
 // hooks
 export { useClickOutside } from "./web/hooks/use-click-outside";
 export { useDidUpdate } from "./web/hooks/use-did-update";

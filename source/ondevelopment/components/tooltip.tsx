@@ -204,7 +204,7 @@ const useTooltip = () => {
 const TooltipTrigger = React.forwardRef<
   React.ElementRef<typeof Primitive.Trigger>,
   Primitive.TooltipTriggerProps
->(function TooltipTrigger({ ...props }, ref) {
+>(function TooltipTrigger(props, ref) {
   const { touch, triggerRef } = useTooltip();
   return (
     <Primitive.Trigger

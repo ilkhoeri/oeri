@@ -272,7 +272,7 @@ type InputPasswordTrees = NonNullable<cvxProps<typeof classesPassword>["selector
 export interface InputPasswordProps extends Omit<InputProps, "type" | "unstyled" | "indeterminate" | keyof InputStyles> {
   defaultOpen?: boolean;
   open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: SetStateAction<boolean>) => void;
   className?: string;
   style?: CSSProperties;
   classNames?: Partial<Record<InputPasswordTrees, string | false>>;
@@ -281,30 +281,30 @@ export interface InputPasswordProps extends Omit<InputProps, "type" | "unstyled"
 }
 
 export const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordProps>((_props, ref) => {
-  const { id, className, classNames, styles, style, disabled, value, onChange, autoComplete = "off", spellCheck = false, defaultOpen = false, placeholder = "•••••••••••", "aria-disabled": aD, "aria-invalid": aI = "false", open: openProp, onOpenChange: setOpenProp, unstyled, ...props } = _props;
+  const { defaultOpen = false, open: openProp, onOpenChange: setOpenProp, id, className, classNames, styles, style, disabled, value, onChange, autoComplete = "off", spellCheck = false, placeholder = "•••••••••••", "aria-disabled": aD, "aria-invalid": aI = "false", unstyled, ...props } = _props;
 
   const ctx = useInputWrapperCtx();
 
   const [password, setPassword] = React.useState("");
 
   const [_open, _setOpen] = React.useState(defaultOpen);
-  const open = openProp ?? _open;
-  const setOpen = React.useCallback(
-    (value: boolean | ((value: boolean) => boolean)) => {
-      const openState = typeof value === "function" ? value(open) : value;
+  const openChange = openProp ?? _open;
+  const setOpenChange = React.useCallback(
+    (open: SetStateAction<boolean>) => {
+      const openState = typeof open === "function" ? open(openChange) : open;
       if (setOpenProp) {
         setOpenProp(openState);
       } else {
         _setOpen(openState);
       }
     },
-    [setOpenProp, open]
+    [setOpenProp, openChange]
   );
 
   function getStyles(selector: InputPasswordTrees, opt: { className?: string; style?: CSSProperties } = {}) {
     const isUnstyled = () => (typeof unstyled === "boolean" ? unstyled : unstyled?.[selector]);
     return {
-      "data-state": open ? "text" : "password",
+      "data-state": openChange ? "text" : "password",
       className: cn(selector === "input" && [!open && ""], !isUnstyled() && classesPassword({ selector }), opt.className, classNames?.[selector]),
       style: { ...opt.style, ...styles?.[selector] }
     };
@@ -334,7 +334,7 @@ export const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordPro
             setPassword(e.target.value);
             onChange?.(e);
           },
-          type: open ? "text" : "password",
+          type: openChange ? "text" : "password",
           placeholder: placeholder === null ? undefined : placeholder,
           "aria-invalid": aI,
           "aria-disabled": aD || (disabled ? "true" : undefined),
@@ -342,9 +342,9 @@ export const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordPro
         }}
       />
 
-      <button type="button" role="button" tabIndex={-1} onClick={() => setOpen(!open)} {...getStyles("toggle")}>
+      <button type="button" role="button" tabIndex={-1} onClick={() => setOpenChange(!openChange)} {...getStyles("toggle")}>
         <Svg currentFill="fill" size={20} viewBox="0 0 16 16">
-          {pathMap[String(open) as keyof typeof pathMap].map((d, index) => (
+          {pathMap[String(openChange) as keyof typeof pathMap].map((d, index) => (
             <path key={index} d={d} />
           ))}
         </Svg>

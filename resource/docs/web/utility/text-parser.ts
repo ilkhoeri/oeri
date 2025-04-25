@@ -82,20 +82,16 @@ export const transform = Object.assign(
  * @param {number} [maxWord=30] - The maximum length of the truncated string, `{default=30}`.
  * @returns {string} - The truncated string.
  */
-export function truncate(word: string | null | undefined, maxWord: number = 30, split: "spaceslice" | "unslice" = "spaceslice"): string {
-  if (!word) return "";
+export function truncate(word: string | null | undefined, maxWord = 30, split: "spaceslice" | "unslice" = "spaceslice"): string {
+  if (!word || word.length <= maxWord) return word || "";
 
-  let slicedWords = word;
-  if (slicedWords.length > maxWord) {
-    if (split === "spaceslice") {
-      const lastSpaceIndex = slicedWords.lastIndexOf(" ", maxWord);
-      slicedWords = slicedWords.substring(0, lastSpaceIndex) + "...";
-    }
-    if (split === "unslice") {
-      slicedWords = slicedWords.substring(0, maxWord) + "...";
-    }
+  if (split === "spaceslice") {
+    const lastSpace = word.lastIndexOf(" ", maxWord);
+    if (lastSpace > 0) return word.slice(0, lastSpace) + "...";
   }
-  return slicedWords;
+
+  // Fallback or if split is "unslice"
+  return word.slice(0, maxWord) + "...";
 }
 
 /**

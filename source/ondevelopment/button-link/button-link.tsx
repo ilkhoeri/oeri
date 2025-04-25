@@ -2,7 +2,7 @@ import React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { merge } from "cretex";
-import { AnchorTargets } from "@/utility/types";
+import { AnchorTargets } from "@/source/types";
 import { cvx, type cvxProps } from "cretex";
 
 export const variantLinkButton = cvx({

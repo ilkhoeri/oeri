@@ -97,7 +97,7 @@ Pagination.displayName = "Pagination";
 export const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<"ul">>(({ className, ...props }, ref) => <ul ref={ref} className={cn("flex flex-row items-center gap-1", className)} {...props} />);
 PaginationContent.displayName = "PaginationContent";
 
-export const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>(({ ...props }, ref) => <li ref={ref} {...props} />);
+export const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<"li">>((props, ref) => <li ref={ref} {...props} />);
 PaginationItem.displayName = "PaginationItem";
 
 export const PaginationButton = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"> & { isActive?: boolean } & Pick<ButtonProps, "size" | "variant">>(({ className, isActive, type = "button", role = "button", variant, size = "icon", "aria-current": ac, ...props }, ref) => (

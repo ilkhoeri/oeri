@@ -8,9 +8,19 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
 import { UnstyledButton } from "@/ui/button";
 import { Tooltip } from "@/ui/tooltip";
-import { BrandGithubFillIcon, CheckIcon, CopyIcon, Svg } from "@/icons/*";
+import { Svg } from "@/ui/svg";
+import { BrandGithubFillIcon, CheckIcon, CopyIcon, ArrowDownloadIcon } from "@/icons/*";
 
 import globalStyle from "../styles/styles";
+
+const SIZE_ICON: number | `${number}` = 18;
+
+const sharedProp: React.ComponentProps<typeof Tooltip> = {
+  side: "left",
+  sideOffset: 6,
+  suppressHydrationWarning: true,
+  tabIndex: -1
+};
 
 export const GetCodeButton = React.forwardRef<
   React.ComponentRef<typeof Anchor>,
@@ -22,9 +32,9 @@ export const GetCodeButton = React.forwardRef<
   if (!(repo || href)) return null;
 
   return (
-    <Tooltip asChild side="left" sideOffset={6} content={<span>Repository</span>} contentProps={{ className: "min-w-[86px]" }}>
+    <Tooltip asChild {...sharedProp} content="Repository" contentProps={{ className: "min-w-[86px]" }}>
       <Anchor ref={ref} {...props} target="_blank" rel="noopener noreferrer nofollow" href={href || `https://github.com/ilkhoeri/oeri/tree/master/resource/docs/${repo}`} tabIndex={-1} title="Get Code" className={globalStyle({ toggle: "item", size: "icon-xs" }, className)}>
-        <BrandGithubFillIcon fill="currentColor" className="size-5" />
+        <BrandGithubFillIcon fill="currentColor" size={SIZE_ICON} />
       </Anchor>
     </Tooltip>
   );
@@ -37,29 +47,59 @@ export const CopyButton = React.forwardRef<
     value: string | null | undefined;
   }
 >(({ value, className, ...props }, ref) => {
-  const clipboard = useClipboard({ timeout: 1000 });
+  const clipboard = useClipboard({ timeout: 1750 });
 
   return (
     <Tooltip
       ref={ref}
       {...props}
-      tabIndex={-1}
       onClick={() => {
         if (value) clipboard.copy(tocopy(value));
       }}
       disabled={!value}
       className={globalStyle({ toggle: "item", size: "icon-xs" }, clipboard.copied ? "bg-muted" : "bg-background", className)}
-      side="left"
-      sideOffset={6}
       contentProps={{ className: "min-w-[86px] py-1" }}
-      content={<span>{clipboard.copied ? "Copied" : "Copy code"}</span>}
-      suppressHydrationWarning
+      content={value && !clipboard.copied ? "Copy code" : null}
+      {...sharedProp}
     >
-      {clipboard.copied ? <CheckIcon className="size-5 animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" /> : <CopyIcon className="size-5" />}
+      {clipboard.copied ? <CheckIcon animation size={SIZE_ICON} className="animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" /> : <CopyIcon size={SIZE_ICON} />}
     </Tooltip>
   );
 });
 CopyButton.displayName = "CopyButton";
+
+export const DownloadButton = React.forwardRef<
+  React.ComponentRef<typeof UnstyledButton>,
+  React.ComponentPropsWithoutRef<typeof UnstyledButton> & {
+    code: string;
+    filename: string; // beserta ekstensi, misal: "Button.tsx"
+  }
+>(({ className, code, filename, ...props }, ref) => {
+  const [onProcess, setOnProcess] = React.useState(false);
+
+  const handleDownload = React.useCallback(() => {
+    const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${filename}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setOnProcess(true);
+    setTimeout(() => setOnProcess(false), 2500);
+  }, [code, filename]);
+
+  return (
+    <>
+      <Tooltip ref={ref} {...props} onClick={handleDownload} disabled={!code} className={globalStyle({ toggle: "item", size: "icon-xs" }, "bg-background", className)} contentProps={{ className: "min-w-[86px] py-1" }} content={code && !onProcess ? "Download" : null} {...sharedProp}>
+        <ArrowDownloadIcon animation size={SIZE_ICON + 2} />
+      </Tooltip>
+    </>
+  );
+});
+DownloadButton.displayName = "DownloadButton";
 
 export const ScrollToggle = React.forwardRef<React.ElementRef<typeof UnstyledButton>, React.ComponentPropsWithoutRef<typeof UnstyledButton>>(({ className, ...props }, ref) => {
   const { bottom, scrollWindow, mounted } = useWindowScroll();
@@ -99,16 +139,14 @@ export const ScrollToggle = React.forwardRef<React.ElementRef<typeof UnstyledBut
           transition: "transform 0.3s linear"
         }}
       >
-        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
-          <path fill="currentColor" fillOpacity="0" strokeDasharray="20" strokeDashoffset="20" d="M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5">
-            <animate attributeName="d" begin="0.5s" dur="1.5s" repeatCount="indefinite" values="M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5;M12 4h2v3h2.5l-4.5 4.5M12 4h-2v3h-2.5l4.5 4.5;M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5" />
-            <animate fill="freeze" attributeName="fill-opacity" begin="0.7s" dur="0.15s" values="0;0.3" />
-            <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="20;0" />
-          </path>
-          <path strokeDasharray="14" strokeDashoffset="14" d="M6 19h12">
-            <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" values="14;0" />
-          </path>
-        </g>
+        <path fill="currentColor" fillOpacity="0" strokeDasharray="20" strokeDashoffset="20" d="M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5">
+          <animate attributeName="d" begin="0.5s" dur="1.5s" repeatCount="indefinite" values="M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5;M12 4h2v3h2.5l-4.5 4.5M12 4h-2v3h-2.5l4.5 4.5;M12 4h2v6h2.5l-4.5 4.5M12 4h-2v6h-2.5l4.5 4.5" />
+          <animate fill="freeze" attributeName="fill-opacity" begin="0.7s" dur="0.15s" values="0;0.3" />
+          <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="20;0" />
+        </path>
+        <path strokeDasharray="14" strokeDashoffset="14" d="M6 19h12">
+          <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" values="14;0" />
+        </path>
       </Svg>
     </UnstyledButton>
   );

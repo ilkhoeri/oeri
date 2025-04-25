@@ -3,7 +3,6 @@ import { useState } from "react";
 import { UnstyledButton } from "@/ui/button";
 import { FloatingIndicator, FloatingIndicatorProps } from "@/ui/floating-indicator";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
-
 import { ArrowIcon, CircleIcon } from "@/icons/*";
 import { cvx, cvxProps } from "cretex";
 

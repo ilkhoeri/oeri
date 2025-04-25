@@ -1,8 +1,8 @@
 ---
-title: Tooltip
-description: Create your project and compactness the required dependencies.
 date: 2025-01-05
-summary: Ringkasan
+title: Tooltip
+description: A hover- or focus-triggered popup that displays additional information or hints related to a target element.
+summary: A small popup that provides extra context or hints when hovering or focusing on an element.
 component: true
 links:
   doc: https://
@@ -91,7 +91,7 @@ export function MyToggle() {
 3. Using ref in the trigger component.
 
 ```tsx showLineNumbers
-export const MyToggle = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(({ ...props }, ref) => {
+export const MyToggle = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>((props, ref) => {
   return (
     <Tooltip asChild side="left" sideOffset={6} content={<span>Lorem...</span>}>
       <a ref={ref} href="">

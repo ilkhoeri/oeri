@@ -93,7 +93,6 @@ const isColor = <T,>(value: T): boolean =>
     /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
     /^[a-zA-Z]+$/.test(value)); // Named color
 
-// const isValidSize = typeof size === 'string' && (size.startsWith('calc(') || size.startsWith('clamp(') || size.startsWith('var('));
 function isValidSize(size: number | string | undefined): boolean {
   return typeof size === "string" && /^(calc|clamp|var)\(/.test(size);
 }
@@ -178,7 +177,7 @@ export function svgProps(detail: DetailedSvgProps) {
   return { props: __props, ...sz };
 }
 
-export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg {...{ ref, ...svgProps({ ...props }).props }} />);
+export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg {...{ ref, ...svgProps(props).props }} />);
 Svg.displayName = "Svg";
 
 export default Svg;

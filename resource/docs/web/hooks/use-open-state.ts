@@ -43,7 +43,7 @@ interface StateSharedOptions {
   sideOffset?: number;
   multipleOpen?: boolean;
   open?: boolean;
-  onOpenChange?: (value: boolean) => void;
+  onOpenChange?: (open: SetStateAction<boolean>) => void;
   delay?: { open?: number; closed?: number };
 }
 export interface HoverOpenOptions extends StateSharedOptions {}

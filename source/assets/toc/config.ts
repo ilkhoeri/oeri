@@ -1,79 +1,81 @@
-// @ts-nocheck
-// TODO: I'll fix this later.
-
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
+import { Root, RootContent, ListItem, Text } from "mdast";
 
-const textTypes = ["text", "emphasis", "strong", "inlineCode"];
+const textTypes = new Set(["text", "emphasis", "strong", "inlineCode"]);
 
-function flattenNode(node) {
-  const p = [];
-  visit(node, node => {
-    if (!textTypes.includes(node.type)) return;
-    p.push(node.value);
+function flattenNode(node: RootContent): string {
+  const result: string[] = [];
+
+  visit(node, child => {
+    if (textTypes.has(child.type as string) && "value" in child) {
+      result.push((child as Text).value);
+    }
   });
-  return p.join(``);
+
+  return result.join("");
 }
 
-interface Item {
+export interface Item {
   title: string;
   url: string;
   items?: Item[];
 }
 
-interface Items {
+export type TableOfContents = {
   items?: Item[];
-}
+};
 
-export type TableOfContentsType = Items;
+function getItems(node: any): Item | Item[] | undefined {
+  if (!node) return;
 
-function getItems(node, current): Items {
-  if (!node) {
-    return {};
-  }
+  switch (node.type) {
+    case "paragraph": {
+      const item: Item = { title: "", url: "" };
 
-  if (node.type === "paragraph") {
-    visit(node, item => {
-      if (item.type === "link") {
-        current.url = item.url;
-        current.title = flattenNode(node);
-      }
+      visit(node, child => {
+        if (child.type === "link") {
+          item.url = child.url;
+          item.title = flattenNode(node);
+        } else if (child.type === "text") {
+          item.title ||= flattenNode(node);
+        }
+      });
 
-      if (item.type === "text") {
-        current.title = flattenNode(node);
-      }
-    });
-
-    return current;
-  }
-
-  if (node.type === "list") {
-    current.items = node.children.map(i => getItems(i, {}));
-
-    return current;
-  } else if (node.type === "listItem") {
-    const heading = getItems(node.children[0], {});
-
-    if (node.children.length > 1) {
-      getItems(node.children[1], heading);
+      return item;
     }
 
-    return heading;
-  }
+    case "list":
+      return node.children.map((child: ListItem) => getItems(child)).filter(Boolean) as Item[];
 
-  return {};
+    case "listItem": {
+      const [first, second] = node.children;
+      const item = getItems(first) as Item;
+
+      if (second) {
+        const subItems = getItems(second);
+        if (Array.isArray(subItems) && subItems.length > 0) {
+          item.items = subItems;
+        }
+      }
+
+      return item;
+    }
+
+    default:
+      return;
+  }
 }
 
-const getToc = () => (node, file) => {
+const getToc = () => (node: Root, file: any) => {
   const table = toc(node);
-  const items = getItems(table.map, {});
+  const items = getItems(table.map);
 
-  file.data = items;
+  file.data = { items: Array.isArray(items) ? items : [items] };
 };
 
 export async function getTableOfContents(content: string): Promise<TableOfContents> {
   const result = await remark().use(getToc).process(content);
-
-  return result.data;
+  return result.data as TableOfContents;
 }

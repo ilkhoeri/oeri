@@ -1,8 +1,8 @@
 ---
-title: Color Picker
-description: Create your project and compactness the required dependencies.
 date: 2025-01-05
-summary: Ringkasan
+title: Color Picker
+description: A tool that allows users to select colors visually, often used for customizing designs or selecting background/foreground colors.
+summary: An interactive component that enables users to pick colors, useful for design customization and theme selection.
 component: true
 links:
   doc: https://
@@ -19,6 +19,12 @@ links:
 
 <ColorPickerDemosConfigurator />
 
+<div className="!-mt-12" />
+
+**Notes**:
+
+- `withClipboard` prop only available in certain formats `"hexa"` || `"rgba"` || `"hsla"`.
+
 ---
 
 ## API References
@@ -26,19 +32,21 @@ links:
 ### Styles API
 
 ```ts
-type T = "saturation" | "body" | "slider" | "root" | "sliders" | "sliderOverlay" | "thumb" | "saturationOverlay" | "swatches" | "swatch" | "preview" | "alphaOverlay" | "shadowOverlay" | "colorOverlay" | "childrenOverlay";
+type ColorPickerTrees = "saturation" | "body" | "slider" | "root" | "sliders" | "sliderOverlay" | "thumb" | "saturationOverlay" | "swatches" | "swatch" | "preview" | "alphaOverlay" | "shadowOverlay" | "colorOverlay" | "childrenOverlay";
 ```
 
-| Styles API    | Type                                | Default     | Annotation                                    |
-| ------------- | ----------------------------------- | ----------- | --------------------------------------------- |
-| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, all default styles will be removed |
-| classNames`?` | `Partial<Record<T, string>>`        | `undefined` | Set className for `T`                         |
-| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` | Set style for `T`                             |
+| Styles API    | Type                                               | Default     | Annotation                                    |
+| ------------- | -------------------------------------------------- | ----------- | --------------------------------------------- |
+| unstyled`?`   | `Partial<Record<ColorPickerTrees, boolean>>`       | `false`     | if `true`, all default styles will be removed |
+| classNames`?` | `Partial<Record<ColorPickerTrees, string>>`        | `undefined` | Set className for `ColorPickerTrees`          |
+| styles`?`     | `Partial<Record<ColorPickerTrees, CSSProperties>>` | `undefined` | Set style for `ColorPickerTrees`              |
 
 ### Props API
 
 ```ts
 type ColorFormat = "hex" | "hexa" | "rgba" | "rgb" | "hsl" | "hsla";
+
+const withAlpha = format === "hexa" || format === "rgba" || format === "hsla";
 ```
 
 | Props API             | Type                      | Default     | Annotation                                                                                               |
@@ -55,7 +63,7 @@ type ColorFormat = "hex" | "hexa" | "rgba" | "rgb" | "hsl" | "hsla";
 | hueLabel`?`           | `string`                  |             | Hue slider `aria-label` prop                                                                             |
 | saturationLabel`?`    | `string`                  |             | Saturation slider `aria-label` prop                                                                      |
 | withShadow`?`         | `boolean`                 | `true`      | Add style shadow for swatches                                                                            |
-| withClipboard`?`      | `boolean`                 | `false`     | When to copy color values                                                                                |
+| withClipboard`?`      | `boolean`                 | `false`     | When to copy color values (only available in certain formats / `withAlpha`)                              |
 | onChange`?`           | `(value: string) => void` | `undefined` | Called when value changes                                                                                |
 | onChangeEnd`?`        | `(value: string) => void` | `undefined` | Called when the user stops dragging one of the sliders or changes the value with arrow keys              |
 | onColorSwatchClick`?` | `(color: string) => void` | `undefined` | Called when one of the color swatches is clicked                                                         |

@@ -1,4 +1,4 @@
-import { camelToKebab, capitalizeWords, kebabToCamelCase } from "@/source/ondevelopment/utils";
+import { capitalizeWords } from "@/source/ondevelopment/utils";
 
 export function cleanedIds(ids: string[], id: string): string[] {
   return ids.map(i => {
@@ -55,18 +55,6 @@ export function prefixName(docs: string[] | undefined, name: string): string {
     .join("");
 }
 
-export function displayNameX(str: string) {
-  // str = str.replace("use", "");
-  str = camelToKebab(str);
-  str = capitalizeWords(str);
-  str = str.replace(/-/g, " ");
-  return str;
-}
-
-export function displayName(title: string) {
-  return title.startsWith("use") ? kebabToCamelCase(title) : capitalizeWords(title);
-}
-
 export function sourceFiles(segment: string[] | undefined) {
   if (segment === undefined) return null;
   const sourceFolder = segment.join("/");
@@ -96,3 +84,42 @@ export function nextValue<T>(currentValue: T, values: T[]): T {
   const nextIndex = (currentIndex + 1) % values.length;
   return values[nextIndex];
 }
+
+export function getDisplayName(title: string): string {
+  if (title?.startsWith("use")) {
+    // Optimized kebabToCamelCase
+    let result = "";
+    let upperNext = false;
+    for (let i = 0; i < title?.length; i++) {
+      const char = title[i];
+      if (char === "-") {
+        upperNext = true;
+      } else {
+        result += upperNext ? char?.toUpperCase() : char;
+        upperNext = false;
+      }
+    }
+    return result;
+  }
+
+  if (title?.endsWith(".d")) return `${title}.ts`;
+
+  // Optimized capitalizeWords
+  let result = "";
+  let capitalize = true;
+  for (let i = 0; i < title?.length; i++) {
+    const char = title[i];
+    if (char === "-") {
+      result += " ";
+      capitalize = true;
+    } else {
+      result += capitalize ? char?.toUpperCase() : char?.toLowerCase();
+      capitalize = false;
+    }
+  }
+
+  return result || "---";
+}
+
+/** @deprecated `displayName` akan dihapus, gunakan `getDisplayName` */
+export const displayName = getDisplayName;

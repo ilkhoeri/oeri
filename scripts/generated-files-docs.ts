@@ -3,9 +3,11 @@ import path from "node:path";
 import { log } from "../resource/log/development";
 import { getSlug } from "@/source/utils";
 
+const COMMENT = `/**\n * @deprecated \`fileDocsWeb\` diganti dengan \`fileDocsMeta\` 👍\n * @example\n * ❌ import { fileDocsWeb } from "@/resource/docs_demo/generated/files-docs";\n * ➕ import { fileDocsMeta } from "@/resource/docs_demo/generated/files-meta-docs";\n */\n`;
+
 async function generatedFilesDocs(docs: string, segments: string[]) {
   const basePath = `resource/docs/${docs}`;
-  const fileOutput = `resource/docs_demo/assets/rehype/files-docs.ts`;
+  const fileOutput = `resource/docs_demo/generated/files-docs.ts`;
   const nameFileOuput = getSlug(fileOutput.split("/"));
   const extensions = [".tsx", ".ts"];
 
@@ -28,7 +30,7 @@ async function generatedFilesDocs(docs: string, segments: string[]) {
       }
     }
 
-    const content = `// Generated automatically. Do not edit manually.\n` + `// generated: bun run generated:flesdocs\n\n` + `export const fileDocsWeb = [\n${data.join(",\n")}\n];\n`;
+    const content = `// Generated automatically. Do not edit manually.\n// generated: bun run generated:filesdocs\n\n` + COMMENT + `export const fileDocsWeb = [\n${data.join(",\n")}\n];\n`;
 
     await fs.writeFile(fileOutput, content, "utf8");
 

@@ -6,7 +6,7 @@
     @apply border-border scroll-smooth font-geist-sans;
   }
   body {
-    @apply relative overflow-y-auto overflow-x-hidden h-screen min-h-screen max-w-full scroll-smooth bg-background text-color antialiased m-0 [overflow:hidden_auto] [--max-w:1860px];
+    @apply relative overflow-y-auto overflow-x-hidden h-screen min-h-screen max-w-full scroll-smooth bg-background text-color antialiased m-0 [overflow:hidden_auto] [--max-w:1860px] md:[&_>_main_[data-controls='routes']]:has-[[data-controls='routes']_~_[data-controls='home']]:sr-only md:[&_>_main_[data-controls='routes']]:has-[[data-controls='routes']_~_[data-controls='home']]:hidden lg:[&_>_main_[data-controls='table-of-contents']]:has-[[data-controls='home']_~_[data-controls='table-of-contents']]:sr-only lg:[&_>_main_[data-controls='table-of-contents']]:has-[[data-controls='home']_~_[data-controls='table-of-contents']]:hidden;
   }
   img {
     @apply [display:initial] [-webkit-user-select:none] [-moz-user-select:none] [-ms-user-select:none] [user-select:none] [-webkit-user-drag:none];
@@ -2928,3 +2928,7 @@ input[type="text"]:-ms-autofill {
 input[type="text"]:autofill {
   background-color: hsl(var(--background)) !important;
 }
+/*
+description: A global stylesheet that defines base styles, resets, and custom properties (variables) used application-wide.
+summary: A global CSS file that sets foundational styles and resets for the entire app.
+ */

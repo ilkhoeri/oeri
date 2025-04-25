@@ -1035,7 +1035,7 @@ function NestedRoot({ onDrag, onOpenChange, ...rest }: DialogProps) {
   );
 }
 
-const Trigger = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> & SharedTypes>(({ ...props }, ref) => <DialogPrimitive.Trigger data-sheet="trigger" ref={ref} {...props} />);
+const Trigger = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> & SharedTypes>((props, ref) => <DialogPrimitive.Trigger data-sheet="trigger" ref={ref} {...props} />);
 Trigger.displayName = DialogPrimitive.Trigger.displayName;
 
 const Close = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Close>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> & SharedTypes>(({ role = "button", type = "button", "aria-label": arlb = "Sheet Close", ...props }, ref) => (
@@ -1043,13 +1043,13 @@ const Close = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Close>, R
 ));
 Close.displayName = DialogPrimitive.Close.displayName;
 
-const Title = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Title>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & SharedTypes>(({ ...props }, ref) => <DialogPrimitive.Title data-sheet="title" {...{ ref, ...props }} />);
+const Title = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Title>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & SharedTypes>((props, ref) => <DialogPrimitive.Title data-sheet="title" {...{ ref, ...props }} />);
 Title.displayName = DialogPrimitive.Title.displayName;
 
-const Description = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Description>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & SharedTypes>(({ ...props }, ref) => <DialogPrimitive.Description data-sheet="body" {...{ ref, ...props }} />);
+const Description = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Description>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & SharedTypes>((props, ref) => <DialogPrimitive.Description data-sheet="body" {...{ ref, ...props }} />);
 Description.displayName = DialogPrimitive.Description.displayName;
 
-const Footer = React.forwardRef<HTMLDivElement, React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>(({ ...props }, ref) => <div data-sheet="footer" {...{ ref, ...props }} />);
+const Footer = React.forwardRef<HTMLDivElement, React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>((props, ref) => <div data-sheet="footer" {...{ ref, ...props }} />);
 Footer.displayName = "Sheet.Indicator";
 
 const Indicator = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Close>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> & SharedTypes>(({ role = "button", type = "button", "aria-label": arlb = "Sheet Indicator", ...props }, ref) => {

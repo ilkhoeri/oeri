@@ -1,27 +1,19 @@
+import { Fragment } from "react";
 import { RestDocs } from "./client";
 import { notFound } from "next/navigation";
 import { Comp } from "@/source/assets/components";
 import { NavBottom } from "@/source/assets/nav-prev-next";
-import { AsideLeft } from "@/source/assets/nav-aside-left";
-import { docsRoutes, resRoutes } from "@/source/generated/gen-routes";
-import { NavigationBreadcrumb } from "@/source/assets/nav-breadcrumb";
-import { getTableOfContents } from "@/source/assets/toc/config";
-import { InnerRoutes, SingleRoute } from "@/source/routes";
+import { getDocFromParams } from "@/app/site/docs-params";
+import { resRoutes } from "@/source/generated/gen-routes";
 import { TableOfContents } from "@/source/assets/toc/toc";
-import { allDocs } from "contentlayer/generated";
-import { pathParams } from "@/resource/docs_demo/assets/mdx/utils";
+import { getTableOfContents } from "@/source/assets/toc/config";
+import { NavigationBreadcrumb } from "@/source/assets/nav-breadcrumb";
 import { MDXComponent } from "@/resource/docs_demo/assets/mdx/mdx-context";
+import { MetaDocsRoute, metaDocsRoute, NestedMetaDocsRoute } from "@/routes";
 
 interface DocsParams {
   children: React.ReactNode;
   params: Promise<{ docs: string[] }>;
-}
-
-function getDocFromParams(slug: string[]) {
-  const { path, segment } = pathParams("docs", slug);
-  const doc = allDocs.find(doc => doc.url === (slug ? path : `/docs/${segment}`));
-  if (!doc) return null;
-  return doc;
 }
 
 export default async function Layout({ children, params }: DocsParams) {
@@ -29,47 +21,40 @@ export default async function Layout({ children, params }: DocsParams) {
   const doc = getDocFromParams(slug);
   const toc = await getTableOfContents(doc?.body?.raw || "");
 
-  function Template({ children }: { children: React.ReactNode }) {
+  function template(content: React.ReactNode) {
     return (
-      <Comp>
-        <AsideLeft />
+      <Fragment>
         <Comp el="section" className="min-[1334px]:px-[1.5px]">
           <NavigationBreadcrumb />
-          {children}
-          <NavBottom routes={docsRoutes} />
+          {content}
+          <NavBottom routes={metaDocsRoute} />
         </Comp>
-        <TableOfContents toc={toc} sub={5} />
-      </Comp>
+        <TableOfContents toc={toc} sub={5} />;
+      </Fragment>
     );
   }
 
-  if (!slug) {
-    return <Template>{doc && <MDXComponent code={doc?.body.code} />}</Template>;
-  }
+  if (!slug) return template(doc && <MDXComponent code={doc?.body.code} />);
 
   if (slug.length === 2) {
     const routesMap: { [key: string]: any } = resRoutes;
     const slugMap = routesMap[slug[1]];
-    return (
-      <Template>
-        <RestDocs id={slug[1]} routes={slugMap} />
-      </Template>
-    );
+    return template(<RestDocs id={slug[1]} routes={slugMap} />);
   }
 
-  if (!findMatchingRoute(slug, docsRoutes)) notFound();
+  if (!findMatchingRoute(slug, metaDocsRoute)) notFound();
 
-  return <Template>{children}</Template>;
+  return template(children);
 }
 
-const findMatchingRoute = (slug: string[], routes: (InnerRoutes | SingleRoute)[]): boolean => {
+const findMatchingRoute = (slug: string[], routes: (MetaDocsRoute | NestedMetaDocsRoute)[]): boolean => {
   const matcher = `/docs/${slug.join("/")}`;
 
   for (const route of routes) {
-    if ("href" in route && route.href === matcher) return true;
+    if ("path" in route && route.path === matcher) return true;
 
     if ("data" in route) {
-      const matchingData = route.data.some(data => data.href === matcher);
+      const matchingData = route.data.some(data => (data as any).path === matcher);
       if (matchingData) return true;
     }
   }
