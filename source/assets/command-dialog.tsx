@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { cvx, cvxProps } from "cretex";
 import { Command, createCommand } from "@/ui/command";
-import { EmptyBoxIcon, FileIcon } from "@/icons/*";
+import { SleepingSquareIcon, FolderFilesIcon, FolderPathConnectIcon } from "@/icons/*";
 import { fuzzySearch, levenshteinDistance } from "@/source/ondevelopment/utils";
 import { Kbd } from "@/ui/kbd";
 
@@ -78,7 +78,7 @@ export function CommandDialog({ routes = [] }: { routes?: Routes }) {
           store: appCommandStore,
           onQueryChange: setQuery,
           actions: [...suggestMain({ query }), ...suggest],
-          nothingFound: suggest?.length > 0 ? Suggest : <EmptyBoxIcon />,
+          nothingFound: suggest?.length > 0 ? Suggest : <SleepingSquareIcon size={160} />,
           classNames: {
             content: "h-2/3",
             empty: suggest?.length > 0 ? "pt-0 [display:unset]" : undefined
@@ -102,7 +102,7 @@ function filter(routes: Routes, query: string) {
           id: i.name.toLowerCase().replace(" ", "-"),
           label: i.name,
           href: i.path,
-          leftSection: <FileIcon />
+          leftSection: <FolderFilesIcon />
         }));
 
       return {
@@ -128,7 +128,7 @@ function filter(routes: Routes, query: string) {
           id: item.name.toLowerCase().replace(" ", "-"),
           label: item.name,
           href: item.path,
-          leftSection: <FileIcon arrow />
+          leftSection: <FolderPathConnectIcon />
         }));
 
       return {

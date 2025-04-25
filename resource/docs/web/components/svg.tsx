@@ -1,21 +1,11 @@
 import * as React from "react";
 
-export enum InitialSize {
-  unset = "unset",
-  xxs = "xxs",
-  xxxs = "xxxs",
-  xs = "xs",
-  base = "base",
-  sm = "sm",
-  md = "md",
-  lg = "lg",
-  xl = "xl",
-  xxl = "xxl",
-  xxxl = "xxxl"
-}
+export const InitialSizeSvg = ["unset", "xxs", "xxxs", "xs", "base", "sm", "md", "lg", "xl", "xxl", "xxxl"] as const;
+
+export type InitialSizeSvg = (typeof InitialSizeSvg)[number];
 
 export type IconType = (props: DetailedSvgProps) => React.JSX.Element;
-export type Sizes = `${InitialSize}` | (string & {}) | number | undefined;
+export type SizeSvg = InitialSizeSvg | (string & {}) | number | undefined;
 export type Colors = React.CSSProperties["color"] | "currentColor";
 export type SvgProps<OverrideProps = object> = Omit<DetailedSvgProps, "children" | "currentFill" | "ratio"> & {
   ref?: React.Ref<SVGSVGElement>;
@@ -43,7 +33,7 @@ export interface SizesProps {
    *
    * `unset: undefined` | `xs: "10px"` | `xxs: "12px"` | `xxxs: "14px"` | `base: "16px"` | `sm: "18px"` | `md: "22px"` | `lg: "32px"` | `xl: "48px"` | `xxl: "86px"` | `xxxl: "112px"`
    */
-  size?: Sizes;
+  size?: SizeSvg;
   w?: string | number;
   h?: string | number;
   width?: string | number;
@@ -67,8 +57,8 @@ export interface SizesProps {
 export declare function SvgIcon(data: IconTree): (props: DetailedSvgProps) => React.JSX.Element;
 export declare function SvgBase(props: DetailedSvgProps & { attr?: Record<string, string> }): React.JSX.Element;
 
-export const getInitialSizes = (size: Sizes): string | undefined => {
-  const sizeMap: Record<InitialSize, string | undefined> = {
+export function getInitialSizes<T>(size: T): string | T | undefined {
+  const sizeMap: Record<InitialSizeSvg, string | undefined> = {
     unset: undefined,
     xs: "10px",
     xxs: "12px",
@@ -81,8 +71,9 @@ export const getInitialSizes = (size: Sizes): string | undefined => {
     xxl: "86px",
     xxxl: "112px"
   };
-  return sizeMap[size as InitialSize];
-};
+  if (typeof size === "string" && InitialSizeSvg.includes(size as InitialSizeSvg)) return sizeMap[size as InitialSizeSvg];
+  return size;
+}
 
 // Check if stroke is a valid color or a valid number
 const isNumber = <T,>(value: T): boolean => !isNaN(Number(value)) && Number(value) > 0;
@@ -93,34 +84,38 @@ const isColor = <T,>(value: T): boolean =>
     /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
     /^[a-zA-Z]+$/.test(value)); // Named color
 
-function isValidSize(size: number | string | undefined): boolean {
-  return typeof size === "string" && /^(calc|clamp|var)\(/.test(size);
+function isValidSize<T>(size: T): boolean {
+  if (typeof size === "string") {
+    if (/^(calc|clamp|var)\(|auto/.test(size)) return true;
+    if (InitialSizeSvg.includes(size as InitialSizeSvg)) return true;
+  }
+  return false;
 }
 
-function parseSize(sz: string | number): number {
-  return typeof sz === "number" ? sz : parseFloat(sz.replace(/[^\d.-]/g, ""));
+function applyRatio(size: string | number | undefined, ratio: number | undefined = 1): string | undefined {
+  if (!size) return;
+  const parseSize = typeof size === "number" ? size : parseFloat(size.replace(/[^\d.-]/g, ""));
+  const newSize = parseSize * ratio;
+  return typeof size === "number" ? `${newSize / 16}rem` : size;
 }
 
-function applyRatio(sz: string | number | undefined, ratio: number | undefined = 1): string | undefined {
-  if (!sz) return;
-  const newSize = parseSize(sz) * ratio;
-  return typeof sz === "number" ? `${newSize / 16}rem` : sz;
-}
+export function getSizes(size: SizesProps) {
+  const { size: sizeProp, width: widthProp, height: heightProp, h, w, ratio } = size;
 
-export function getSizes(Size: SizesProps) {
-  const { size = "16px", height, width, h, w, ratio } = Size;
-  const sizeMap = getInitialSizes(size);
-  const initialSize = (sz: string) => (Object.values(InitialSize) as string[]).includes(sz);
-  const sz = (sz: Sizes) => (initialSize(sz as string) ? sizeMap : sz);
-  const sizer = (rt: number | undefined) => (initialSize(size as string) ? applyRatio(sizeMap, rt) : applyRatio(size, rt));
+  function sizer(ratio: number | undefined) {
+    if (typeof sizeProp === "string" && InitialSizeSvg.includes(sizeProp as InitialSizeSvg)) {
+      return applyRatio(getInitialSizes(sizeProp), ratio);
+    }
+    return applyRatio(sizeProp, ratio);
+  }
 
-  return { sz, h: height || h || sz(sizer(ratio?.h)), w: width || w || sz(sizer(ratio?.w)) };
+  return { width: widthProp || w || sizer(ratio?.w), height: heightProp || h || sizer(ratio?.h) };
 }
 
 export function svgProps(detail: DetailedSvgProps) {
-  const { xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", "aria-hidden": ariaHidden = "true", currentFill = "stroke", w, h, size, width, height, fill, stroke, strokeWidth, strokeLinecap, strokeLinejoin, ratio, color, style, ...props } = detail;
+  const { size = "1rem", width: widthProp, height: heightProp, w, h, xmlns = "http://www.w3.org/2000/svg", viewBox = "0 0 24 24", "aria-hidden": ariaHidden = "true", currentFill = "stroke", fill, stroke, strokeWidth, strokeLinecap, strokeLinejoin, ratio, color, style, ...props } = detail;
 
-  const sz = getSizes({ size, h, w, height, width, ratio });
+  const { width, height } = getSizes({ size, width: widthProp, height: heightProp, h, w, ratio });
 
   // Determine strokeIsColor and strokeIsWidth
   const strokeIsColor = typeof stroke === "string" && isColor(stroke) ? stroke : undefined;
@@ -134,9 +129,10 @@ export function svgProps(detail: DetailedSvgProps) {
     strokeLinejoin,
     viewBox,
     xmlns,
-    height: !isValidSize(size) ? sz.h : undefined,
-    width: !isValidSize(size) ? sz.w : undefined,
-    style: { ...style, height: sz.h, width: sz.w, minHeight: sz.h, minWidth: sz.w },
+    "data-size": size,
+    height: !isValidSize(size) ? height : undefined,
+    width: !isValidSize(size) ? width : undefined,
+    style: { height: height, width: width, minHeight: height, minWidth: width, ...style },
     "aria-hidden": ariaHidden,
     ...props
   } as React.SVGAttributes<SVGSVGElement>;
@@ -174,10 +170,10 @@ export function svgProps(detail: DetailedSvgProps) {
       break;
   }
 
-  return { props: __props, ...sz };
+  return __props;
 }
 
-export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg {...{ ref, ...svgProps(props).props }} />);
+export const Svg = React.forwardRef<React.ElementRef<"svg">, DetailedSvgProps>((props, ref) => <svg ref={ref} {...svgProps(props)} />);
 Svg.displayName = "Svg";
 
 export default Svg;

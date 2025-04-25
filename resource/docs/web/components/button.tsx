@@ -40,7 +40,7 @@ UnstyledButton.displayName = "UnstyledButton";
 
 export const buttonVariants = cvx({
   assign:
-    "inline-flex cursor-pointer appearance-none items-center justify-center rounded-md text-[14px] text-[clamp(0.75rem,0.65rem+0.65vw,0.9rem)] font-medium leading-tight transition-[transform,color,background-color,border-color,text-decoration-color,fill,stroke] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-background active:scale-[.985] disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "inline-flex cursor-pointer appearance-none items-center justify-center rounded-lg text-[14px] text-[clamp(0.75rem,0.65rem+0.65vw,0.9rem)] font-medium leading-tight transition-[transform,color,background-color,border-color,text-decoration-color,fill,stroke] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-background active:scale-[.985] disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   variants: {
     variant: {
       default: "bg-color text-background border-color focus-visible:ring-color/35 [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50 disabled:[--spinner-color:hsl(var(--background))]",

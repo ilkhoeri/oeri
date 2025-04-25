@@ -1,4 +1,4 @@
-import { ComponentsIcon, Components2Icon, WebhookIcon, UtilityIcon, CommandIcon, IconsIcon, BrandDiscordFillIcon, BrandGithubFillIcon, HeartIcon, AppsIcon } from "@/icons/*";
+import * as Icon from "@/icons/*";
 
 export type InnerRoutes = { title: string; href: string };
 export type SingleRoute = { title: string; href?: string; data: InnerRoutes[] };
@@ -23,19 +23,19 @@ export const appRoutes = {
     {
       label: "Github Repository",
       href: "https://github.com/ilkhoeri/oeri",
-      icon: BrandGithubFillIcon,
+      icon: Icon.BrandGithubFillIcon,
       color: "#6e5494"
     },
     {
       label: "Discord Community",
       href: "https://discord.gg/Xct5BBPDZ9",
-      icon: BrandDiscordFillIcon,
+      icon: Icon.BrandDiscordFillIcon,
       color: "#436ab2"
     },
     {
       label: "Open Collective",
       href: "https://opencollective.com/oeri",
-      icon: HeartIcon,
+      icon: Icon.HeartIcon,
       color: "#b11c66"
     }
   ],
@@ -45,37 +45,32 @@ export const appRoutes = {
       {
         title: "Getting Started",
         href: "/docs",
-        icon: CommandIcon
+        icon: Icon.CommandIcon
       },
       {
         title: "Configurations",
         href: "/docs/configurations",
-        icon: AppsIcon
+        icon: Icon.TuningIcon
       },
       {
         title: "Utility",
         href: "/docs/utility",
-        icon: UtilityIcon
+        icon: Icon.FireSquareIcon
       },
       {
         title: "Components",
         href: "/docs/components",
-        icon: ComponentsIcon
+        icon: Icon.CodeSquareIcon
       },
       {
         title: "Hooks",
         href: "/docs/hooks",
-        icon: WebhookIcon
-      },
-      {
-        title: "Icons",
-        href: "/icons",
-        icon: IconsIcon
+        icon: Icon.SafeSquareIcon
       },
       {
         title: "Examples",
         href: "/examples",
-        icon: Components2Icon
+        icon: Icon.ShareSquareIcon
       }
     ]
   },
@@ -97,16 +92,16 @@ export const appRoutes = {
       href: "/docs/web/configurations"
     },
     {
-      title: "Icons",
-      href: "/icons"
-    },
-    {
       title: "Examples",
       href: "/examples"
     },
     {
-      title: "Contributors",
-      href: "/contributors"
+      title: "Github",
+      href: "https://github.com/ilkhoeri/oeri/"
+    },
+    {
+      title: "Contributing",
+      href: "https://github.com/ilkhoeri/oeri/blob/master/CONTRIBUTING.md"
     }
   ]
 };

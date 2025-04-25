@@ -14,7 +14,7 @@ const classes = cvx({
     selector: {
       overlay: "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=closed]:fade-out-0",
       content:
-        "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-90 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[50%] data-[state=closed]:slide-out-to-top-[50%] rounded-lg overflow-hidden p-0 md:w-[520px] md:h-[360px] flex flex-col",
+        "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-90 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[50%] data-[state=closed]:slide-out-to-top-[50%] rounded-2xl overflow-hidden p-0 md:w-[520px] md:h-[60svh] 2xl:w-[40svw] flex flex-col",
       searchWrap: "flex flex-row items-center border-b px-3 gap-2 [&_svg]:shrink-0 [&_svg]:pointer-events-none",
       search: "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
       searchLabel: "",
@@ -471,16 +471,13 @@ CommandSearch.displayName = "Command/CommandSearch";
 const LeftSection = React.forwardRef<HTMLLabelElement, React.ComponentProps<"label"> & { leftSection: React.ReactNode }>((_props, ref) => {
   const { leftSection, ...props } = _props;
   return (
-    leftSection ?? (
-      <Edge {...{ el: "label", ref, selector: "searchLabel", ...props }}>
-        <svg fill="currentColor" stroke="none" strokeWidth="0" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="size-4 opacity-50">
-          <path
-            data-command="search"
-            d="M41.95,39.34l-6.81-6.81c2.28-2.85,3.65-6.45,3.65-10.38,0-9.18-7.47-16.65-16.65-16.65S5.5,12.97,5.5,22.15s7.47,16.65,16.65,16.65c3.92,0,7.53-1.37,10.38-3.65l6.81,6.81c.36,.36,.83,.54,1.31,.54s.95-.18,1.31-.54c.72-.72,.72-1.89,0-2.62ZM9.2,22.15c0-7.14,5.81-12.95,12.95-12.95s12.95,5.81,12.95,12.95c0,3.55-1.44,6.78-3.77,9.12-.01,0-.02,.01-.03,.02s-.01,.02-.02,.03c-2.34,2.33-5.57,3.77-9.12,3.77-7.14,0-12.95-5.81-12.95-12.95Z"
-          />
+    <Edge {...{ el: "label", ref, selector: "searchLabel", ...props }}>
+      {leftSection ?? (
+        <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="size-4">
+          <path data-command="search" d="m14 14l2.5 2.5m-.067 2.025a1.48 1.48 0 1 1 2.092-2.092l3.042 3.042a1.48 1.48 0 1 1-2.092 2.092zM16 9A7 7 0 1 0 2 9a7 7 0 0 0 14 0" />
         </svg>
-      </Edge>
-    )
+      )}
+    </Edge>
   );
 });
 LeftSection.displayName = "Command/CommandAction/LeftSection";
@@ -493,14 +490,26 @@ const RightSection = React.forwardRef<HTMLButtonElement, React.ComponentProps<"b
     ctx.onClose();
   }
   return (
-    rightSection ?? (
-      <Edge {...{ el: "button", ref, selector: "closeCommand", type, tabIndex, onClick: handleClick, ...props }}>
-        <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6l-12 12" />
-          <path d="M6 6l12 12" />
+    <Edge {...{ el: "button", ref, selector: "closeCommand", type, tabIndex, onClick: handleClick, ...props }}>
+      {rightSection ?? (
+        <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg" className="size-4">
+          <mask id="mask">
+            <g stroke="#fff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 5l-14 14" strokeDasharray="24" strokeDashoffset="24">
+                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" />
+              </path>
+              <path strokeWidth="4" stroke="#000" d="M2 5l14 14" strokeDasharray="24" strokeDashoffset="24">
+                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" begin="0.4s" />
+              </path>
+              <path d="M2 5l14 14" strokeDasharray="24" strokeDashoffset="24">
+                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" begin="0.4s" />
+              </path>
+            </g>
+          </mask>
+          <path fill="currentColor" mask="url(#mask)" d="M0 0h18v24H0z" />
         </svg>
-      </Edge>
-    )
+      )}
+    </Edge>
   );
 });
 RightSection.displayName = "Command/CommandAction/RightSection";

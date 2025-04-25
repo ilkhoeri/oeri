@@ -62,7 +62,7 @@ export function Headnav({ routes = metaDocsRoute }: { routes?: (MetaDocsRoute | 
           <CommandDialog routes={routes} />
           <div className="grid grid-flow-col gap-0.5">
             <LinksSection />
-            <Button size="icon" variant="outline" onClick={toggleDirection} className="bg-color text-background transition-colors max-md:hidden [&_svg]:transition-colors">
+            <Button size="icon" variant="outline" onClick={toggleDirection} className="border-background bg-color text-background transition-colors max-md:hidden [&_svg]:transition-colors">
               <TextDirectionIcon dir={dir} size={20} stroke={2} />
             </Button>
           </div>
