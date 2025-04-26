@@ -41,6 +41,7 @@ interface StateSharedOptions {
   align?: `${DataAlign}`;
   side?: `${DataSide}`;
   sideOffset?: number;
+  alignOffset?: number;
   multipleOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: SetStateAction<boolean>) => void;
@@ -92,12 +93,13 @@ interface GetInsetProps {
   align: "start" | "center" | "end";
   side: "top" | "right" | "bottom" | "left";
   sideOffset: number;
+  alignOffset: number;
   triggerRect: RectElement;
   contentRect: RectElement;
 }
 
 export function getInset(_props: GetInsetProps): readonly [number, number] {
-  const { align, side, contentRect, sideOffset, triggerRect } = _props;
+  const { align, side, contentRect, sideOffset, alignOffset, triggerRect } = _props;
   let top: number = 0;
   let left: number = 0;
 
@@ -117,19 +119,19 @@ export function getInset(_props: GetInsetProps): readonly [number, number] {
   switch (side) {
     case "top":
       top = triggerRect.top - contentRect.height - sideOffset;
-      left = calcAlign(triggerRect.left, triggerRect.width, contentRect.width);
+      left = calcAlign(triggerRect.left + alignOffset, triggerRect.width, contentRect.width);
       break;
     case "right":
-      top = calcAlign(triggerRect.top, triggerRect.height, contentRect.height);
+      top = calcAlign(triggerRect.top + alignOffset, triggerRect.height, contentRect.height);
       left = triggerRect.right + sideOffset;
       break;
     case "bottom":
       top = triggerRect.bottom + sideOffset;
-      left = calcAlign(triggerRect.left, triggerRect.width, contentRect.width);
+      left = calcAlign(triggerRect.left + alignOffset, triggerRect.width, contentRect.width);
       break;
     case "left":
       top = calcAlign(triggerRect.top, triggerRect.height, contentRect.height);
-      left = triggerRect.left - contentRect.width - sideOffset;
+      left = triggerRect.left + alignOffset - contentRect.width - sideOffset;
       break;
   }
 
@@ -183,16 +185,17 @@ export interface UseUpdatedPositions {
   align: `${DataAlign}`;
   side: `${DataSide}`;
   sideOffset: number;
+  alignOffset: number;
 }
 export function useUpdatedPositions(required: UseUpdatedPositions) {
-  const { triggerRect, contentRect, align, side, sideOffset } = required;
+  const { triggerRect, contentRect, align, side, sideOffset, alignOffset } = required;
 
   const [newSide, setNewSide] = useState(side);
   const [newAlign, setNewAlign] = useState(align);
 
   const updatedPosition = useCallback(() => {
     const dataAlign: `${DataAlign}`[] = ["start", "center", "end"];
-    const [top, left] = getInset({ align, side, sideOffset, triggerRect, contentRect });
+    const [top, left] = getInset({ align, side, sideOffset, alignOffset, triggerRect, contentRect });
 
     if (triggerRect && contentRect) {
       const rect = { top, left, bottom: top + contentRect.height, right: left + contentRect.width, width: contentRect.width, height: contentRect.height };
@@ -216,7 +219,7 @@ export function useUpdatedPositions(required: UseUpdatedPositions) {
         setNewAlign(align);
       }
     }
-  }, [align, side, sideOffset, triggerRect, contentRect]);
+  }, [align, side, sideOffset, alignOffset, triggerRect, contentRect]);
 
   useLayoutEffect(() => {
     updatedPosition();
@@ -263,6 +266,7 @@ export function useOpenState(options: OpenStateOptions = {}) {
     side = "bottom",
     align = "center",
     sideOffset = 0,
+    alignOffset = 0,
     popstate = false,
     modal = false,
     defaultOpen = false,
@@ -294,7 +298,8 @@ export function useOpenState(options: OpenStateOptions = {}) {
     contentRect: contentBounding.rect,
     align,
     side,
-    sideOffset
+    sideOffset,
+    alignOffset
   });
 
   const toggle = useCallback(() => {
@@ -399,6 +404,7 @@ export function useOpenState(options: OpenStateOptions = {}) {
 
   const { vars } = getVarsPositions({
     sideOffset,
+    alignOffset,
     align: dataAlign,
     side: dataSide,
     triggerRect: triggerBounding.rect,
@@ -416,7 +422,8 @@ export function useOpenState(options: OpenStateOptions = {}) {
   function styleVars(selector: `${Selector}`) {
     return setValues(selector === "content", {
       ...setValues(observe?.sideswipe, {
-        "--offset": `${sideOffset}px`,
+        "--side-offset": `${sideOffset}px`,
+        "--align-offset": `${alignOffset}px`,
         ...vars.triggerInset
       }),
       ...setValues(observe?.measureSize, {

@@ -188,7 +188,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     & a.anchor_id {
       @apply font-geist-sans [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
       &:has(img + svg) {
-        @apply [&>svg]:hidden;
+        @apply flex-row-reverse [&>img]:-ml-4 [&>svg]:hidden;
       }
     }
     & + hr {
@@ -285,7 +285,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   }
 
   & [data-table="scroll-area"] {
-    @apply relative border border-border rounded-lg w-full min-w-full max-w-full overflow-x-auto scrollbar;
+    @apply relative border border-border rounded-2xl w-full min-w-full max-w-full overflow-x-auto scrollbar;
     & > table code {
       @apply [unicode-bidi:embed] inline-flex items-center justify-center shrink-0 font-geist-mono font-normal align-text-top whitespace-nowrap select-none relative top-[-.1em] box-border border-[.03125rem] [word-spacing:-.1em] tracking-normal h-fit text-color bg-primitive [transition:box-shadow_.12s,background-color_.12s] [box-shadow:--shadow-kbd] text-[.625rem] py-[.0625rem] px-[.25rem] rounded;
     }

@@ -793,3 +793,38 @@ export function CircleDotIcon(props: SvgProps) {
     </Svg>
   );
 }
+export function HasCopyIcon({ has, ...props }: SvgProps<{ has?: boolean }>) {
+  return has ? <CheckIcon animation className="animate-fade-in fade-in-0 zoom-in-0 [animation-duration:150ms]" {...props} /> : <CopyIcon {...props} />;
+}
+const textMap = {
+  png: ["M4.75 15.25V12.25M4.75 12.25V8.75H6.25C6.80228 8.75 7.25 9.19772 7.25 9.75V11.25C7.25 11.8023 6.80228 12.25 6.25 12.25H4.75Z", "M9.75 15.25V8.75L13.25 15.25V8.75", "M19.25 8.75H17.75C16.6454 8.75 15.75 9.64543 15.75 10.75V13.25C15.75 14.3546 16.6454 15.25 17.75 15.25H19.25V12.25H17.75"],
+  svg: [
+    "M7.25 8.75H6.5C5.5335 8.75 4.75 9.5335 4.75 10.5V11C4.75 11.6904 5.30964 12.25 6 12.25V12.25C6.69036 12.25 7.25 12.8096 7.25 13.5V13.75C7.25 14.5784 6.57843 15.25 5.75 15.25H4.75",
+    "M18 12.75H18.25C18.8023 12.75 19.25 13.1977 19.25 13.75V14.25C19.25 14.8023 18.8023 15.25 18.25 15.25H16.75C16.1977 15.25 15.75 14.8023 15.75 14.25V11.25V9.75C15.75 9.19772 16.1977 8.75 16.75 8.75H18.25C18.8023 8.75 19.25 9.19772 19.25 9.75V10.25",
+    "M9.75 8.75L11.5 15.25L13.25 8.75"
+  ]
+} as const;
+export function TextIcon({ icon, ...props }: SvgProps<{ icon: keyof typeof textMap }>) {
+  return (
+    <Svg {...props} stroke={1.5}>
+      {textMap[icon].map((i, _i) => (
+        <path key={_i} d={i} />
+      ))}
+    </Svg>
+  );
+}
+export function CircleArrowIcon(props: SvgProps) {
+  return (
+    <Svg {...props}>
+      <path strokeDasharray="36" strokeDashoffset="36" d="M12 5c-3.87 0 -7 3.13 -7 7c0 3.87 3.13 7 7 7c3.87 0 7 -3.13 7 -7">
+        <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="36;0" />
+      </path>
+      <path strokeDasharray="12" strokeDashoffset="12" d="M13 11l7 -7">
+        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" values="12;0" />
+      </path>
+      <path strokeDasharray="8" strokeDashoffset="8" d="M21 3h-6M21 3v6">
+        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" values="8;0" />
+      </path>
+    </Svg>
+  );
+}

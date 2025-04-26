@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const InitialSizeSvg = ["unset", "xxs", "xxxs", "xs", "base", "sm", "md", "lg", "xl", "xxl", "xxxl"] as const;
+export const InitialSizeSvg = ["unset", "xxs", "xxxs", "xs", "base", "sm", "md", "lg", "xl", "xxl", "xxxl", "full"] as const;
 
 export type InitialSizeSvg = (typeof InitialSizeSvg)[number];
 
@@ -69,7 +69,8 @@ export function getInitialSizes<T>(size: T): string | T | undefined {
     lg: "32px",
     xl: "48px",
     xxl: "86px",
-    xxxl: "112px"
+    xxxl: "112px",
+    full: "100%"
   };
   if (typeof size === "string" && InitialSizeSvg.includes(size as InitialSizeSvg)) return sizeMap[size as InitialSizeSvg];
   return size;
@@ -86,7 +87,7 @@ const isColor = <T,>(value: T): boolean =>
 
 function isValidSize<T>(size: T): boolean {
   if (typeof size === "string") {
-    if (/^(calc|clamp|var)\(|auto/.test(size)) return true;
+    if (/^(calc|clamp|var)\(|auto|inherit/.test(size)) return true;
     if (InitialSizeSvg.includes(size as InitialSizeSvg)) return true;
   }
   return false;
@@ -129,7 +130,6 @@ export function svgProps(detail: DetailedSvgProps) {
     strokeLinejoin,
     viewBox,
     xmlns,
-    "data-size": size,
     height: !isValidSize(size) ? height : undefined,
     width: !isValidSize(size) ? width : undefined,
     style: { height: height, width: width, minHeight: height, minWidth: width, ...style },

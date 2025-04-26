@@ -51,7 +51,7 @@ export const components = {
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => <td {...props} />,
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn("relative isolate my-8 flex flex-col items-start rounded-xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']", className)}
+      className={cn("relative isolate my-8 flex flex-col items-start rounded-2xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']", className)}
       {...props}
     />
   ),
@@ -91,7 +91,7 @@ export const components = {
   TabsContent: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-semibold", className)} {...props} />,
   FrameworkDocs: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn(className)} {...props} />,
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("font-medium underline underline-offset-4", className)} {...props} />,
-  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("flex w-full flex-col items-center rounded-lg border bg-background p-6 text-color shadow-md transition-colors hover:bg-muted/30 dark:hover:bg-muted/50 sm:p-10", className)} {...props} />,
+  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => <Link className={cn("flex w-full flex-col items-center rounded-2xl border bg-background p-6 text-color shadow-md transition-colors hover:bg-muted/30 dark:hover:bg-muted/50 sm:p-10", className)} {...props} />,
   GridCard: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("mt-5 grid gap-4 sm:grid-cols-2 sm:gap-6", className)} {...props} />,
   ...demoComponentsEntries,
   ...demoHooksEntries

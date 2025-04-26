@@ -62,6 +62,7 @@ interface SheetsContextProps {
   clickOutsideToClose: boolean;
   modal: boolean;
   sideOffset: number;
+  alignOffset: number;
   hotKeys: string;
   popstate: boolean;
   withOverlay: boolean;
@@ -112,6 +113,7 @@ export function SheetsProvider(_props: SheetsProviderProps) {
     hotKeys = "",
     popstate = false,
     sideOffset = 0,
+    alignOffset = 0,
     withOverlay,
     side = "bottom",
     align = "center",
@@ -151,11 +153,13 @@ export function SheetsProvider(_props: SheetsProviderProps) {
     contentRect: contentBounding.rect,
     align,
     side,
-    sideOffset
+    sideOffset,
+    alignOffset
   });
 
   const { vars } = getVarsPositions({
     sideOffset,
+    alignOffset,
     align: newAlign,
     side: newSide,
     triggerRect: triggerBounding.rect,
@@ -293,7 +297,8 @@ export function SheetsProvider(_props: SheetsProviderProps) {
   function styleVars() {
     return {
       ...setValues(isDropdown, {
-        "--offset": `${sideOffset}px`,
+        "--side-offset": `${sideOffset}px`,
+        "--align-offset": `${alignOffset}px`,
         ...vars.triggerInset
       }),
       ...setValues(isMeasureSize, {
@@ -315,6 +320,7 @@ export function SheetsProvider(_props: SheetsProviderProps) {
         hotKeys,
         popstate,
         sideOffset,
+        alignOffset,
         triggerRef,
         contentRef,
         overlayRef,
@@ -474,6 +480,7 @@ export interface SheetsDropdownProps {
   modal?: boolean;
   hotKeys?: string;
   sideOffset?: number;
+  alignOffset?: number;
   popstate?: boolean;
   multipleOpen?: boolean;
 }
@@ -842,7 +849,7 @@ function getStyles(selector: __SheetsSelector, options: Options) {
 const styleDefault = {
   root: "",
   item: "",
-  trigger: "relative rounded-md font-medium group min-w-24 z-[9] bg-color text-background h-9 px-2 text-center",
+  trigger: "group/st",
   content: cvx({
     assign: "fixed z-[111] gap-4 bg-background p-6 shadow-lg transition ease-linear data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:duration-200 data-[state=closed]:duration-200",
     variants: {

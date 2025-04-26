@@ -58,3 +58,6 @@ export { EmptyBoxIcon } from "./icons";
 export { ArrowDownloadIcon } from "./icons";
 export { SlashIcon } from "./icons";
 export { CircleDotIcon } from "./icons";
+export { HasCopyIcon } from "./icons";
+export { TextIcon } from "./icons";
+export { CircleArrowIcon } from "./icons";

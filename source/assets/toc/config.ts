@@ -75,7 +75,9 @@ const getToc = () => (node: Root, file: any) => {
   file.data = { items: Array.isArray(items) ? items : [items] };
 };
 
-export async function getTableOfContents(content: string): Promise<TableOfContents> {
-  const result = await remark().use(getToc).process(content);
+export async function getTableOfContents(raw: string | null | undefined): Promise<TableOfContents> {
+  const result = await remark()
+    .use(getToc)
+    .process(raw ?? "");
   return result.data as TableOfContents;
 }

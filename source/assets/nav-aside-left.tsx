@@ -21,7 +21,7 @@ interface AsideLeftProps {
 }
 export function AsideLeft(_props: AsideLeftProps) {
   const { classNames, routes = [] } = _props;
-  const { minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
+  const { rootSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
   const { dir } = useApp();
 
   // if (rootSegment) return null;
@@ -29,37 +29,41 @@ export function AsideLeft(_props: AsideLeftProps) {
   return (
     <>
       <aside data-controls="routes" data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
-        {query && (
-          <hgroup className={classes({ style: "hgroup" })}>
-            <LinkHome />
-            <ButtonAside
-              {...{
-                open,
-                onOpenChange: setOpen,
-                hidden: minQuery,
-                onClick: toggle,
-                className: "mr-1.5 rtl:mr-0 rtl:ml-1.5"
-              }}
-            />
-          </hgroup>
+        {!rootSegment && (
+          <>
+            {query && (
+              <hgroup className={classes({ style: "hgroup" })}>
+                <LinkHome />
+                <ButtonAside
+                  {...{
+                    open,
+                    onOpenChange: setOpen,
+                    hidden: minQuery,
+                    onClick: toggle,
+                    className: "mr-1.5 rtl:mr-0 rtl:ml-1.5"
+                  }}
+                />
+              </hgroup>
+            )}
+
+            <ScrollArea dir={dir} classNames={{ viewport: classes({ style: "nav" }), thumb: "max-md:sr-only" }}>
+              <NavLinkItem
+                href="/docs"
+                title="Getting Started"
+                className="z-9 flex w-full select-none flex-row flex-nowrap items-center justify-between rounded-sm py-1 text-sm font-medium text-muted-foreground focus-visible:ring-inset focus-visible:ring-offset-[-2px] data-[path=active]:text-constructive"
+                onClick={() => {
+                  if (query) {
+                    setTimeout(() => {
+                      setOpen(false);
+                    }, 500);
+                  }
+                }}
+              />
+
+              <NavRoutes {...{ routes, setOpen, query }} />
+            </ScrollArea>
+          </>
         )}
-
-        <ScrollArea dir={dir} classNames={{ viewport: classes({ style: "nav" }), thumb: "max-md:sr-only" }}>
-          <NavLinkItem
-            href="/docs"
-            title="Getting Started"
-            className="z-9 flex w-full select-none flex-row flex-nowrap items-center justify-between rounded-sm py-1 text-sm font-medium text-muted-foreground focus-visible:ring-inset focus-visible:ring-offset-[-2px] data-[path=active]:text-constructive"
-            onClick={() => {
-              if (query) {
-                setTimeout(() => {
-                  setOpen(false);
-                }, 500);
-              }
-            }}
-          />
-
-          <NavRoutes {...{ routes, setOpen, query }} />
-        </ScrollArea>
       </aside>
 
       <Overlay open={!minQuery && open} setOpen={setOpen} className={classNames?.overlay} />

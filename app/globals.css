@@ -1248,7 +1248,7 @@
       & a.anchor_id {
         @apply font-geist-sans [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-blue-500;
         &:has(img + svg) {
-          @apply [&>svg]:hidden;
+          @apply flex-row-reverse [&>img]:-ml-4 [&>svg]:hidden;
         }
       }
       & + hr {

@@ -107,9 +107,7 @@ declare global {
       : never;
 
   /** Merges intersected types into a single flat object type. @merges `{a} & {b}` to `{a, b}` */
-  type Merge<T> = {
-    [K in keyof T]: T[K];
-  };
+  type Merge<T> = { [K in keyof T]: T[K] };
 
   /**
    * Transforms the properties of an object type `T` into nullable types, with fine-grained control over which keys become optional.
@@ -161,8 +159,7 @@ declare global {
   type NonNullables<T> = {
     [K in keyof Required<T>]: NonNullable<T[K]>;
   };
-  //Clarity
-  // type NonNullableConstructor<T, N = never> = T extends object ? { [K in keyof Required<T>]: NonNullable<T[K]> | N } : NonNullable<T> | N;
+  // clarity
   type NonNullableConstructor<T, N = never> = T extends object
     ? T extends Function
       ? NonNullable<T> | N

@@ -137,14 +137,14 @@ export default async function RootLayout({ children }: Readonly<RootLayoutProps>
     <AppProvider {...cookieStore}>
       <html lang="en" dir={cookieStore.dir} suppressHydrationWarning data-themeid-light="default" data-themeid-dark="default" data-theme="default">
         <head>
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <meta name="apple-mobile-web-app-title" content="Portal" />
+          <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
           <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico" />
           <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
           <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png" />
-          <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
-          <link rel="shortcut icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-          <meta name="apple-mobile-web-app-title" content="Portal" />
         </head>
         <body {...bodyConfig()}>
           <ThemeProvider>

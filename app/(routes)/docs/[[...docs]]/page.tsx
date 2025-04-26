@@ -1,9 +1,9 @@
 import { Typography } from "@/ui/typography";
 import { allDocs } from "contentlayer/generated";
-import { Polymorphic } from "@/ui/polymorphic-slot";
 import { configMetadata, siteConfig } from "@/app/site/config";
 import { pathParams } from "@/resource/docs_demo/assets/mdx/utils";
 import { MDXComponent } from "@/resource/docs_demo/assets/mdx/mdx-context";
+import { ArticleContent } from "@/source/assets/toc/context";
 
 import type { Metadata, ResolvingMetadata } from "next";
 
@@ -37,10 +37,9 @@ export default async function Page({ params }: DocsParams) {
   if (!doc) return null;
 
   return (
-    <Polymorphic el="article" className="relative mx-auto w-full md:max-lg:pr-6">
+    <ArticleContent>
       <Typography prose="h1">{doc?.title}</Typography>
-      {/* <Typography prose="p">{doc?.description}</Typography> */}
       <MDXComponent code={doc?.body?.code} />
-    </Polymorphic>
+    </ArticleContent>
   );
 }

@@ -1,15 +1,14 @@
-import { Fragment } from "react";
 import { RestDocs } from "./client";
 import { notFound } from "next/navigation";
-import { Comp } from "@/source/assets/components";
 import { NavBottom } from "@/source/assets/nav-prev-next";
 import { getDocFromParams } from "@/app/site/docs-params";
 import { resRoutes } from "@/source/generated/gen-routes";
 import { TableOfContents } from "@/source/assets/toc/toc";
-import { getTableOfContents } from "@/source/assets/toc/config";
 import { NavigationBreadcrumb } from "@/source/assets/nav-breadcrumb";
 import { MDXComponent } from "@/resource/docs_demo/assets/mdx/mdx-context";
 import { MetaDocsRoute, metaDocsRoute, NestedMetaDocsRoute } from "@/routes";
+import { TableOfContentsProvider } from "@/source/assets/toc/context";
+import { getTableOfContents } from "@/source/assets/toc/config";
 
 interface DocsParams {
   children: React.ReactNode;
@@ -19,18 +18,18 @@ interface DocsParams {
 export default async function Layout({ children, params }: DocsParams) {
   const slug = (await params).docs;
   const doc = getDocFromParams(slug);
-  const toc = await getTableOfContents(doc?.body?.raw || "");
+  const toc = await getTableOfContents(doc?.body?.raw);
 
   function template(content: React.ReactNode) {
     return (
-      <Fragment>
-        <Comp el="section" className="min-[1334px]:px-[1.5px]">
+      <TableOfContentsProvider>
+        <section className="relative flex w-full max-w-full flex-col overflow-x-hidden pt-9 max-md:px-6 min-[1334px]:px-[1.5px]">
           <NavigationBreadcrumb />
           {content}
           <NavBottom routes={metaDocsRoute} />
-        </Comp>
-        <TableOfContents toc={toc} sub={5} />;
-      </Fragment>
+        </section>
+        <TableOfContents toc={toc} sub={5} />
+      </TableOfContentsProvider>
     );
   }
 

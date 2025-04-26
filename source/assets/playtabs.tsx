@@ -37,8 +37,8 @@ type RecordNested<U extends string, T extends string, P = Record<string, unknown
 const classes = cvx({
   variants: {
     card: {
-      default: "mt-4 overflow-hidden relative rounded-lg border shadow-sm min-h-[62px] bg-background",
-      resize: "mt-4 overflow-hidden relative rounded-lg border shadow-sm bg-primitive transition-all"
+      default: "mt-4 overflow-hidden relative rounded-2xl border shadow-sm min-h-[62px] bg-background",
+      resize: "mt-4 overflow-hidden relative rounded-2xl border shadow-sm bg-primitive transition-all"
     },
     statecard: {
       expand: "h-[20rem] max-h-[20rem] text-muted-foreground before:content-[''] before:absolute before:bottom-0 before:inset-x-0 before:w-full before:h-[calc(100%-48px)] before:bg-gradient-to-t before:from-primitive/85 before:z-4",
