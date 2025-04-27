@@ -89,9 +89,7 @@ Extracts the keys from type `T` that match the parsed key format and are either 
 ### ParsedKeyUnion
 
 ```ts
-type ParsedKeyUnion<K extends string> = {
-  [P in K]: SplitKey<P>["key"];
-}[K];
+type ParsedKeyUnion<K extends string> = { [P in K]: SplitKey<P>["key"] }[K];
 ```
 
 Maps a union of keys with optional `.required` suffixes to their base key strings.
@@ -191,9 +189,7 @@ Computes dot-separated paths to all nested properties within object `T`, up to a
 ### Merge
 
 ```ts
-type Merge<T> = {
-  [K in keyof T]: T[K];
-};
+type Merge<T> = { [K in keyof T]: T[K] };
 ```
 
 Creates a new type by shallow-merging all properties of `T`. Useful for resolving type intersections.

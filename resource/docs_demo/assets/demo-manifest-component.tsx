@@ -194,6 +194,7 @@ export const demoComponentsEntries = {
   IndicatorDemosConfigurator: () => <DemoSlot data={IndicatorDemos.configurator} />,
   InputDemosUsage: () => <DemoSlot data={InputDemos.usage} />,
   InputDemosConfigurator: () => <DemoSlot data={InputDemos.configurator} />,
+  InputDemosPassword: () => <DemoSlot data={InputDemos.password} />,
   KbdDemosUsage: () => <DemoSlot data={KbdDemos.usage} />,
   KbdDemosConfigurator: () => <DemoSlot data={KbdDemos.configurator} />,
   LabelDemosUsage: () => <DemoSlot data={LabelDemos.usage} />,

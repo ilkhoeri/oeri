@@ -15,6 +15,10 @@ links:
 
 <InputDemosConfigurator />
 
+### Input.Password
+
+<InputDemosPassword />
+
 ## indeterminate
 
 - The indeterminate function is usually used on checkbox elements to indicate a state that is not fully selected.
@@ -50,10 +54,24 @@ type Size = (number | (string & {})) | { h?: React.CSSProperties["height"]; w?: 
 
 ### Props API
 
+#### Input
+
 | Props API        | Type                     | Default     | Annotation                                                                                                                    |
 | ---------------- | ------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | type`?`          | `HTMLInputTypeAttribute` | `text`      | Handle style changes and onChange based on input type                                                                         |
 | indeterminate`?` | `boolean`                | `undefined` | Allows the checkbox to have a neutral state (neither checked nor unchecked). Useful if you want to use it on a checkbox type. |
+
+#### InputPassword
+
+```ts
+type InputPasswordTrees = "input" | "wrapper" | "toggle";
+```
+
+| Props API       | Type                                      | Default                | Annotation                                                                                                    |
+| --------------- | ----------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| defaultOpen`?`  | `boolean`                                 | `false`                | The open state of the view when it is initially rendered. Use when you do not need to control its open state. |
+| open`?`         | `boolean`                                 | by `defaultOpen` value | The controlled open state of the view inputs. Must be used in conjunction with onOpenChange.                  |
+| onOpenChange`?` | `(open: SetStateAction<boolean>) => void` | ---                    | Event handler called when the open state of the view inputs moments changes.                                  |
 
 ---
 
