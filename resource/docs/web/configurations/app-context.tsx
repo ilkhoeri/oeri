@@ -1,16 +1,16 @@
 // required global.d.ts
 "use client";
 import * as React from "react";
-import { Cookies, Theme } from "./types";
+import { Cookies, Theme, UserAgent } from "./types";
 import { useDirection } from "@/hooks/use-direction";
 
 export type CookiesName = `${Cookies}` | (string & {});
 
-// cookies value
 type DirectedAppValue = {
   dir: Direction;
   theme: Theme;
   isOpenAside: boolean;
+  userAgent: UserAgent;
   // locale
   // mssg: Record<string, MessageFormatElement[]> | Record<string, string>;
   // lang: string;

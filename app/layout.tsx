@@ -1,5 +1,6 @@
 import { bodyConfig } from "./fonts";
-import { cookies } from "next/headers";
+import { userAgent } from "next/server";
+import { headers, cookies } from "next/headers";
 import { Cookies, Theme } from "@/config/types";
 import { ScrollToggle } from "@/source/assets/toggle";
 import { FootNav } from "@/source/assets/nav-foot";
@@ -131,10 +132,11 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: Readonly<RootLayoutProps>) {
-  const cookieStore = await cookiesValues();
+  const [headersList, cookieStore] = await Promise.all([headers(), cookiesValues()]);
+  const ua = userAgent({ headers: headersList });
 
   return (
-    <AppProvider {...cookieStore}>
+    <AppProvider userAgent={ua} {...cookieStore}>
       <html lang="en" dir={cookieStore.dir} suppressHydrationWarning data-themeid-light="default" data-themeid-dark="default" data-theme="default">
         <head>
           <link rel="shortcut icon" href="/favicon.ico" />

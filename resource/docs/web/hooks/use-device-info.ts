@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { getOS } from "./use-os";
+import { getOSAuto } from "./use-os";
 
 export interface DeviceInfo {
   os: string;
@@ -45,12 +45,22 @@ export function useDeviceInfo(): DeviceInfo {
         console.error("Error fetching public IP:", err);
       }
     }
+    async function fetchOs() {
+      try {
+        const model = await getOSAuto(navigator.userAgent);
+        setInfo(prev => ({
+          ...prev,
+          os: model.device.name
+        }));
+      } catch (err) {
+        console.error("Error fetching OS:", err);
+      }
+    }
 
     const updates = (event?: Event) => {
       const target = event?.currentTarget as ScreenOrientation;
       setInfo(prev => ({
         ...prev,
-        os: getOS(navigator.userAgent).name,
         userAgent: navigator.userAgent,
         language: navigator.language,
         screenWidth: window.screen.width,
@@ -64,6 +74,7 @@ export function useDeviceInfo(): DeviceInfo {
     };
 
     fetchPublicIp();
+    fetchOs();
     updates();
 
     window.addEventListener("resize", updates);

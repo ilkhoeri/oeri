@@ -27,7 +27,8 @@ links:
 ### Example
 
 ```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
-import { cookies } from "next/headers";
+import { userAgent } from "next/server";
+import { headers, cookies } from "next/headers";
 import { AppProvider } from "@/config/app-context";
 import { ThemeProvider } from "@/config/themes";
 import { Cookies, Theme } from "@/config/types";
@@ -42,10 +43,11 @@ async function cookiesValues() {
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const cookieStore = await cookiesValues();
+  const [headersList, cookieStore] = await Promise.all([headers(), cookiesValues()]);
+  const ua = userAgent({ headers: headersList });
 
   return (
-    <AppProvider {...cookieStore}>
+    <AppProvider userAgent={ua} {...cookieStore}>
       <html lang="en" dir={cookieStore.dir} suppressHydrationWarning>
         <body>
           <ThemeProvider>{children}</ThemeProvider>
