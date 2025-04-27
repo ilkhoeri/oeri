@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { getOS, type OS } from "./use-os";
+import { getOS } from "./use-os";
 
 export interface DeviceInfo {
-  os: OS;
+  os: string;
   userAgent: string;
   language: string;
   orientation: string;
@@ -50,7 +50,7 @@ export function useDeviceInfo(): DeviceInfo {
       const target = event?.currentTarget as ScreenOrientation;
       setInfo(prev => ({
         ...prev,
-        os: getOS(),
+        os: getOS(navigator.userAgent).name,
         userAgent: navigator.userAgent,
         language: navigator.language,
         screenWidth: window.screen.width,
