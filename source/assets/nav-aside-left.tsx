@@ -21,15 +21,13 @@ interface AsideLeftProps {
 }
 export function AsideLeft(_props: AsideLeftProps) {
   const { classNames, routes = [] } = _props;
-  const { rootSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
+  const { isSegment, minQuery, maxQuery: query, open, setOpen, toggle } = useNavContext();
   const { dir } = useApp();
-
-  // if (rootSegment) return null;
 
   return (
     <>
       <aside data-controls="routes" data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
-        {!rootSegment && (
+        {isSegment && (
           <>
             {query && (
               <hgroup className={classes({ style: "hgroup" })}>

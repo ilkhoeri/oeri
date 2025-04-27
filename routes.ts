@@ -49,7 +49,7 @@ export function generatedMetaDocsRouteXX(data: FileDocMeta[], order: readonly st
   return result;
 }
 
-function generatedMetaDocsRoute(data: FileDocMeta[], order: readonly string[]): MetaDocsRoute[] {
+export function generatedMetaDocsRoute(data: FileDocMeta[], order: readonly string[]): MetaDocsRoute[] {
   // Pre-allocate array with known order length
   const result = new Array<MetaDocsRoute>(order.length);
   const groupMap: { [group: string]: FileDocMeta[] } = Object.create(null);
@@ -75,6 +75,13 @@ function generatedMetaDocsRoute(data: FileDocMeta[], order: readonly string[]): 
 const customOrder = ["utility", "configurations", "components", "hooks"] as const;
 
 export const metaDocsRoute = generatedMetaDocsRoute(fileDocsMeta, customOrder);
+
+export const restRoutes = {
+  utility: generatedMetaDocsRoute(fileDocsMeta, ["utility"]),
+  configurations: generatedMetaDocsRoute(fileDocsMeta, ["configurations"]),
+  components: generatedMetaDocsRoute(fileDocsMeta, ["components"]),
+  hooks: generatedMetaDocsRoute(fileDocsMeta, ["hooks"])
+};
 
 /*
 import { benchmark } from "./source/test-benchmark";

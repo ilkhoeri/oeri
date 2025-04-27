@@ -3,7 +3,7 @@ import { cnx, cvx, merge, type cvxProps, type cnxValues } from "cretex";
 export const compoundStyle = cvx({
   variants: {
     cards: {
-      box: "flex w-full flex-col items-center rounded-xl border bg-background p-6 text-muted-foreground shadow-md transition-colors [@media(hover:hover)]:hover:bg-muted/25 dark:hover:bg-muted/45"
+      box: "flex w-full flex-col items-center rounded-2xl border bg-background p-6 text-muted-foreground shadow-md transition-colors [@media(hover:hover)]:hover:bg-muted/25 dark:hover:bg-muted/45"
     },
     button: {
       default: "transition-colors rounded-lg font-medium text-span bg-color text-background border border-background [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50",

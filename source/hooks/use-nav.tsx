@@ -13,7 +13,7 @@ interface MediaQuery {
 interface NavContextProps extends MediaQuery, ClickOpenOptions, Omit<inferType<typeof useOpenState>, keyof ClickOpenOptions> {
   minQuery: boolean | undefined;
   maxQuery: boolean | undefined;
-  rootSegment: boolean | undefined;
+  isSegment: boolean | undefined;
   pathname: string;
 }
 
@@ -30,8 +30,9 @@ export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = t
 
   const minQuery = useMediaQuery(`(min-width: ${mediaQuery}px)`);
   const maxQuery = useMediaQuery(`(max-width: ${mediaQuery - 1}px)`);
-
-  const rootSegment = pathname === "/" && minQuery;
+  const isHomePage = pathname === "/";
+  const isExamplePage = pathname.startsWith("/examples");
+  const notSegment = (isHomePage || isExamplePage) && minQuery;
 
   useEffect(() => {
     const body = document.body;
@@ -53,7 +54,7 @@ export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = t
     mediaQuery,
     minQuery,
     maxQuery,
-    rootSegment,
+    isSegment: !notSegment,
     pathname,
     ...state
   };

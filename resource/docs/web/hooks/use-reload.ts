@@ -1,17 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useReload() {
-  const [reload, setReload] = useState(false);
+  const [loading, onLoading] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      setReload(true);
-    };
-
-    const handleLoad = () => {
-      setReload(false);
-    };
+    const handleBeforeUnload = () => onLoading(true);
+    const handleLoad = () => onLoading(false);
 
     window.addEventListener("beforeunload", handleBeforeUnload);
     window.addEventListener("load", handleLoad);
@@ -22,10 +18,14 @@ export function useReload() {
     };
   }, []);
 
-  const onReload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    window.location.reload();
-    e.preventDefault();
-  };
+  const onReload = useCallback(() => {
+    setKey(prev => prev + 1);
+  }, []);
 
-  return { reload, onReload };
+  const onReloadWindow = useCallback(<T = Element, E = MouseEvent>(e?: React.MouseEvent<T, E>) => {
+    window.location.reload();
+    e?.preventDefault();
+  }, []);
+
+  return { loading, onLoading, key, onReload, onReloadWindow };
 }

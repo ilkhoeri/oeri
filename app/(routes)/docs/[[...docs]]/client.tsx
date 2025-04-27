@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { cvx, cn } from "cretex";
 import { Title } from "@/source/assets/components";
-import { getDisplayName } from "@/source/utils";
 import { transform, sanitizedWord } from "@/utility/text-parser";
 
-import type { SingleRoute, NestedRoute } from "@/source/routes";
+import { FolderFilesIcon } from "@/icons/*";
+import type { FileDocMeta, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";
 
 import globalStyle from "@/source/styles/styles";
 
@@ -26,43 +26,43 @@ const classes = cvx({
   }
 });
 
-function isSingleRoute(route: SingleRoute | NestedRoute): route is SingleRoute {
-  return (route as SingleRoute).data[0].href !== undefined;
+function renderCard(route: FileDocMeta[] | null) {
+  if (!route) return null;
+  return route.map((item, index) => (
+    <Link key={index} href={item.path} title={item.meta.summary} className={globalStyle({ cards: "box" })}>
+      <FolderFilesIcon size={32} />
+      <span className="mt-3 font-medium">{item.meta.title}</span>
+      <span className="mt-1.5 line-clamp-2 text-center text-sm font-medium text-muted-foreground">{item.meta.summary}</span>
+    </Link>
+  ));
 }
 
-function renderSingleRoute(routes: SingleRoute[], value: string) {
+function isSingleRoute(route: MetaDocsRoute | NestedMetaDocsRoute): route is MetaDocsRoute {
+  return (route as MetaDocsRoute).data[0].path !== undefined;
+}
+
+function renderSingleRoute(routes: MetaDocsRoute[], value: string) {
   return (
     <div className={classes({ as: "wrapper" })}>
       {routes.map(route => {
-        const filtered = route.data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
-        return filtered.map((item, index) => (
-          <Link key={index} href={item.href} title={item.title} className={globalStyle({ cards: "box" })}>
-            <span className="font-medium">{getDisplayName(item.title)}</span>
-          </Link>
-        ));
+        const filtered = route.data.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+        return renderCard(filtered);
       })}
     </div>
   );
 }
 
-function renderNestedRoute(routes: NestedRoute[], value: string) {
+function renderNestedRoute(routes: NestedMetaDocsRoute[], value: string) {
   return routes.map(route =>
     route.data.map((subRoute, index) => {
-      const filtered = subRoute.data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
+      const filtered = subRoute.data.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
       if (!filtered.length) return null;
       return (
         <div key={index} className="mt-12 w-full min-w-full first-of-type:mt-0">
-          <Title el="h4" id={sanitizedWord(subRoute.title)}>
-            {subRoute.title}
+          <Title el="h4" id={sanitizedWord(subRoute.group)}>
+            {subRoute.group}
           </Title>
-
-          <div className={classes({ as: "wrapper" })}>
-            {filtered.map((item, index) => (
-              <Link key={index} href={item.href} title={item.title} className={globalStyle({ cards: "box" })}>
-                <span className="font-medium">{getDisplayName(item.title)}</span>
-              </Link>
-            ))}
-          </div>
+          <div className={classes({ as: "wrapper" })}>{renderCard(filtered)}</div>
         </div>
       );
     })
@@ -91,7 +91,7 @@ export function FilterDocs(props: FilterDocsProps) {
 
 interface RestDocsProps {
   id: string;
-  routes: (SingleRoute | NestedRoute)[] | null;
+  routes: (MetaDocsRoute | NestedMetaDocsRoute)[] | null;
 }
 export function RestDocs(props: RestDocsProps) {
   const { routes, id } = props;
@@ -102,7 +102,7 @@ export function RestDocs(props: RestDocsProps) {
   return (
     <div className="relative mx-auto flex w-full flex-col items-center justify-start">
       <FilterDocs id={id} value={value} onChange={e => setValue(e.target.value)} />
-      {isSingleRoute(routes[0]) ? renderSingleRoute(routes as SingleRoute[], value) : renderNestedRoute(routes as NestedRoute[], value)}
+      {isSingleRoute(routes[0]) ? renderSingleRoute(routes as MetaDocsRoute[], value) : renderNestedRoute(routes as NestedMetaDocsRoute[], value)}
     </div>
   );
 }

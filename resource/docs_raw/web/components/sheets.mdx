@@ -105,10 +105,11 @@ export default {
 | open`?`                | `boolean`                                | `false`                                  | change the original `open` and `onOpenChange` state with own approach               |
 | onOpenChange`?`        | `(value: boolean) => void`               | `openState`                              | change the original `open` and `onOpenChange` state with own approach               |
 | sideOffset`?`          | `number`                                 | `stroke`                                 | distance between `trigger` and `content`, only available on `"dropdown"` variant    |
+| aligneOffset`?`        | `number`                                 | `stroke`                                 | distance between `trigger` and `content`, only available on `"dropdown"` variant    |
 | clickOutsideToClose`?` | `boolean`                                | `false`                                  | `open=false` when click outside `content`                                           |
 | defaultOpen`?`         | `boolean \| string \| null`              | `false` \| `null`                        | change initial `open=true`, in case `"accordion"` variant is `string \| null`       |
 | openId`?`              | `string \| null`                         | `undefined`                              | used when you want to modify the open state based on `key \| id`                    |
-| setOpenId`?`           | `(value: string \| null) => void`        | `undefined`                              | used when you want to modify the open state based on `key \| id`                    |
+| onOpenChangeId`?`      | `(value: string \| null) => void`        | `undefined`                              | used when you want to modify the open state based on `key \| id`                    |
 | delay`?`               | `open?: number; closed?: number`         | `0`                                      | `on development`                                                                    |
 | multipleOpen`?`        | `boolean`                                | `false`                                  | only available on `"accordion"` variant                                             |
 | hotKeys`?`             | `(string & {})`                          | `""`                                     | only available on `["dialog", "drawer"]` variant                                    |

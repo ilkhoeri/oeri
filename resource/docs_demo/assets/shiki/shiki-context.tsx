@@ -1,12 +1,14 @@
 "use client";
 import * as React from "react";
 import { CodeLanguage } from "./types";
-import type { HighlighterGeneric } from "shiki";
 
 import { classes } from "./shiki-code-highlight-tabs";
-import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
 import { highlightCode } from "../rehype/rehype-customizer";
-import { useIsomorphicEffect } from "@/hooks/use-isomorphic-effect";
+import { useRehype } from "../rehype/use-rehype";
+
+import type { HighlighterGeneric } from "shiki";
+
+import moonlightTheme from "@/resource/docs_demo/assets/rehype/moonlight.json" with { type: "json" };
 
 interface FallbackCode {
   code: string;
@@ -88,40 +90,14 @@ export function ShikiProvider({ children, loadShiki }: ShikiProviderProps) {
   return <Context.Provider value={{ shiki, rehype, RehypeSync: (code, lang) => ({ code, lang, highlighted: true }) }}>{children}</Context.Provider>;
 }
 
-export function useHighlighted(code: string, lang: CodeLanguage): FallbackCode {
-  const [prettyState, setPrettyState] = React.useState(code as string);
-  const [m, sM] = React.useState(false);
-
-  useIsomorphicEffect(() => {
-    sM(true);
-    if (code) {
-      async function setPretty() {
-        const raw = (text: string) => `\`\`\`${lang} showLineNumbers\n${text}\n\`\`\``;
-
-        try {
-          const textPretty = await highlightCode(raw(code));
-          setPrettyState(textPretty);
-          sM(false);
-        } catch (error) {
-          console.error("Text Pretty", error);
-          setPrettyState(code);
-          // alert('⚠️\nInput tidak sesuai');
-        }
-      }
-      setPretty();
-    }
-  }, [code, lang]);
-
-  return { code: !m ? prettyState : "", highlighted: true, lang };
-}
-
 export function useShiki(): HighlightCode {
   const ctx = React.useContext(Context)!;
   // if (!ctx) throw new Error("useShiki must be used within a <TableTileProvider>");
   return {
     ...ctx,
     RehypeSync(code, lang) {
-      return useHighlighted(code, lang);
+      const rehype = useRehype(code, { lang, showLineNumbers: true });
+      return { code: rehype, highlighted: true, lang };
     }
   };
 }

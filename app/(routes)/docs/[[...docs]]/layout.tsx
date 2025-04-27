@@ -2,11 +2,10 @@ import { RestDocs } from "./client";
 import { notFound } from "next/navigation";
 import { NavBottom } from "@/source/assets/nav-prev-next";
 import { getDocFromParams } from "@/app/site/docs-params";
-import { resRoutes } from "@/source/generated/gen-routes";
 import { TableOfContents } from "@/source/assets/toc/toc";
 import { NavigationBreadcrumb } from "@/source/assets/nav-breadcrumb";
 import { MDXComponent } from "@/resource/docs_demo/assets/mdx/mdx-context";
-import { MetaDocsRoute, metaDocsRoute, NestedMetaDocsRoute } from "@/routes";
+import { restRoutes, metaDocsRoute, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";
 import { TableOfContentsProvider } from "@/source/assets/toc/context";
 import { getTableOfContents } from "@/source/assets/toc/config";
 
@@ -36,7 +35,7 @@ export default async function Layout({ children, params }: DocsParams) {
   if (!slug) return template(doc && <MDXComponent code={doc?.body.code} />);
 
   if (slug.length === 2) {
-    const routesMap: { [key: string]: any } = resRoutes;
+    const routesMap: { [key: string]: any } = restRoutes;
     const slugMap = routesMap[slug[1]];
     return template(<RestDocs id={slug[1]} routes={slugMap} />);
   }

@@ -12,6 +12,7 @@ import { useQueryApp } from "@/source/hooks/use-query-app";
 import type { Item, TableOfContents } from "./config";
 import { useIsomorphicEffect } from "@/hooks/use-isomorphic-effect";
 import { useContentReady } from "./context";
+import { Loader } from "@/ui/loader";
 
 export function useMounted() {
   const [mounted, setMounted] = React.useState(false);
@@ -21,18 +22,18 @@ export function useMounted() {
   return mounted;
 }
 
-function extractIds(items?: Item[]): string[] {
+function extractIds(items?: Item[] | null): string[] {
   if (!items) return [];
   const result: string[] = [];
 
   for (const item of items) {
-    if (item.url) {
-      const id = item.url.split("#")[1];
+    if (item?.url) {
+      const id = item?.url?.split("#")[1];
       if (id) result.push(id);
     }
 
-    if (item.items?.length) {
-      result.push(...extractIds(item.items));
+    if (item?.items?.length) {
+      result.push(...extractIds(item?.items));
     }
   }
 
@@ -46,7 +47,9 @@ interface TocProps {
 
 export function TableOfContents({ toc, sub }: TocProps) {
   const pathname = usePathname();
+  const mount = useMounted();
   const { min_lg } = useQueryApp();
+  const { ready } = useContentReady();
 
   const itemIds = React.useMemo(() => extractIds(toc?.items), [toc]);
   const activeItem = useActiveItem(itemIds);
@@ -54,25 +57,34 @@ export function TableOfContents({ toc, sub }: TocProps) {
   const paths = pathname.split("/").slice(2).filter(Boolean);
   const editPageLink = paths.length > 1 ? `https://github.com/ilkhoeri/oeri/edit/master/resource/docs_raw/${sourceFile(paths)}.mdx` : "";
 
+  const isAvailableTOC = min_lg && toc?.items && toc?.items?.length > 1;
+
   return (
     <aside
       data-controls="table-of-contents"
       suppressHydrationWarning
       className="m-0 mt-[calc(var(--navbar)*-1)] h-[--aside-h] max-h-[--aside-h] w-full overflow-hidden bg-background-theme pt-[calc(var(--navbar)+18px)] [--aside-h:100dvh] [--aside-w:calc(var(--aside)-1rem)] max-lg:sr-only max-lg:z-[-111] max-lg:hidden lg:sticky lg:top-0 lg:w-[--aside-w] lg:min-w-[--aside-w] lg:max-w-[--aside-w] lg:pl-8 lg:pr-4 lg:transition-none lg:[--aside-h:calc(100dvh-2rem)] lg:rtl:pl-4 lg:rtl:pr-8"
     >
-      {min_lg && toc?.items?.length && (
+      {!(ready || mount) ? (
         <>
-          <nav className="sticky flex flex-col flex-nowrap items-start justify-start overflow-y-auto overflow-x-hidden pl-3 pt-4 webkit-scrollbar max-lg:pb-24 max-lg:pt-0 lg:pb-20 rtl:pl-0 rtl:pr-3">
-            <hgroup>
-              <h4 role="presentation" className="mb-2 font-medium text-paragraph">
-                On This Page
-              </h4>
-            </hgroup>
-
-            <Tree key={pathname} tree={toc} sub={sub} activeItem={activeItem} />
-          </nav>
+          <Loader size={16} classNames={{ root: "mt-4 mb-8 mx-auto" }} />
           <hr className="mt-5 w-full min-w-[212px]" />
         </>
+      ) : (
+        isAvailableTOC && (
+          <>
+            <nav className="sticky flex flex-col flex-nowrap items-start justify-start overflow-y-auto overflow-x-hidden pl-3 pt-4 webkit-scrollbar max-lg:pb-24 max-lg:pt-0 lg:pb-20 rtl:pl-0 rtl:pr-3">
+              <hgroup>
+                <h4 role="presentation" className="mb-2 font-medium text-paragraph">
+                  On This Page
+                </h4>
+              </hgroup>
+
+              <Tree key={pathname} tree={toc} sub={sub} activeItem={activeItem} />
+            </nav>
+            <hr className="mt-5 w-full min-w-[212px]" />
+          </>
+        )
       )}
 
       <Link href={editPageLink} target="_blank" rel="noopener noreferrer nofollow" className="group mt-5 h-4 justify-start gap-1 pb-1.5 text-muted-foreground">

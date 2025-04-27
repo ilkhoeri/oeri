@@ -112,6 +112,7 @@ export const demoHooksEntries = {
   UsePwaInstallerDemosUsage: () => <DemoSlot data={UsePwaInstallerDemos.usage} />,
   UseRandomColorsDemosUsage: () => <DemoSlot data={UseRandomColorsDemos.usage} />,
   UseReloadDemosUsage: () => <DemoSlot data={UseReloadDemos.usage} />,
+  UseReloadDemosReloadWindow: () => <DemoSlot data={UseReloadDemos.reloadWindow} />,
   UseTriggerDemosUsage: () => <DemoSlot data={UseTriggerDemos.usage} />,
   UseWindowScrollDemosUsage: () => <DemoSlot data={UseWindowScrollDemos.usage} />
 } as const;

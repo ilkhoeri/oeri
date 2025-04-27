@@ -415,7 +415,7 @@ const dropdown: DataTrees = {
     { prop: "side", type: "select", initialValue: "bottom", libraryValue: "bottom", data: ["top", "right", "bottom", "left"] },
     { prop: "align", type: "select", initialValue: "center", libraryValue: null, data: ["center", "start", "end"] },
     { prop: "sideOffset", type: "number", initialValue: 4, libraryValue: null, min: 0, max: 16 },
-    { prop: "alignOffset", type: "number", initialValue: 0, libraryValue: null, min: 0, max: 16 },
+    { prop: "alignOffset", type: "number", initialValue: 0, libraryValue: null, min: -16, max: 16 },
     { prop: "clickOutsideToClose", type: "boolean", initialValue: false, libraryValue: false },
     { prop: "withOverlay", type: "boolean", initialValue: false, libraryValue: false },
     { prop: "modal", type: "boolean", initialValue: false, libraryValue: false }

@@ -1,6 +1,24 @@
 // Generated automatically. Do not edit manually.
 // bun run exported:icons
 
+export { BrandLinuxIcon } from "./brands";
+export { BrandEdgeIcon } from "./brands";
+export { BrandAndroidIcon } from "./brands";
+export { BrandIOSIcon } from "./brands";
+export { BrandAppleIcon } from "./brands";
+export { BrandMacOsIcon } from "./brands";
+export { BrandWindowsIcon } from "./brands";
+export { BrandOperaIcon } from "./brands";
+export { BrandSafariIcon } from "./brands";
+export { BrandFirefoxIcon } from "./brands";
+export { BrandChromeIcon } from "./brands";
+export { BrandSamsungIcon } from "./brands";
+export { BrandXiaomiIcon } from "./brands";
+export { BrandOppoIcon } from "./brands";
+export { BrandHuaweiIcon } from "./brands";
+export { BrandOnePlusIcon } from "./brands";
+export { BrandVivoIcon } from "./brands";
+export { AISearchIcon } from "./brands";
 export { BrandOeriIcon } from "./icons";
 export { BookOpenIcon } from "./icons";
 export { BrandGithubFillIcon } from "./icons";
@@ -61,3 +79,7 @@ export { CircleDotIcon } from "./icons";
 export { HasCopyIcon } from "./icons";
 export { TextIcon } from "./icons";
 export { CircleArrowIcon } from "./icons";
+export { DeviceImacIcon } from "./icons";
+export { DeviceMobileIcon } from "./icons";
+export { DeviceTabletIcon } from "./icons";
+export { WorldIcon } from "./icons";

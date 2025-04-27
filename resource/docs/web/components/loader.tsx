@@ -14,15 +14,15 @@ type classes = {
   [K in keyof SubKeys]: Record<SubKeys[K], string>;
 };
 
-type __Loader = keyof classes;
+type __Loader = keyof SubKeys;
 type __Selector<T extends __Loader> = NonNullable<cvxResult<classes>[T]>;
 type StylesNames<T extends __Loader> = {
   unstyled?: Partial<Record<__Selector<T>, boolean>>;
   className?: string;
   style?: React.CSSProperties & { [key: string]: any };
-  classNames?: Partial<Record<__Selector<T>, string>>;
+  classNames?: Partial<Record<SubKeys[T], string>>;
   styles?: Partial<Record<__Selector<T>, React.CSSProperties & { [key: string]: any }>>;
-  color?: React.CSSProperties["color"] | "currentColor" | (string & {});
+  color?: React.CSSProperties["color"] | "currentColor";
   size?: string | number;
   duration?: number;
 };
@@ -56,7 +56,7 @@ function getStyles<T extends __Loader>(loader: T, selector: __Selector<T>, optio
 export const LoaderSpinner = React.forwardRef<HTMLDivElement, LoaderSyntheticProps<"spinner">>(function LoaderSpinner(_props, ref) {
   const { size = "20px", color, duration = 1.2, unstyled, className, classNames, style, styles, ...props } = _props;
   return (
-    <div {...{ ref, ...getStyles<"spinner">("spinner", "root", { size, color, duration, unstyled, className, style, styles }), ...props }}>
+    <div {...{ ref, ...getStyles<"spinner">("spinner", "root", { size, color, duration, unstyled, className, classNames, style, styles }), ...props }}>
       {[...Array(12)].map((_, index) => (
         <div
           key={index}
