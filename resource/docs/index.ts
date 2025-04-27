@@ -36,7 +36,7 @@ export { useDocumentVisibility } from "./web/hooks/use-document-visibility";
 export { useEyeDropper, type EyeDropperOpenReturnType } from "./web/hooks/use-eye-dropper";
 export { useFetch, type UseFetchOptions } from "./web/hooks/use-fetch";
 export { useNetwork } from "./web/hooks/use-network";
-export { useOS, type OS } from "./web/hooks/use-os";
+export { useOS } from "./web/hooks/use-os";
 export { useDeviceInfo, type DeviceInfo } from "./web/hooks/use-device-info";
 export { useTrigger, useRender } from "./web/hooks/use-trigger";
 export { useTouch } from "./web/hooks/use-touch";
