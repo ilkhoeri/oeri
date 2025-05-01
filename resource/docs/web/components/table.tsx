@@ -116,7 +116,7 @@ function getStyles(selector: Selector, opts: Options = {}, areaIndex?: number) {
     "data-side": selector === "caption" ? opts?.captionSide : undefined,
     ...createAttrData("true", {
       "data-table-border": selector === "root" && opts?.withTableBorder,
-      "data-table-overflow": selector === "root" && opts?.tableOverflow,
+      "data-table-overflow": selector === "root" && opts?.overflowWrap,
       "data-column-border": selector === "root" && opts?.withColumnBorders,
       "data-row-border": selector === "root" && opts?.withRowBorders,
       "data-sticky": selector === "thead" && opts?.stickyHeader,
@@ -128,7 +128,7 @@ function getStyles(selector: Selector, opts: Options = {}, areaIndex?: number) {
 }
 
 export interface __TableProps {
-  tableOverflow: boolean;
+  overflowWrap: boolean;
   stickyHeader: boolean;
   highlightOnHover: boolean;
   withTableBorder: boolean;
@@ -170,7 +170,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>((_props, ref
     variant = "default",
     orientation = "vertical",
     captionSide = "bottom",
-    tableOverflow = true,
+    overflowWrap = true,
     withRowBorders = true,
     withTableBorder = true,
     highlightOnHover = true,
@@ -194,7 +194,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>((_props, ref
         withColumnBorders,
         withRowBorders,
         withTableBorder,
-        tableOverflow,
+        overflowWrap,
         captionSide,
         dir: dir ?? "ltr",
         striped: (striped === true ? "odd" : striped !== false ? striped : undefined) ?? undefined

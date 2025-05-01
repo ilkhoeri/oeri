@@ -34,7 +34,7 @@
     "vercel": "vercel dev --listen 5005",
     "dev": "next dev",
     "prepare:withicon": "bun run generated:metadocs && bun run generated:icons && bun run prettier:format",
-    "prepare": "bun run generated:metadocs && bun run exported:icons && bun run prettier:format",
+    "prepare": "bun run generated:docsdemo && bun run exported:icons && bun run prettier:format",
     "build": "bun run build:content && next build",
     "build:content": "contentlayer2 build",
     "start": "next start",

@@ -273,6 +273,7 @@ export const demoComponentsEntries = {
   TimesDemosConfigurator: () => <DemoSlot data={TimesDemos.configurator} />,
   ToasterDemosUsage: () => <DemoSlot data={ToasterDemos.usage} />,
   ToasterDemosConfigurator: () => <DemoSlot data={ToasterDemos.configurator} />,
+  ToasterDemosConfiguratorChain: () => <DemoSlot data={ToasterDemos.configuratorChain} />,
   TooltipDemosUsage: () => <DemoSlot data={TooltipDemos.usage} />,
   TooltipDemosConfigurator: () => <DemoSlot data={TooltipDemos.configurator} />,
   TooltipDemosInline: () => <DemoSlot data={TooltipDemos.inline} />,

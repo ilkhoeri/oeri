@@ -428,7 +428,7 @@ export function DropdownNotifications() {
           </Svg>
         </Sheets.Trigger>
       </Indicator>
-      <Sheets.Content className="h-full max-h-[436px] w-96 bg-[#f4f6ff] p-4 dark:bg-[#151619]">
+      <Sheets.Content className="h-full max-h-[436px] w-80 bg-[#f4f6ff] p-4 dark:bg-[#151619]">
         <div className="mb-2">
           <h3 className="block text-xs font-medium text-muted-foreground">Notifications</h3>
           <div className="flex items-center justify-between gap-6">

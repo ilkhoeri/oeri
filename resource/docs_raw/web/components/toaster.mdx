@@ -13,34 +13,47 @@ links:
 
 ## Usage
 
-Basic usage example to quickly see how the `Toaster` works.
+Quick example to demonstrate how the `<Toaster />` works out of the box.
 
 <ToasterDemosUsage />
 
+---
+
 ## Properties
 
-Interactive configurator to explore customization options for the `Toaster` component.
+Use the interactive configurator below to explore available customization options — like position, duration, type, and animation.
 
 <ToasterDemosConfigurator />
 
-## Peer Dependencies
+### Chaining Toasts
 
-Install required dependencies before using the `Toaster`.
-These libraries handle the low-level `toast` mechanics to ensure smooth performance and rich features.
+Display icon toast notifications and/or multiple toast notifications in sequence or in grouped logic.
 
-### Learn
+#### Icon
 
-- [`Sonner`](https://sonner.emilkowal.ski/)
+Display icon in front of the message.
+
+<ToasterDemosConfiguratorChain />
+
+---
+
+## Installation
+
+Install the required peer dependency:
 
 ```bash
 npm install sonner
 ```
 
+> Oeri UI's `Toaster` component is powered by [`sonner`](https://sonner.emilkowal.ski/), a minimal toast notification library with great accessibility and performance.
+
+---
+
 ## Configuration
 
-Make sure to add `<Toaster />` to your project's main layout inline with the children of `<ThemeProvider>`.
+Make sure to include the `<Toaster />` component inside your application layout — typically after your `ThemeProvider`.
 
-```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
+```tsx title="app/layout.tsx" showLineNumbers caption="Add the Toaster in your root layout"
 import { ThemeProvider } from "@/config/themes";
 import { Toaster } from "@/ui/toaster";
 
@@ -58,17 +71,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 }
 ```
 
-## API References
+---
 
-### Props API
+## API Reference
 
-- [`Sonner Docs`](https://sonner.emilkowal.ski/toaster#api-reference)
+Toaster uses Sonner under the hood. For a full list of supported props and advanced usage:
+
+- 📚 [View Sonner API Docs](https://sonner.emilkowal.ski/toaster#api-reference)
 
 ---
 
-## Source Codes
+## Source Code Example
 
-Full working code example, including necessary markup and styles.
-You can copy and paste this code directly to start using the component immediately.
+Full working implementation you can copy and paste:
 
 <SourceCodes name="toaster" />

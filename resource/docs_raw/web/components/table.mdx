@@ -142,7 +142,7 @@ const tableData: DataTableProps = {
 };
 
 export function TableDemo() {
-  return <Table data={tableData} tableOverflow spacing={{ x: "16px", y: "20px" }} />;
+  return <Table data={tableData} overflowWrap spacing={{ x: "16px", y: "20px" }} />;
 }
 ```
 
@@ -188,7 +188,7 @@ type Striped = boolean | "odd" | "even" | undefined;
 | layout`?`                | `["tableLayout"]`            | `auto`                         | Value of `table-layout` style                                                                  |
 | striped`?`               | `Striped`                    | `undefined`                    | Determines whether every odd/even row background should be changed to `strippedColor`          |
 | captionSide`?`           | `"top" \| "bottom"`          | `bottom`                       | Determines on which side `Table.Caption` is displayed                                          |
-| tableOverflow`?`         | `boolean`                    | `true`                         | Set table scroll area                                                                          |
+| overflowWrap`?`          | `boolean`                    | `true`                         | Set table scroll area                                                                          |
 | stickyHeader`?`          | `boolean`                    | `true`                         | Determines whether `Table.Thead` should be sticky                                              |
 | stickyHeaderOffset`?`    | `number \| string`           | `0`                            | Offset from top at which `Table.Thead` should become sticky                                    |
 | spacing`?`               | `Spacing`                    | `DEFAULT_SPACE` \(by variant\) | x = Horizontal, y = Vertical cells spacing or any valid CSS value for padding                  |

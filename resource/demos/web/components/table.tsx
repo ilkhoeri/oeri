@@ -192,7 +192,7 @@ const configurator: DataTrees = {
     { prop: "variant", type: "select", initialValue: "default", libraryValue: "default", data: ["default", "tile"] },
     { prop: "striped", type: "select", initialValue: "", libraryValue: "", data: ["odd", "even"] },
     // { prop: "striped", type: "boolean", initialValue: false, libraryValue: false },
-    { prop: "tableOverflow", type: "boolean", initialValue: true, libraryValue: true },
+    { prop: "overflowWrap", type: "boolean", initialValue: true, libraryValue: true },
     { prop: "withTableBorder", type: "boolean", initialValue: true, libraryValue: true },
     { prop: "withRowBorders", type: "boolean", initialValue: true, libraryValue: true },
     { prop: "highlightOnHover", type: "boolean", initialValue: true, libraryValue: true },

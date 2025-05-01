@@ -125,17 +125,17 @@ export function ThemesToggle({ size }: { size?: number | string }) {
   const { theme, memoizedTheme } = useNextTheme();
   const isDark = theme === "dark";
   return (
-    <Transform className={`${style.switch_wrap} [--ring:white] dark:[--ring:linear-gradient(-45deg,#f8acff,#696eff)]`} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateX(7rem)", after: "translateX(0)", origin: "right" }} style={{ "--sz-circle": size ? rem(size) : undefined }}>
+    <div className={`${style.switch_wrap} [--ring:white] dark:[--ring:linear-gradient(-45deg,#f8acff,#696eff)]`} {...{ style: { "--sz-circle": size ? rem(size) : undefined } as React.CSSProperties }}>
       <input checked={isDark} onChange={() => memoizedTheme(isDark || theme === "system" ? "light" : "dark")} className={style.switch_input} id="themes-toggle" name="themes-toggle" aria-label="toggle" type="checkbox" hidden />
       <label className={`${style.switch_label} [--shadow:--switch-shadow-light] dark:[--shadow:--switch-shadow-dark] dark:[--switch-ml:--switch-ml-dark]`} htmlFor="themes-toggle" />
       <span className={style.switch_marbles} />
-    </Transform>
+    </div>
   );
 }
 
 function SectionCustomizable() {
   return (
-    <Transform className="relative m-auto size-fit" transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(6rem)", after: "translateY(0)", origin: "right" }}>
+    <div className="relative m-auto size-fit">
       <div className="relative flex h-[120px] w-[280px] items-center">
         <svg className="absolute inset-0 size-full" fill="currentColor" viewBox="0 0 254 104" xmlns="http://www.w3.org/2000/svg">
           <path d="M112.891 97.7022C140.366 97.0802 171.004 94.6715 201.087 87.5116C210.43 85.2881 219.615 82.6412 228.284 78.2473C232.198 76.3179 235.905 73.9942 239.348 71.3124C241.85 69.2557 243.954 66.7571 245.555 63.9408C249.34 57.3235 248.281 50.5341 242.498 45.6109C239.033 42.7237 235.228 40.2703 231.169 38.3054C219.443 32.7209 207.141 28.4382 194.482 25.534C184.013 23.1927 173.358 21.7755 162.64 21.2989C161.376 21.3512 160.113 21.181 158.908 20.796C158.034 20.399 156.857 19.1682 156.962 18.4535C157.115 17.8927 157.381 17.3689 157.743 16.9139C158.104 16.4588 158.555 16.0821 159.067 15.8066C160.14 15.4683 161.274 15.3733 162.389 15.5286C179.805 15.3566 196.626 18.8373 212.998 24.462C220.978 27.2494 228.798 30.4747 236.423 34.1232C240.476 36.1159 244.202 38.7131 247.474 41.8258C254.342 48.2578 255.745 56.9397 251.841 65.4892C249.793 69.8582 246.736 73.6777 242.921 76.6327C236.224 82.0192 228.522 85.4602 220.502 88.2924C205.017 93.7847 188.964 96.9081 172.738 99.2109C153.442 101.949 133.993 103.478 114.506 103.79C91.1468 104.161 67.9334 102.97 45.1169 97.5831C36.0094 95.5616 27.2626 92.1655 19.1771 87.5116C13.839 84.5746 9.1557 80.5802 5.41318 75.7725C-0.54238 67.7259 -1.13794 59.1763 3.25594 50.2827C5.82447 45.3918 9.29572 41.0315 13.4863 37.4319C24.2989 27.5721 37.0438 20.9681 50.5431 15.7272C68.1451 8.8849 86.4883 5.1395 105.175 2.83669C129.045 0.0992292 153.151 0.134761 177.013 2.94256C197.672 5.23215 218.04 9.01724 237.588 16.3889C240.089 17.3418 242.498 18.5197 244.933 19.6446C246.627 20.4387 247.725 21.6695 246.997 23.615C246.455 25.1105 244.814 25.5605 242.63 24.5811C230.322 18.9961 217.233 16.1904 204.117 13.4376C188.761 10.3438 173.2 8.36665 157.558 7.52174C129.914 5.70776 102.154 8.06792 75.2124 14.5228C60.6177 17.8788 46.5758 23.2977 33.5102 30.6161C26.6595 34.3329 20.4123 39.0673 14.9818 44.658C12.9433 46.8071 11.1336 49.1622 9.58207 51.6855C4.87056 59.5336 5.61172 67.2494 11.9246 73.7608C15.2064 77.0494 18.8775 79.925 22.8564 82.3236C31.6176 87.7101 41.3848 90.5291 51.3902 92.5804C70.6068 96.5773 90.0219 97.7419 112.891 97.7022Z" />
@@ -143,7 +143,7 @@ function SectionCustomizable() {
         <span className="mx-auto -mb-2.5 block w-fit bg-gradient-to-br from-blue-500 to-blue-700 bg-clip-text font-playwrite-romania text-5xl font-bold leading-tight text-transparent dark:from-blue-400 dark:to-blue-700">100%&nbsp;</span>
       </div>
       <h2 className="mt-4 text-center font-semibold text-h3">Customizable</h2>
-    </Transform>
+    </div>
   );
 }
 
@@ -286,9 +286,22 @@ const showcaseVariant = cvx({
   }
 });
 
+function CopyCode({ code, className }: { code: string | null | undefined; className?: string }) {
+  if (!code) return null;
+  return (
+    <CopyButton timeout={1750} value={code?.trimEnd()}>
+      {({ copied, copy }) => (
+        <div tabIndex={-1} onClick={copy} className={merge(showcaseVariant({ box: "copy" }), className)}>
+          <HasCopyIcon has={copied} />
+        </div>
+      )}
+    </CopyButton>
+  );
+}
+
 interface TileInnerProps extends React.ComponentProps<"div"> {
   contents?: Array<{ code?: string | null; content?: React.ReactNode }>;
-  classNames?: Partial<Record<"outer" | "inner" | "copy" | "hr", string>>;
+  classNames?: Partial<Record<"outer" | "inner" | "hr", string>>;
 }
 function TileInner(_props: TileInnerProps) {
   const { className, children, contents, classNames, ...props } = _props;
@@ -298,15 +311,7 @@ function TileInner(_props: TileInnerProps) {
         contents?.map((content, index) => (
           <div key={index} className={merge(showcaseVariant({ box: "inner" }), classNames?.inner)}>
             {content.content}
-            {content?.code && (
-              <CopyButton timeout={1750} value={content?.code?.trimEnd()}>
-                {({ copied, copy }) => (
-                  <div tabIndex={-1} onClick={copy} className={merge(showcaseVariant({ box: "copy" }), classNames?.copy)}>
-                    <HasCopyIcon has={copied} />
-                  </div>
-                )}
-              </CopyButton>
-            )}
+            {content?.code && <CopyCode code={content?.code} />}
             {index < contents?.length - 1 && <hr className={merge(showcaseVariant({ box: "hr" }), classNames?.hr)} />}
           </div>
         ))}
@@ -316,7 +321,7 @@ function TileInner(_props: TileInnerProps) {
 
 export function ShowCaseComponents() {
   return (
-    <div className="mx-auto w-full max-w-7xl px-6 2xl:px-4">
+    <div className="mx-auto w-full max-w-7xl px-2 md:px-6 2xl:px-4">
       <div className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
         <div className="col-span-2 p-1 max-2xl:-order-1 md:col-span-2 max-2xl:md:row-span-2 lg:col-span-3 2xl:col-span-4 2xl:row-span-2">
           <div className="relative z-10 w-fit text-start max-xl:pb-6 lg:-top-16 lg:max-h-32">
@@ -338,11 +343,11 @@ export function ShowCaseComponents() {
         </div>
 
         <div className="p-1 md:col-start-2 lg:col-span-1 lg:col-start-2 lg:row-span-2 2xl:col-start-3 2xl:row-start-[0]">
-          <TileInner contents={[{ code: codes.rating, content: <Rating size={28} color="#fab005" fractions={4} defaultValue={3.75} /> }]} />
+          <TileInner contents={[{ code: codes.rating, content: <Rating size={28} color="#fab005" fractions={4} defaultValue={3.75} /> }]} classNames={{ inner: "p-0" }} />
         </div>
 
         <div className="p-1 lg:col-span-1 lg:col-start-3 lg:row-span-2 2xl:col-start-4 2xl:row-start-[0]">
-          <TileInner contents={[{ code: codes.tabsVertical, content: <TabsVerticalDemos /> }]} />
+          <TileInner contents={[{ code: codes.tabsVertical, content: <TabsVerticalDemos /> }]} classNames={{ inner: "p-0" }} />
         </div>
 
         <div className="col-span-2 p-1 max-2xl:-order-1 md:col-span-1 max-2xl:md:col-start-3 max-2xl:md:row-span-1 max-2xl:md:row-start-2 max-2xl:lg:col-start-4 2xl:col-span-2 2xl:col-start-5 2xl:row-span-1 2xl:row-start-2">
@@ -350,7 +355,7 @@ export function ShowCaseComponents() {
         </div>
 
         <div className="p-1 lg:col-start-4 2xl:col-span-1 2xl:col-start-5">
-          <TileInner contents={[{ code: codes.avatarGroup, content: <AvatarGroupDemos /> }]} />
+          <TileInner contents={[{ code: codes.avatarGroup, content: <AvatarGroupDemos /> }]} classNames={{ inner: "p-0" }} />
         </div>
 
         <div className="p-1 max-2xl:lg:col-start-4">
@@ -396,7 +401,12 @@ export function ShowCaseComponents() {
         </div>
 
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-2 2xl:col-span-2 2xl:col-end-7">
-          <TileInner contents={[{ code: codes.breadcrumb, content: <BreadcrumbDemos /> }]} />
+          <TileInner>
+            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+              <BreadcrumbDemos />
+            </div>
+            <CopyCode code={codes.breadcrumb} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />
+          </TileInner>
         </div>
 
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-2 2xl:col-span-3">
