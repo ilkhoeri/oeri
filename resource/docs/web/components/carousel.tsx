@@ -6,7 +6,7 @@ import { EmblaCarouselType, EmblaOptionsType, EmblaPluginType } from "embla-caro
 import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
 
 const buttonStyles = cn(
-  "absolute inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-transparent shadow-sm transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-constructive active:scale-[.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0"
+  "hover:text-muted-foreground focus-visible:ring-constructive absolute inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 active:scale-[.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0"
 );
 const classes = cvx({
   variants: {
@@ -601,7 +601,8 @@ const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props:
 }) as EdgeElement;
 
 // Export as a composite component
-type CarouselComponent = React.ForwardRefExoticComponent<CarouselProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type CarouselComponent = ForwardRef<"div", CarouselProps> & {
   Content: typeof CarouselContent;
   Item: typeof CarouselItem;
   Previous: typeof CarouselPrevious;

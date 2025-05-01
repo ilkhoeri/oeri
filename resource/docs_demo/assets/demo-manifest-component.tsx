@@ -26,7 +26,9 @@ import { KbdDemos } from "@/resource/demos/web/components/kbd";
 import { LabelDemos } from "@/resource/demos/web/components/label";
 import { LoaderDemos } from "@/resource/demos/web/components/loader";
 import { PaginationDemos } from "@/resource/demos/web/components/pagination";
+import { PasswordRequirementDemos } from "@/resource/demos/web/components/password-requirement";
 import { PolymorphicSlotDemos } from "@/resource/demos/web/components/polymorphic-slot";
+import { ProgressDemos } from "@/resource/demos/web/components/progress";
 import { ProseDemos } from "@/resource/demos/web/components/prose";
 import { RatingDemos } from "@/resource/demos/web/components/rating";
 import { RunningAreaDemos } from "@/resource/demos/web/components/running-area";
@@ -41,6 +43,7 @@ import { TabsDemos } from "@/resource/demos/web/components/tabs";
 import { TextareaDemos } from "@/resource/demos/web/components/textarea";
 import { TimelineDemos } from "@/resource/demos/web/components/timeline";
 import { TimesDemos } from "@/resource/demos/web/components/times";
+import { ToasterDemos } from "@/resource/demos/web/components/toaster";
 import { TooltipDemos } from "@/resource/demos/web/components/tooltip";
 import { TypingWordsDemos } from "@/resource/demos/web/components/typing-words";
 import { TypographyDemos } from "@/resource/demos/web/components/typography";
@@ -69,7 +72,9 @@ export type ConstructorWebComponentsDemos =
   | ["label", typeof LabelDemos]
   | ["loader", typeof LoaderDemos]
   | ["pagination", typeof PaginationDemos]
+  | ["password-requirement", typeof PasswordRequirementDemos]
   | ["polymorphic-slot", typeof PolymorphicSlotDemos]
+  | ["progress", typeof ProgressDemos]
   | ["prose", typeof ProseDemos]
   | ["rating", typeof RatingDemos]
   | ["running-area", typeof RunningAreaDemos]
@@ -84,6 +89,7 @@ export type ConstructorWebComponentsDemos =
   | ["textarea", typeof TextareaDemos]
   | ["timeline", typeof TimelineDemos]
   | ["times", typeof TimesDemos]
+  | ["toaster", typeof ToasterDemos]
   | ["tooltip", typeof TooltipDemos]
   | ["typing-words", typeof TypingWordsDemos]
   | ["typography", typeof TypographyDemos];
@@ -95,47 +101,50 @@ export type ConstructorKeys<U extends [string, unknown]> = {
 export type DocsDemoEntries = ConstructorKeys<ConstructorWebComponentsDemos>;
 
 export const demosMap = {
-  "anchor": AnchorDemos,
-  "avatar": AvatarDemos,
-  "breadcrumb": BreadcrumbDemos,
-  "burger": BurgerDemos,
-  "button": ButtonDemos,
-  "card": CardDemos,
-  "carousel": CarouselDemos,
-  "checker": CheckerDemos,
-  "code": CodeDemos,
+  anchor: AnchorDemos,
+  avatar: AvatarDemos,
+  breadcrumb: BreadcrumbDemos,
+  burger: BurgerDemos,
+  button: ButtonDemos,
+  card: CardDemos,
+  carousel: CarouselDemos,
+  checker: CheckerDemos,
+  code: CodeDemos,
   "color-picker": ColorPickerDemos,
-  "command": CommandDemos,
-  "confetti": ConfettiDemos,
+  command: CommandDemos,
+  confetti: ConfettiDemos,
   "copy-button": CopyButtonDemos,
   "double-helix-words": DoubleHelixWordsDemos,
   "floating-indicator": FloatingIndicatorDemos,
-  "group": GroupDemos,
-  "highlight": HighlightDemos,
-  "indicator": IndicatorDemos,
-  "input": InputDemos,
-  "kbd": KbdDemos,
-  "label": LabelDemos,
-  "loader": LoaderDemos,
-  "pagination": PaginationDemos,
+  group: GroupDemos,
+  highlight: HighlightDemos,
+  indicator: IndicatorDemos,
+  input: InputDemos,
+  kbd: KbdDemos,
+  label: LabelDemos,
+  loader: LoaderDemos,
+  pagination: PaginationDemos,
+  "password-requirement": PasswordRequirementDemos,
   "polymorphic-slot": PolymorphicSlotDemos,
-  "prose": ProseDemos,
-  "rating": RatingDemos,
+  progress: ProgressDemos,
+  prose: ProseDemos,
+  rating: RatingDemos,
   "running-area": RunningAreaDemos,
   "scroll-area": ScrollAreaDemos,
-  "sheets": SheetsDemos,
-  "skeleton": SkeletonDemos,
-  "slider": SliderDemos,
-  "stack": StackDemos,
-  "svg": SvgDemos,
-  "table": TableDemos,
-  "tabs": TabsDemos,
-  "textarea": TextareaDemos,
-  "timeline": TimelineDemos,
-  "times": TimesDemos,
-  "tooltip": TooltipDemos,
+  sheets: SheetsDemos,
+  skeleton: SkeletonDemos,
+  slider: SliderDemos,
+  stack: StackDemos,
+  svg: SvgDemos,
+  table: TableDemos,
+  tabs: TabsDemos,
+  textarea: TextareaDemos,
+  timeline: TimelineDemos,
+  times: TimesDemos,
+  toaster: ToasterDemos,
+  tooltip: TooltipDemos,
   "typing-words": TypingWordsDemos,
-  "typography": TypographyDemos
+  typography: TypographyDemos
 } as const;
 
 export const demoComponentsEntries = {
@@ -192,9 +201,11 @@ export const demoComponentsEntries = {
   HighlightDemosConfigurator: () => <DemoSlot data={HighlightDemos.configurator} />,
   IndicatorDemosUsage: () => <DemoSlot data={IndicatorDemos.usage} />,
   IndicatorDemosConfigurator: () => <DemoSlot data={IndicatorDemos.configurator} />,
-  InputDemosUsage: () => <DemoSlot data={InputDemos.usage} />,
   InputDemosConfigurator: () => <DemoSlot data={InputDemos.configurator} />,
   InputDemosPassword: () => <DemoSlot data={InputDemos.password} />,
+  InputDemosWrapperAndConfigurator: () => <DemoSlot data={InputDemos.wrapperAndConfigurator} />,
+  InputDemosCheckboxUsage: () => <DemoSlot data={InputDemos.checkboxUsage} />,
+  InputDemosCheckboxIndeterminate: () => <DemoSlot data={InputDemos.checkboxIndeterminate} />,
   KbdDemosUsage: () => <DemoSlot data={KbdDemos.usage} />,
   KbdDemosConfigurator: () => <DemoSlot data={KbdDemos.configurator} />,
   LabelDemosUsage: () => <DemoSlot data={LabelDemos.usage} />,
@@ -205,8 +216,12 @@ export const demoComponentsEntries = {
   PaginationDemosAsLink: () => <DemoSlot data={PaginationDemos.asLink} />,
   PaginationDemosChangeIcon: () => <DemoSlot data={PaginationDemos.changeIcon} />,
   PaginationDemosWithChunk: () => <DemoSlot data={PaginationDemos.withChunk} />,
+  PasswordRequirementDemosUsage: () => <DemoSlot data={PasswordRequirementDemos.usage} />,
+  PasswordRequirementDemosConfigurator: () => <DemoSlot data={PasswordRequirementDemos.configurator} />,
   PolymorphicSlotDemosUsage: () => <DemoSlot data={PolymorphicSlotDemos.usage} />,
   PolymorphicSlotDemosConfigurator: () => <DemoSlot data={PolymorphicSlotDemos.configurator} />,
+  ProgressDemosUsage: () => <DemoSlot data={ProgressDemos.usage} />,
+  ProgressDemosConfigurator: () => <DemoSlot data={ProgressDemos.configurator} />,
   ProseDemosUsage: () => <DemoSlot data={ProseDemos.usage} />,
   ProseDemosBlockquoteUsage: () => <DemoSlot data={ProseDemos.blockquoteUsage} />,
   ProseDemosListUsage: () => <DemoSlot data={ProseDemos.listUsage} />,
@@ -256,6 +271,8 @@ export const demoComponentsEntries = {
   TimelineDemosConfigurator: () => <DemoSlot data={TimelineDemos.configurator} />,
   TimesDemosUsage: () => <DemoSlot data={TimesDemos.usage} />,
   TimesDemosConfigurator: () => <DemoSlot data={TimesDemos.configurator} />,
+  ToasterDemosUsage: () => <DemoSlot data={ToasterDemos.usage} />,
+  ToasterDemosConfigurator: () => <DemoSlot data={ToasterDemos.configurator} />,
   TooltipDemosUsage: () => <DemoSlot data={TooltipDemos.usage} />,
   TooltipDemosConfigurator: () => <DemoSlot data={TooltipDemos.configurator} />,
   TooltipDemosInline: () => <DemoSlot data={TooltipDemos.inline} />,

@@ -6,7 +6,7 @@ import { Svg } from "@/ui/svg";
 import { Tabs } from "@/ui/tabs";
 import { Event } from "./events";
 import { NpmCommands } from "./unist";
-import { Figure } from "./pre-component";
+import { BannerClosingGetStarted, Figure } from "./build-components";
 import { CopyButton } from "../../../../source/assets/toggle";
 import { Typography } from "@/ui/typography";
 import { TypingWords } from "@/ui/typing-words";
@@ -26,6 +26,7 @@ export const components = {
   Svg,
   TypingWords,
   Typography,
+  BannerClosingGetStarted,
   _A_: ({ href = "", ...props }: Omit<LinkProps, "href"> & { href?: string }) => <Link href={href} {...props} target="_blank" rel="noopener noreferrer nofollow" />,
   a: ({ href = "", ...props }: Omit<LinkProps, "href"> & { href?: string }) => <Link href={href} {...props} />,
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <Typography prose="h1" role="presentation" {...props} />,
@@ -51,7 +52,10 @@ export const components = {
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => <td {...props} />,
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
-      className={cn("relative isolate my-8 flex flex-col items-start rounded-2xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']", className)}
+      className={cn(
+        "relative isolate my-8 flex flex-col items-start whitespace-pre-line rounded-2xl bg-background-box py-6 pl-12 pr-4 [unicode-bidi:isolate] before:absolute before:inset-y-1/2 before:left-6 before:z-[10] before:h-4/5 before:w-1 before:-translate-y-1/2 before:bg-[#202425] before:content-['']",
+        className
+      )}
       {...props}
     />
   ),

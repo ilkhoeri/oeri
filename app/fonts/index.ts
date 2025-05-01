@@ -11,6 +11,11 @@ export const geistMono = localFont({
   variable: "--ff-geist-mono",
   weight: "100 900"
 });
+export const playwrite_ro = localFont({
+  src: "./PlaywriteRO-VF.ttf",
+  variable: "--ff-playwrite-romania",
+  weight: "100 400"
+});
 
 export const anekTelugu = Anek_Telugu({
   weight: ["400", "500", "600", "700", "800"],
@@ -111,7 +116,7 @@ export const barlow = Barlow({
   display: "swap"
 });
 
-export const fontsVariable = [geistSans.variable, geistMono.variable, inter.variable, montserrat.variable, poppins.variable, robotoMono.variable, barlow.variable, montserrat.variable, kanit.variable, robotoMono.variable].join(" ");
+export const fontsVariable = [geistSans.variable, geistMono.variable, inter.variable, montserrat.variable, poppins.variable, robotoMono.variable, barlow.variable, montserrat.variable, kanit.variable, robotoMono.variable, playwrite_ro.variable].join(" ");
 
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type stylesBodyType = { className: string; style?: CSSProperties };

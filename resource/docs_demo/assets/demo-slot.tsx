@@ -6,7 +6,9 @@ interface DemoComponent {
   component: React.FC<any>;
 }
 
-/** Setelah selesai update, jalankan `bun run generated:generated-files-demos` */
+/** Setelah selesai update, jalankan:
+ *
+ * `bun run generated:docsdemo` */
 export type DataTrees = ({ type: "code" } & DemoComponent & CodeDemoProps) | ({ type: "configurator" } & DemoComponent & ConfiguratorDemoProps) | ({ type: "styles-api" } & DemoComponent & StylesApiDemoProps);
 
 interface DemoProps {

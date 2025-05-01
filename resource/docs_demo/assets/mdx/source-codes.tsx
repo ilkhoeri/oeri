@@ -47,7 +47,7 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
   if (!childs) return null;
 
   return (
-    <Tabs defaultValue="code" className="mb-12 w-full">
+    <Tabs defaultValue="code" className="mb-20 mt-10 w-full">
       <PlayTabs defaultValue="code" childrens={childs} />
     </Tabs>
   );

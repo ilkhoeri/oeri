@@ -13,31 +13,53 @@ links:
 
 ## Usage
 
+Basic usage example to quickly see how the `Prose` component works.
+This demonstration provides a simple introduction to how `Prose` handles rendering rich text content with consistent typography and formatting.
+
 <ProseDemosUsage />
 
 ## Peer Dependencies
+
+Install required peer dependency for content sanitization.
 
 ```bash
 npm install dompurify@latest
 ```
 
+`dompurify` is used internally to safely sanitize HTML content to prevent XSS (Cross-Site Scripting) attacks when rendering user-generated HTML.
+
 ### Blockquote
+
+Demonstration of rendering `blockquote` elements inside `Prose`.
+This example shows how the `Prose` component styles and formats `blockquote` content consistently.
 
 <ProseDemosBlockquoteUsage />
 
 ### List
 
+Demonstration of rendering ordered and unordered lists inside `Prose`.
+This section showcases the default list styling when lists are rendered inside a `Prose` block.
+
 <ProseDemosListUsage />
 
 #### List Inside
+
+Demonstration of styling nested or inner lists.
+This example highlights how inner lists (lists inside list items) are automatically styled and indented appropriately.
 
 <ProseDemosListInsideUsage />
 
 ### Table
 
+Demonstration of rendering and styling tables within `Prose`.
+This example shows the default appearance of table elements (headers, rows, cells) inside a `Prose` container.
+
 <ProseDemosTableUsage />
 
 ## Properties
+
+Interactive configurator to explore customization options for the `Prose` component.
+Customize typographic scales, colors, spacing, and other formatting aspects directly via the live configurator.
 
 <ProseDemosConfigurator />
 
@@ -52,5 +74,8 @@ npm install dompurify@latest
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="prose" />

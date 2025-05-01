@@ -1,0 +1,74 @@
+---
+date: 2025-01-05
+title: Toaster
+description: Provides an easy-to-use notification system for displaying toast messages, built with a highly customizable and accessible foundation.
+summary: Displays transient notifications with flexible configuration options.
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+Basic usage example to quickly see how the `Toaster` works.
+
+<ToasterDemosUsage />
+
+## Properties
+
+Interactive configurator to explore customization options for the `Toaster` component.
+
+<ToasterDemosConfigurator />
+
+## Peer Dependencies
+
+Install required dependencies before using the `Toaster`.
+These libraries handle the low-level `toast` mechanics to ensure smooth performance and rich features.
+
+### Learn
+
+- [`Sonner`](https://sonner.emilkowal.ski/)
+
+```bash
+npm install sonner
+```
+
+## Configuration
+
+Make sure to add `<Toaster />` to your project's main layout inline with the children of `<ThemeProvider>`.
+
+```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
+import { ThemeProvider } from "@/config/themes";
+import { Toaster } from "@/ui/toaster";
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+## API References
+
+### Props API
+
+- [`Sonner Docs`](https://sonner.emilkowal.ski/toaster#api-reference)
+
+---
+
+## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
+
+<SourceCodes name="toaster" />

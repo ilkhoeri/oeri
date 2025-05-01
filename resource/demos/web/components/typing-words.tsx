@@ -10,7 +10,7 @@ const codes = {
 const placeholders = ["Welcome to Our Web App!", "Experience Seamless Integration", "Type, Explore, Innovate", "React. Build. Repeat.", "Documentation Made Simple", "Next.js + TypeScript = 💙", "Discover Powerful UI Components", "Your Development Partner", "Create Stunning Interfaces", "Coding Meets Creativity"];
 
 function Demo() {
-  return <TypingWords placeholders={placeholders} withCursor className="[--size:clamp(1.125rem,11px+3.5vw,1.875rem)] text-[calc(var(--size))] [--cursor-h:--size] leading-none font-bold" />;
+  return <TypingWords placeholders={placeholders} withCursor className="text-[calc(var(--size))] font-bold leading-none [--cursor-h:--size] [--size:clamp(1.125rem,11px+3.5vw,1.875rem)]" />;
 }
 
 function ConfiguratorDemo(props: TypingWordsProps) {

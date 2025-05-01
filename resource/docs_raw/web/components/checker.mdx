@@ -13,39 +13,69 @@ links:
 
 ## Usage
 
+Basic usage example to understand how the `Checker` component functions.
+Demonstrates the checkbox, switch, and radio options with default behavior and interaction.
+
 <CheckerDemosUsage />
 
 ## Properties
+
+Interactive configurator for exploring different customization options in the `Checker` component.
+Customize icon styles, thumb behavior, and state transitions (e.g., checked, unchecked, indeterminate).
 
 <CheckerDemosConfigurator />
 
 ## Change Icon
 
+Explore how to modify the appearance of the icons used in the `Checker`.
+This section allows you to replace the default icons with custom options, providing a more personalized look.
+
 ### Change Icon Labels
+
+Demonstrates how to customize the labels associated with the icons in the `Checker`.
+Helpful when you want to adjust the appearance or add specific text annotations to your checkboxes, switches, or radios.
 
 <CheckerDemosChangeIconLabels />
 
 ### Change Thumb Icon
 
+Shows how to customize the thumb icon in switches.
+Allows for greater flexibility in design by offering the ability to replace the default thumb with your custom design.
+
 <CheckerDemosChangeThumbIcon />
 
 ## Checker.Group
+
+Introduces the `Checker.Group`, which groups multiple `Checker` components together for easier handling and consistent state management.
+Useful for managing groups of checkboxes or radio buttons where mutual states need to be controlled.
 
 <CheckerDemosGroup />
 
 ## Group.Card
 
+Demonstrates the use of `Checker.Group` within a card-like UI structure for better organization and presentation.
+Ideal for grouping related items in a visually appealing way.
+
 <CheckerDemosGroupCard />
 
 ### Current Selected
+
+Displays how the `Checker` component handles single or multiple selected items within a group.
+Ideal for showcasing the active state or the currently selected checkbox, switch, or radio.
 
 <CheckerDemosCurrentSelected />
 
 ### Multiple Selected
 
+Shows how to handle multiple selected items in the `Checker.Group`.
+Useful for scenarios where multiple choices can be selected simultaneously, such as multi-checkbox forms.
+
 <CheckerDemosMultipleSelected />
 
 ## Indeterminate State
+
+Demonstrates how to implement and visually represent the indeterminate state in checkboxes.
+The indeterminate state is useful for scenarios like "select all" where some but not all items are checked.
 
 <CheckerDemosIndeterminate />
 
@@ -109,5 +139,8 @@ type Icon = React.FC<{ indeterminate: boolean | undefined; className: string }>;
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="checker" />

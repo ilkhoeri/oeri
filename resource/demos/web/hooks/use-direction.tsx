@@ -1,5 +1,5 @@
 "use client";
-import { useApp as useAppContext } from "@/config/app-context";
+import { useApp as useAppContext } from "@/modules/web/configuration/app-context";
 import { TextDirectionIcon } from "@/icons/*";
 import { Button } from "@/ui/button";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";

@@ -35,7 +35,7 @@
   │   └── others...
   │
   │
-  ├── utility
+  ├── utilities
   │   ├── file-1.ts
   │   ├── file-2.ts
   │   ├── file-3.tsx

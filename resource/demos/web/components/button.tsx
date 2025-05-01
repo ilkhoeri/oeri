@@ -57,7 +57,7 @@ export const configurator: DataTrees = {
       type: "select",
       initialValue: "default",
       libraryValue: "default",
-      data: ["default", "link", "destructive", "constructive", "conservative", "primitive", "outline", "ghost"]
+      data: ["default", "link", "destructive", "constructive", "conservative", "primitive", "outline", "ghost", "pills", "unset"]
     },
     {
       prop: "color",

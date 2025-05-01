@@ -1,4 +1,4 @@
-export const NEW_LIST = ["global.d"];
+export const NEW_LIST = ["global.d", "progress", "toaster", "password-requirement"];
 
 export const UPDATED_LIST = ["app-context", "burger", "themes", "config-cookies", "text-parser", "sheets", "checker", "svg", "table", "times", "input", "prose", "use-os"];
 

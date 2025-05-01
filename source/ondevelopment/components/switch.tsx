@@ -311,7 +311,8 @@ function switchStyles(selector: __Selector<"switch">, options: StylesNames<"swit
 }
 
 // Export as a composite component
-type SwitchComponent = React.ForwardRefExoticComponent<SwitchProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type SwitchComponent = ForwardRef<"input", SwitchProps> & {
   Group: typeof SwitchGroup;
 };
 // Attach sub-components

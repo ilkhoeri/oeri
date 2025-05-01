@@ -48,13 +48,13 @@ export const appRoutes = {
         icon: Icon.CommandIcon
       },
       {
-        title: "Configurations",
-        href: "/docs/configurations",
+        title: "Configuration",
+        href: "/docs/configuration",
         icon: Icon.TuningIcon
       },
       {
-        title: "Utility",
-        href: "/docs/utility",
+        title: "Utilities",
+        href: "/docs/utilities",
         icon: Icon.FireSquareIcon
       },
       {
@@ -80,16 +80,20 @@ export const appRoutes = {
       href: "/docs"
     },
     {
+      title: "Utilities",
+      href: "/docs/web/utilities"
+    },
+    {
+      title: "Configuration",
+      href: "/docs/web/configuration"
+    },
+    {
       title: "Components",
       href: "/docs/web/components"
     },
     {
       title: "Hooks",
       href: "/docs/web/hooks"
-    },
-    {
-      title: "Configurations",
-      href: "/docs/web/configurations"
     },
     {
       title: "Examples",

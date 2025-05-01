@@ -1,5 +1,5 @@
 import { allDocs } from "contentlayer/generated";
-import { compareWords } from "@/utility/text-parser";
+import { compareWords } from "@/utils/text-parser";
 import type { NestedRoute, SingleRoute } from "../routes/index";
 
 export function getSlug(segment: string | undefined) {
@@ -47,7 +47,7 @@ export function docsToRoutes(docs: string[]) {
     const segments = path.split("/").slice(3).filter(Boolean);
 
     if (segments.length === 2) {
-      // Contoh: /utility/cnx
+      // Contoh: /utils/cnx
       const [parent, child] = segments;
 
       let route = singleRoutes.find(r => r.title === parent);
@@ -91,15 +91,15 @@ export function docFilterBySegment(allDocs: string[], targetSegment: string): { 
   return docsToRoutes(filteredDocs); // Gunakan fungsi docsToRoutes untuk memetakan hasil filter
 }
 const routes = allDocs.map(i => i.url);
-const utility = docFilterBySegment(routes, "utility").single;
+const utilities = docFilterBySegment(routes, "utilities").single;
 const hooks = docFilterBySegment(routes, "hooks").single;
 const components = docFilterBySegment(routes, "components").single;
-const configurations = docFilterBySegment(routes, "configurations").single;
+const configuration = docFilterBySegment(routes, "configuration").single;
 
-export const docsRoutes = [...utility, ...configurations, ...components, ...hooks];
+export const docsRoutes = [...utilities, ...configuration, ...components, ...hooks];
 export const restRoutes = {
-  utility,
-  configurations,
+  utilities,
+  configuration,
   components,
   hooks
 };

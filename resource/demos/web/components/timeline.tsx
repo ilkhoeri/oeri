@@ -108,7 +108,7 @@ const data2 = [
   }
 ];
 
-function ConfiguratorDemo(props: TimelineProps) {
+export function TimelineConfiguratorDemo(props: TimelineProps) {
   return (
     <Timeline {...props} bulletStyle={{ round: 8, size: 32 }} lineStyle={{ width: 1 }}>
       {data2.map(i => (
@@ -131,7 +131,7 @@ const usage: DataTrees = {
 
 const configurator: DataTrees = {
   type: "configurator",
-  component: ConfiguratorDemo,
+  component: TimelineConfiguratorDemo,
   code: codes.configurator,
   centered: true,
   controls: [{ prop: "align", type: "select", initialValue: "left", libraryValue: "left", data: ["right", "left"] }]

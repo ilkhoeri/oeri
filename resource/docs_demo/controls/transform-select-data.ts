@@ -1,4 +1,4 @@
-import { transform } from "@/utility/text-parser";
+import { transform } from "@/modules/web/utilities/text-parser";
 
 export interface SelectDataItem {
   label: string;

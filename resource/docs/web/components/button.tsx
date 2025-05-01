@@ -40,24 +40,26 @@ UnstyledButton.displayName = "UnstyledButton";
 
 export const buttonVariants = cvx({
   assign:
-    "inline-flex cursor-pointer appearance-none items-center justify-center rounded-lg text-[14px] text-[clamp(0.75rem,0.65rem+0.65vw,0.9rem)] font-medium leading-tight transition-[transform,color,background-color,border-color,text-decoration-color,fill,stroke] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-background active:scale-[.985] disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "inline-flex cursor-pointer appearance-none items-center justify-center rounded-xl text-[.875rem] font-medium leading-tight transition-[transform,color,background-color,border-color,text-decoration-color,fill,stroke] duration-75 [-moz-appearance:none] [-webkit-appearance:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:pointer-events-none disabled:gap-2 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   variants: {
     variant: {
-      default: "bg-color text-background border-color focus-visible:ring-color/35 [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50 disabled:[--spinner-color:hsl(var(--background))]",
+      default: "active:scale-[.985] bg-color text-background border-color focus-visible:ring-color/35 [@media(hover:hover)]:hover:bg-color/90 disabled:opacity-50 disabled:[--spinner-color:hsl(var(--background))]",
       destructive: "bg-destructive text-white border-destructive focus-visible:ring-destructive/35 [@media(hover:hover)]:hover:bg-destructive-foreground",
       constructive: "bg-constructive text-white border-constructive focus-visible:ring-constructive/35 [@media(hover:hover)]:hover:bg-constructive-foreground",
       conservative: "bg-conservative text-white border-conservative focus-visible:ring-conservative/35 [@media(hover:hover)]:hover:bg-conservative-foreground",
       primitive: "bg-primitive text-muted-foreground border border-primitive-emphasis [@media(hover:hover)]:hover:text-color focus-visible:ring-primitive-emphasis/35 [@media(hover:hover)]:hover:bg-accent",
       outline: "bg-background text-muted-foreground focus-visible:ring-muted-foreground/35 border [@media(hover:hover)]:hover:bg-muted/50 [@media(hover:hover)]:hover:text-color",
       ghost: "focus-visible:ring-muted/35 [@media(hover:hover)]:hover:bg-muted text-muted-foreground [@media(hover:hover)]:hover:text-color",
-      link: "text-color py-0 px-0 underline-offset-4 active:scale-100 [@media(hover:hover)]:hover:text-constructive [@media(hover:hover)]:hover:underline"
+      link: "text-color py-0 px-0 underline-offset-4 [@media(hover:hover)]:hover:text-constructive [@media(hover:hover)]:hover:underline",
+      pills: "rounded-full border",
+      unset: ""
     },
     size: {
       default: "h-8 px-4 py-2",
       sm: "h-8 min-w-8 px-3",
       lg: "h-10 min-w-10 px-8",
       badge: "min-w-[54px] py-1 px-1 z-10 rounded-full text-center text-[12px] font-medium leading-none disabled:gap-[.09375rem]",
-      icon: "h-[--sz] w-[--sz] min-h-[--sz,var(--min-sz)] min-w-[--sz,var(--min-sz)] [--sz:2rem] py-1 px-1 border"
+      icon: "h-[--sz] w-[--sz] min-h-[--sz,var(--min-sz)] min-w-[--sz,var(--min-sz)] [--sz:2rem] p-0.5"
     },
     color: {
       default: "",

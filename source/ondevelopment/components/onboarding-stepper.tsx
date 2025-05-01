@@ -2,7 +2,7 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
-import { camelToKebab, transform } from "@/utility/text-parser";
+import { camelToKebab, transform } from "@/modules/web/utilities/text-parser";
 import { cn } from "cretex";
 
 type RequestCookies = { name: string; value: "true" | "false" | (string & {}) } | undefined;

@@ -13,38 +13,61 @@ links:
 
 ## Usage
 
+A basic example to quickly demonstrate how the `Command` component works.
+This will showcase the essential functionality of the command interface in a simple, usable format.
+
 <CommandDemosUsage />
 
 ## Properties
+
+Interactive configurator to explore different customization options for the `Command` component.
+This section allows users to adjust properties such as state control, error handling, and other configurable aspects of the `Command` component.
 
 <CommandDemosConfigurator />
 
 **Note:**
 
-- `!modal` is commonly used to force display a component within the DOM structure and is used in conjunction with the `forceOpened` props.
-- `forceOpened` is commonly used in the development process.
+- `!modal`:
+  A special flag often used to force display of a component within the DOM structure.
+  This is typically used when combined with the forceOpened prop to ensure that the command interface stays open in certain conditions.
+
+- `forceOpened`:
+  A prop primarily used during the development process to control whether the command is forced to remain open.
+  This prop can be very useful for testing or ensuring that specific elements stay visible during interactions.
 
 ## Data Types
 
-**Determines Data:**
+Defines the structure of the data used by the `Command` component.
+The `Command` component can handle both static and dynamic data, depending on whether you choose to define data using `props.actions` or manually specifying the children components.
 
-- Define data by default using `props.actions` or manually specifying the children component.
-- Either `props.actions` or `children` of `<Command>` must be specified, you cannot use both at the same time or omit both.
-- Using both at the same time will confuse the function and omit both will not do anything.
-- To prevent this we use error throwing so that the function can run properly.
-- Another way is to use the `<Command.Root>` compound component as the parent of another `<Command>` compound.
+- Important:
+
+  - Either props.actions or children should be specified; you cannot use both at the same time or omit both.
+  - Using both options simultaneously will cause confusion in the function and omitting both will result in no action being executed.
+  - To prevent this conflict, error handling is implemented to ensure that only one data type (either props.actions or children) is used.
+
+- Alternative Approach:
+
+  - You can use the `<Command.Root>` compound component to group multiple` <Command>` components together while managing their data types effectively.
 
 ### Data Single
+
+Demonstrates how to define a single data item for the `Command` component.
+Ideal for situations where you need to display a simple, single-action command with minimal configuration.
 
 <CommandDemosDataTypesSingle />
 
 ### Data Group
 
+Shows how to define a group of data for the `Command` component.
+This allows multiple actions or commands to be grouped together, useful for when you want to provide several related options in a single command interface.
+
 <CommandDemosDataTypesGroup />
 
 ## Multiple Command
 
-When using `Command` in more than one place with different states, be sure to create different `store` and `storeState` using `createCommand()`.
+When using the `Command` component in multiple places or contexts with different states, it’s essential to create separate store and storeState instances using the `createCommand()` function.
+This ensures that each command operates independently and does not interfere with others.
 
 <CommandDemosMultipleCommand />
 
@@ -94,5 +117,8 @@ type T =
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="command" />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ThemeToggle } from "@/config/themes";
+import { ThemeToggle } from "@/modules/web/configuration/themes";
 import { NavLinkItem } from "@/source/assets/navlink";
 import { appRoutes } from "@/source/routes";
 import { BrandOeriIcon } from "@/icons/*";
@@ -19,7 +19,7 @@ const Styles = cvx({
     },
     section: {
       top: "border-t border-t-muted pt-4 w-full grid items-start grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 text-muted-foreground",
-      bottom: "py-2 gap-4 flex flex-col md:flex-row justify-between items-center text-muted-foreground text-sm font-geist-mono"
+      bottom: "mx-auto my-4 flex w-full max-w-[calc(100%-2rem)] flex-col items-center justify-between gap-4 rounded-xl bg-muted py-2 font-geist-mono text-sm text-color md:flex-row"
     }
   }
 });

@@ -11,7 +11,9 @@ links:
   #     link: https://
 ---
 
-## Root Layout
+## Configuration
+
+Make sure to add `ThemeProvider` into your project's main layout right as the first child of `<body>`.
 
 ```tsx showLineNumbers title="app/layout.tsx" caption="add your layout root"
 import { ThemeProvider, ThemeStateHidden } from "@/config/themes";
@@ -33,5 +35,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="themes" />

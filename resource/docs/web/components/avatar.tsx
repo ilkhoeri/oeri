@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { default as NextImage, type ImageProps } from "next/image";
-import { cn, cnx, cvx, merge, ocx, rem, type cvxProps } from "cretex";
+import { cn, cnx, cvx, merge, ocx, rem } from "cretex";
 import { PolymorphicSlot } from "@/ui/polymorphic-slot";
 import { getContrastColor } from "@/hooks/use-random-colors";
 
@@ -16,15 +16,15 @@ const classes = cvx({
   }
 });
 
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
-type Options = StylesNames<__Selector> & __AvatarGroupProps & __AvatarProps & { withinGroup?: boolean; isInitials?: boolean; lengthInitial?: number };
+type Selector = "image" | "root" | "fallback";
+type SelectorGroup = "group" | Selector;
+type Options = StylesNames<Selector> & __AvatarGroupProps & __AvatarProps & { withinGroup?: boolean; isInitials?: boolean; lengthInitial?: number };
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
 };
 type Styles = ["unstyled", boolean] | ["classNames", string] | ["styles", CSSProperties];
 type StylesNames<T extends string, Exclude extends string = never> = Omit<NestedRecord<Styles, T> & { className?: string; style?: CSSProperties }, Exclude>;
-type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
 
 // prettier-ignore
 const DEFAULT_COLORS = ["aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "currentColor", "currentcolor", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
@@ -71,8 +71,8 @@ export function getInitialsColor(name: string, colors: CSSProperties["color"][] 
 function is<T>(state: T) {
   return (state as T) ? "true" : undefined;
 }
-function getStyles(selector: __Selector, opts?: Options) {
-  function selected<T>(select: __Selector, state: T) {
+function getStyles(selector: SelectorGroup, opts?: Options) {
+  function selected<T>(select: Selector, state: T) {
     return selector === select ? (state as T) : undefined;
   }
   // const isGroup = opts?.withinGroup ? selector === "group" : selector === "root";
@@ -103,7 +103,7 @@ function getStyles(selector: __Selector, opts?: Options) {
   };
 }
 
-interface CtxProps {
+interface CtxProps extends NestedRecord<Styles, SelectorGroup> {
   size: number | `${number}`;
   round: (string & {}) | number;
   color: CSSProperties["color"] | "initials";
@@ -119,12 +119,14 @@ interface __AvatarGroupProps extends Partial<CtxProps> {
   gap?: (string & {}) | number;
 }
 
-export interface AvatarGroupProps extends __AvatarGroupProps, ComponentProps<"div", "color"> {}
+export interface AvatarGroupProps extends __AvatarGroupProps, React.PropsWithoutRef<Omit<React.ComponentProps<"div">, "style" | "color">> {
+  style?: CSSProperties;
+}
 export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>((_props, ref) => {
-  const { classNames, className, style, styles, unstyled, round, gap, color = "initials", size = DEFAULT_SIZE, initialLimit = "2", ...props } = _props;
+  const { classNames, className, style, styles, unstyled, round, gap = 16, color = "initials", size = DEFAULT_SIZE, initialLimit = "2", ...props } = _props;
 
   return (
-    <ctx.Provider value={{ size, color, initialLimit, round: round! }}>
+    <ctx.Provider value={{ size, round: round!, color, initialLimit, unstyled, classNames, styles }}>
       <div {...{ ref, ...getStyles("group", { unstyled, className, classNames, style, styles, size, gap, withinGroup: true }), ...props }} />
     </ctx.Provider>
   );
@@ -144,7 +146,7 @@ interface __AvatarProps {
   initialLimit?: 1 | 2 | 3 | `${number}` | number;
 }
 
-interface AvatarProps extends __AvatarProps, Omit<ImageProps, Exclude>, StylesNames<__Selector> {
+interface AvatarProps extends __AvatarProps, Omit<ImageProps, Exclude>, StylesNames<Selector> {
   rootProps?: React.ComponentPropsWithRef<"div"> & { style?: CSSProperties };
   children?: React.ReactNode;
 }
@@ -198,9 +200,9 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
   const lengthInitial = getInitials(_name, Number(initialLimit)).split("").length - 0.5;
 
   const stylesApi = {
-    classNames,
-    styles,
-    unstyled,
+    classNames: classNames ?? ctx?.classNames,
+    styles: styles ?? ctx?.styles,
+    unstyled: unstyled ?? ctx?.unstyled,
     isInitials,
     lengthInitial,
     round: _round,
@@ -284,7 +286,8 @@ export function AvatarPlaceholderIcon(props: React.ComponentPropsWithoutRef<"svg
 }
 
 // Export Card as a composite component
-type AvatarComponent = React.ForwardRefExoticComponent<AvatarProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<Props & { ref?: React.ComponentPropsWithRef<T>["ref"] }>;
+type AvatarComponent = ForwardRef<"img", AvatarProps> & {
   Group: typeof AvatarGroup;
 };
 // Attach sub-components

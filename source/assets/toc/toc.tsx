@@ -5,8 +5,8 @@ import Link from "next/link";
 import { cn } from "cretex";
 import { sourceFile } from "@/source/utils";
 import { usePathname } from "next/navigation";
-import { ArrowsSquareIcon } from "@/icons/*";
-import { formatTitle, sanitizedName } from "@/source/utils/text-transform";
+import { CircleArrowIcon } from "@/icons/*";
+import { formatTitle } from "@/source/utils/text-transform";
 import { useQueryApp } from "@/source/hooks/use-query-app";
 
 import type { Item, TableOfContents } from "./config";
@@ -89,7 +89,7 @@ export function TableOfContents({ toc, sub }: TocProps) {
 
       <Link href={editPageLink} target="_blank" rel="noopener noreferrer nofollow" className="group mt-5 h-4 justify-start gap-1 pb-1.5 text-muted-foreground">
         <span className="truncate text-sm transition-all underline-hover group-hover:text-constructive">Edit this page on GitHub</span>
-        <ArrowsSquareIcon arrow="right" square={false} className="-rotate-45 stroke-[1.25] sizer [--sz:28px]" />
+        <CircleArrowIcon size={18} className="group-hover:text-blue-500" />
       </Link>
     </aside>
   );
@@ -152,15 +152,21 @@ const Tree = React.memo(function Tree({ tree, level = 1, sub = 3, activeItem }: 
   if (!tree?.items?.length || level >= sub) return null;
 
   return (
-    <div className={cn("list-none text-span", { "pl-4 rtl:pl-0 rtl:pr-4": level !== 1 })}>
+    <div className={cn("w-full list-none text-span", { "pl-4 rtl:pl-0 rtl:pr-4 [&>div]:max-w-[calc(100%-2rem)]": level !== 1 })}>
       {tree.items.map(item => {
-        const formattedTitle = formatTitle(sanitizedName(item.title));
+        const formattedTitle = formatTitle(item.title);
         const isActive = item.url === `#${activeItem}`;
 
         return (
           <div key={item.url} className="pt-2 text-muted-foreground">
-            <a href={item.url} suppressHydrationWarning data-state={isActive ? "active" : ""} className={cn("inline-block text-muted-foreground no-underline transition-colors hover:text-color data-[state=active]:text-blue-500 hover:data-[state=active]:text-blue-500")}>
-              {formattedTitle}
+            <a
+              href={item.url}
+              suppressHydrationWarning
+              data-state={isActive ? "active" : ""}
+              title={formattedTitle}
+              className={cn("max-w-full truncate text-muted-foreground no-underline transition-colors hover:text-color data-[state=active]:text-blue-500 hover:data-[state=active]:text-blue-500", isActive && "underline-active")}
+            >
+              <span className="truncate">{formattedTitle}</span>
             </a>
             {item.items?.length ? <Tree tree={item} level={level + 1} sub={sub} activeItem={activeItem} /> : null}
           </div>
@@ -207,7 +213,7 @@ function useActiveItem(itemIds: string[]) {
 }
 function Tree({ tree, level = 1, sub = 3, activeItem }: TreeProps) {
   return tree?.items?.length && level < sub ? (
-    <div className={cn("list-none text-span", { "pl-4 rtl:pl-0 rtl:pr-4": level !== 1 })}>
+    <div className={cn("list-none text-span w-full", { "pl-4 rtl:pl-0 rtl:pr-4": level !== 1 })}>
       {tree.items.map((item, index) => {
         return (
           <div key={index} className={cn("pt-2 text-muted-foreground")}>

@@ -11,13 +11,35 @@ links:
   #     link: https://
 ---
 
+---
+
+The `Textarea` component provides a flexible and customizable input field that can handle multi-line text entries. It can be styled to fit different layouts and is perfect for situations where users need to enter longer text, such as feedback forms, comments, or code editors.
+
+---
+
 ## Usage
+
+The `Textarea` component is designed for handling multi-line text input. It can be used in forms, feedback sections, or anywhere where users need to provide more extensive information. Below is a basic example demonstrating how to use the `Textarea` component effectively in your project.
 
 <TextareaDemosUsage />
 
 ## Textarea Validate Json
 
+If your `Textarea` is intended for handling JSON input or any structured data, validation is crucial. This section demonstrates how to use the `Textarea` component along with validation, ensuring that the data entered by the user is in a valid JSON format.
+
 <TextareaDemosValidateJson />
+
+---
+
+**Tip**:
+
+> Use the `resize` property to control whether the user can resize the textarea. It's great for keeping the layout consistent, especially on fixed-width containers.
+
+**Note**:
+
+> Ensure that proper validation is in place when using `Textarea` for sensitive input types, like JSON or code, to provide immediate feedback for users.
+
+---
 
 ## API References
 
@@ -48,5 +70,8 @@ Textarea will adjust its height when you give it a value that exceeds its initia
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="textarea" />

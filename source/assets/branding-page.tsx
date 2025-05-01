@@ -5,7 +5,10 @@ import { Typography } from "@/ui/typography";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { ArrowIcon, HasCopyIcon, BrandOeriIcon as LogoIcon, TextIcon } from "@/icons/*";
 
-const FONT_NAME = "Geist Mono";
+const FONT_VARIANT = {
+  name: "Playwrite România",
+  url: "https://fonts.google.com/specimen/Playwrite+RO?preview.text=Oeri"
+};
 
 const COLOR_PALETTE = ["#142641", "#284e83", "#3569b2"];
 
@@ -70,12 +73,12 @@ function FontPalette() {
   return (
     <div className={cn(classes({ class: "card" }), "aspect-[6/4] bg-color [&_*]:!text-background")}>
       <div className={classes({ class: "sectionTop" })}>
-        <Typography prose="h1" className={classes({ card: "named" })}>
-          {FONT_NAME}
+        <Typography prose="h1" className="whitespace-nowrap font-playwrite-romania text-2xl leading-none">
+          {FONT_VARIANT.name}
         </Typography>
       </div>
       <div className={cn(classes({ class: "sectionBottom", theme: "light" }), "w-full")} tabIndex={-1}>
-        <a aria-label="use font" href="https://fonts.google.com/specimen/Geist+Mono?preview.text=oeri" target="_blank" rel="noopener noreferrer nofollow" className={classes({ class: "action-palette" })}>
+        <a aria-label="use font" href={FONT_VARIANT.url} target="_blank" rel="noopener noreferrer nofollow" className={classes({ class: "action-palette" })}>
           <ArrowIcon arrow="up-right" />
           <span className={classes({ card: "label" })}>Google Fonts</span>
         </a>

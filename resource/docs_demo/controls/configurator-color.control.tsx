@@ -1,5 +1,5 @@
 "use client";
-import { useApp } from "@/config/app-context";
+import { useApp } from "@/modules/web/configuration/app-context";
 import { useState } from "react";
 import { Input } from "@/ui/input";
 import { Group } from "@/ui/group";

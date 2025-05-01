@@ -72,13 +72,13 @@ export function generatedMetaDocsRoute(data: FileDocMeta[], order: readonly stri
   return result;
 }
 
-const customOrder = ["utility", "configurations", "components", "hooks"] as const;
+const customOrder = ["utilities", "configuration", "components", "hooks"] as const;
 
 export const metaDocsRoute = generatedMetaDocsRoute(fileDocsMeta, customOrder);
 
 export const restRoutes = {
-  utility: generatedMetaDocsRoute(fileDocsMeta, ["utility"]),
-  configurations: generatedMetaDocsRoute(fileDocsMeta, ["configurations"]),
+  utilities: generatedMetaDocsRoute(fileDocsMeta, ["utilities"]),
+  configuration: generatedMetaDocsRoute(fileDocsMeta, ["configuration"]),
   components: generatedMetaDocsRoute(fileDocsMeta, ["components"]),
   hooks: generatedMetaDocsRoute(fileDocsMeta, ["hooks"])
 };

@@ -1,6 +1,6 @@
 {
   "name": "oeri",
-  "version": "1.5.0",
+  "version": "1.7.5",
   "private": true,
   "license": "MIT",
   "description": "The Best Choice for Development Application based on React",
@@ -40,7 +40,7 @@
     "start": "next start",
     "generated:filesdocs": "bun run ./scripts/generated-files-docs.ts",
     "generated:metadocs": "bun run ./scripts/generated-meta-docs.ts",
-    "generated:demos": "bun run generated:generated-type-demos && bun run generated:generated-files-demos",
+    "generated:docsdemo": "bun run generated:generated-files-demos && bun run generated:metadocs",
     "generated:generated-type-demos": "bun run ./scripts/generated-type-demos.ts",
     "generated:generated-files-demos": "bun run ./scripts/generated-files-demos.ts",
     "generated:icons": "bun run exported:icons && bun run raw:icons",
@@ -84,6 +84,7 @@
     "node-fetch": "^3.3.2",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "sonner": "^2.0.3",
     "unified": "^11.0.4"
   },
   "devDependencies": {

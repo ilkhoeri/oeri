@@ -415,7 +415,8 @@ export function dataRenderer<T extends Record<string, any>>(data: T[], transform
 }
 
 // Export as a composite component
-type TableComponent = React.ForwardRefExoticComponent<TableProps & { ref?: React.ForwardedRef<HTMLTableElement> }> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type TableComponent = ForwardRef<"table", TableProps> & {
   Root: typeof Table;
   Header: typeof TableHeader;
   Body: typeof TableBody;

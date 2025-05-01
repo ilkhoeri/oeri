@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { cvx, cn } from "cretex";
 import { Title } from "@/source/assets/components";
-import { transform, sanitizedWord } from "@/utility/text-parser";
+import { transform, sanitizedWord } from "@/modules/web/utilities/text-parser";
 
 import { FolderFilesIcon } from "@/icons/*";
 import type { FileDocMeta, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";

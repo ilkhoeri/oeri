@@ -15,6 +15,8 @@ export function MarkdownText() {
     <>
       <Textarea name="playground" data-rehype-pretty-code-fragment="" id="playground" title="playground" aria-label="playground" cols={30} rows={10} className="relative !border-0 !bg-transparent scrollbar" spellCheck={false} value={text} onChange={e => setText(e.currentTarget.value)} />
       <CopyButton className="absolute right-4 top-4 z-9" value={text} />
+      <span className="sr-only hidden [background-image:linear-gradient(135deg,#667eea_0%,#764ba2_100%)] hover:!text-white" />
+      <span className="sr-only z-[3] hidden hover:!text-black active:scale-[0.985]" />
     </>
   );
 

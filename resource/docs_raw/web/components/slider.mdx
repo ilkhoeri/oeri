@@ -11,35 +11,57 @@ links:
   #     link: https://
 ---
 
+---
+
+The `Slider` component allows users to select a single value or a range of values along a track. It is highly customizable, supporting features like marks, custom labels, scaling functions, inverted behavior, and adjustable step sizes. Ideal for forms, settings adjustments, or any interface where controlled numeric input is needed with a more intuitive and interactive approach.
+
+---
+
 ## Usage
+
+Basic usage example to quickly see how the `Slider` works and how it handles basic value selection across a specified range.
 
 <SliderDemosUsage />
 
 ## Properties
 
+Interactive configurator to explore the customization options for the `Slider` component, including its behavior, appearance, and interaction states.
+
 <SliderDemosConfigurator />
 
 ### Slider Inverted
+
+Demonstrates how to invert the value progression of the `Slider`, making it decrease instead of increase as the thumb moves forward.
 
 <SliderDemosInverted />
 
 ### Slider Label
 
+Showcases how to display custom labels on the `Slider` to provide users with more informative value hints or steps.
+
 <SliderDemosLabel />
 
 ### Slider Marks
+
+Illustrates how to add predefined marks or points along the track to guide user selection on the `Slider`.
 
 <SliderDemosMarks />
 
 ### Slider Scale
 
+Demonstrates applying a custom scaling function to map slider values differently (e.g., logarithmic scales for non-linear data representation).
+
 <SliderDemosScale />
 
 ### Slider Step
 
+Shows how to configure the `Slider` to move in specific step increments rather than continuously, improving precision for discrete selections.
+
 <SliderDemosStep />
 
 ### Slider Thumb
+
+Explores customization options for the `Slider` thumb, including styling and behavior adjustments for better user experience.
 
 <SliderDemosThumb />
 
@@ -94,5 +116,8 @@ type T = "root" | "label" | "thumb" | "trackContainer" | "track" | "bar" | "mark
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="slider" />

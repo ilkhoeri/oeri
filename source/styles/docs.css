@@ -186,9 +186,9 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   }
   & :where(:is(h1, h2, h3, h4, h5)) {
     & a.anchor_id {
-      @apply font-geist-sans [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
+      @apply font-geist-sans [--sz-img:36px] [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
       &:has(img + svg) {
-        @apply flex-row-reverse [&>img]:-ml-4 [&>svg]:hidden;
+        @apply flex-row-reverse [&>img]:-ml-8 [&>img]:mr-4 [&>img]:size-[--sz-img] [&>img]:max-h-[--sz-img] [&>img]:max-w-[--sz-img] [&>svg]:hidden;
       }
     }
     & + hr {
@@ -287,7 +287,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   & [data-table="scroll-area"] {
     @apply relative border border-border rounded-2xl w-full min-w-full max-w-full overflow-x-auto scrollbar;
     & > table code {
-      @apply [unicode-bidi:embed] inline-flex items-center justify-center shrink-0 font-geist-mono font-normal align-text-top whitespace-nowrap select-none relative top-[-.1em] box-border border-[.03125rem] [word-spacing:-.1em] tracking-normal h-fit text-color bg-primitive [transition:box-shadow_.12s,background-color_.12s] [box-shadow:--shadow-kbd] text-[.625rem] py-[.0625rem] px-[.25rem] rounded;
+      @apply [unicode-bidi:embed] inline-flex items-center justify-center shrink-0 font-geist-mono font-normal align-text-top whitespace-nowrap select-none relative top-[-.1em] box-border border-[.03125rem] [word-spacing:-.1em] tracking-normal h-fit text-color bg-primitive [transition:box-shadow_.12s,background-color_.12s] [box-shadow:--shadow-kbd] text-[.790625rem] py-[.0625rem] px-[.25rem] rounded;
     }
     & > table {
       @apply w-max min-w-full max-w-max caption-bottom text-sm;

@@ -40,4 +40,4 @@ async function generatedFilesDocs(docs: string, segments: string[]) {
   }
 }
 
-generatedFilesDocs("web", ["components", "configurations", "hooks", "utility"]);
+generatedFilesDocs("web", ["components", "configuration", "hooks", "utilities"]);

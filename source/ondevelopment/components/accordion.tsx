@@ -141,7 +141,8 @@ export const AccordionContent = React.forwardRef<HTMLDivElement, ElementType<"di
 AccordionContent.displayName = "AccordionContent";
 
 // Export as a composite component
-type AccordionComponent = React.ForwardRefExoticComponent<AccordionProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type AccordionComponent = ForwardRef<"div", AccordionProps> & {
   Root: typeof Accordion;
   Item: typeof AccordionItem;
   Trigger: typeof AccordionTrigger;

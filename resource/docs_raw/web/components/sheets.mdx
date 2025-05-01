@@ -11,13 +11,32 @@ links:
   #     link: https://
 ---
 
+---
+
+`Sheets` is a flexible and composable UI abstraction that unifies multiple interaction patterns — including Accordion, Collapsible, Dialog, Drawer, and Dropdown — into a single, consistent system.
+Designed to simplify complex layouts and improve development efficiency, `Sheets` enables you to manage visibility, transitions, and nested structures seamlessly across different UI contexts.
+
+It offers variants suited for various use cases, such as content organization (Accordion), simple toggling (Collapsible), modal workflows (Dialog), off-canvas navigation (Drawer), and compact selection lists (Dropdown).
+With `Sheets`, you can build modular, accessible, and highly customizable user experiences with minimal boilerplate.
+
+---
+
 ## Usages
 
+Various examples of `Sheets` Implementation for various component patterns.
+`Sheets` offers a high moment to create interactive components that can be developed as needed.
+
 ### Sheets Variant Accordion
+
+Display collapsible content organized into accordion-style sections.
+This variant allows expanding one section at a time for a clean and structured user experience.
 
 <SheetsDemosAccordion />
 
 ### Sheets Variant Collapsible
+
+Simple collapsible component for toggling the visibility of content.
+Useful for hiding and revealing sections without restricting to only one open at a time.
 
 <SheetsDemosCollapsible />
 
@@ -25,25 +44,43 @@ links:
 
 ### Sheets Variant Dialog
 
+Modal dialog component for user interactions requiring focus.
+Dialogs are commonly used for confirmation prompts, forms, or important notices.
+
 <SheetsDemosDialog />
 
 #### Dialog Nested
+
+Example of nesting dialogs within dialogs.
+Useful when complex workflows require multiple layers of modal interactions.
 
 <SheetsDemosDialogNested />
 
 ### Sheets Variant Drawer
 
+Slide-in panel component typically used for sidebars, menus, or additional contextual content.
+Drawers provide an off-canvas UI that is accessible and intuitive.
+
 <SheetsDemosDrawer />
 
 #### Drawer Nested
+
+Example of nesting drawers inside drawers.
+Helpful for creating multi-level navigation structures or deep contextual workflows.
 
 <SheetsDemosDrawerNested />
 
 ### Sheets Variant Dropdown
 
+Dropdown menu component for showing a list of actions or links.
+Dropdowns are compact, context-sensitive components for user choices.
+
 <SheetsDemosDropdown />
 
 #### Dropdown Nested
+
+Example of nesting dropdowns within other dropdowns.
+Ideal for building multi-level menu structures or advanced option trees.
 
 <SheetsDemosDropdownNested />
 
@@ -119,5 +156,8 @@ export default {
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="sheets" />

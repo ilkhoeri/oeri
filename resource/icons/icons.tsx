@@ -1,8 +1,9 @@
+// bun run exported:icons
 import { Svg, type SvgProps } from "@/ui/svg";
 
 export function BrandOeriIcon(props: SvgProps) {
   return (
-    <Svg {...props}>
+    <Svg {...props} stroke={3}>
       <path d="m18.09,4.07c-2.74-2.1-6.49-2.72-9.91-1.3S2.54,7.27,2.09,10.7" />
       <path d="m5.91,19.93c2.74,2.1,6.49,2.72,9.91,1.3s5.63-4.51,6.09-7.93" />
       <line x1="13.85" y1="15.95" x2="18.25" y2="14.13" />
@@ -168,7 +169,7 @@ export function MoonStarIcon({ animation, ...props }: SvgProps<{ animation?: boo
   if (animation) {
     return (
       <Svg {...props}>
-        <g fill="none" stroke="currentColor" strokeDasharray="4" strokeDashoffset="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1">
+        <g suppressHydrationWarning fill="none" stroke="currentColor" strokeDasharray="4" strokeDashoffset="4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1">
           <path d="M13 4h1.5M13 4h-1.5M13 4v1.5M13 4v-1.5">
             <animate id="lineMdMoonRisingFilledAltLoop0" fill="freeze" attributeName="stroke-dashoffset" begin="0.7s;lineMdMoonRisingFilledAltLoop0.begin+6s" dur="0.4s" values="4;0" />
             <animate fill="freeze" attributeName="stroke-dashoffset" begin="lineMdMoonRisingFilledAltLoop0.begin+2s;lineMdMoonRisingFilledAltLoop0.begin+4s" dur="0.4s" values="4;0" />
@@ -193,7 +194,16 @@ export function MoonStarIcon({ animation, ...props }: SvgProps<{ animation?: boo
             <set fill="freeze" attributeName="d" begin="lineMdMoonRisingFilledAltLoop2.begin+5.8s" to="M19 4h1.5M19 4h-1.5M19 4v1.5M19 4v-1.5" />
           </path>
         </g>
-        <path fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 6 C7 12.08 11.92 17 18 17 C18.53 17 19.05 16.96 19.56 16.89 C17.95 19.36 15.17 21 12 21 C7.03 21 3 16.97 3 12 C3 8.83 4.64 6.05 7.11 4.44 C7.04 4.95 7 5.47 7 6 Z" transform="translate(0 22)">
+        <path
+          suppressHydrationWarning
+          fill="currentColor"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M7 6 C7 12.08 11.92 17 18 17 C18.53 17 19.05 16.96 19.56 16.89 C17.95 19.36 15.17 21 12 21 C7.03 21 3 16.97 3 12 C3 8.83 4.64 6.05 7.11 4.44 C7.04 4.95 7 5.47 7 6 Z"
+          transform="translate(0 22)"
+        >
           <animateMotion fill="freeze" calcMode="linear" dur="0.6s" path="M0 0v-22" />
         </path>
       </Svg>
@@ -853,6 +863,48 @@ export function WorldIcon(props: SvgProps) {
   return (
     <Svg {...props} currentFill="fill">
       <path d="M8.904 16.5h6.192C14.476 19.773 13.235 22 12 22c-1.197 0-2.4-2.094-3.038-5.204zh6.192zm-5.838.001h4.306c.364 2.082.983 3.854 1.792 5.093a10.03 10.03 0 0 1-5.952-4.814zm13.563 0h4.305a10.03 10.03 0 0 1-6.097 5.093c.755-1.158 1.344-2.778 1.715-4.681zh4.305zm.302-6.5h4.87a10.05 10.05 0 0 1-.257 5H16.84a29 29 0 0 0 .13-4.344zh4.87zM2.2 10h4.87a28 28 0 0 0 .033 4.42l.057.58H2.456a10.05 10.05 0 0 1-.258-5m6.377 0h6.849a26 26 0 0 1-.037 4.425l-.062.575H8.674a26 26 0 0 1-.132-4.512zh6.849zm6.368-7.424l-.108-.17A10.03 10.03 0 0 1 21.373 8.5h-4.59c-.316-2.416-.957-4.492-1.838-5.923l-.108-.17zm-5.902-.133l.122-.037c-.88 1.351-1.535 3.33-1.883 5.654l-.062.44H2.63a10.03 10.03 0 0 1 6.413-6.057l.122-.037zM12 2.002c1.319 0 2.646 2.542 3.214 6.183l.047.315H8.739C9.28 4.691 10.644 2.002 12 2.002" />
+    </Svg>
+  );
+}
+export function UserInfoIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11m-5.477 2A6.47 6.47 0 0 0 11 17.5c0 1.644.61 3.146 1.617 4.291q-1.204.21-2.617.21c-2.89 0-5.128-.657-6.69-2a3.75 3.75 0 0 1-1.306-2.844v-.907A2.25 2.25 0 0 1 4.254 14zm5.477 5.875a.625.625 0 1 0 0 1.25a.625.625 0 0 0 0-1.25m0-5.875a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0v-4a.5.5 0 0 0-.5-.5M10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10" />
+    </Svg>
+  );
+}
+export function UserWarningIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="M11.27 20.38L14.458 14H6.253a2.25 2.25 0 0 0-2.25 2.249v.92c0 .572.18 1.13.511 1.596c1.396 1.958 3.595 3.023 6.536 3.207a2.47 2.47 0 0 1 .22-1.591M12 2.006a5 5 0 1 1 0 10a5 5 0 0 1 0-10m4.161 10.825l-3.997 7.998A1.5 1.5 0 0 0 13.507 23h7.994a1.5 1.5 0 0 0 1.343-2.172l-3.997-7.998c-.553-1.107-2.133-1.107-2.686 0m1.843 2.666v3.001a.5.5 0 0 1-1 0v-3.001a.5.5 0 0 1 1 0m-.5 5.503a.5.5 0 1 1 0-1.001a.5.5 0 0 1 0 1" />
+    </Svg>
+  );
+}
+export function UserErrorIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11m-5.477 2A6.47 6.47 0 0 0 11 17.5c0 1.644.61 3.146 1.617 4.29q-1.203.212-2.617.211c-2.89 0-5.128-.656-6.69-2a3.75 3.75 0 0 1-1.306-2.844v-.907A2.25 2.25 0 0 1 4.254 14zm3.07.966l-.069.058l-.058.07a.5.5 0 0 0 0 .568l.058.07l1.77 1.769l-1.767 1.767l-.058.069a.5.5 0 0 0 0 .569l.058.069l.069.058a.5.5 0 0 0 .569 0l.069-.058l1.767-1.767l1.769 1.77l.069.057a.5.5 0 0 0 .569 0l.069-.058l.058-.07a.5.5 0 0 0 0-.568l-.058-.069l-1.77-1.77l1.773-1.768l.058-.07a.5.5 0 0 0 0-.568l-.058-.07l-.07-.057a.5.5 0 0 0-.568 0l-.07.057l-1.771 1.77l-1.77-1.77l-.069-.057a.5.5 0 0 0-.492-.044zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10" />
+    </Svg>
+  );
+}
+export function UserSuccessIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11m-5.477 2A6.47 6.47 0 0 0 11 17.5c0 1.63.6 3.12 1.592 4.262q-1.193.24-2.592.24c-3.42 0-5.944-1.073-7.486-3.237a2.75 2.75 0 0 1-.51-1.596v-.92A2.25 2.25 0 0 1 4.253 14zm2.83 3.147a.5.5 0 1 0-.706.707l2 2a.5.5 0 0 0 .707 0l4-4a.5.5 0 1 0-.707-.707L16.5 18.793zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10" />
+    </Svg>
+  );
+}
+export function UserSupportIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="m10.155 14.773l-.009-.021a7 7 0 0 1-.402-.123l-.01-.004A7 7 0 0 1 5 8a7 7 0 0 1 13.96-.749c.044.412-.296.749-.71.749s-.745-.338-.8-.748a5.501 5.501 0 1 0-7.279 5.937a2 2 0 0 1 3.829.81a2 2 0 0 1-3.845.774m-1.025 1.23a8.5 8.5 0 0 1-3.136-1.988a2.25 2.25 0 0 0-1.99 2.234v.92c0 .572.178 1.13.51 1.596C6.056 20.929 8.58 22 12 22s5.945-1.072 7.49-3.235a2.75 2.75 0 0 0 .513-1.599v-.918a2.25 2.25 0 0 0-2.248-2.25H15.5a3.5 3.5 0 0 1-6.37 2.004M16 8a4 4 0 0 0-1.431-3.066a4 4 0 1 0-4.811 6.379A3.5 3.5 0 0 1 12 10.5c.853 0 1.635.305 2.243.813A4 4 0 0 0 16 8" />
+    </Svg>
+  );
+}
+export function UserIcon(props: SvgProps) {
+  return (
+    <Svg {...props} currentFill="fill">
+      <path d="M17.755 14a2.25 2.25 0 0 1 2.248 2.25v.918a2.75 2.75 0 0 1-.512 1.598c-1.546 2.164-4.07 3.235-7.49 3.235c-3.422 0-5.945-1.072-7.487-3.236a2.75 2.75 0 0 1-.51-1.596v-.92A2.25 2.25 0 0 1 6.253 14zM12 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10" />
     </Svg>
   );
 }

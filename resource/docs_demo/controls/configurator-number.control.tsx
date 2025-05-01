@@ -1,5 +1,5 @@
 "use client";
-import { useApp } from "@/config/app-context";
+import { useApp } from "@/modules/web/configuration/app-context";
 import { Slider } from "@/ui/slider";
 import { Input } from "@/ui/input";
 import { ComponentProps } from "../assets/types/component";

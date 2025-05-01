@@ -5,7 +5,7 @@ const classes = cvx({
   variants: {
     selector: {
       root: "relative",
-      indicator: "absolute z-[200] flex items-center justify-center whitespace-nowrap text-xs leading-none [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
+      indicator: "absolute z-[200] flex items-center justify-center whitespace-nowrap p-1 text-xs leading-none select-none leading-[0] [transform:translate(var(--indicator-translate-x),var(--indicator-translate-y))]"
     },
     processing: {
       true: "before:absolute before:inset-0 before:bg-[var(--indicator-color,inherit)] before:rounded-[--indicator-round,9999px] before:-z-1 data-[processing]:before:content-[''] data-[processing]:before:[animation:processing_1000ms_linear_infinite]"
@@ -43,9 +43,7 @@ function getStyles(selector: __Selector, options: Options) {
     "data-position": position,
     ...ocx(
       selected("indicator", {
-        disabled: opt.disabled,
         "data-disabled": is(opt.disabled),
-        "aria-disabled": arDis || is(opt.disabled),
         "data-indicator": "indicator",
         "data-with-label": is(!!opt.label),
         "data-with-border": is(opt.withBorder),

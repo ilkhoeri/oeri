@@ -165,7 +165,7 @@ interface __CheckerCardProps extends ComponentProps<"button", "size" | "color" |
   onChange?: (checked: boolean) => void;
 }
 export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProps>((_props, ref) => {
-  const { dir = "ltr", round = 8, classNames, className, style, styles, unstyled, checked, value, onClick, name, onKeyDown, disabled, error, required, indeterminate, readOnly, labelPosition, defaultChecked, onChange, type = checkerDefault, ...props } = _props;
+  const { dir = "ltr", round = 12, classNames, className, style, styles, unstyled, checked, value, onClick, name, onKeyDown, disabled, error, required, indeterminate, readOnly, labelPosition, defaultChecked, onChange, type = checkerDefault, ...props } = _props;
 
   const ctx = useCheckerGroupCtx();
   const _name = name || ctx?.name;
@@ -245,7 +245,7 @@ CheckerCard.displayName = "CheckerCard";
 interface __CheckerProps extends __CheckerGroupProps {
   offLabel?: React.ReactNode;
   onLabel?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | ((checked: boolean) => React.ReactNode);
   rootRef?: React.ForwardedRef<HTMLLabelElement>;
   rootProps?: React.PropsWithRef<Component<"label">>;
 }
@@ -288,6 +288,7 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
     error
   };
 
+  const iconType = typeof icon === "function" ? icon(_checked) : icon;
   const isChecked = <T,>(state: T) => (_checked ? state : undefined);
 
   return (
@@ -297,6 +298,7 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
         htmlFor: uuid,
         ...checkerStyles("root", { className, style, ...rest }),
         "aria-checked": wp?.["aria-checked"] || isChecked(true),
+        suppressHydrationWarning: wp?.suppressHydrationWarning || true,
         ...wp
       }}
     >
@@ -320,7 +322,7 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
         }}
       />
       <div {...{ "aria-hidden": "true", ...checkerStyles("track", rest) }}>
-        {rest.type === "switch" ? <span {...checkerStyles("thumb", rest)}>{icon}</span> : (icon ?? <IconDefault type={rest.type} indeterminate={rest.indeterminate} />)}
+        {rest.type === "switch" ? <span {...checkerStyles("thumb", rest)}>{iconType}</span> : (iconType ?? <IconDefault type={rest.type} indeterminate={rest.indeterminate} />)}
         {rest.type === "switch" && (onLabel || offLabel) && <span {...checkerStyles("trackLabel", rest)}>{_checked ? onLabel : offLabel}</span>}
       </div>
       {(label || description || error) && (
@@ -477,7 +479,8 @@ function rootVars({ type, size, round, color, error }: __CheckerProps) {
 }
 
 // Export as a composite component
-type CheckerComponent = React.ForwardRefExoticComponent<CheckerProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type CheckerComponent = ForwardRef<"input", CheckerProps> & {
   Group: typeof CheckerGroup;
   Card: typeof CheckerCard;
 };

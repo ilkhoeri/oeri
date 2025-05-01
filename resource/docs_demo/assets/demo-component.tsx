@@ -7,10 +7,10 @@ import { ComponentProps } from "./types/component";
 
 const classes = {
   root: {
-    root: merge("mb-20 rounded-[.5rem] border border-solid border-[--demo-border] [--demo-border:hsl(var(--border))]")
+    root: merge("mb-20 mt-10 rounded-[.5rem] border border-solid border-[--demo-border] [--demo-border:hsl(var(--border))]")
   },
   columns: {
-    root: merge("flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]"),
+    root: merge("flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [&_[data-demo-area]+div]:has-[[data-demo-area]+div>div:empty]:hidden [&_[data-demo-area]]:has-[[data-demo-area]+div>div:empty]:max-w-full [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]"),
     controls: merge("flex-[0_0_var(--basis)] border-l border-solid border-[--demo-border] p-[.25rem] pb-[.625rem] rtl:border-l-0 rtl:border-r [@media(max-width:55em)]:!border-x-0 [@media(max-width:55em)]:border-t"),
     wrapTitle: merge("mx-[-.25rem] mb-[.625rem] border-b border-solid border-[--demo-border] px-[1rem] pb-[.625rem] pt-[calc(1rem-.25rem)]"),
     title: merge("mb-[.3125rem] font-medium"),
@@ -21,7 +21,7 @@ const classes = {
   },
   demoArea: {
     demoArea: merge("max-w-[calc(100%-var(--basis,0))] flex-1 overflow-hidden rounded-t-[calc(.5rem-.0625rem)] data-[centered]:flex data-[centered]:items-center data-[centered]:justify-center data-[dimmed]:bg-muted data-[with-padding]:p-4"),
-    demoInner: merge("mx-[--demo-margin-y,unset] min-h-[--demo-min-height,unset] max-w-[--demo-max-width,100%] flex-[--demo-flex]"),
+    demoInner: merge("mx-[--demo-margin-x,unset] my-[--demo-margin-y,unset] min-h-[--demo-min-height,unset] max-w-[--demo-max-width,100%] flex-[--demo-flex]"),
     striped: merge("data-[striped]:rounded-tl-[calc(.5rem-.0625rem)] data-[striped]:[--stripe-color:#00000008] data-[striped]:dark:[--stripe-color:#ffffff08]"),
     stripedBg: "repeating-linear-gradient(45deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px), repeating-linear-gradient(135deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px)"
   }
@@ -125,7 +125,7 @@ export function DemoArea(_props: DemoAreaProps) {
           "--demo-flex": set(maxWidth, "1"),
           "--demo-max-width": set(maxWidth, rem(maxWidth)),
           "--demo-min-height": set(minHeight, rem(minHeight)),
-          "--demo-margin-y": set(maxWidth && centered, "auto"),
+          "--demo-margin-x": set(maxWidth && centered, "auto"),
           background: set(striped, classes.demoArea.stripedBg)
         } as React.CSSProperties
       }}

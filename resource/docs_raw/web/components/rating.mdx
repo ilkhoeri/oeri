@@ -13,21 +13,36 @@ links:
 
 ## Usage
 
+Basic usage example to quickly see how the `Rating` component works.
+This example gives a quick overview of how to implement the `Rating` component in a simple use case.
+
 <RatingDemosUsage />
 
 ## Properties
+
+Interactive configurator to explore customization options for the `Rating` component.
+Adjust visual and behavioral properties such as maximum value, fractions, and symbols to see how the component responds.
 
 <RatingDemosConfigurator />
 
 ## Custom Symbol
 
+Demonstration of using custom icons or elements as rating symbols.
+Instead of default stars, you can define your own icons or any React nodes for the rating items.
+
 <RatingDemosCustomSymbol />
 
 ## Custom Fractions
 
+Demonstration of configuring fractional steps for rating values.
+This example shows how to allow partial ratings, like half-stars or custom fractions.
+
 <RatingDemosCustomFractions />
 
 ## Controlled
+
+Example of a fully controlled `Rating` component.
+The rating value is stored in a local state and updated manually through the onChange handler.
 
 ```tsx showLineNumbers
 "use client";
@@ -41,6 +56,9 @@ function RatingDemo() {
 ```
 
 ## Read only
+
+Example of a `read-only` `Rating` component.
+The rating is fixed and cannot be changed by user interaction, useful for displaying existing review scores.
 
 ```tsx showLineNumbers
 import { Rating } from "@/ui/rating";
@@ -74,5 +92,8 @@ function RatingDemo() {
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="rating" />

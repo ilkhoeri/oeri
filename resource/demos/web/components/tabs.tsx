@@ -146,11 +146,11 @@ function Custom1Demo() {
             </Tabs.Tab>
           ))}
 
-          <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={350} className="bg-muted/60 border-muted-foreground/60 rounded-md rounded-b-none border-b-transparent -z-1 shadow-md border-2" />
+          <FloatingIndicator target={controlsRefs[hover ?? active]} parent={parentRef} transitionDuration={350} className="-z-1 rounded-md rounded-b-none border-2 border-muted-foreground/60 border-b-transparent bg-muted/60 shadow-md" />
         </Tabs.List>
 
         {data.map((i, _i) => (
-          <Tabs.Panel key={_i} value={validatedValue(i.label)} className="overflow-auto max-h-full max-w-full">
+          <Tabs.Panel key={_i} value={validatedValue(i.label)} className="max-h-full max-w-full overflow-auto">
             {i.description}
           </Tabs.Panel>
         ))}

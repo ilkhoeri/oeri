@@ -138,7 +138,8 @@ export const TimesPosted = React.forwardRef<HTMLTimeElement, TimesPostedProps>((
 TimesPosted.displayName = "TimesPosted";
 
 // Export Timeline as a composite component
-type TimesComponent = React.ForwardRefExoticComponent<TimesProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type TimesComponent = ForwardRef<"time", TimesProps> & {
   Posted: typeof TimesPosted;
 };
 // Attach sub-components

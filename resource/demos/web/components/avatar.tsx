@@ -79,7 +79,7 @@ export const group: DataTrees = {
     { prop: "initialLimit", type: "number", initialValue: 2, libraryValue: 2, min: 1, max: 4 },
     { prop: "round", type: "number", initialValue: 999, libraryValue: 999 },
     { prop: "size", type: "number", initialValue: 38, libraryValue: 38, min: 28 },
-    { prop: "gap", type: "number", initialValue: 17, libraryValue: 17, min: 0 },
+    { prop: "gap", type: "number", initialValue: 16, libraryValue: 16, min: 0 },
     { prop: "color", type: "color", initialValue: "initials", libraryValue: "initials" }
   ]
 };

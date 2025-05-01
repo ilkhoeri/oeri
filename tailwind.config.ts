@@ -209,7 +209,8 @@ export default {
         "roboto-mono": ["var(--ff-roboto-mono)"],
         "special-elit": ["var(--ff-special-elit)"],
         "geist-sans": ["var(--ff-geist-sans)"],
-        "geist-mono": ["var(--ff-geist-mono)"]
+        "geist-mono": ["var(--ff-geist-mono)"],
+        "playwrite-romania": ["var(--ff-playwrite-romania)"]
       },
       zIndex: {
         "1": "1",

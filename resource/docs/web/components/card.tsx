@@ -82,7 +82,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(_p
 Card.displayName = "Card";
 
 // Export as a composite component
-type CardComponent = React.ForwardRefExoticComponent<CardProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type CardComponent = ForwardRef<"div", CardProps> & {
   Header: typeof CardHeader;
   Title: typeof CardTitle;
   Description: typeof CardDescription;

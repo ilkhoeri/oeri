@@ -370,16 +370,12 @@ export const Sheets = React.forwardRef<React.ComponentRef<"div">, SheetsProps>((
   switch (variant) {
     case "accordion":
       return <SheetsAccordion ref={ref} {...(props as SheetsAccordionProps)} />;
-
     case "collapsible":
       return <SheetsCollapsible ref={ref} {...(props as SheetsCollapsibleProps)} />;
-
     case "dialog":
       return <SheetsDialog {...(props as SheetsDialogProps)} />;
-
     case "drawer":
       return <SheetsDrawer {...(props as SheetsDrawerProps)} />;
-
     case "dropdown":
       return <SheetsDropdown {...(props as SheetsDropdownProps)} />;
   }
@@ -802,7 +798,8 @@ function hasSpecificChildren(children: React.ReactNode, components: Components, 
 }
 
 // Export as a composite component
-type SheetsComponent = React.ForwardRefExoticComponent<SheetsProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type SheetsComponent = ForwardRef<"div", SheetsProps> & {
   Accordion: typeof SheetsAccordion;
   Collapsible: typeof SheetsCollapsible;
   Dropdown: typeof SheetsDropdown;
@@ -862,7 +859,7 @@ const styleDefault = {
     }
   }),
   overlay: "fixed inset-0 size-full z-[100] bg-background/50 supports-[backdrop-filter]:bg-background/50 cursor-default data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
-  closed: "size-4 absolute right-4 top-4 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50"
+  closed: "size-4 absolute right-4 top-4 text-muted-foreground hover:text-color rounded-lg disabled:opacity-50"
 };
 
 function styleByVariant(side: `${SheetsSide}`) {
@@ -887,10 +884,10 @@ function styleByVariant(side: `${SheetsSide}`) {
         accordion: "overflow-hidden transition-all bg-transparent m-0 p-0 w-full text-left",
         collapsible: "overflow-hidden transition-all data-[state=open]:animate-collapse-open data-[state=closed]:animate-collapse-closed bg-transparent m-0 p-0 w-full text-left",
         dialog:
-          "fixed left-[50%] top-[50%] z-[111] min-h-80 w-80 translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[60%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[60%]",
+          "fixed left-[50%] top-[50%] z-[111] min-h-80 w-80 translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl border bg-background p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[60%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[60%]",
         drawer: merge(styleDefault.content({ side })),
         dropdown:
-          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 absolute z-[86] left-[--left] top-[--top] overflow-hidden bg-background rounded-md border"
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 absolute z-[86] left-[--left] top-[--top] overflow-hidden bg-background rounded-xl border"
       },
       overlay: {
         accordion: merge(styleDefault.overlay),

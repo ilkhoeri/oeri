@@ -72,7 +72,7 @@ export function CodeBlockCommand(_props: React.ComponentProps<"pre"> & NpmComman
         unstyled
         value={packageManager}
         defaultValue={packageManager}
-        onChange={value => {
+        onValueChange={value => {
           setConfig({
             ...config,
             packageManager: value as "pnpm" | "npm" | "yarn" | "bun"

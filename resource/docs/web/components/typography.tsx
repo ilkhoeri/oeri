@@ -1,7 +1,7 @@
 import * as React from "react";
 import { merge, cvx, type cvxProps } from "cretex";
 
-const classes = cvx({
+export const typographyVariant = cvx({
   variants: {
     prose: {
       h1: "scroll-m-20 text-[clamp(2rem,1rem+4vw,2.75rem)] leading-[clamp(2rem,1rem+4vw,4.25rem)] font-extrabold tracking-tight",
@@ -11,12 +11,12 @@ const classes = cvx({
       h5: "scroll-m-20 text-[clamp(1rem,0.75rem+2vw,1.25rem)] leading-6 font-medium tracking-tight",
       h6: "scroll-m-20 text-[clamp(0.9375rem,0.75rem+2vw,1.125rem)] leading-4 font-medium tracking-tight",
       label: "mr-auto w-full text-sm text-muted-foreground [&:not(:first-child)]:mt-4 rtl:ml-auto rtl:mr-0",
-      p: "leading-7 [&:not(:first-child)]:mt-4",
+      p: "leading-7 [&:not(:first-child)]:mt-2",
       span: "mt-1 w-full text-start text-sm text-muted-foreground first-of-type:mt-8",
       large: "text-lg font-semibold",
       small: "text-sm font-medium leading-none",
       ol: "my-5 ml-5 pl-5 list-decimal marker:font-normal [&:has(+ul)]:mb-0 [&:has(+ul)+ul]:my-0 [&:has(+ul)+ul]:ml-10 [&>li]:mt-2",
-      ul: "my-5 ml-5 pl-5 list-disc marker:font-normal [&>li]:mt-2 [&>li]:whitespace-pre-wrap [&_ol]:has-[ol]:ml-0 [&_ol]:has-[ol]:my-0 [&_ol]:has-[ol]:whitespace-normal [&_ul]:has-[ul]:ml-0 [&_ul]:has-[ul]:my-0 [&_ul]:has-[ul]:whitespace-normal",
+      ul: "my-5 ml-5 pl-5 list-disc marker:font-normal [&>li]:mt-2 [&_ol]:has-[ol]:ml-0 [&_ol]:has-[ol]:my-0 [&_ol]:has-[ol]:whitespace-normal [&_ul]:has-[ul]:ml-0 [&_ul]:has-[ul]:my-0 [&_ul]:has-[ul]:whitespace-normal",
       li: "list-item [text-align:-webkit-match-parent] [unicode-bidi:isolate] leading-normal",
       code: "relative rounded bg-muted/60 border border-solid border-border px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium",
       kbd: "text-[calc(.85em*1)] rounded py-[calc(.15em*1)] px-[calc(.35em*1)] text-color [--shadow:hsl(var(--border))] [box-shadow:0_0_0_.0625em_var(--shadow),0_.09375em_0_.0625em_var(--shadow)]",
@@ -24,7 +24,7 @@ const classes = cvx({
       hr: "my-3 h-0 w-full border-t border-solid border-border",
       lead: "text-xl text-muted-foreground",
       muted: "text-sm text-muted-foreground",
-      blockquote: "my-5 border-l-4 pl-6 rtl:border-l-0 rtl:pl-0 rtl:border-r-4 rtl:pr-6 italic"
+      blockquote: "my-5 whitespace-pre-line border-l-4 pl-6 italic rtl:border-l-0 rtl:border-r-4 rtl:pl-0 rtl:pr-6"
     }
   }
 });
@@ -36,7 +36,7 @@ export type TypographyProps<T extends React.ElementType = "div"> = React.PropsWi
   className?: string;
   style?: React.CSSProperties & Record<string, any>;
   ref?: React.ComponentPropsWithRef<T>["ref"];
-} & cvxProps<typeof classes>;
+} & cvxProps<typeof typographyVariant>;
 
 type TypographyElement = <T extends React.ElementType = "div">(_props: TypographyProps<T>) => React.ReactElement;
 
@@ -44,5 +44,5 @@ export const Typography = React.forwardRef(function Typography<T extends React.E
   const { el, unstyled, className, prose, ...props } = _props;
   const proseElm = ["large", "lead", "muted"].includes(prose as string) ? "div" : prose;
   const Component = (el || proseElm || "div") as React.ElementType;
-  return <Component {...{ ref, className: merge(!unstyled && classes({ prose }), className), ...props }} />;
+  return <Component {...{ ref, className: merge(!unstyled && typographyVariant({ prose }), className), ...props }} />;
 }) as TypographyElement;

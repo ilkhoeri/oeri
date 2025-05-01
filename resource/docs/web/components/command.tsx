@@ -890,7 +890,8 @@ function getHighlightedSearch(value: string, _highlight: string | string[]) {
 }
 
 // Export as a composite component
-type CommandComponent = React.ForwardRefExoticComponent<CommandProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type CommandComponent = ForwardRef<"div", CommandProps> & {
   Root: typeof CommandRoot;
   Search: typeof CommandSearch;
   ActionsList: typeof CommandActionsList;

@@ -62,7 +62,7 @@ const TooltipContent = React.forwardRef<React.ElementRef<typeof Primitive.Conten
         side,
         sideOffset: withArrow ? Number(sideOffset) + 9 : sideOffset,
         className: cn(
-          "group/content relative z-50 flex items-center justify-center rounded-md border bg-background px-3 py-1.5 text-sm text-muted-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 [&_[data-tooltip]]:text-background",
+          "group/content relative z-50 flex items-center justify-center rounded-xl border bg-background px-3 py-1.5 text-sm text-muted-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 [&_[data-tooltip]]:text-background",
           className
         ),
         ...props
@@ -89,7 +89,7 @@ export interface TooltipProps extends Omit<Primitive.TooltipTriggerProps, "conte
 }
 
 const Tooltip = React.forwardRef<React.ElementRef<typeof Primitive.Trigger>, TooltipProps>((_props, ref) => {
-  const { open, onOpenChange, defaultOpen, delayDuration = 0, disableHoverableContent, content, contentProps, sideOffset, skipDelayDuration, className, classNames, style, styles, withArrow, touch = true, align = "center", side = "bottom", ...props } = _props;
+  const { open, onOpenChange, defaultOpen, delayDuration = 0, disableHoverableContent, content, contentProps, sideOffset, skipDelayDuration, className, classNames, style, styles, withArrow, touch = false, align = "center", side = "bottom", ...props } = _props;
 
   return (
     <TooltipProvider {...{ skipDelayDuration, open, touch, onOpenChange, defaultOpen, delayDuration, disableHoverableContent }}>

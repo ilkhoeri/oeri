@@ -9,7 +9,7 @@ import { merge } from "cretex";
 import { Polymorphic } from "@/ui/polymorphic-slot";
 import { FloatingIndicator } from "@/ui/floating-indicator";
 import { BrandOeriIcon, CircleArrowIcon, TextDirectionIcon } from "@/icons/*";
-import { useApp } from "@/config/app-context";
+import { useApp } from "@/modules/web/configuration/app-context";
 import { Burger } from "@/ui/burger";
 import { Button } from "@/ui/button";
 
@@ -111,15 +111,15 @@ export function LinkHome({ className }: { open?: boolean; className?: string }) 
   return (
     <Sheets.Dropdown align={dir === "rtl" ? "end" : "start"} sideOffset={0} clickOutsideToClose modal>
       <Sheets.Trigger unstyled openChangeOnContextMenu>
-        <Link href="/" aria-label="oeri" className={merge("gap-2 rounded-lg px-2 py-1 text-lg leading-none duration-75 hover:text-constructive-foreground", className)}>
-          <BrandOeriIcon size={30} />
-          <span className="font-geist-mono tracking-wide">oeri</span>
+        <Link href="/" aria-label="oeri" className={merge("gap-1 rounded-lg px-2 py-1 text-[22px] leading-none duration-75 hover:text-constructive-foreground", className)}>
+          <BrandOeriIcon size={28} />
+          <span className="font-playwrite-romania font-semibold tracking-wide">Oeri</span>
         </Link>
       </Sheets.Trigger>
 
       <Sheets.Content className="z-99 w-44 min-w-[12.5rem] rounded-xl border-constructive bg-background-theme p-2 shadow-[0_10px_32px_rgba(34,42,53,0.15),0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.08),0_1px_1px_rgba(34,42,53,0.1),0_24px_68px_rgba(47,48,55,0.1)] ring-1 ring-constructive/5">
         <Link className="block w-full gap-2 rounded-sm p-2 text-sm/5 outline-none transition-colors duration-75 hover:bg-constructive-emphasis/5" role="menuitem" tabIndex={-1} data-orientation="vertical" href="/branding">
-          <div className="flex w-full items-center gap-x-2 border-b border-dashed border-b-color pb-2">
+          <div className="flex w-full items-center gap-x-1 border-b border-dashed border-b-color pb-2">
             <BrandOeriIcon size={20} />
             <span className="font-medium">Branding assets</span>
           </div>

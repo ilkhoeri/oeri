@@ -183,7 +183,8 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>((_props,
 Timeline.displayName = "Timeline";
 
 // Export Timeline as a composite component
-type TimelineComponent = React.ForwardRefExoticComponent<TimelineProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type TimelineComponent = ForwardRef<"div", TimelineProps> & {
   List: typeof TimelineList;
   Item: typeof TimelineItem;
 };

@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Tabs } from "@/ui/tabs";
-import { formatTitle, type FormatTransform } from "@/utility/text-parser";
+import { formatTitle, type FormatTransform } from "@/modules/web/utilities/text-parser";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "cretex";
 

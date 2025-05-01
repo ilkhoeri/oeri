@@ -1,12 +1,12 @@
 import { bodyConfig } from "./fonts";
 import { userAgent } from "next/server";
 import { headers, cookies } from "next/headers";
-import { Cookies, Theme } from "@/config/types";
+import { Cookies, Theme } from "@/modules/web/configuration/types";
 import { ScrollToggle } from "@/source/assets/toggle";
 import { FootNav } from "@/source/assets/nav-foot";
 import { NavProvider } from "@/source/hooks/use-nav";
-import { AppProvider } from "@/config/app-context";
-import { ThemeProvider } from "@/config/themes";
+import { AppProvider } from "@/modules/web/configuration/app-context";
+import { ThemeProvider } from "@/modules/web/configuration/themes";
 import { Comp } from "@/source/assets/components";
 import { Headnav } from "@/source/assets/nav-head";
 import { AsideLeft } from "@/source/assets/nav-aside-left";

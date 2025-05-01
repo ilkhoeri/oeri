@@ -13,25 +13,50 @@ links:
 
 ## Properties
 
+Interactive configurator to explore various customization options for the `Input` component.
+This section allows you to adjust and preview properties such as size, variant, radius, and other interactive behaviors.
+
 <InputDemosConfigurator />
 
 ### Input.Password
 
+A demonstration of how to use the `Input.Password` variant.
+This specialized input field is designed for handling password entries, typically with additional features like show/hide password functionality.
+
 <InputDemosPassword />
 
-## indeterminate
+### Type Checkbox
 
-- The indeterminate function is usually used on checkbox elements to indicate a state that is not fully selected.
-- When the `indeterminate` property is `true`, the `checkbox` will be in a neutral state.
-- This property is only relevant for inputs with `type="checkbox"`
+An example showcasing how to use the `Input` component with `type="checkbox"`.
+Checkbox inputs are commonly used for toggling selections or options within a form.
 
-### Example
+<InputDemosCheckboxUsage />
 
-<InputDemosUsage />
+#### Checkbox Indeterminate
+
+Demonstrates the `indeterminate` state of a checkbox input.
+An indeterminate checkbox represents a partially selected or ambiguous state, often used in tree view structures or when some but not all options are selected.
+
+<InputDemosCheckboxIndeterminate />
+
+**About Indeterminate**:
+
+- The indeterminate function is typically used to indicate a mixed or partial selection.
+- When indeterminate is set to true, the checkbox appears visually different from a fully checked or unchecked box.
+- This property is only relevant when the input type is set to "checkbox".
+
+### Input.Wrapper
+
+A demonstration of how to use `Input.Wrapper` to structure and customize the layout of input fields.
+The `Input.Wrapper` component helps in organizing inputs with labels, error messages, and helper texts while ensuring consistent styling and behavior.
+
+<InputDemosWrapperAndConfigurator />
 
 ---
 
-Handle style changes and onChange based on input type
+> **Note:**
+> The `Input` component automatically handles style changes and the `onChange` behavior based on the input `type`.
+> For example, checkboxes, radios, and text inputs are each managed appropriately without needing separate handlers.
 
 ---
 
@@ -67,14 +92,18 @@ type Size = (number | (string & {})) | { h?: React.CSSProperties["height"]; w?: 
 type InputPasswordTrees = "input" | "wrapper" | "toggle";
 ```
 
-| Props API       | Type                                      | Default                | Annotation                                                                                                    |
-| --------------- | ----------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------- |
-| defaultOpen`?`  | `boolean`                                 | `false`                | The open state of the view when it is initially rendered. Use when you do not need to control its open state. |
-| open`?`         | `boolean`                                 | by `defaultOpen` value | The controlled open state of the view inputs. Must be used in conjunction with onOpenChange.                  |
-| onOpenChange`?` | `(open: SetStateAction<boolean>) => void` | ---                    | Event handler called when the open state of the view inputs moments changes.                                  |
+| Props API       | Type                                          | Default                | Annotation                                                                                                    |
+| --------------- | --------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| defaultOpen`?`  | `boolean`                                     | `false`                | The open state of the view when it is initially rendered. Use when you do not need to control its open state. |
+| open`?`         | `boolean`                                     | by `defaultOpen` value | The controlled open state of the view inputs. Must be used in conjunction with onOpenChange.                  |
+| onOpenChange`?` | `(open: SetStateAction<boolean>) => void`     | ---                    | Event handler called when the open state of the view inputs moments changes.                                  |
+| toggleIcon`?`   | `ReactNode \| ((open: boolean) => ReactNode)` | ---                    |                                                                                                               |
 
 ---
 
 ## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
 
 <SourceCodes name="input" />

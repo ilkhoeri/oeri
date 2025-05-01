@@ -371,6 +371,22 @@ export const fileDocsMeta = [
     }
   },
   {
+    name: "password-requirement",
+    ext: ".tsx",
+    path: "/docs/web/components/password-requirement",
+    segment: ["web", "components"],
+    meta: {
+      date: "2025-01-05T00:00:00.000Z",
+      title: "Password Requirement",
+      description: "Component for displaying live password validation feedback based on defined requirements, optionally with strength progress bars.",
+      summary: "Shows live validation feedback for password requirements.",
+      component: true,
+      links: {
+        doc: "https://"
+      }
+    }
+  },
+  {
     name: "polymorphic-slot",
     ext: ".tsx",
     path: "/docs/web/components/polymorphic-slot",
@@ -380,6 +396,22 @@ export const fileDocsMeta = [
       title: "Polymorphic Slot",
       description: "A flexible component that allows dynamic rendering of its children as different HTML elements or components, while preserving props and context.",
       summary: "A dynamic slot component for rendering flexible and customizable child elements.",
+      component: true,
+      links: {
+        doc: "https://"
+      }
+    }
+  },
+  {
+    name: "progress",
+    ext: ".tsx",
+    path: "/docs/web/components/progress",
+    segment: ["web", "components"],
+    meta: {
+      date: "2025-01-05T00:00:00.000Z",
+      title: "Progress",
+      description: "A flexible progress bar component that visually indicates task completion and supports multiple sections for complex progress tracking.",
+      summary: "Visualizes progress with optional multi-section support.",
       component: true,
       links: {
         doc: "https://"
@@ -611,6 +643,22 @@ export const fileDocsMeta = [
     }
   },
   {
+    name: "toaster",
+    ext: ".tsx",
+    path: "/docs/web/components/toaster",
+    segment: ["web", "components"],
+    meta: {
+      date: "2025-01-05T00:00:00.000Z",
+      title: "Toaster",
+      description: "Provides an easy-to-use notification system for displaying toast messages, built with a highly customizable and accessible foundation.",
+      summary: "Displays transient notifications with flexible configuration options.",
+      component: true,
+      links: {
+        doc: "https://"
+      }
+    }
+  },
+  {
     name: "tooltip",
     ext: ".tsx",
     path: "/docs/web/components/tooltip",
@@ -661,8 +709,8 @@ export const fileDocsMeta = [
   {
     name: "app-context",
     ext: ".tsx",
-    path: "/docs/web/configurations/app-context",
-    segment: ["web", "configurations"],
+    path: "/docs/web/configuration/app-context",
+    segment: ["web", "configuration"],
     meta: {
       date: "2025-04-23T00:00:00.000Z",
       title: "App Provider",
@@ -677,8 +725,8 @@ export const fileDocsMeta = [
   {
     name: "global.d",
     ext: ".ts",
-    path: "/docs/web/configurations/global.d",
-    segment: ["web", "configurations"],
+    path: "/docs/web/configuration/global.d",
+    segment: ["web", "configuration"],
     meta: {
       date: "2025-04-23T00:00:00.000Z",
       title: "global.d.ts",
@@ -693,8 +741,8 @@ export const fileDocsMeta = [
   {
     name: "themes",
     ext: ".tsx",
-    path: "/docs/web/configurations/themes",
-    segment: ["web", "configurations"],
+    path: "/docs/web/configuration/themes",
+    segment: ["web", "configuration"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "Themes",
@@ -709,8 +757,8 @@ export const fileDocsMeta = [
   {
     name: "types",
     ext: ".tsx",
-    path: "/docs/web/configurations/types",
-    segment: ["web", "configurations"],
+    path: "/docs/web/configuration/types",
+    segment: ["web", "configuration"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "Types",
@@ -1525,8 +1573,8 @@ export const fileDocsMeta = [
   {
     name: "cnx",
     ext: ".ts",
-    path: "/docs/web/utility/cnx",
-    segment: ["web", "utility"],
+    path: "/docs/web/utilities/cnx",
+    segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "cnx()",
@@ -1541,8 +1589,8 @@ export const fileDocsMeta = [
   {
     name: "cvx",
     ext: ".ts",
-    path: "/docs/web/utility/cvx",
-    segment: ["web", "utility"],
+    path: "/docs/web/utilities/cvx",
+    segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "cvx({})",
@@ -1557,8 +1605,8 @@ export const fileDocsMeta = [
   {
     name: "ocx",
     ext: ".ts",
-    path: "/docs/web/utility/ocx",
-    segment: ["web", "utility"],
+    path: "/docs/web/utilities/ocx",
+    segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "ocx({})",
@@ -1573,8 +1621,8 @@ export const fileDocsMeta = [
   {
     name: "text-parser",
     ext: ".ts",
-    path: "/docs/web/utility/text-parser",
-    segment: ["web", "utility"],
+    path: "/docs/web/utilities/text-parser",
+    segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "Text Parser",
@@ -1589,8 +1637,8 @@ export const fileDocsMeta = [
   {
     name: "units-converter",
     ext: ".ts",
-    path: "/docs/web/utility/units-converter",
-    segment: ["web", "utility"],
+    path: "/docs/web/utilities/units-converter",
+    segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
       title: "Units Converters",

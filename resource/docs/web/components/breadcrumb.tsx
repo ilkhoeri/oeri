@@ -212,7 +212,8 @@ export function isElement(value: any): value is React.ReactElement {
 }
 
 // Export as a composite component
-type BreadcrumbComponent = React.ForwardRefExoticComponent<BreadcrumbProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type BreadcrumbComponent = ForwardRef<"nav", BreadcrumbProps> & {
   Item: typeof BreadcrumbItem;
   Separator: typeof BreadcrumbSeparator;
   Ellipsis: typeof BreadcrumbEllipsis;

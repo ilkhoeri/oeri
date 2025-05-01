@@ -124,7 +124,17 @@ export const fileDocsWeb = [
     segment: ["web", "components"]
   },
   {
+    name: "password-requirement",
+    ext: ".tsx",
+    segment: ["web", "components"]
+  },
+  {
     name: "polymorphic-slot",
+    ext: ".tsx",
+    segment: ["web", "components"]
+  },
+  {
+    name: "progress",
     ext: ".tsx",
     segment: ["web", "components"]
   },
@@ -199,6 +209,11 @@ export const fileDocsWeb = [
     segment: ["web", "components"]
   },
   {
+    name: "toaster",
+    ext: ".tsx",
+    segment: ["web", "components"]
+  },
+  {
     name: "tooltip",
     ext: ".tsx",
     segment: ["web", "components"]
@@ -221,22 +236,22 @@ export const fileDocsWeb = [
   {
     name: "app-context",
     ext: ".tsx",
-    segment: ["web", "configurations"]
+    segment: ["web", "configuration"]
   },
   {
     name: "global.d",
     ext: ".ts",
-    segment: ["web", "configurations"]
+    segment: ["web", "configuration"]
   },
   {
     name: "themes",
     ext: ".tsx",
-    segment: ["web", "configurations"]
+    segment: ["web", "configuration"]
   },
   {
     name: "types",
     ext: ".tsx",
-    segment: ["web", "configurations"]
+    segment: ["web", "configuration"]
   },
   {
     name: "open-state-context",
@@ -496,26 +511,26 @@ export const fileDocsWeb = [
   {
     name: "cnx",
     ext: ".ts",
-    segment: ["web", "utility"]
+    segment: ["web", "utilities"]
   },
   {
     name: "cvx",
     ext: ".ts",
-    segment: ["web", "utility"]
+    segment: ["web", "utilities"]
   },
   {
     name: "ocx",
     ext: ".ts",
-    segment: ["web", "utility"]
+    segment: ["web", "utilities"]
   },
   {
     name: "text-parser",
     ext: ".ts",
-    segment: ["web", "utility"]
+    segment: ["web", "utilities"]
   },
   {
     name: "units-converter",
     ext: ".ts",
-    segment: ["web", "utility"]
+    segment: ["web", "utilities"]
   }
 ];

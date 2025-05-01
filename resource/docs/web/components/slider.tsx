@@ -930,7 +930,8 @@ export function isMarkFilled({ mark, offset, value, inverted = false }: IsMarkFi
 }
 
 // Export as a composite component
-type SliderComponent = React.ForwardRefExoticComponent<SliderProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type SliderComponent = ForwardRef<"div", SliderProps> & {
   Track: typeof SliderTrack;
   Thumb: typeof SliderThumb;
   Marks: typeof SliderMarks;

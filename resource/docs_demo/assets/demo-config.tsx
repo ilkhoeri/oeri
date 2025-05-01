@@ -5,7 +5,7 @@ import { DemoAreaProps, DemoCode, DemoColumns } from "./demo-component";
 import { DemoRoot } from "./demo-component";
 import { Tabs } from "@/ui/tabs";
 import { PlayTabs } from "@/source/assets/playtabs";
-import { useApp } from "@/config/app-context";
+import { useApp } from "@/modules/web/configuration/app-context";
 
 import {
   ConfiguratorBooleanControl,
@@ -91,7 +91,7 @@ export function ConfiguratorDemo(_props: ConfiguratorDemoProps) {
   switch (orientation) {
     case "horizontal":
       return (
-        <Tabs defaultValue="preview" classNames={{ root: "mb-20 w-full", list: "rtl:flex-row-reverse" }}>
+        <Tabs defaultValue="preview" classNames={{ root: "mb-20 mt-10 w-full", list: "rtl:flex-row-reverse" }}>
           <PlayTabs defaultValue="preview" defaultExpanded="undefined" childrens={{ preview: _democolumns, usage: _democode }} />
         </Tabs>
       );

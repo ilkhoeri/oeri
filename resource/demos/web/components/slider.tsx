@@ -3,7 +3,7 @@ import React from "react";
 import { Svg } from "@/ui/svg";
 import { RangeSlider, Slider, type SliderProps } from "@/ui/slider";
 import { Typography } from "@/ui/typography";
-import { useApp as useAppContext } from "@/config/app-context";
+import { useApp as useAppContext } from "@/modules/web/configuration/app-context";
 import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 import { MoonStarIcon, StarIcon, SunIcon } from "@/icons/*";
 
@@ -61,7 +61,7 @@ function Demo() {
   );
 }
 
-function ConfiguratorDemo(props: SliderProps) {
+export function SliderConfiguratorDemo({ displayOnValueChange = true, marks, ...props }: SliderProps & { displayOnValueChange?: boolean }) {
   const ctx = useAppContext();
   const [value, setValue] = React.useState(35);
   const [endValue, setEndValue] = React.useState(35);
@@ -74,13 +74,17 @@ function ConfiguratorDemo(props: SliderProps) {
 
   return (
     <div className="flex size-full max-w-96 flex-col items-center justify-center">
-      <Slider {...props} dir={ctx.dir} defaultValue={35} value={value} onChange={setValue} onChangeEnd={setEndValue} marks={marksLabel} />
-      <Typography prose="span">
-        onChange value: <b>{value}</b>
-      </Typography>
-      <Typography prose="span">
-        onChangeEnd value: <b>{endValue}</b>
-      </Typography>
+      <Slider {...props} dir={ctx.dir} defaultValue={35} value={value} onChange={setValue} onChangeEnd={setEndValue} marks={marks ?? marksLabel} />
+      {displayOnValueChange && (
+        <>
+          <Typography prose="span">
+            onChange value: <b>{value}</b>
+          </Typography>
+          <Typography prose="span">
+            onChangeEnd value: <b>{endValue}</b>
+          </Typography>
+        </>
+      )}
     </div>
   );
 }
@@ -226,7 +230,7 @@ const usage: DataTrees = {
 
 const configurator: DataTrees = {
   type: "configurator",
-  component: ConfiguratorDemo,
+  component: SliderConfiguratorDemo,
   code: codes.configurator,
   centered: true,
   classNames: { demoInner: "min-h-72 w-full centered" },

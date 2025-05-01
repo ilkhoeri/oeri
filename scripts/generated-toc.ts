@@ -3,7 +3,7 @@ import path from "node:path";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
 import { Node } from "unist";
-import { displayName } from "@/source/utils";
+import { getDisplayName } from "@/source/utils";
 import { tocList } from "@/source/routes";
 
 const textTypes = new Set(["text", "emphasis", "strong", "inlineCode"]);
@@ -28,7 +28,7 @@ function generateSlug(title: string): string {
 }
 
 function cleanedName(title: string) {
-  return displayName(title.replace("undefined", ""));
+  return getDisplayName(title.replace("undefined", ""));
 }
 
 function removeFrontMatter(content: string): string {

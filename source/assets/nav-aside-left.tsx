@@ -8,7 +8,7 @@ import { cvx, merge } from "cretex";
 import { ScrollArea } from "@/ui/scroll-area";
 import { Sheets, SheetsContent, SheetsTrigger } from "@/ui/sheets";
 import { isNotif } from ".notif";
-import { useApp } from "@/config/app-context";
+import { useApp } from "@/modules/web/configuration/app-context";
 import { Svg } from "@/ui/svg";
 
 import type { FileDocMeta, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";

@@ -1,0 +1,77 @@
+---
+date: 2025-01-05
+title: Progress
+description: A flexible progress bar component that visually indicates task completion and supports multiple sections for complex progress tracking.
+summary: Visualizes progress with optional multi-section support.
+component: true
+links:
+  doc: https://
+  # related:
+  #   - label: label
+  #     link: https://
+---
+
+## Usage
+
+Basic usage example to quickly see how the `Progress` works.
+
+<ProgressDemosUsage />
+
+## Properties
+
+Interactive configurator to explore customization options for the `Progress` component.
+
+<ProgressDemosConfigurator />
+
+## API References
+
+```ts
+type ProgressState = "complete" | "indeterminate" | "loading";
+```
+
+### Attributes
+
+| Data Attributes     | Values                | Annotation                      |
+| ------------------- | --------------------- | ------------------------------- |
+| `["data-state"]`    | `ProgressState`       | available on `Root` & `Section` |
+| `["data-value"]`    | `Current value`       | available on `Root` & `Section` |
+| `["data-min"]`      | `Min value`           | available on `Root` & `Section` |
+| `["data-max"]`      | `Max value`           | available on `Root` & `Section` |
+| `["data-striped"]`  | `"true" \| undefined` | available on `Section`          |
+| `["data-animated"]` | `"true" \| undefined` | available on `Section`          |
+
+| Aria Attributes      | Values                | Annotation             |
+| -------------------- | --------------------- | ---------------------- |
+| `["aria-label"]`     | `label prop`          | available on `Section` |
+| `["aria-valuemin"]`  | `Min value`           | available on `Section` |
+| `["aria-valuemax"]`  | `Max value`           | available on `Section` |
+| `["aria-valuenow"]`  | `Current value`       | available on `Section` |
+| `["aria-valuetext"]` | `Current value + "%"` | available on `Section` |
+
+### Styles API
+
+| Styles API    | Type                                       | Default     | Annotation |
+| ------------- | ------------------------------------------ | ----------- | ---------- |
+| classNames`?` | `Partial<Record<Selector, string>>`        | `undefined` | `---`      |
+| styles`?`     | `Partial<Record<Selector, CSSProperties>>` | `undefined` | `---`      |
+
+### Props API
+
+| Props API             | Type                                  | Default  | Annotation                                                                                     |
+| --------------------- | ------------------------------------- | -------- | ---------------------------------------------------------------------------------------------- |
+| value                 | `number`                              | ---      | Value of the progress                                                                          |
+| color`?`              | `Color \| ((value: number) => Color)` | ---      | Key of `colors` or any valid CSS value                                                         |
+| striped`?`            | `boolean`                             | `false`  | Determines whether the section should have stripes                                             |
+| animated`?`           | `boolean`                             | `false`  | Determines whether the sections stripes should be animated, if set, `striped` prop is ignored. |
+| size`?`               | `(string & {}) \| number`             |          | Controls track height.                                                                         |
+| round`?`              | `(string & {}) \| number`             | `9999px` | Key of `radius` or any valid CSS value to set `border-radius`.                                 |
+| transitionDuration`?` | `number`                              | `100`    | Controls sections width transition duration, value is specified in ms.                         |
+
+---
+
+## Source Codes
+
+Full working code example, including necessary markup and styles.
+You can copy and paste this code directly to start using the component immediately.
+
+<SourceCodes name="progress" />

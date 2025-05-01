@@ -73,4 +73,4 @@ async function generatedMetaDocs(docs: string, segments: string[]) {
 }
 
 // Contoh pemanggilan
-generatedMetaDocs("web", ["components", "configurations", "hooks", "utility"]);
+generatedMetaDocs("web", ["components", "configuration", "hooks", "utilities"]);

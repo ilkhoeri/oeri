@@ -12,7 +12,7 @@ const classes = cvx({
       tabLabel: "tabs-tab-label",
       tabSection: "tabs-tab-section",
       panel: "tabs-panel",
-      list: "tabs-list flex flex-wrap [justify-content:--tabs-justify,flex-start] [gap:--tabs-list-gap] [--tab-grow:unset] flex-row data-[orientation=vertical]:flex-col"
+      list: "tabs-list flex flex-wrap [justify-content:--tabs-justify,flex-start] gap-[--tabs-list-gap] [--tab-grow:unset] flex-row data-[orientation=vertical]:flex-col"
     },
     variant: { default: "default", outline: "outline", pills: "pills" }
   }
@@ -54,7 +54,7 @@ interface __CtxProps {
   inverted: boolean;
   keepMounted: boolean;
   id: string;
-  onChange: (value: string | null) => void;
+  onValueChange: (value: string | null) => void;
   variant: Variant;
   dir: "ltr" | "rtl";
 }
@@ -70,7 +70,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>((_props, ref) =>
   const {
     defaultValue,
     value,
-    onChange,
+    onValueChange,
     children,
     id,
     classNames,
@@ -95,7 +95,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>((_props, ref) =>
     value,
     defaultValue,
     finalValue: null,
-    onChange
+    onChange: onValueChange
   });
   const stylesApi = { dir, unstyled, classNames, styles };
 
@@ -110,7 +110,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>((_props, ref) =>
         activateTabWithKeyboard,
         getTabId: getSafeId(`${uid}-tab`, VALUE_ERROR),
         getPanelId: getSafeId(`${uid}-panel`, VALUE_ERROR),
-        onChange: setCurrentTab,
+        onValueChange: setCurrentTab,
         allowTabDeactivation,
         variant,
         round,
@@ -154,13 +154,19 @@ export interface TabsListProps extends ComponentProps<"div", "color"> {
   /** Tabs alignment, `flex-start` by default */
   justify?: CSSProperties["justifyContent"];
   color?: CSSProperties["color"];
+  gap?: number | (string & {});
 }
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>((_props, ref) => {
-  const { role = "tablist", unstyled, className, classNames, style, styles, dir, grow, justify, ...props } = _props;
+  const { role = "tablist", unstyled, className, classNames, style, styles, dir, grow, justify, gap, ...props } = _props;
   const { unstyled: _unstyled, classNames: _classNames, styles: _styles, ...ctx } = useTabs();
+  const initialGap: Record<typeof ctx.variant, string | undefined> = {
+    pills: "calc(0.75rem / 2)",
+    default: undefined,
+    outline: undefined
+  };
   const stylesApi = {
     className,
-    style: { "--tabs-justify": justify, ...style },
+    style: { "--tabs-justify": justify, "--tabs-list-gap": rem(gap) ?? initialGap[ctx.variant], ...style },
     unstyled: unstyled || _unstyled,
     classNames: classNames || _classNames,
     styles: styles || _styles,
@@ -190,12 +196,12 @@ interface TabsTabProps extends ComponentProps<"button"> {
   leftSection?: React.ReactNode;
 }
 export const TabsTab = React.forwardRef<HTMLButtonElement, TabsTabProps>((_props, ref) => {
-  const { role = "tab", type = "button", tabIndex, "aria-selected": arsel, "aria-controls": arcon, "aria-disabled": ardis, children, rightSection, leftSection, value, onClick, onKeyDown, disabled, color, unstyled, className, classNames, style, styles, dir, id, ...props } = _props;
+  const { role = "tab", type = "button", tabIndex, "aria-selected": arsel, "aria-controls": arcon, "aria-disabled": ardis, children, rightSection, leftSection, value, onClick, onKeyDown, disabled, color, unstyled, className, classNames, style, styles, dir, id, title, ...props } = _props;
   const { unstyled: _unstyled, classNames: _classNames, styles: _styles, ...ctx } = useTabs();
 
   const active = value === ctx.value;
   const activateTab = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    ctx.onChange(ctx.allowTabDeactivation ? (value === ctx.value ? null : value) : value);
+    ctx.onValueChange(ctx.allowTabDeactivation ? (value === ctx.value ? null : value) : value);
     onClick?.(event);
   };
 
@@ -279,6 +285,7 @@ export const TabsTab = React.forwardRef<HTMLButtonElement, TabsTabProps>((_props
         disabled,
         id: id || ctx.getTabId(value),
         dir: dir || ctx?.dir,
+        title: title || (value && !children ? value : undefined),
         "aria-disabled": ardis || disabled,
         "aria-selected": arsel || active,
         "aria-controls": arcon || ctx.getPanelId(value),
@@ -416,7 +423,8 @@ function getNextIndex(current: number, elements: HTMLButtonElement[], loop: bool
 }
 
 // Export Card as a composite component
-type TabsComponent = React.ForwardRefExoticComponent<TabsProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type TabsComponent = ForwardRef<"div", TabsProps> & {
   List: typeof TabsList;
   Tab: typeof TabsTab;
   Panel: typeof TabsPanel;

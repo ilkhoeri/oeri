@@ -144,7 +144,7 @@ function getStyles(options: Options) {
     "data-hidden": isActive(hidden),
     "aria-hidden": arHide || isActive(hidden),
     "data-initialized": isActive(initialized),
-    className: cn(!unstyled && "pointer-events-none absolute left-0 top-0 z-0 bg-[--floating-color] duration-0 ease-ease [transition-property:transform,width,height] aria-hidden:hidden data-[initialized]:[transition-duration:--transition-duration]", className),
+    className: cn(!unstyled && "pointer-events-none absolute left-0 top-0 z-0 bg-[--floating-color] duration-0 ease-ease [transition-property:transform,width,height,border-radius] aria-hidden:hidden data-[initialized]:[transition-duration:--transition-duration]", className),
     style: ocx(style, {
       "--floating-color": color,
       "--transition-duration": typeof transitionDuration === "number" ? `${transitionDuration}ms` : transitionDuration

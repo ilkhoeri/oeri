@@ -27,7 +27,7 @@ type StylesNames<T extends __Loader> = {
   duration?: number;
 };
 
-type LoaderSyntheticProps<K extends __Loader, T extends React.ElementType = "div", Exclude extends string = never> = StylesNames<K> & Omit<React.ComponentPropsWithoutRef<T>, "style" | Exclude>;
+type LoaderSyntheticProps<K extends __Loader, T extends React.ElementType = "div", Exclude extends string = never> = StylesNames<K> & Omit<React.ComponentPropsWithoutRef<T>, "style" | "color" | Exclude>;
 
 function clamp(value: number, precision: number = 1): number {
   const factor = Math.pow(10, precision);
@@ -173,7 +173,8 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>((_props, ref
 Loader.displayName = "Loader";
 
 // Export as a composite component
-type LoaderComponent = React.ForwardRefExoticComponent<LoaderProps> & {
+type ForwardRef<T extends React.ElementType, Props> = React.ForwardRefExoticComponent<{ ref?: React.ComponentPropsWithRef<T>["ref"] } & Props>;
+type LoaderComponent = ForwardRef<"div", LoaderProps> & {
   Spinner: typeof LoaderSpinner;
   Orbit: typeof LoaderOrbit;
   ClockWise: typeof LoaderClockWise;

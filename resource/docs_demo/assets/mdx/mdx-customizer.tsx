@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { cn, ocx } from "cretex";
-import { sanitizedWord } from "@/utility/text-parser";
+import { sanitizedWord } from "@/modules/web/utilities/text-parser";
 import { CopyButton as CopyToggle } from "@/ui/copy-button";
 import { CopyButton, DownloadButton, GetCodeButton } from "../../../../source/assets/toggle";
 import { ChainIcon, BrandCssFillIcon, BrandTypescriptFillIcon, CheckIcon } from "@/icons/*";

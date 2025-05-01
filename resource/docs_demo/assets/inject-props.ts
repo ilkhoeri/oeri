@@ -50,11 +50,9 @@ export function injectProps<T>(props: T, code: string) {
   const propStrings: string[] = [];
   const multiline = isMultiLine(code);
 
-  //@ts-ignore
-  const replacedChildrenCode = code.replace(/{{children}}/g, props?.children ?? "");
+  const replacedChildrenCode = code.replace(/{{children}}/g, (props as any)?.children ?? "");
 
-  //@ts-ignore
-  for (const [key, value] of Object.entries(props)) {
+  for (const [key, value] of Object.entries(props as any)) {
     if (key !== "children") {
       if (typeof value === "string") {
         propStrings.push(`${key}="${value}"`);
