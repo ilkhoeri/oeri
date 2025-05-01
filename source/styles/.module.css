@@ -76,11 +76,7 @@
 }
 /* main - layout */
 .main_home {
-  @apply m-0 flex items-center min-h-screen flex-col p-4 lg:p-14 relative inset-x-0 z-[86] w-full min-w-full overflow-hidden space-y-12;
-
-  background-size: 55px 55px;
-  background-image: linear-gradient(0deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent),
-    linear-gradient(90deg, transparent 24%, var(--hex) 25%, var(--hex) 26%, transparent 27%, transparent 74%, var(--hex) 75%, var(--hex) 76%, transparent 77%, transparent);
+  @apply m-0 absolute bg-background [background-image:radial-gradient(hsl(var(--color)/0.185)_0.5px,hsl(var(--background))_0.5px)] [background-size:10px_10px] z-[84] flex items-center min-h-screen flex-col p-4 lg:p-14 inset-x-0 w-full min-w-full overflow-hidden space-y-12;
 }
 
 /* home */

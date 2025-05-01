@@ -5,7 +5,7 @@ import { DataTrees } from "@/resource/docs_demo/assets/demo-slot";
 
 const codes = {
   usage:
-    '"use client";\nimport React from "react";\nimport { Progress, type ProgressProps } from "@/ui/progress";\n\nexport function ProgressDemo() {\n  const [progress, setProgress] = React.useState({ details: 0, address: 0, important: 0, animated: true });\n\n  React.useEffect(() => {\n    const timer = setTimeout(() => setProgress(p => ({ ...p, details: 35, address: 28, important: 25 })), 500);\n    return () => clearTimeout(timer);\n  }, []);\n\n  React.useEffect(() => {\n    const timer = setTimeout(() => setProgress(p => ({ ...p, animated: false })), 2850);\n    return () => clearTimeout(timer);\n  }, []);\n\n  return (\n    <Progress size={16} transitionDuration={2000} animated={progress.animated} className="m-auto max-w-2xl">\n      <Progress.Section value={progress.details} color="#0c8599">\n        <Progress.Label label="Details" />\n      </Progress.Section>\n      <Progress.Section value={progress.address} color="#c2255c">\n        <Progress.Label label="Address" />\n      </Progress.Section>\n      <Progress.Section value={progress.important} label="Important" color="#e8590c" />\n    </Progress>\n  );\n}',
+    '"use client";\nimport React from "react";\nimport { Progress, type ProgressProps } from "@/ui/progress";\n\nexport function ProgressDemo() {\n  const [progress, setProgress] = React.useState({ details: 0, address: 0, important: 0, animated: true });\n\n  React.useEffect(() => {\n    const timer = setTimeout(() => setProgress(p => ({ ...p, details: 35, address: 28, important: 25 })), 500);\n    return () => clearTimeout(timer);\n  }, []);\n\n  React.useEffect(() => {\n    const timer = setTimeout(() => setProgress(p => ({ ...p, animated: false })), 2850);\n    return () => clearTimeout(timer);\n  }, []);\n\n  return (\n    <Progress size={16} transitionDuration={2000} animated={progress.animated} classNames={{ root: "m-auto max-w-2xl", label: "text-white" }}>\n      <Progress.Section value={progress.details} color="#0c8599">\n        <Progress.Label label="Details" />\n      </Progress.Section>\n      <Progress.Section value={progress.address} color="#c2255c">\n        <Progress.Label label="Address" />\n      </Progress.Section>\n      <Progress.Section value={progress.important} label="Important" color="#e8590c" />\n    </Progress>\n  );\n}',
   configurator: '"use client";\nimport React from "react";\nimport { Progress, type ProgressProps } from "@/ui/progress";\n\nexport function ProgressDemo(props: ProgressProps) {\n  return <Progress{{props}} />;\n}'
 };
 
@@ -23,7 +23,7 @@ export function ProgressDemo(props: ProgressProps) {
   }, []);
 
   return (
-    <Progress size={16} transitionDuration={2000} animated={progress.animated} className="m-auto max-w-2xl" {...props}>
+    <Progress size={16} transitionDuration={2000} animated={progress.animated} classNames={{ root: "m-auto max-w-2xl", label: "text-white" }} {...props}>
       <Progress.Section value={progress.details} color="#6e5494">
         <Progress.Label label="Details" />
       </Progress.Section>

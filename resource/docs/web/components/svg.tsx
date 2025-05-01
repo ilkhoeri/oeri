@@ -85,7 +85,7 @@ const isColor = <T,>(value: T): boolean =>
     /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
     /^[a-zA-Z]+$/.test(value)); // Named color
 
-function isValidSize<T>(size: T): boolean {
+function _isValidSize<T>(size: T): boolean {
   if (typeof size === "string") {
     if (/^(calc|clamp|var)\(|auto|inherit/.test(size)) return true;
     if (InitialSizeSvg.includes(size as InitialSizeSvg)) return true;
@@ -121,46 +121,51 @@ export function svgProps(detail: DetailedSvgProps) {
   // Determine strokeIsColor and strokeIsWidth
   const strokeIsColor = typeof stroke === "string" && isColor(stroke) ? stroke : undefined;
   const strokeIsWidth = strokeWidth || (isNumber(stroke) ? stroke : undefined);
+  const getColor: Record<typeof currentFill, Record<string, string | undefined> | undefined> = {
+    fill: { fill: fill || color },
+    stroke: { stroke: strokeIsColor || color },
+    "fill-stroke": { fill: fill || color, stroke: strokeIsColor || color },
+    none: undefined
+  };
 
   const __props = {
     fill,
-    stroke: strokeIsColor,
-    strokeWidth: strokeIsWidth,
+    stroke,
+    strokeWidth,
     strokeLinecap,
     strokeLinejoin,
     viewBox,
     xmlns,
-    height: !isValidSize(size) ? height : undefined,
-    width: !isValidSize(size) ? width : undefined,
-    style: { height: height, width: width, minHeight: height, minWidth: width, ...style },
+    /* height: !isValidSize(size) ? height : undefined, */
+    /* width: !isValidSize(size) ? width : undefined, */
+    style: { height: height, width: width, minHeight: height, minWidth: width, color, ...getColor[currentFill], ...style },
     "aria-hidden": ariaHidden,
     ...props
   } as React.SVGAttributes<SVGSVGElement>;
 
   switch (currentFill) {
     case "stroke":
-      __props.fill = fill || "none";
-      __props.stroke = strokeIsColor || color || "currentColor";
+      __props.fill = !fill ? "none" : undefined;
+      __props.stroke = !strokeIsColor ? "currentColor" : undefined;
       __props.strokeWidth = strokeIsWidth || "2";
       __props.strokeLinecap = strokeLinecap || "round";
       __props.strokeLinejoin = strokeLinejoin || "round";
       break;
     case "fill":
-      __props.fill = fill || color || "currentColor";
+      __props.fill = !fill ? "currentColor" : undefined;
       __props.stroke = strokeIsColor || "none";
       __props.strokeWidth = strokeIsWidth || "0";
       __props.strokeLinecap = strokeLinecap;
       __props.strokeLinejoin = strokeLinejoin;
       break;
     case "fill-stroke":
-      __props.fill = fill || color || "currentColor";
-      __props.stroke = strokeIsColor || "currentColor";
+      __props.fill = !fill ? "currentColor" : undefined;
+      __props.stroke = !strokeIsColor ? "currentColor" : undefined;
       __props.strokeWidth = strokeIsWidth || "2";
       __props.strokeLinecap = strokeLinecap || "round";
       __props.strokeLinejoin = strokeLinejoin || "round";
       break;
     case "none":
-      __props.fill = fill || color;
       __props.stroke = strokeIsColor;
       __props.strokeWidth = strokeIsWidth;
       __props.strokeLinecap = strokeLinecap;

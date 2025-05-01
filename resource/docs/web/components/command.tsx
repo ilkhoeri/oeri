@@ -14,19 +14,19 @@ const classes = cvx({
     selector: {
       overlay: "fixed inset-0 z-[100] bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=closed]:fade-out-0",
       content:
-        "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-90 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[50%] data-[state=closed]:slide-out-to-top-[50%] rounded-2xl overflow-hidden p-0 md:w-[520px] md:h-[60svh] 2xl:w-[40svw] flex flex-col",
+        "fixed left-[50%] top-[50%] z-[111] w-80 h-80 translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-90 data-[state=open]:slide-in-from-left-1/2 data-[state=closed]:slide-out-to-left-1/2 data-[state=open]:slide-in-from-top-[50%] data-[state=closed]:slide-out-to-top-[50%] rounded-2xl overflow-hidden p-0 md:w-[520px] md:h-[60svh] 2xl:w-[40svw] flex flex-col [--command-selected-clr:--command-hover-clr] [--command-selected-bg:--command-hover-bg] [--command-hover-bg:hsl(var(--muted)/0.85)] [--command-hover-clr:hsl(var(--color))]",
       searchWrap: "flex flex-row items-center border-b px-3 gap-2 [&_svg]:shrink-0 [&_svg]:pointer-events-none",
       search: "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
       searchLabel: "",
-      closeCommand: "size-4 absolute right-3 rtl:right-auto rtl:left-3 top-3 text-muted-foreground hover:text-color rounded-sm disabled:opacity-50",
+      closeCommand: "size-4 absolute right-3 rtl:right-auto rtl:left-3 top-3 text-muted-foreground bg-transparent hover:text-color rounded-sm disabled:opacity-50",
       empty: "flex items-center justify-center text-center font-medium text-muted-foreground pt-10 text-sm",
       actionsOrder: "flex-1 overflow-y-auto h-full webkit-scrollbar",
       actionSection: "data-[dimmed]:opacity-100 data-[dimmed]:text-muted-foreground data-[position=left]:mr-3 data-[position=right]:ml-3 [&>svg]:block",
-      actionsList: "p-1 pb-10 h-max min-h-[inherit] [&_[data-selected=true]]:bg-muted/80",
-      actionsGroup: "flex empty:hidden flex-col overflow-hidden text-muted-foreground mt-2 pb-2 first:mt-0 border-b last:border-b-0",
+      actionsList: "p-1 pb-10 h-max min-h-[inherit] [&_[data-selected=true]]:bg-[--command-selected-bg] [&_[data-selected=true]]:text-[--command-selected-clr]",
+      actionsGroup: "flex empty:hidden flex-col overflow-hidden text-muted-foreground mt-2 pb-2 first:mt-0 border-b last:border-b-0 space-y-0.5",
       actionGroupLabel: "flex flex-row items-center px-2 py-1.5 text-xs font-medium text-muted-foreground select-none",
       action:
-        "relative flex flex-row items-center justify-start gap-2 p-1.5 w-full min-w-full max-w-full text-left select-none rounded-sm px-2 py-1.5 text-sm text-muted-foreground outline-none hover:bg-muted/80 hover:text-color aria-selected:bg-muted/80 aria-selected:text-color data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>[data-command=action-left-section]+[data-command=action-inner]_span]:pl-0",
+        "relative flex flex-row items-center justify-start gap-2 p-1.5 w-full min-w-full max-w-full text-left select-none rounded-sm px-2 py-1.5 text-sm text-muted-foreground outline-none hover:bg-[--command-hover-bg] hover:text-[--command-hover-clr] aria-selected:bg-[--command-hover-bg] aria-selected:text-[--command-hover-clr] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>[data-command=action-left-section]+[data-command=action-inner]_span]:pl-0",
       actionLabel: "flex flex-row items-center px-2 text-sm font-medium select-none [&_mark]:rounded-sm",
       actionInner: "",
       highlight: "",
@@ -70,6 +70,7 @@ type CtxProps = {
   onClose: () => void;
   closeOnActionTrigger: boolean | undefined;
   modal: boolean | undefined;
+  forceOpened: boolean | undefined;
 };
 export interface StoreValue<Value> {
   getState(): Value;
@@ -267,7 +268,7 @@ export const CommandRoot = React.forwardRef<HTMLDivElement, CommandRootProps>((_
   };
 
   const root = (
-    <ctx.Provider value={{ getStyles, query: _query, setQuery, store: store!, closeOnActionTrigger, onClose, modal }}>
+    <ctx.Provider value={{ getStyles, forceOpened, query: _query, setQuery, store: store!, closeOnActionTrigger, onClose, modal }}>
       {modal && <Edge {...{ el: "div", selector: "overlay", onClick: onClose, ...stylesApi, ...attrOverlay }} />}
       <Edge {...{ el: "div", selector: "content", ref, ...stylesApi, ...attrOverlay, ...props }}>{children}</Edge>
     </ctx.Provider>
@@ -492,8 +493,8 @@ const RightSection = React.forwardRef<HTMLButtonElement, React.ComponentProps<"b
   return (
     <Edge {...{ el: "button", ref, selector: "closeCommand", type, tabIndex, onClick: handleClick, ...props }}>
       {rightSection ?? (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg" className="size-4">
-          <mask id="mask">
+        <svg fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg" className="size-4">
+          <mask id="command-closecommandAction-icon-mask">
             <g stroke="#fff" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path d="M16 5l-14 14" strokeDasharray="24" strokeDashoffset="24">
                 <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" />
@@ -506,7 +507,7 @@ const RightSection = React.forwardRef<HTMLButtonElement, React.ComponentProps<"b
               </path>
             </g>
           </mask>
-          <path fill="currentColor" mask="url(#mask)" d="M0 0h18v24H0z" />
+          <path fill="currentColor" mask="url(#command-closecommandAction-icon-mask)" d="M0 0h18v24H0z" />
         </svg>
       )}
     </Edge>
@@ -524,7 +525,7 @@ const Edge = React.forwardRef(function Edge<T extends React.ElementType>(_props:
   const { unstyled, className, classNames, el, style, styles, selector, ...props } = _props;
   const ctx = useCommandContext();
   const Components = (el || "div") as React.ElementType;
-  return <Components {...{ ref, ...ctx.getStyles(selector!, { unstyled, className, classNames, style, styles, ...ctx }), ...props }} />;
+  return <Components {...{ ...props, ref, ...ctx.getStyles(selector!, { unstyled, className, classNames, style, styles, ...ctx }) }} />;
 }) as EdgeElement;
 
 export function createStore<Value extends Record<string, any>>(initialState: Value): StoreValue<Value> {

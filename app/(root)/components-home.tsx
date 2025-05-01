@@ -27,19 +27,19 @@ import { Tabs } from "@/ui/tabs";
 import { GitBranchIcon, GitCommitIcon, GitPullRequestIcon } from "@/icons/*";
 import { Input } from "@/ui/input";
 import { CopyButton } from "@/ui/copy-button";
-import { DropdownNotifications } from "./showcase";
-
-import style from "@/source/styles/.module.css";
+import { CommandDemo, DropdownNotifications, TableDemo } from "./showcase";
 import { codes } from "./code-to-copy";
 
-const TYPING_DEFAULT = ["A Team", "An Idea", "A Solution", "A Spirit"];
+import style from "@/source/styles/.module.css";
+
+const TYPING_DEFAULT = ["customize", "every", "of Your UI", "component"];
 
 const classes = cvx({
   variants: {
     selector: {
       header: "relative flex h-[calc(100dvh-var(--navbar))] w-full max-w-7xl flex-col items-center justify-avenly px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
       wrapTop: "relative z-9 mx-auto flex size-full animate-[fade-in_0.6s_ease-in_forwards] flex-col items-center justify-center gap-16 text-left",
-      h1: "relative capitalize grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
+      h1: "relative grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
       lineTop: "max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max",
       aura1: "absolute h-full w-full opacity-[0.65] before:left-[-2%] before:top-[-10%] after:bottom-[5%] after:right-[-5%] max-w-full",
       aura2: "absolute h-full w-full opacity-[0.65] before:bottom-[-10%] before:left-[-2%] after:right-[-5%] after:top-[5%]",
@@ -59,9 +59,9 @@ export function PageHome() {
         <i aria-hidden="true" className={merge(classes({ selector: "aura1" }), style.aura)} />
         <article className={classes({ selector: "wrapTop" })}>
           <Transform el="h1" hold={0} className={classes({ selector: "h1" })}>
-            <span className="z-9 select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">Bring</span>
+            <span className="z-9 select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">Control</span>
             <TypingWords el="span" withCursor duration={{ break: 2500 }} placeholders={TYPING_DEFAULT} className={classes({ selector: "typingWords" })} />
-            <span className="z-9 ml-[24dvw] select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">Together</span>
+            <span className="z-9 ml-[24dvw] select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">lock-in.</span>
           </Transform>
 
           <Transform el="p" hold={0} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }} className="relative z-[+1] flex flex-col items-center justify-center text-center text-xs font-normal text-color md:text-sm xl:text-base">
@@ -81,21 +81,21 @@ export function PageHome() {
 
         <ThemesToggle />
 
-        <Transform el="s" data-linetop="" className={classes({ selector: "lineTop" })} transition={{ delay: "600ms, 600ms" }} transform={{ before: "scale(0)", after: "scale(1)", origin: "right center" }}>
+        <s data-linetop="" className={classes({ selector: "lineTop" })}>
           <Svg viewBox="0 0 436 140" size="unset" className={classes({ selector: "svg" })}>
             <circle cx="426.76" cy="9.5" r="7.5" fill="hsl(var(--background))" />
             <circle cx="9.24" cy="130.5" r="7.5" fill="hsl(var(--background))" />
             <path data-line="" d="m19.66,130.5h92.57c33.14,0,64-26.86,64-60v-1c0-33.14,29.86-60,63-60h180.56" fill="none" strokeDasharray="0 0 5 5" />
           </Svg>
-        </Transform>
+        </s>
 
-        <Transform el="s" className={style.line_circle} transition={{ delay: "600ms, 600ms" }} transform={{ before: "scale(0)", after: "scale(1)", origin: "left center" }}>
+        <s className={style.line_circle}>
           <Svg viewBox="0 0 218 179" size="unset" stroke={3} className={classes({ selector: "svg" })}>
             <circle cx="9" cy="9.04" r="7.5" fill="hsl(var(--background))" />
             <path data-line="" d="m198.54,169.04H69c-33.14,0-60-26.86-60-60V16.02" fill="none" strokeDasharray="0 0 6.96 6.96" />
             <path d="m203,177.46c-.26,0-.52-.07-.75-.2-.46-.27-.75-.76-.75-1.3v-13.86c0-.54.29-1.03.75-1.3.23-.13.49-.2.75-.2s.52.07.75.2l12,6.93c.46.27.75.76.75,1.3s-.29,1.03-.75,1.3l-12,6.93c-.23.13-.49.2-.75.2Z" fill="hsl(var(--background))" />
           </Svg>
-        </Transform>
+        </s>
       </section>
 
       <SectionCustomizable />
@@ -109,7 +109,7 @@ export function PageHome() {
             <svg className="size-16 text-color" onContextMenu={e => e.preventDefault()}>
               <use href="/images/icons.svg#stars" />
             </svg>
-            <h2 className="mb-2 mt-4 font-bold text-color text-h1">Control every lock-in.</h2>
+            <h2 className="mb-2 mt-4 font-bold text-color text-h1 empty:hidden"></h2>
             <p className="text-xs text-muted-foreground md:text-sm 2xl:text-base">
               <b>Oeri UI</b> lets you own your components — not just use them.
             </p>
@@ -135,7 +135,7 @@ export function ThemesToggle({ size }: { size?: number | string }) {
 
 function SectionCustomizable() {
   return (
-    <div className="relative m-auto size-fit">
+    <div className="relative m-auto !mb-10 size-fit">
       <div className="relative flex h-[120px] w-[280px] items-center">
         <svg className="absolute inset-0 size-full" fill="currentColor" viewBox="0 0 254 104" xmlns="http://www.w3.org/2000/svg">
           <path d="M112.891 97.7022C140.366 97.0802 171.004 94.6715 201.087 87.5116C210.43 85.2881 219.615 82.6412 228.284 78.2473C232.198 76.3179 235.905 73.9942 239.348 71.3124C241.85 69.2557 243.954 66.7571 245.555 63.9408C249.34 57.3235 248.281 50.5341 242.498 45.6109C239.033 42.7237 235.228 40.2703 231.169 38.3054C219.443 32.7209 207.141 28.4382 194.482 25.534C184.013 23.1927 173.358 21.7755 162.64 21.2989C161.376 21.3512 160.113 21.181 158.908 20.796C158.034 20.399 156.857 19.1682 156.962 18.4535C157.115 17.8927 157.381 17.3689 157.743 16.9139C158.104 16.4588 158.555 16.0821 159.067 15.8066C160.14 15.4683 161.274 15.3733 162.389 15.5286C179.805 15.3566 196.626 18.8373 212.998 24.462C220.978 27.2494 228.798 30.4747 236.423 34.1232C240.476 36.1159 244.202 38.7131 247.474 41.8258C254.342 48.2578 255.745 56.9397 251.841 65.4892C249.793 69.8582 246.736 73.6777 242.921 76.6327C236.224 82.0192 228.522 85.4602 220.502 88.2924C205.017 93.7847 188.964 96.9081 172.738 99.2109C153.442 101.949 133.993 103.478 114.506 103.79C91.1468 104.161 67.9334 102.97 45.1169 97.5831C36.0094 95.5616 27.2626 92.1655 19.1771 87.5116C13.839 84.5746 9.1557 80.5802 5.41318 75.7725C-0.54238 67.7259 -1.13794 59.1763 3.25594 50.2827C5.82447 45.3918 9.29572 41.0315 13.4863 37.4319C24.2989 27.5721 37.0438 20.9681 50.5431 15.7272C68.1451 8.8849 86.4883 5.1395 105.175 2.83669C129.045 0.0992292 153.151 0.134761 177.013 2.94256C197.672 5.23215 218.04 9.01724 237.588 16.3889C240.089 17.3418 242.498 18.5197 244.933 19.6446C246.627 20.4387 247.725 21.6695 246.997 23.615C246.455 25.1105 244.814 25.5605 242.63 24.5811C230.322 18.9961 217.233 16.1904 204.117 13.4376C188.761 10.3438 173.2 8.36665 157.558 7.52174C129.914 5.70776 102.154 8.06792 75.2124 14.5228C60.6177 17.8788 46.5758 23.2977 33.5102 30.6161C26.6595 34.3329 20.4123 39.0673 14.9818 44.658C12.9433 46.8071 11.1336 49.1622 9.58207 51.6855C4.87056 59.5336 5.61172 67.2494 11.9246 73.7608C15.2064 77.0494 18.8775 79.925 22.8564 82.3236C31.6176 87.7101 41.3848 90.5291 51.3902 92.5804C70.6068 96.5773 90.0219 97.7419 112.891 97.7022Z" />
@@ -158,17 +158,17 @@ function TabsVerticalDemos() {
 
       <Tabs.Panel value="branch">
         <div className="rounded-2xl bg-blue-600 p-4">
-          <GitBranchIcon size={32} stroke={3} />
+          <GitBranchIcon size={32} stroke={3} color="white" />
         </div>
       </Tabs.Panel>
       <Tabs.Panel value="commit">
         <div className="rounded-2xl bg-pink-600 p-4">
-          <GitCommitIcon size={32} stroke={3} />
+          <GitCommitIcon size={32} stroke={3} color="white" />
         </div>
       </Tabs.Panel>
       <Tabs.Panel value="pullrequest">
         <div className="rounded-2xl bg-yellow-600 p-4">
-          <GitPullRequestIcon size={32} stroke={3} />
+          <GitPullRequestIcon size={32} stroke={3} color="white" />
         </div>
       </Tabs.Panel>
     </Tabs>
@@ -197,7 +197,7 @@ function CheckerSwitchDemos() {
   );
 }
 function CheckerCheckboxDemos() {
-  return <Checker type="checkbox" defaultChecked size={22} icon={checked => (checked ? <CheckIcon animation stroke={3} /> : <XIcon animation stroke={3} className="text-red-500" />)} />;
+  return <Checker type="checkbox" defaultChecked size={22} icon={checked => (checked ? <CheckIcon animation stroke={3} color="white" /> : <XIcon animation stroke={3} color="#ef4444" />)} />;
 }
 
 function renamed(str: string) {
@@ -416,6 +416,24 @@ export function ShowCaseComponents() {
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-2 2xl:col-span-3">
           <TileInner contents={[{ code: codes.timeline, content: <TimelineConfiguratorDemo /> }]} classNames={{ inner: "pt-[18px]" }} />
         </div>
+
+        <div className="col-span-2 p-1 md:col-span-3 lg:col-span-3 2xl:col-span-4">
+          <TileInner>
+            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+              <TableDemo />
+            </div>
+            <CopyCode code={codes.table} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />
+          </TileInner>
+        </div>
+
+        <div className="col-span-2 p-1 md:col-span-3 lg:col-span-1 2xl:col-span-2">
+          <TileInner classNames={{ inner: "pt-[18px]" }}>
+            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+              <CommandDemo />
+            </div>
+            <CopyCode code={codes.command} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />
+          </TileInner>
+        </div>
       </div>
     </div>
   );
@@ -426,7 +444,7 @@ function FeaturesList({ features }: { features: { title?: string; slug?: string;
     return null;
   }
   return (
-    <div className="relative mb-12 mt-16 grid overflow-hidden rounded-xl border bg-background text-muted-foreground sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+    <div className="relative mb-12 mt-16 grid overflow-hidden rounded-xl border bg-background text-muted-foreground opacity-80 [background-image:repeating-radial-gradient(circle_at_0_0,transparent_0,hsl(var(--background))_10px),repeating-linear-gradient(hsl(var(--color)/0.08),hsl(var(--muted)/0.75))] sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
       {features.map((i, index) => (
         <div key={index} className="group relative cursor-default transition">
           <div className="relative space-y-4 px-6 py-8">
@@ -486,7 +504,7 @@ const features = [
     notes: "The structure of rich components is modeled effectively for rapid comprehension."
   },
   {
-    title: "Customize",
+    title: "Customizable",
     slug: "#",
     image: "/images/icons.svg#pantone-2",
     notes: "Editable content according to the requirements of the styleComponentstructure."

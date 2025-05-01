@@ -524,10 +524,10 @@
         }
 
         & :where(.tr) {
-          @apply rounded-[calc(2*var(--shape-rounded))] hover:bg-[var(--table-hover-color)] hover:shadow hover:shadow-[var(--customShadows-z20)] hover:[transition:background-color_150ms_cubic-bezier(0.4,0,0.2,1),box-shadow_150ms_cubic-bezier(0.4,0,0.2,1)] data-[striped]:bg-[--bg-table-row] hover:data-[hover]:[--bg-table-row:--tr-hover-bg] transition-colors duration-300;
+          @apply rounded-[calc(2*var(--shape-rounded))] hover:bg-[var(--table-hover-color)] hover:shadow-md [transition:background-color_150ms_cubic-bezier(0.4,0,0.2,1),box-shadow_150ms_cubic-bezier(0.4,0,0.2,1)] data-[striped]:bg-[--bg-table-row] hover:data-[hover]:[--bg-table-row:--tr-hover-bg] transition-colors duration-300;
 
           & :where(.td) {
-            @apply relative table-cell first-of-type:rounded-l-xl last-of-type:rounded-r-xl first-of-type:border-l last-of-type:border-r first-of-type:border-l-[var(--table-border-color)] last-of-type:border-r-[var(--table-border-color)] border-y border-y-[var(--table-border-color)] text-sm py-4 first-of-type:pl-[var(--padding-cell)] last-of-type:pr-[var(--padding-cell)] text-[--color-cell] align-middle [&:has([role=checkbox])]:pr-0 truncate pl-[var(--padding-cell)] pr-0 h-[78px];
+            @apply relative table-cell first-of-type:rounded-l-xl last-of-type:rounded-r-xl first-of-type:border-l last-of-type:border-r first-of-type:border-l-[var(--table-border-color)] last-of-type:border-r-[var(--table-border-color)] border-y border-y-[var(--table-border-color)] text-sm py-4 first-of-type:pl-[var(--padding-cell)] last-of-type:pr-[var(--padding-cell)] text-[--color-cell] align-middle [&:has([role=checkbox])]:pr-0 truncate pl-[var(--padding-cell)] pr-0 h-[var(--height-cell,78px)];
           }
         }
       }
@@ -665,7 +665,7 @@
         @apply [--check-sz:calc((var(--input-sz)*12)/100)] [--timing-function:cubic-bezier(0.25,0,0.35,1)];
         &::before,
         &::after {
-          @apply content-[''] absolute bg-background block w-[--check-w] h-[--check-sz] rounded-full top-1/2 left-[19%] [transform-origin:left_center] [transform:--check-transform] [transition:transform_150ms_var(--timing-function)_var(--check-delay,0ms)];
+          @apply content-[''] absolute bg-[var(--checked-color,hsl(var(--background)))] block w-[--check-w] h-[--check-sz] rounded-full top-1/2 left-[19%] [transform-origin:left_center] [transform:--check-transform] [transition:transform_150ms_var(--timing-function)_var(--check-delay,0ms)];
         }
         &::before {
           @apply [--check-w:calc(var(--check-sz)*3)] [--check-transform:rotate(45deg)_translate(calc(var(--check-sz)*-0.55),calc(var(--check-sz)*-0.45))_scaleX(var(--scale-x))] [--scale-x:0] [--check-delay:150ms];
