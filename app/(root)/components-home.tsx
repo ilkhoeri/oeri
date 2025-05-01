@@ -321,7 +321,7 @@ function TileInner(_props: TileInnerProps) {
 
 export function ShowCaseComponents() {
   return (
-    <div className="mx-auto w-full max-w-7xl px-2 md:px-6 2xl:px-4">
+    <div className="mx-auto w-full max-w-7xl px-0 md:px-6 2xl:px-4">
       <div className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
         <div className="col-span-2 p-1 max-2xl:-order-1 md:col-span-2 max-2xl:md:row-span-2 lg:col-span-3 2xl:col-span-4 2xl:row-span-2">
           <div className="relative z-10 w-fit text-start max-xl:pb-6 lg:-top-16 lg:max-h-32">

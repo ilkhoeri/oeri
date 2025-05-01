@@ -428,7 +428,7 @@ export function DropdownNotifications() {
           </Svg>
         </Sheets.Trigger>
       </Indicator>
-      <Sheets.Content className="h-full max-h-[436px] w-80 bg-[#f4f6ff] p-4 dark:bg-[#151619]">
+      <Sheets.Content className="h-full max-h-[436px] w-[358px] bg-[#f4f6ff] p-4 shadow-lg dark:bg-[#151619]">
         <div className="mb-2">
           <h3 className="block text-xs font-medium text-muted-foreground">Notifications</h3>
           <div className="flex items-center justify-between gap-6">
@@ -464,7 +464,7 @@ export function DropdownNotifications() {
                           <p className="text-sm font-medium text-color">{notif.title}</p>
                           <p className="text-xs text-muted-foreground">{notif.message}</p>
                         </div>
-                        <div className="absolute right-1.5 top-1.5 z-[2] grid grid-flow-col items-center gap-1">
+                        <div className="absolute right-1 top-1 grid w-fit grid-flow-col items-center gap-1.5">
                           <Tooltip asChild side="left" content={`${notif.priority} Priority`} classNames={{ content: "capitalize px-2 py-1 text-xs font-medium" }}>
                             <span role="button" tabIndex={-1} aria-label={notif.source} className={priorityVariants({ ...notif })} />
                           </Tooltip>

@@ -11,7 +11,7 @@ const codes = {
   configurator:
     '"use client";\nimport React from "react";\nimport { Toaster } from "@/ui/toaster";\nimport { Button } from "@/ui/button";\nimport { toast } from "sonner";\n\nexport function ToasterDemo() {\n  return (\n    <>\n      <Toaster{{props}} />\n      <Button variant="pills" onClick={() => toast("Title in this case", { description: "Custom description in here." })}>\n        Toast\n      </Button>\n    </>\n  );\n}',
   configuratorChain:
-    '"use client";\nimport React from "react";\nimport { Button } from "@/ui/button";\nimport { toast } from "sonner";\n\ntype ToastIconType = "success" | "info" | "warning" | "error" | "message" | "loading";\nexport function ToasterDemo({ {{props}} }: { icon: ToastIconType }) {\n  return (\n    <Button\n      variant="pills"\n      color="base"\n      onClick={() => {\n        toast?.[icon](`Show ${icon} icon.`, { description: "Displays a description along with the defined icon." });\n      }}\n    >\n      Toast\n    </Button>\n  );\n}'
+    '"use client";\nimport React from "react";\nimport { Button } from "@/ui/button";\nimport { toast } from "sonner";\n\ntype ToastIconType = "success" | "info" | "warning" | "error" | "message" | "loading";\nexport function ToasterDemo({ {{props}} }: { icon: ToastIconType }) {\n  return (\n    <Button\n      variant="pills"\n      color="base"\n      onClick={() => {\n        toast[icon](`Show ${icon} icon.`, { description: "Displays a description along with the defined icon." });\n      }}\n    >\n      Toast\n    </Button>\n  );\n}'
 };
 
 function Demo() {
@@ -60,7 +60,7 @@ function ConfiguratorChainDemo({ icon }: { icon: ToastIconType }) {
       variant="pills"
       color="base"
       onClick={() => {
-        toast?.[icon](`Show ${icon} icon.`, { description: "Displays a description along with the defined icon." });
+        toast[icon](`Show ${icon} icon.`, { description: "Displays a description along with the defined icon." });
       }}
     >
       Toast
@@ -110,9 +110,9 @@ const configuratorChain: DataTrees = {
     {
       prop: "icon",
       type: "select",
-      initialValue: "success",
+      initialValue: "message",
       libraryValue: null,
-      data: ["success", "info", "warning", "error", "message", "loading"]
+      data: ["message", "success", "info", "warning", "error", "loading"]
     }
   ]
 };

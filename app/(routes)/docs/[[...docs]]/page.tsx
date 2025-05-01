@@ -39,7 +39,7 @@ export default async function Page({ params }: DocsParams) {
   return (
     <ArticleContent>
       <Typography prose="h1">{doc?.title}</Typography>
-      <Typography prose="p" className="!-mt-2 only-of-type:mb-8">
+      <Typography prose="p" className="only-of-type:mb-8">
         {doc?.description}
       </Typography>
       <MDXComponent code={doc?.body?.code} />
