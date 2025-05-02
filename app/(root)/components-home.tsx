@@ -32,21 +32,21 @@ import { codes } from "./code-to-copy";
 
 import style from "@/source/styles/.module.css";
 
-const TYPING_DEFAULT = ["customize", "every", "of Your UI", "component"];
+const TYPING_DEFAULT = ["customize", "every", "of Your UI", "components"];
 
 const classes = cvx({
   variants: {
     selector: {
       header: "relative flex h-[calc(100dvh-var(--navbar))] w-full max-w-7xl flex-col items-center justify-avenly px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
       wrapTop: "relative z-9 mx-auto flex size-full animate-[fade-in_0.6s_ease-in_forwards] flex-col items-center justify-center gap-16 text-left",
-      h1: "relative grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
+      h1: "relative w-full max-w-[55rem] grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
       lineTop: "max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max",
       aura1: "absolute h-full w-full opacity-[0.65] before:left-[-2%] before:top-[-10%] after:bottom-[5%] after:right-[-5%] max-w-full",
       aura2: "absolute h-full w-full opacity-[0.65] before:bottom-[-10%] before:left-[-2%] after:right-[-5%] after:top-[5%]",
       featuresWrap: "relative mb-20 w-full min-w-full space-y-40",
       links:
         "relative flex h-[clamp(2.25rem,1.25rem+2dvw,2.75rem)] w-[clamp(10.375rem,1.25rem+2dvw,100%)] items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:ring-2 before:ring-offset-4 before:ring-offset-background before:transition before:duration-300 before:content-[''] hover:before:scale-105 active:duration-75 active:before:scale-95",
-      typingWords: "z-9 ml-[12dvw] h-[--sz] select-none bg-clip-text leading-none [--cursor-color:#6e5494] [--cursor-h:calc(var(--sz))] [background:--bg] [display:flex] [text-shadow:--t-sh]",
+      typingWords: "z-9 mx-auto text-center h-[--sz] select-none bg-clip-text leading-none [--cursor-color:#6e5494] [--cursor-h:calc(var(--sz))] [background:--bg] [display:flex] [text-shadow:--t-sh]",
       svg: "z-9 size-full overflow-visible stroke-muted-foreground"
     }
   }
@@ -59,13 +59,13 @@ export function PageHome() {
         <i aria-hidden="true" className={merge(classes({ selector: "aura1" }), style.aura)} />
         <article className={classes({ selector: "wrapTop" })}>
           <Transform el="h1" hold={0} className={classes({ selector: "h1" })}>
-            <span className="z-9 select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">Control</span>
+            <span className="z-9 select-none bg-clip-text text-left [background:--bg] [text-shadow:--t-sh]">Control</span>
             <TypingWords el="span" withCursor duration={{ break: 2500 }} placeholders={TYPING_DEFAULT} className={classes({ selector: "typingWords" })} />
-            <span className="z-9 ml-[24dvw] select-none bg-clip-text [background:--bg] [text-shadow:--t-sh]">lock-in.</span>
+            <span className="z-9 select-none bg-clip-text text-right [background:--bg] [text-shadow:--t-sh]">lock-in.</span>
           </Transform>
 
-          <Transform el="p" hold={0} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }} className="relative z-[+1] flex flex-col items-center justify-center text-center text-xs font-normal text-color md:text-sm xl:text-base">
-            <span>Construct and develop your web and mobile applications using straightforward dependencies</span>
+          <Transform el="p" hold={0} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }} className="relative z-[+1] flex flex-col items-center justify-center text-center font-normal text-muted-foreground text-h6">
+            <span>Construct and develop your applications using straightforward dependencies</span>
           </Transform>
 
           <Transform el="div" hold={0} className="relative mx-auto -mt-4 flex w-full flex-col items-center justify-center gap-8 sm:flex-row" transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }}>

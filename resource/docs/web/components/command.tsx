@@ -7,7 +7,7 @@ import { useDidUpdate } from "@/hooks/use-did-update";
 import { useWindowEvent } from "@/hooks/use-window-event";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { useHotkeys, type HotkeyItem } from "@/hooks/use-hotkeys";
-import { cn, cvx, type inferType, type cvxProps } from "cretex";
+import { cn, cvx, type cvxProps } from "cretex";
 
 const classes = cvx({
   variants: {
@@ -35,7 +35,7 @@ const classes = cvx({
       actionRightSection: "",
       footer: "border-t"
     },
-    modal: {
+    forceMount: {
       overlay: "hidden sr-only",
       content: "relative left-auto top-auto inset-auto translate-y-0 translate-x-0 z-[unset]",
       closeCommand: "hidden sr-only"
@@ -46,9 +46,6 @@ const classes = cvx({
 export type CommandStore = StoreValue<CommandState>;
 export type StoreSubscriber<Value> = (value: Value) => void;
 export type __CommandSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
-type Options = StylesNames<__CommandSelector> & {
-  modal?: boolean | undefined;
-};
 type SetStateCallback<Value> = (value: Value) => Value;
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type StylesNames<T extends string, Exclude extends string = never> = Omit<
@@ -63,14 +60,13 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<
 >;
 type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CommandSelector> & {} & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = {
-  getStyles(selector: __CommandSelector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __CommandSelector, options?: Options): InferType<typeof getStyles>;
   query: string;
   setQuery: (query: string) => void;
   store: CommandStore;
   onClose: () => void;
   closeOnActionTrigger: boolean | undefined;
-  modal: boolean | undefined;
-  forceOpened: boolean | undefined;
+  forceMount: boolean | undefined;
 };
 export interface StoreValue<Value> {
   getState(): Value;
@@ -99,8 +95,8 @@ export interface __CommandProps extends ComponentProps<"div"> {
   disabled?: boolean;
   onCommandOpen?: () => void;
   onCommandClose?: () => void;
-  modal?: boolean;
-  forceOpened?: boolean;
+  container?: Element | DocumentFragment | null;
+  forceMount?: boolean;
   closeOnActionTrigger?: boolean;
   children?: React.ReactNode;
   closeCommandOnTrigger?: boolean;
@@ -124,12 +120,15 @@ export interface CommandProps extends __CommandProps {
   limit?: number;
 }
 
+type Options = StylesNames<__CommandSelector> & {
+  forceMount?: boolean | undefined;
+};
 function getStyles(selector: __CommandSelector, opt?: Options) {
   const isUnstyled = opt?.unstyled?.[selector];
-  const classModal = !opt?.modal ? (selector as cvxProps<typeof classes>["modal"]) : undefined;
+  const isForceMount = opt?.forceMount ? (selector as cvxProps<typeof classes>["forceMount"]) : undefined;
   return {
     "data-command": cn(selector),
-    className: cn(!isUnstyled && [classes({ selector, modal: classModal })], opt?.classNames?.[selector], opt?.className),
+    className: cn(!isUnstyled && [classes({ selector, forceMount: isForceMount })], opt?.classNames?.[selector], opt?.className),
     style: {
       ...opt?.styles?.[selector],
       ...opt?.style
@@ -201,7 +200,6 @@ export const CommandRoot = React.forwardRef<HTMLDivElement, CommandRootProps>((_
     children,
     disabled,
     classNames,
-    forceOpened,
     tagsToIgnore,
     onCommandOpen,
     onQueryChange,
@@ -213,7 +211,8 @@ export const CommandRoot = React.forwardRef<HTMLDivElement, CommandRootProps>((_
     clearQueryOnClose = true,
     closeOnActionTrigger = true,
     shortcut = "mod + K",
-    modal = true,
+    container,
+    forceMount,
     closeCommandOnTrigger,
     ...props
   } = _props;
@@ -230,7 +229,7 @@ export const CommandRoot = React.forwardRef<HTMLDivElement, CommandRootProps>((_
     commandActions.setQuery(q, store!);
   };
 
-  const render = useRender(open, { modal });
+  const render = useRender(open, { modal: !forceMount });
 
   useHotkeys(getHotkeys(shortcut, store!), tagsToIgnore, triggerOnContentEditable);
 
@@ -257,24 +256,26 @@ export const CommandRoot = React.forwardRef<HTMLDivElement, CommandRootProps>((_
   );
 
   const windowIsDefine = typeof window !== "undefined" && typeof document !== "undefined";
-  if (!windowIsDefine || !mounted || !(render || forceOpened) || disabled) return null;
+  if (!windowIsDefine || !mounted || !(render || forceMount) || disabled) return null;
 
   const stylesApi = { unstyled, classNames, styles };
 
   const attrOverlay: Record<string, string | undefined> = {
-    "aria-modal": !modal ? "false" : undefined,
-    "data-modal": !modal ? "false" : undefined,
-    "data-state": forceOpened ? "opened" : open ? "open" : "closed"
+    "aria-modal": forceMount ? "false" : undefined,
+    "data-modal": forceMount ? "false" : undefined,
+    "data-state": forceMount ? "opened" : open ? "open" : "closed"
   };
 
   const root = (
-    <ctx.Provider value={{ getStyles, forceOpened, query: _query, setQuery, store: store!, closeOnActionTrigger, onClose, modal }}>
-      {modal && <Edge {...{ el: "div", selector: "overlay", onClick: onClose, ...stylesApi, ...attrOverlay }} />}
+    <ctx.Provider value={{ getStyles, forceMount, query: _query, setQuery, store: store!, closeOnActionTrigger, onClose }}>
+      {(!forceMount || container === document.body) && <Edge {...{ el: "div", selector: "overlay", onClick: onClose, ...stylesApi, ...attrOverlay }} />}
       <Edge {...{ el: "div", selector: "content", ref, ...stylesApi, ...attrOverlay, ...props }}>{children}</Edge>
     </ctx.Provider>
   );
 
-  return modal ? createPortal(root, document.body) : root;
+  if (container === null) return root;
+
+  return createPortal(root, container || document.body);
 });
 CommandRoot.displayName = "Command/CommandRoot";
 

@@ -25,16 +25,6 @@ This section allows users to adjust properties such as state control, error hand
 
 <CommandDemosConfigurator />
 
-**Note:**
-
-- `!modal`:
-  A special flag often used to force display of a component within the DOM structure.
-  This is typically used when combined with the forceOpened prop to ensure that the command interface stays open in certain conditions.
-
-- `forceOpened`:
-  A prop primarily used during the development process to control whether the command is forced to remain open.
-  This prop can be very useful for testing or ensuring that specific elements stay visible during interactions.
-
 ## Data Types
 
 Defines the structure of the data used by the `Command` component.
@@ -110,9 +100,10 @@ type T =
 
 ### Props API
 
-| Props API | Type | Default | Annotation |
-| --------- | ---- | ------- | ---------- |
-| -`?`      | -    | `-`     | --         |
+| Props API     | Type                                  | Default         | Annotation                                              |
+| ------------- | ------------------------------------- | --------------- | ------------------------------------------------------- |
+| container`?`  | `Element \| DocumentFragment \| null` | `document.body` | Specify a container element to portal the content into. |
+| forceMount`?` | `boolean`                             | `false`         | Used to force mounting when more control is needed.     |
 
 ---
 

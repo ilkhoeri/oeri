@@ -541,7 +541,7 @@ export function TableDemo() {
       item => (
         <Label htmlFor={name(item.name)} className="inline-flex cursor-pointer items-center gap-1">
           {item.name}
-          <Tooltip side="top" content={item.description} classNames={{ trigger: "bg-muted rounded-lg p-0.5", content: "px-2 py-1 text-xs font-medium" }}>
+          <Tooltip touch side="top" content={item.description} classNames={{ trigger: "bg-muted rounded-lg p-0.5", content: "px-2 py-1 text-xs font-medium" }}>
             <Svg>
               <path d="M12 9h.01M11 12h1v4h1" />
               <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9-9 9s-9-1.8-9-9s1.8-9 9-9" />
@@ -747,8 +747,8 @@ export function CommandDemo() {
   return (
     <Command
       highlightQuery
-      modal={false}
-      forceOpened
+      container={null}
+      forceMount
       actions={dataGroup}
       classNames={{ content: "[--command-hover-bg:#f4f6ff] dark:[--command-hover-bg:#151619]" }}
       searchProps={{
