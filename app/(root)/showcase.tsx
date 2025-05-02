@@ -598,7 +598,7 @@ const somePeriodic = [
 import { Command, type CommandActionGroupData } from "@/ui/command";
 // import { Svg } from "@/ui/svg";
 
-const ICONSIZE = 32;
+const ICONSIZE = 24;
 
 const dataGroup: CommandActionGroupData[] = [
   {
