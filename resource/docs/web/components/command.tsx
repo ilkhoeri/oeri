@@ -493,21 +493,10 @@ const RightSection = React.forwardRef<HTMLButtonElement, React.ComponentProps<"b
   return (
     <Edge {...{ el: "button", ref, selector: "closeCommand", type, tabIndex, onClick: handleClick, ...props }}>
       {rightSection ?? (
-        <svg fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg" className="size-4">
-          <mask id="command-closecommandAction-icon-mask">
-            <g stroke="#fff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M16 5l-14 14" strokeDasharray="24" strokeDashoffset="24">
-                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" />
-              </path>
-              <path strokeWidth="4" stroke="#000" d="M2 5l14 14" strokeDasharray="24" strokeDashoffset="24">
-                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" begin="0.4s" />
-              </path>
-              <path d="M2 5l14 14" strokeDasharray="24" strokeDashoffset="24">
-                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" begin="0.4s" />
-              </path>
-            </g>
-          </mask>
-          <path fill="currentColor" mask="url(#command-closecommandAction-icon-mask)" d="M0 0h18v24H0z" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-4">
+          <path fill="none" stroke="currentColor" strokeDasharray="12" strokeDashoffset="12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 12l7 7M12 12l-7 -7M12 12l-7 7M12 12l7 -7">
+            <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0" />
+          </path>
         </svg>
       )}
     </Edge>

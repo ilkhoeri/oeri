@@ -85,7 +85,7 @@ const isColor = <T,>(value: T): boolean =>
     /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/.test(value) || // RGBA
     /^[a-zA-Z]+$/.test(value)); // Named color
 
-function _isValidSize<T>(size: T): boolean {
+export function isSvgSize<T>(size: T): boolean {
   if (typeof size === "string") {
     if (/^(calc|clamp|var)\(|auto|inherit/.test(size)) return true;
     if (InitialSizeSvg.includes(size as InitialSizeSvg)) return true;
