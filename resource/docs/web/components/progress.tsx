@@ -182,28 +182,30 @@ export const ProgressSection = React.forwardRef<HTMLDivElement, ProgressSectionP
   const { unstyled, className, color, style, value, min, max, striped, animated, role = "progressbar", "aria-valuemax": avMx, "aria-valuemin": avMn, "aria-valuenow": avNow, "aria-valuetext": avTxt, "aria-label": aLb, title, label, children, ...props } = _props;
   const ctx = useProgress();
 
-  const propApi = {
+  const propsApi = {
     unstyled: unstyled ?? ctx?.unstyled,
     color: color ?? ctx?.color,
     value: value ?? ctx?.value,
     animated: animated ?? ctx?.animated,
     striped: (animated || striped) ?? ctx.striped,
     min: min ?? ctx?.min ?? 0,
-    max: max ?? ctx?.max ?? 100
+    max: max ?? ctx?.max ?? 100,
+    classNames: ctx?.classNames,
+    styles: ctx?.styles
   };
 
   const ariaAttributes = ctx?.withAria
     ? {
         role,
         "aria-label": aLb || label,
-        "aria-valuemin": avMn || propApi?.min,
-        "aria-valuemax": avMx || propApi?.max,
-        "aria-valuenow": avNow || propApi?.value,
-        "aria-valuetext": avTxt || `${propApi?.value}%`
+        "aria-valuemin": avMn || propsApi?.min,
+        "aria-valuemax": avMx || propsApi?.max,
+        "aria-valuenow": avNow || propsApi?.value,
+        "aria-valuetext": avTxt || `${propsApi?.value}%`
       }
     : {};
 
-  const state = getState(propApi?.value, { min: propApi?.min, max: propApi?.max });
+  const state = getState(propsApi?.value, { min: propsApi?.min, max: propsApi?.max });
 
   return (
     <div
@@ -212,13 +214,13 @@ export const ProgressSection = React.forwardRef<HTMLDivElement, ProgressSectionP
         ...props,
         ...ariaAttributes,
         title: title ?? label,
-        "data-striped": is(propApi.striped, "true"),
-        "data-animated": is(propApi.animated, "true"),
-        "data-value": propApi?.value,
-        "data-min": propApi?.min,
-        "data-max": propApi?.max,
+        "data-striped": is(propsApi.striped, "true"),
+        "data-animated": is(propsApi.animated, "true"),
+        "data-value": propsApi?.value,
+        "data-min": propsApi?.min,
+        "data-max": propsApi?.max,
         "data-state": state,
-        ...ctx.getStyles("section", { className, style, ...propApi })
+        ...ctx.getStyles("section", { className, style, ...propsApi })
       }}
     >
       {children ?? (label ? <ProgressLabel label={label} /> : null)}
@@ -234,13 +236,15 @@ export const ProgressLabel = React.forwardRef<HTMLDivElement, ProgressLabelProps
   const { unstyled: unstyledProp, className, color: colorProp, style, title, label, children, ...props } = _props;
   const ctx = useProgress();
 
-  const propApi = {
+  const propsApi = {
     unstyled: unstyledProp ?? ctx.unstyled,
-    color: colorProp ?? ctx.color
+    color: colorProp ?? ctx.color,
+    classNames: ctx?.classNames,
+    styles: ctx?.styles
   };
 
   return (
-    <div ref={ref} {...{ ...props, title: title ?? label }} {...ctx.getStyles("label", { className, style, ...propApi })}>
+    <div ref={ref} {...{ ...props, title: title ?? label }} {...ctx.getStyles("label", { className, style, ...propsApi })}>
       {children || label}
     </div>
   );
