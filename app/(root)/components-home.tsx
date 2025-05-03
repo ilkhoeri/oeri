@@ -365,7 +365,7 @@ export function ShowCaseComponents() {
                 code: codes.avatarWithIndicator,
                 content: (
                   <Indicator size={12} offset={4} color="#fab005" processing withBorder>
-                    <Avatar fallback="Jack" color="hsl(var(--color))" classNames={{ root: "cursor-pointer", fallback: "[&>bdi]:text-background"}} />
+                    <Avatar fallback="Jack" color="hsl(var(--color))" classNames={{ root: "cursor-pointer", fallback: "[--avatar-text-color:hsl(var(--background))]"}} />
                   </Indicator>
                 )
               },

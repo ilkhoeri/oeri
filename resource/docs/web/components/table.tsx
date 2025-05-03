@@ -6,7 +6,7 @@ const classes = cvx({
   variants: {
     variant: {
       default: "stylelayer-table-table rounded-lg bg-background [--bg-table-tr-hover:hsl(var(--primitive-foreground))] [--vertical-align:middle] [--table-border-color:hsl(var(--border))]",
-      tile: "stylelayer-table-tile [--shape-rounded:1rem] [--background-th:var(--palette-background-neutral)] [--table-border-color:hsl(var(--border))] [--color-cell:hsl(var(--color))] [--color-icon:hsl(var(--muted-foreground))] [--table-hover-color:hsl(var(--muted)/0.5)] [--padding-cell:1.5rem] [--palette-TableCell-border:var(--palette-divider)]"
+      tile: "stylelayer-table-tile [--shape-rounded:1rem] [--background-th:var(--palette-background-neutral)] [--table-border-color:hsl(var(--border))] [--color-cell:hsl(var(--color))] [--color-icon:hsl(var(--muted-foreground))] [--table-hover-color:hsl(var(--primitive))] [--padding-cell:1.5rem] [--palette-TableCell-border:var(--palette-divider)]"
     },
     selector: {
       root: "",
