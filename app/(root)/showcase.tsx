@@ -420,7 +420,7 @@ export function DropdownNotifications() {
 
   return (
     <Sheets align="end" clickOutsideToClose modal sideOffset={4} variant="dropdown">
-      <Indicator size={18} offset={2} disabled={!totalNewNotifications} label={totalNewNotifications} color="#FF5630" withBorder>
+      <Indicator withBorder size={18} offset={2} disabled={!totalNewNotifications} label={totalNewNotifications} color="#FF5630" classNames={{ indicator: "text-white" }}>
         <Sheets.Trigger className={cn(buttonVariants({ size: "icon", variant: "unset" }), "[--sz:38px] data-[state=open]/st:bg-color data-[state=open]/st:text-background hover:data-[state=open]/st:bg-color hover:data-[state=open]/st:text-background")}>
           <Svg size={24} currentFill="fill" className="transition-colors">
             <path d="M8.352 20.242A4.63 4.63 0 0 0 12 22a4.63 4.63 0 0 0 3.648-1.758a27.2 27.2 0 0 1-7.296 0" />

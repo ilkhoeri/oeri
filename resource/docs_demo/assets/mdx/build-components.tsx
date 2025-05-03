@@ -110,6 +110,7 @@ export function BannerClosingGetStarted() {
       ref={setControlRef(index)}
       onClick={() => setActive(index)}
       data-active={isActive(index)}
+      onContextMenu={e => e.preventDefault()}
     >
       <span className="relative z-1 size-full px-4 py-3 font-semibold" onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(null)}>
         {transform.capitalizeFirst(item)}

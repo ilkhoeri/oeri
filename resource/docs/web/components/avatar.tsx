@@ -86,7 +86,7 @@ function getStyles(selector: SelectorGroup, opts?: Options) {
           opts?.withinGroup && "ml-[--ag-offset] border-2 border-solid border-background",
           opts?.size ? "size-[--avatar-size] min-w-[--avatar-size] min-h-[--avatar-size] max-w-[--avatar-size] max-h-[--avatar-size]" : "size-9",
           opts?.round ? "rounded-[--avatar-round]" : "rounded-full",
-          opts?.color ? ["bg-[--avatar-bg]", isInitials ? "text-[--avatar-color]" : "text-color"] : "bg-background"
+          opts?.color ? ["bg-[--avatar-bg]", isInitials ? "text-[--avatar-text-color]" : "text-color"] : "bg-background"
         ]
       ),
       opts?.classNames?.[selector],
@@ -98,7 +98,7 @@ function getStyles(selector: SelectorGroup, opts?: Options) {
       // isGroup && opts?.size && { '--avatar-size': rem(opts?.size) },
       selector === "root" && opts?.size && { "--avatar-size": rem(opts?.size) },
       selector === "group" && { "--ag-spacing": rem(opts?.gap), "--ag-offset": " calc(var(--ag-spacing, calc(var(--avatar-size) / 1.85)) * -1)" },
-      selector === "root" && [{ "--avatar-fz": `calc(var(--avatar-size) / max(${opts?.lengthInitial}, 2.35))` }, opts?.round && { "--avatar-round": rem(opts?.round) }, opts?.color && [{ "--avatar-bg": opts.color }, isInitials && { "--avatar-color": getContrastColor(opts.color) }]]
+      selector === "root" && [{ "--avatar-fz": `calc(var(--avatar-size) / max(${opts?.lengthInitial}, 2.35))` }, opts?.round && { "--avatar-round": rem(opts?.round) }, opts?.color && [{ "--avatar-bg": opts.color }, isInitials && { "--avatar-text-color": getContrastColor(opts.color) }]]
     )
   };
 }
@@ -211,7 +211,7 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
 
   const stringWrap = (initials: string) => (
     <PolymorphicSlot data-load={is(hasLoad)} role="status" {...getStyles("fallback", stylesApi)}>
-      <bdi title={initials} className="line-clamp-1 uppercase text-[--avatar-color] flex">
+      <bdi title={initials} className="line-clamp-1 uppercase text-[--avatar-text-color] flex">
         {getInitials(initials, Number(initialLimit))}
       </bdi>
     </PolymorphicSlot>
