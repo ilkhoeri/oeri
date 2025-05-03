@@ -11,5 +11,5 @@ export interface ConfiguratorBooleanControlProps extends Omit<CheckerProps, "val
 }
 
 export function ConfiguratorBooleanControl({ value, onChange, prop, type, ...others }: ConfiguratorBooleanControlProps) {
-  return <Checker {...others} type="switch" checked={value} onChange={event => onChange(event.currentTarget.checked)} label={getControlLabel(prop)} />;
+  return <Checker {...others} type="switch" checked={value} onCheckedChange={event => onChange(event.currentTarget.checked)} label={getControlLabel(prop)} />;
 }

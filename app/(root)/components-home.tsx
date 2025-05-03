@@ -189,7 +189,7 @@ function CheckerSwitchDemos() {
       offLabel="Light"
       color="hsl(var(--muted))"
       checked={isDark}
-      onChange={() => memoizedTheme((isDark ?? theme === "system") ? "light" : "dark")}
+      onCheckedChange={() => memoizedTheme((isDark ?? theme === "system") ? "light" : "dark")}
       icon={checked => (checked ? <MoonStarIcon animation size={16} /> : <SunIcon animation size={18} />)}
       classNames={{ track: "[&_svg]:text-background", thumb: "[--switch-thumb-bd:transparent] data-[checked]:bg-background [&>svg]:data-[switch]:data-[checked]:text-color" }}
     />

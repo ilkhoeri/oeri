@@ -1,12 +1,19 @@
 import React from "react";
 import { getControlLabel } from "./get-control-label";
-import { SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
+import { ExtractSelectValue, SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
 import { ConfiguratorControl } from "./types.control";
 import { ComponentProps, ComponentPropsWithRef } from "../assets/types/component";
 import { merge } from "cretex";
 import { __cn } from "./classes.control";
 
-export type ConfiguratorSelectControlOptions = ConfiguratorControl<"select", { data: SelectData; initialValue: string }>;
+// export type ConfiguratorSelectControlOptions = ConfiguratorControl<"select", { data: SelectData; initialValue: string }>;
+export type ConfiguratorSelectControlOptions<Data extends SelectData = SelectData> = ConfiguratorControl<
+  "select",
+  {
+    data: Data;
+    initialValue: ExtractSelectValue<Data>;
+  }
+>;
 
 export interface ConfiguratorSelectControlProps extends ComponentProps<"select", "onChange" | "value" | "size"> {
   value: string;

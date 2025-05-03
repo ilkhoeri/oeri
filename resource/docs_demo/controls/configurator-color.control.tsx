@@ -12,7 +12,7 @@ import { ComponentProps } from "../assets/types/component";
 import { ColorPicker, ColorSwatch } from "@/ui/color-picker";
 import { __cn } from "./classes.control";
 
-export type ConfiguratorColorControlOptions = ConfiguratorControl<"color", { swatches?: string[]; initialValue: string }>;
+export type ConfiguratorColorControlOptions = ConfiguratorControl<"color", { swatches?: string[]; initialValue: React.CSSProperties["color"] }>;
 
 export interface ConfiguratorColorControlProps extends ComponentProps<"div", "onChange" | "value" | "size"> {
   value: string;
@@ -27,10 +27,10 @@ export function ConfiguratorColorControl(_props: ConfiguratorColorControlProps) 
   const [colorPickerColor, setColorPickerColor] = useState("#fff");
   const ctx = useApp();
 
-  const handleColorPickerChange = (color: string) => {
+  function handleColorPickerChange(color: string) {
     setColorPickerColor(color);
     onChange(color);
-  };
+  }
 
   // const colors = Object.keys(DEFAULT_THEME.colors)
   const colors = swatches

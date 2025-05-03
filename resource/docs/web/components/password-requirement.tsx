@@ -152,7 +152,7 @@ export const PasswordRequirement = React.forwardRef<HTMLUListElement, PasswordRe
   return (
     <ul ref={ref} className={cn("flex w-full flex-col text-[13px] md:col-span-2 md:text-sm", className, classNames?.root)} {...{ role, style: { ...style, ...styles?.root }, ...props }}>
       {withProgressBars && (
-        <li role="listitem" className={cn("grid w-full grid-cols-5 gap-2 my-2", classNames?.item)} {...{ style: styles?.item }}>
+        <li role="listitem" className={cn("my-2 grid w-full grid-cols-5 gap-2", classNames?.item)} {...{ style: styles?.item }}>
           {progressBars}
         </li>
       )}

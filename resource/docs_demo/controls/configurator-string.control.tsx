@@ -3,7 +3,7 @@ import { ComponentProps } from "../assets/types/component";
 import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
 import { __cn } from "./classes.control";
-import { SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
+import { SelectData, transformSelectData } from "./transform-select-data";
 import { merge } from "cretex";
 import { purify } from "@/source/libs/dom-purify";
 
@@ -13,7 +13,7 @@ export interface ConfiguratorStringControlProps extends ComponentProps<"input", 
   value: string;
   onChange: (value: string) => void;
   prop: string;
-  data?: SelectDataItem[];
+  data?: SelectData;
   inputType?: ComponentProps<"input">["type"];
 }
 

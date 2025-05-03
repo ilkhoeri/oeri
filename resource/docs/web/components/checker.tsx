@@ -63,7 +63,7 @@ interface __Props {
 interface CtxProps extends __Props {
   name: string;
   value: string | string[] | null;
-  onChange: (event: React.ChangeEvent<HTMLInputElement> | string) => void;
+  onValueChange: (event: React.ChangeEvent<HTMLInputElement> | string) => void;
 }
 
 interface __CheckerGroupProps extends __Props {
@@ -84,11 +84,11 @@ export interface CheckerGroupProps extends ComponentProps<"div", "children" | "c
   children: React.ReactNode;
   value?: string | string[] | null;
   defaultValue?: string | string[] | null;
-  onChange?: (value: string | string[] | null) => void;
+  onValueChange?: (value: string | string[] | null) => void;
   groupProps?: React.PropsWithRef<Component<"div">>;
 }
 export const CheckerGroup = React.forwardRef<HTMLDivElement, CheckerGroupProps>((_props, ref) => {
-  const { children, value, defaultValue, onChange, size, labelPosition, readOnly, required, color, round, disabled, label, description, className, style, classNames, styles, unstyled, error, checked, indeterminate, type = checkerDefault, id: defaulId, name, multiple, groupProps: wp, ...props } = _props;
+  const { children, value, defaultValue, onValueChange, size, labelPosition, readOnly, required, color, round, disabled, label, description, className, style, classNames, styles, unstyled, error, checked, indeterminate, type = checkerDefault, id: defaulId, name, multiple, groupProps: wp, ...props } = _props;
 
   const id = useId(defaulId);
   const role = cnx(props?.role ?? `${type}group`);
@@ -97,7 +97,7 @@ export const CheckerGroup = React.forwardRef<HTMLDivElement, CheckerGroupProps>(
     value,
     defaultValue,
     finalValue: [],
-    onChange
+    onChange: onValueChange
   });
   const stylesApi = { id, styles, label, error, type, required, disabled, unstyled, classNames, description, indeterminate, checked };
 
@@ -118,16 +118,16 @@ export const CheckerGroup = React.forwardRef<HTMLDivElement, CheckerGroupProps>(
   //   }
   // };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement> | string) => {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement> | string) {
     const itemValue = typeof event === "string" ? event : event.currentTarget.value;
     const multipleValue = Array.isArray(_value) ? (_value.includes(itemValue) ? _value.filter(item => item !== itemValue) : [..._value, itemValue]) : itemValue;
     if (!readOnly) {
       setValue(multipleValue);
     }
-  };
+  }
 
   return (
-    <ctx.Provider value={{ name: _name, value: _value, onChange: handleChange, size, required, color, labelPosition, round, disabled, type, indeterminate, multiple }}>
+    <ctx.Provider value={{ name: _name, value: _value, onValueChange: handleChange, size, required, color, labelPosition, round, disabled, type, indeterminate, multiple }}>
       <div {...{ ref, role, ...checkerGroupStyles("root", { className, style, ...stylesApi }), ...props }}>
         {label && <div {...checkerGroupStyles("label", stylesApi)}>{label}</div>}
         {description && <p {...checkerGroupStyles("description", stylesApi)}>{description}</p>}
@@ -162,10 +162,10 @@ interface __CheckerCardProps extends ComponentProps<"button", "size" | "color" |
   round?: (string & {}) | number;
   value?: string;
   name?: string;
-  onChange?: (checked: boolean) => void;
+  onValueChange?: (checked: boolean) => void;
 }
 export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProps>((_props, ref) => {
-  const { dir = "ltr", round = 12, classNames, className, style, styles, unstyled, checked, value, onClick, name, onKeyDown, disabled, error, required, indeterminate, readOnly, labelPosition, defaultChecked, onChange, type = checkerDefault, ...props } = _props;
+  const { dir = "ltr", round = 12, classNames, className, style, styles, unstyled, checked, value, onClick, name, onKeyDown, disabled, error, required, indeterminate, readOnly, labelPosition, defaultChecked, onValueChange, type = checkerDefault, ...props } = _props;
 
   const ctx = useCheckerGroupCtx();
   const _name = name || ctx?.name;
@@ -176,7 +176,7 @@ export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProp
     value: _checked,
     defaultValue: defaultChecked,
     finalValue: false,
-    onChange
+    onChange: onValueChange
   });
 
   const stylesApi = {
@@ -231,7 +231,7 @@ export const CheckerCard = React.forwardRef<HTMLButtonElement, __CheckerCardProp
         ...checkerGroupStyles("card", stylesApi),
         onClick: event => {
           onClick?.(event);
-          ctx?.onChange(value || "");
+          ctx?.onValueChange(value || "");
           setValue(!_value);
         },
         onKeyDown: handleKeyDown,
@@ -250,11 +250,12 @@ interface __CheckerProps extends __CheckerGroupProps {
   rootProps?: React.PropsWithRef<Component<"label">>;
 }
 
-export interface CheckerProps extends ComponentProps<"input", "size" | "children" | "color" | "type">, __CheckerProps, StylesNames<"checker"> {
+export interface CheckerProps extends ComponentProps<"input", "size" | "children" | "color" | "type" | "onChange">, __CheckerProps, StylesNames<"checker"> {
   id?: string;
+  onCheckedChange?: ComponentProps<"input">["onChange"];
 }
 export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props, ref) => {
-  const { classNames, className, style, styles, unstyled, color, label, offLabel, onLabel, id, size, round, icon, checked, defaultChecked, onChange, labelPosition, description, error, disabled, required, rootRef, indeterminate, multiple, type = checkerDefault, rootProps: wp, ...props } = _props;
+  const { classNames, className, style, styles, unstyled, color, label, offLabel, onLabel, id, size, round, icon, checked, defaultChecked, onCheckedChange, labelPosition, description, error, disabled, required, rootRef, indeterminate, multiple, type = checkerDefault, rootProps: wp, ...props } = _props;
 
   const uuid = useId(id);
   const ctx = useCheckerGroupCtx();
@@ -262,7 +263,7 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
     ? {
         name: props.name ?? ctx.name,
         checked: typeof ctx.value === "string" ? ctx.value === String(props.value) : ctx.value !== null ? ctx.value.includes(String(props.value)) : false,
-        onChange: ctx.onChange
+        onValueChange: ctx.onValueChange
       }
     : {};
 
@@ -313,8 +314,8 @@ export const Checker = React.forwardRef<HTMLInputElement, CheckerProps>((_props,
           required: ctx?.required ?? required,
           type: cnx([(type === "switch" || type === "checkbox") && "checkbox", type === "radio" && "radio"]),
           onChange: event => {
-            contextProps.onChange?.(event);
-            onChange?.(event);
+            contextProps.onValueChange?.(event);
+            onCheckedChange?.(event);
             handleChange(event.currentTarget.checked);
           },
           ...checkerStyles("input", rest),
