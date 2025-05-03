@@ -197,27 +197,30 @@ type UseOpenStateOptions<T = boolean | (string | null)> = {
 };
 
 export function useOpenStateNEW<T extends boolean | (string | null)>(options: UseOpenStateOptions<T> = {}) {
-  const { defaultOpen, onOpenChange: extChange, open: extOpen } = options;
+  const { defaultOpen = false, onOpenChange: setOpenProp, open: openProp } = options;
 
   // Internal state
   const [intOpen, setIntOpen] = React.useState<T>(defaultOpen as T);
 
   // Derived state
-  const open = extOpen !== undefined ? extOpen : intOpen;
-  const setOpen = extChange !== undefined ? extChange : setIntOpen;
+  const open = openProp !== undefined ? openProp : intOpen;
+  const setOpenChange = setOpenProp !== undefined ? setOpenProp : setIntOpen;
+
+  const [_open, _setOpen] = React.useState(defaultOpen);
 
   // Render state
-  const [render, setRender] = React.useState<T>(defaultOpen as T);
+  const [mount, setMount] = React.useState<T>(defaultOpen as T);
 
   // Handle close based on type
   const handleClose = () => {
-    setOpen((typeof open === "boolean" ? false : null) as T);
+    const openState = (typeof open === "boolean" ? false : null) as T;
+    setOpenChange(openState);
     setTimeout(() => {
-      setRender((typeof open === "boolean" ? false : null) as T);
+      setMount(openState);
     }, 150);
   };
 
-  return { open, setOpen, render, handleClose };
+  return { open, setOpenChange, mount, handleClose };
 }
 
 /**

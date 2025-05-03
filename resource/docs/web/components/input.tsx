@@ -267,7 +267,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((_props, ref
 }) as InputComponent;
 Input.displayName = "Input";
 
-// InputPassword perlu pembaruan props dan perlu dokumentasi
 type InputPasswordTrees = NonNullable<cvxProps<typeof classesPassword>["selector"]>;
 
 export interface InputPasswordProps extends Omit<InputProps, "type" | "unstyled" | "indeterminate" | keyof InputStyles> {

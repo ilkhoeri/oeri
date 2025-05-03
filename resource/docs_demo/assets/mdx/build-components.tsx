@@ -105,7 +105,7 @@ export function BannerClosingGetStarted() {
       key={item}
       href={`/docs/web/${item}`}
       className={cn(
-        "touch-manipulation appearance-none rounded-none border-white text-sm font-medium leading-none text-[#c1c1c1] transition hover:!text-black active:scale-[0.985] data-[active]:text-black max-md:border-x max-md:border-t max-md:first-of-type:rounded-t-xl max-md:last-of-type:rounded-b-xl max-md:last-of-type:border-y md:border-y md:border-l md:shadow-md md:first-of-type:rounded-l-xl md:last-of-type:rounded-r-xl md:last-of-type:border"
+        "touch-manipulation appearance-none rounded-none border-white text-sm font-medium leading-none text-[#c1c1c1] transition hover:!text-black data-[active]:text-black max-md:border-x max-md:border-t max-md:first-of-type:rounded-t-xl max-md:last-of-type:rounded-b-xl max-md:last-of-type:border-y md:border-y md:border-l md:shadow-md md:first-of-type:rounded-l-xl md:last-of-type:rounded-r-xl md:last-of-type:border"
       )}
       ref={setControlRef(index)}
       onClick={() => setActive(index)}

@@ -188,7 +188,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     & a.anchor_id {
       @apply font-geist-sans [--sz-img:36px] [--sz:18px] [&_svg]:min-w-[--sz] [&_svg]:min-h-[--sz] [&_svg]:size-[--sz] [&_svg]:max-w-[--sz] [&_svg]:max-h-[--sz] [&_svg]:transition-colors [&_svg]:text-color/30 [&_svg]:hover:text-constructive;
       &:has(img + svg) {
-        @apply flex-row-reverse [&>img]:-ml-8 [&>img]:mr-4 [&>img]:size-[--sz-img] [&>img]:max-h-[--sz-img] [&>img]:max-w-[--sz-img] [&>svg]:hidden;
+        @apply contents [&>img]:-order-1 [&>img]:mr-4 [&>img]:size-[--sz-img] [&>img]:max-h-[--sz-img] [&>img]:max-w-[--sz-img] [&>svg]:hidden;
       }
     }
     & + hr {
