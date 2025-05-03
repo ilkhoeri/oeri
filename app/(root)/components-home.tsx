@@ -88,14 +88,6 @@ export function PageHome() {
             <path data-line="" d="m19.66,130.5h92.57c33.14,0,64-26.86,64-60v-1c0-33.14,29.86-60,63-60h180.56" fill="none" strokeDasharray="0 0 5 5" />
           </Svg>
         </s>
-
-        <s className={style.line_circle}>
-          <Svg viewBox="0 0 218 179" size="unset" stroke={3} className={classes({ selector: "svg" })}>
-            <circle cx="9" cy="9.04" r="7.5" fill="hsl(var(--background))" />
-            <path data-line="" d="m198.54,169.04H69c-33.14,0-60-26.86-60-60V16.02" fill="none" strokeDasharray="0 0 6.96 6.96" />
-            <path d="m203,177.46c-.26,0-.52-.07-.75-.2-.46-.27-.75-.76-.75-1.3v-13.86c0-.54.29-1.03.75-1.3.23-.13.49-.2.75-.2s.52.07.75.2l12,6.93c.46.27.75.76.75,1.3s-.29,1.03-.75,1.3l-12,6.93c-.23.13-.49.2-.75.2Z" fill="hsl(var(--background))" />
-          </Svg>
-        </s>
       </section>
 
       <SectionCustomizable />
@@ -126,6 +118,13 @@ export function ThemesToggle({ size }: { size?: number | string }) {
   const isDark = theme === "dark";
   return (
     <div className={`${style.switch_wrap} [--ring:white] dark:[--ring:linear-gradient(-45deg,#f8acff,#696eff)]`} {...{ style: { "--sz-circle": size ? rem(size) : undefined } as React.CSSProperties }}>
+      <s className={style.line_circle}>
+        <Svg viewBox="0 0 218 179" size="unset" stroke={3} className={classes({ selector: "svg" })}>
+          <circle cx="9" cy="9.04" r="7.5" fill="hsl(var(--background))" />
+          <path data-line="" d="m198.54,169.04H69c-33.14,0-60-26.86-60-60V16.02" fill="none" strokeDasharray="0 0 6.96 6.96" />
+          <path d="m203,177.46c-.26,0-.52-.07-.75-.2-.46-.27-.75-.76-.75-1.3v-13.86c0-.54.29-1.03.75-1.3.23-.13.49-.2.75-.2s.52.07.75.2l12,6.93c.46.27.75.76.75,1.3s-.29,1.03-.75,1.3l-12,6.93c-.23.13-.49.2-.75.2Z" fill="hsl(var(--background))" />
+        </Svg>
+      </s>
       <input checked={isDark} onChange={() => memoizedTheme(isDark || theme === "system" ? "light" : "dark")} className={style.switch_input} id="themes-toggle" name="themes-toggle" aria-label="toggle" type="checkbox" hidden />
       <label className={`${style.switch_label} [--shadow:--switch-shadow-light] dark:[--shadow:--switch-shadow-dark] dark:[--switch-ml:--switch-ml-dark]`} htmlFor="themes-toggle" />
       <span className={style.switch_marbles} />

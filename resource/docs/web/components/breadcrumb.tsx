@@ -14,6 +14,7 @@ const classes = cvx({
     },
     overflow: {
       root: "max-w-full overflow-hidden gap-0",
+      breadcrumb: "whitespace-nowrap",
       wrap: "w-max min-w-full overflow-auto gap-[--bc-gap] inline-flex items-center flex-row flex-nowrap [&_*]:whitespace-nowrap"
     }
   }
@@ -42,14 +43,13 @@ type CtxProps = {
 
 function getStyles(selector: __BreadcrumbSelector, options: Options = {}) {
   const { al, className, classNames, gap, overflowWrap, style, styles, unstyled, color } = options;
-  const rootWrap = selector === "root" || selector === "wrap";
   return {
     "aria-label": al || cn(selector),
     className: cn(
       !unstyled?.[selector] &&
         classes({
           selector,
-          overflow: rootWrap && overflowWrap ? selector : undefined
+          overflow: overflowWrap ? (selector as NonNullable<cvxProps<typeof classes>["overflow"]>) : undefined
         }),
       classNames?.[selector],
       className

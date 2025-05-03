@@ -560,13 +560,12 @@ export function TableDemo() {
         variant="tile"
         data={tableData}
         classNames={{ root: "[--selected-bg:#f4f6ff] dark:[--selected-bg:#151619]", thead: "bg-color", "tbody.tr": "shadow-md bg-background" }}
-        aria-multiselectable="true"
         styles={{
           root: {
             height: "29rem",
             "--height-cell": "auto"
           },
-          "thead.tr.th": { color: "hsl(var(--background))" },
+          "thead.tr.th": { "--color-cell": "hsl(var(--background))" },
           "tbody.tr": index =>
             selectedRows.includes(data[index].name) && {
               backgroundColor: "var(--selected-bg)",

@@ -99,8 +99,8 @@ export interface TimelineItemProps extends ComponentProps<"div", "title" | "cont
     line?: Colors;
     ring?: Colors;
   };
-  notice?: boolean;
-  noticeStyle?: {
+  withNotif?: boolean;
+  notifStyle?: {
     clr?: Colors;
     ring?: Colors;
   };
@@ -114,9 +114,9 @@ export interface TimelineItemProps extends ComponentProps<"div", "title" | "cont
   content?: React.ReactNode;
 }
 export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>((_props, ref) => {
-  const { children, bullet, title, content, unstyled, className, classNames, style, styles, lineStyle, active, notice, role = "listbox", activeStyle = {}, noticeStyle = {}, ...props } = _props;
+  const { children, bullet, title, content, unstyled, className, classNames, style, styles, lineStyle, active, withNotif, role = "listbox", activeStyle = {}, notifStyle = {}, ...props } = _props;
   const { bg = "hsl(var(--pure-white))", clr = "hsl(var(--pure-black))", line = "hsl(var(--constructive))", ring = "var(--tli-active-line)" } = activeStyle;
-  const { clr: noticeClr = "hsl(42deg 100% 50%)", ring: noticeRing = "hsl(var(--background))" } = noticeStyle;
+  const { clr: notifClr = "hsl(42deg 100% 50%)", ring: notifRing = "hsl(var(--background))" } = notifStyle;
   const stylesApi = { unstyled, classNames, styles };
   return (
     <Component
@@ -133,8 +133,8 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
           "--tli-active-bg": active ? bg : undefined,
           "--tli-active-clr": active ? clr : undefined,
           "--tli-active-line": active ? line : undefined,
-          "--tli-notice-clr": notice ? noticeClr : undefined,
-          "--tli-notice-ring": notice ? noticeRing : undefined,
+          "--tli-notif-clr": withNotif ? notifClr : undefined,
+          "--tli-notif-ring": withNotif ? notifRing : undefined,
           "--bullet-active-ring": active ? ring : undefined,
           ...style
         } as React.CSSProperties,
@@ -147,7 +147,7 @@ export const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
           selector: "bullet",
           "data-active": active ? "true" : undefined,
           "data-bullet": bullet ? "true" : undefined,
-          "data-notice": notice ? "true" : undefined,
+          "data-notif": withNotif ? "true" : undefined,
           ...stylesApi
         }}
       >

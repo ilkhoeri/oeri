@@ -200,7 +200,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>((_props, ref
         striped: (striped === true ? "odd" : striped !== false ? striped : undefined) ?? undefined
       }}
     >
-      <TableRoot {...{ ref, orientation, unstyled, ...props }}>{children || (!!data && <TableDataRenderer {...{ data, unstyled, classNames, styles }} />)}</TableRoot>
+      <TableRoot {...{ ref, unstyled, ...props }}>{children || (!!data && <TableDataRenderer {...{ data, unstyled, classNames, styles }} />)}</TableRoot>
     </ctx.Provider>
   );
 }) as TableComponent;
@@ -270,7 +270,7 @@ const DEFAULT_SPACE: Record<__TableProps["variant"], Record<keyof NonNullable<Ta
   tile: { x: 0, y: 10 }
 };
 const TableRoot = React.forwardRef<HTMLTableElement, TableRootProps>((_props, ref) => {
-  const { unstyled: unstyledProp, className, style, layout, spacing = {}, stickyHeaderOffset, borderColor, stripedColor = "hsl(var(--primitive))", highlightOnHoverColor = "var(--bg-table-tr-hover)", "aria-orientation": ariaOrientation, dir: dirProp, rootProps, ...props } = _props;
+  const { unstyled: unstyledProp, className, style, layout, spacing = {}, stickyHeaderOffset, borderColor, stripedColor = "hsl(var(--primitive))", highlightOnHoverColor = "var(--bg-table-tr-hover)", "aria-orientation": aO, dir: dirProp, rootProps, ...props } = _props;
 
   const { dir: dirCtx, orientation, unstyled: unstyledCtx, classNames, styles, ...ctx } = useTable();
 
@@ -301,7 +301,7 @@ const TableRoot = React.forwardRef<HTMLTableElement, TableRootProps>((_props, re
         })
       }}
     >
-      <table {...{ ...props, ref, dir, "aria-orientation": ariaOrientation || orientation, ...ctx.getStyles("table", stylesApi) }} />
+      <table {...{ ...props, ref, dir, "aria-orientation": aO || orientation, ...ctx.getStyles("table", stylesApi) }} />
     </div>
   );
 });

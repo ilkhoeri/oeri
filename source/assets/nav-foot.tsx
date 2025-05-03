@@ -19,7 +19,7 @@ const Styles = cvx({
     },
     section: {
       top: "border-t border-t-muted pt-4 w-full grid items-start grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 text-muted-foreground",
-      bottom: "mx-auto my-4 flex w-full max-w-[calc(100%-2rem)] flex-col items-center justify-between gap-4 rounded-xl bg-muted py-2 font-geist-mono text-sm text-color md:flex-row"
+      bottom: "mx-auto my-4 flex w-full max-w-[calc(100%-2rem)] flex-col items-center justify-between gap-4 rounded-xl bg-primitive py-2 font-geist-mono text-sm text-color md:flex-row"
     }
   }
 });

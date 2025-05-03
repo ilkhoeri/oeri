@@ -36,15 +36,17 @@ The separator can be a simple character `(e.g., /, >)` or a custom React element
 
 ### Styles API
 
-Unstyled
+```ts
+type Selector = "root" | "breadcrumb" | "separator" | "wrap" | "ellipsis";
+```
 
-| Styles API    | Type                                | Default     | Annotation                                |
-| ------------- | ----------------------------------- | ----------- | ----------------------------------------- |
-| unstyled`?`   | `Partial<Record<T, boolean>>`       | `false`     | if `true`, default styles will be removed |
-| className`?`  | `string`                            | `undefined` | pass to root component `<div>`            |
-| classNames`?` | `Partial<Record<T, string>>`        | `undefined` |                                           |
-| style`?`      | `CSSProperties`                     | `undefined` | pass to root component `<div>`            |
-| styles`?`     | `Partial<Record<T, CSSProperties>>` | `undefined` |                                           |
+| Styles API    | Type                                       | Default     | Annotation                                |
+| ------------- | ------------------------------------------ | ----------- | ----------------------------------------- |
+| unstyled`?`   | `Partial<Record<Selector, boolean>>`       | `false`     | if `true`, default styles will be removed |
+| className`?`  | `string`                                   | `undefined` | pass to root component `<div>`            |
+| classNames`?` | `Partial<Record<Selector, string>>`        | `undefined` |                                           |
+| style`?`      | `CSSProperties`                            | `undefined` | pass to root component `<div>`            |
+| styles`?`     | `Partial<Record<Selector, CSSProperties>>` | `undefined` |                                           |
 
 ### Props API
 

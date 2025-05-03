@@ -396,7 +396,7 @@ export default {
               pointerEvents: "none"
             }
           },
-          "&[data-notice]": {
+          "&[data-notif]": {
             "--inset-tr": "calc(var(--tli-line-width, var(--tl-line-width)) * -0.75)",
             "&::after": {
               content: '""',
@@ -407,8 +407,8 @@ export default {
               top: "var(--inset-tr)",
               right: "var(--inset-tr)",
               borderRadius: "inherit",
-              backgroundColor: "var(--notice-clr, var(--tli-notice-clr))",
-              boxShadow: "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notice-clr, var(--tli-notice-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notice-ring, var(--tli-notice-ring))"
+              backgroundColor: "var(--notif-clr, var(--tli-notif-clr))",
+              boxShadow: "0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2) var(--notif-clr, var(--tli-notif-clr)), 0 0 0 calc(var(--tli-line-width, var(--tl-line-width)) / 2 + 2px) var(--notif-ring, var(--tli-notif-ring))"
             }
           }
         },

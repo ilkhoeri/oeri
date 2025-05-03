@@ -120,7 +120,8 @@
   }
 
   & .line_circle {
-    @apply absolute z-9 flex items-center h-[--sz-h] w-[--sz-w] [--sz-h:7rem] [--sz-w:9rem] mr-[clamp(22px,22px+30vw,25rem)] mb-[clamp(10rem,22px+5vw,14rem)];
+    @apply absolute z-9 flex items-center h-[--sz-h] w-[--sz-w] [--sz-h:7rem] [--sz-w:9rem] m-0 right-1/2 top-1/2 [transform:translate(calc(-50%-clamp(-10rem,8px_+_4vw,14rem)),calc(-100%+8px))];
+
     & svg {
       @apply size-full;
     }
