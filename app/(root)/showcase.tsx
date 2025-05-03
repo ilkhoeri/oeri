@@ -559,7 +559,7 @@ export function TableDemo() {
       <Table
         variant="tile"
         data={tableData}
-        classNames={{ root: "[--selected-bg:#f4f6ff] dark:[--selected-bg:#151619]", thead: "bg-color", "tbody.tr": "shadow-md" }}
+        classNames={{ root: "[--selected-bg:#f4f6ff] dark:[--selected-bg:#151619]", thead: "bg-color", "tbody.tr": "shadow-md bg-background" }}
         aria-multiselectable="true"
         styles={{
           root: {
