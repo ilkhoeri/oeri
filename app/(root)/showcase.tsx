@@ -523,16 +523,7 @@ export function TableDemo() {
     ),
     head: [
       <Label key={"select-all"} htmlFor="select-all" aria-label="select-all" className="mt-1.5 h-[17px] cursor-pointer">
-        <Input
-          type="checkbox"
-          id="select-all"
-          name="select-all"
-          className="bg-color dark:data-[state=indeterminate]:[--checked-color:black] [--checked-color:hsl(var(--color))] checked:bg-background"
-          aria-label="Select All"
-          checked={data.length > 0 && isAllSelected}
-          indeterminate={isSomeSelected}
-          onChange={handleSelectAll}
-        />
+        <Input type="checkbox" id="select-all" name="select-all" className="bg-color [--checked-color:hsl(var(--color))] checked:bg-background data-[state=indeterminate]:bg-background" aria-label="Select All" checked={data.length > 0 && isAllSelected} indeterminate={isSomeSelected} onChange={handleSelectAll} />
         &nbsp;&nbsp;All
       </Label>,
       "Element name",

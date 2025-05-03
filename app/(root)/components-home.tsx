@@ -40,7 +40,7 @@ const classes = cvx({
       header: "relative flex h-[calc(100dvh-var(--navbar))] w-full max-w-7xl flex-col items-center justify-avenly px-6 [--sz-circle:clamp(3rem,1rem+5dvw,4.5rem)] [--sz-rx:2.25rem] [--sz-ry:7.5rem] [transition:height_185ms_ease]",
       wrapTop: "relative z-9 mx-auto flex size-full animate-[fade-in_0.6s_ease-in_forwards] flex-col items-center justify-center gap-16 text-left",
       h1: "relative w-full max-w-[55rem] grid grid-flow-row whitespace-nowrap font-extrabold leading-[1.35] text-color [--bg:40%_40%/200%_no-repeat_text_linear-gradient(0deg,hsl(var(--color)),rgb(64_64_64))] [--sz:clamp(22px,22px+5vw,5rem)] [--t-sh:-2px_-1px_15px_rgb(255_30_86/1%),2px_1px_15px_rgb(0_150_255/1%)] [font-size:--sz]",
-      lineTop: "max-lg:top-[70%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max",
+      lineTop: "max-lg:top-[65%] max-lg:right-[25%] max-lg:[rotate:90deg] max-lg:[scale:1_-1] top-[10%] right-[-3rem] absolute w-[435px] h-max",
       aura1: "absolute h-full w-full opacity-[0.65] before:left-[-2%] before:top-[-10%] after:bottom-[5%] after:right-[-5%] max-w-full",
       aura2: "absolute h-full w-full opacity-[0.65] before:bottom-[-10%] before:left-[-2%] after:right-[-5%] after:top-[5%]",
       featuresWrap: "relative mb-20 w-full min-w-full space-y-40",
@@ -64,7 +64,7 @@ export function PageHome() {
             <span className="z-9 select-none bg-clip-text text-right [background:--bg] [text-shadow:--t-sh]">lock-in.</span>
           </Transform>
 
-          <Transform el="p" hold={0} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }} className="relative z-[+1] flex flex-col items-center justify-center text-center font-normal text-muted-foreground text-h6">
+          <Transform el="p" hold={0} transition={{ delay: "300ms, 300ms" }} transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }} className="relative z-[+1] flex flex-col items-center justify-center text-center font-normal text-muted-foreground text-h6 max-lg:mt-20">
             <span>Construct and develop your applications using straightforward dependencies</span>
           </Transform>
 
@@ -365,7 +365,7 @@ export function ShowCaseComponents() {
                 code: codes.avatarWithIndicator,
                 content: (
                   <Indicator size={12} offset={4} color="#fab005" processing withBorder>
-                    <Avatar fallback="Jack" color="hsl(var(--color))" classNames={{ root: "cursor-pointer", fallback: "[--avatar-text-color:hsl(var(--background))]"}} />
+                    <Avatar fallback="Jack" color="hsl(var(--color))" classNames={{ root: "cursor-pointer", fallback: "[--avatar-text-color:hsl(var(--background))]" }} />
                   </Indicator>
                 )
               },
