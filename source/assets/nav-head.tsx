@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useNavContext } from "../hooks/use-nav";
 import { CommandDialog } from "./command-dialog";
@@ -12,20 +12,23 @@ import { BrandOeriIcon, CircleArrowIcon, TextDirectionIcon } from "@/icons/*";
 import { useApp } from "@/modules/web/configuration/app-context";
 import { Burger } from "@/ui/burger";
 import { Button } from "@/ui/button";
-
+import { Sheets } from "@/ui/sheets";
 import { metaDocsRoute, type MetaDocsRoute, type NestedMetaDocsRoute } from "@/routes";
 
 import globalStyle from "../styles/styles";
-import { Sheets } from "@/ui/sheets";
 
-export function Headnav({ routes = metaDocsRoute }: { routes?: (MetaDocsRoute | NestedMetaDocsRoute)[] | null }) {
+interface HeadnavProps {
+  routes?: (MetaDocsRoute | NestedMetaDocsRoute)[] | null;
+}
+
+export function Headnav({ routes = metaDocsRoute }: HeadnavProps) {
   const { toggleDirection, dir } = useApp();
   const { minQuery, toggle, pathname, open, setOpen } = useNavContext();
 
-  const [parentRef, setParentRef] = useState<HTMLDivElement | null>(null);
-  const [controlsRefs, setControlsRefs] = useState<Record<string, HTMLAnchorElement | null>>({});
-  const [active, setActive] = useState<string>(`/${pathname.split("/").filter(Boolean)[0] || "docs"}`);
-  const [hover, setHover] = useState<string | null>(null);
+  const [parentRef, setParentRef] = React.useState<HTMLDivElement | null>(null);
+  const [controlsRefs, setControlsRefs] = React.useState<Record<string, HTMLAnchorElement | null>>({});
+  const [active, setActive] = React.useState<string>(`/${pathname.split("/").filter(Boolean)[0] || "docs"}`);
+  const [hover, setHover] = React.useState<string | null>(null);
 
   const setControlRef = (key: string) => (node: HTMLAnchorElement) => {
     controlsRefs[key] = node;

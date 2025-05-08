@@ -25,10 +25,11 @@ import { Stack } from "@/ui/stack";
 import { Typography } from "@/ui/typography";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Tabs } from "@/ui/tabs";
-import { GitBranchIcon, GitCommitIcon, GitPullRequestIcon } from "@/icons/*";
 import { Input } from "@/ui/input";
 import { CopyButton } from "@/ui/copy-button";
+import { useNavContext } from "@/source/hooks/use-nav";
 import { CommandDemo, DropdownNotifications, TableDemo } from "./showcase";
+import { GitBranchIcon, GitCommitIcon, GitPullRequestIcon } from "@/icons/*";
 import { codes } from "./code-to-copy";
 
 import style from "@/source/styles/.module.css";
@@ -54,6 +55,7 @@ const classes = cvx({
 });
 
 export function PageHome() {
+  useNavContext({ isRoot: true });
   return (
     <>
       <section id="header-section" className={cn(classes({ selector: "header" }), style.header_home)}>

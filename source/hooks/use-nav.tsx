@@ -12,7 +12,7 @@ interface MediaQuery {
 interface NavContextProps extends MediaQuery, ClickOpenOptions, Omit<InferType<typeof useOpenState>, keyof ClickOpenOptions> {
   minQuery: boolean | undefined;
   maxQuery: boolean | undefined;
-  isSegment: boolean | undefined;
+  isRoot: boolean | undefined;
   pathname: string;
 }
 
@@ -22,7 +22,7 @@ interface NavProviderProps extends ClickOpenOptions, MediaQuery {
 
 const NavContext = createContext<NavContextProps | undefined>(undefined);
 
-export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = true, mediaQuery = 768, ...rest }) => {
+export function NavProvider({ children, popstate = true, mediaQuery = 768, ...rest }: NavProviderProps) {
   const pathname = usePathname();
   const state = useOpenState({ popstate, ...rest });
   const { open } = state;
@@ -53,18 +53,18 @@ export const NavProvider: React.FC<NavProviderProps> = ({ children, popstate = t
     mediaQuery,
     minQuery,
     maxQuery,
-    isSegment: !notSegment,
+    isRoot: !notSegment,
     pathname,
     ...state
   };
 
   return <NavContext.Provider value={value}>{children}</NavContext.Provider>;
-};
+}
 
-export const useNavContext = () => {
+export function useNavContext({ isRoot }: { isRoot?: boolean } = {}): NavContextProps {
   const context = useContext(NavContext);
   if (!context) {
     throw new Error("useNavContext must be used within an NavProvider");
   }
-  return context;
-};
+  return { ...context, isRoot: isRoot ?? context.isRoot, minQuery: context.minQuery ?? false, maxQuery: context.maxQuery ?? false };
+}
