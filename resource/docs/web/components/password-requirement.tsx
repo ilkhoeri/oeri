@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Svg } from "@/ui/svg";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 export const requirements = (min: number = 10, max: number = 100) => [
   { regex: new RegExp(`^.{${min},${max}}$`), label: `Minimum ${min} characters and maximum ${max} characters` },

@@ -5,7 +5,7 @@ import { useNavContext } from "../hooks/use-nav";
 import { CommandDialog } from "./command-dialog";
 import { appRoutes } from "@/source/routes";
 import { NavLinkItem } from "@/source/assets/navlink";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 import { Polymorphic } from "@/ui/polymorphic-slot";
 import { FloatingIndicator } from "@/ui/floating-indicator";
 import { BrandOeriIcon, CircleArrowIcon, TextDirectionIcon } from "@/icons/*";
@@ -38,7 +38,7 @@ export function Headnav({ routes = metaDocsRoute }: { routes?: (MetaDocsRoute | 
   return (
     <header
       dir={dir}
-      className={merge("fixed inset-x-0 top-0 z-[--z,88] mr-[--has-scrollbar] flex h-[--navbar] w-[calc(100%-var(--has-scrollbar,0px))] max-w-var items-center justify-between border-0 border-b-[0.04rem] border-b-muted/75 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-5 xl:px-6")}
+      className={cn("fixed inset-x-0 top-0 z-[--z,88] mr-[--has-scrollbar] flex h-[--navbar] w-[calc(100%-var(--has-scrollbar,0px))] max-w-var items-center justify-between border-0 border-b-[0.04rem] border-b-muted/75 bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-5 xl:px-6")}
     >
       <Polymorphic dir={dir} className="relative mx-auto flex w-full max-w-screen-3xl items-center 3xl:px-12">
         <LinkHome open={open} className="[transition:all_0.5s_ease] max-md:data-[state=open]:translate-x-[-32px] max-md:data-[state=open]:opacity-0" />
@@ -96,7 +96,7 @@ function LinksSection() {
 
 export function LinkHomeX({ open, className }: { open?: boolean; className?: string }) {
   return (
-    <Link href="/" aria-label="oeri" data-state={open ? "open" : "closed"} className={merge("gap-2 rounded-lg px-2 py-1 font-geist-mono text-lg font-medium leading-none", className)}>
+    <Link href="/" aria-label="oeri" data-state={open ? "open" : "closed"} className={cn("gap-2 rounded-lg px-2 py-1 font-geist-mono text-lg font-medium leading-none", className)}>
       <BrandOeriIcon size={30} />
       <span>oeri</span>
     </Link>
@@ -108,7 +108,7 @@ export function LinkHome({ className }: { open?: boolean; className?: string }) 
   return (
     <Sheets.Dropdown align={dir === "rtl" ? "end" : "start"} sideOffset={0} clickOutsideToClose modal>
       <Sheets.Trigger unstyled openChangeOnContextMenu>
-        <Link href="/" aria-label="oeri" className={merge("gap-1 rounded-lg px-2 py-1 text-[22px] leading-none duration-75 hover:text-constructive-foreground", className)}>
+        <Link href="/" aria-label="oeri" className={cn("gap-1 rounded-lg px-2 py-1 text-[22px] leading-none duration-75 hover:text-constructive-foreground", className)}>
           <BrandOeriIcon size={28} />
           <span className="font-playwrite-romania font-semibold tracking-wide">Oeri</span>
         </Link>
@@ -137,7 +137,7 @@ export function ButtonAside(_props: React.ComponentProps<typeof Burger>) {
     <Burger
       {...{
         ...props,
-        className: merge("relative z-10 scale-100 opacity-100 md:sr-only md:hidden lg:scale-0 lg:opacity-0", className)
+        className: cn("relative z-10 scale-100 opacity-100 md:sr-only md:hidden lg:scale-0 lg:opacity-0", className)
       }}
     />
   );

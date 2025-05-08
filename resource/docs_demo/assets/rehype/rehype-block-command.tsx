@@ -5,7 +5,7 @@ import { Tabs } from "@/ui/tabs";
 import { Button } from "@/ui/button";
 import { Event, trackEvent } from "../mdx/events";
 import { useConfig } from "../mdx/config";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { Tooltip } from "@/ui/tooltip";
 import { HasCopyIcon } from "@/resource/docs_demo/assets/shiki/shiki-code-highlight-tabs";
 import { ScrollArea } from "@/ui/scroll-area";

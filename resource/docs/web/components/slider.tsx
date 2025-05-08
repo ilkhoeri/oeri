@@ -3,7 +3,8 @@ import * as React from "react";
 import { clamp, useMove } from "@/hooks/use-move";
 import { Transition, TransitionOverride } from "@/hooks/use-dialog";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 import { useMergedRef } from "@/hooks/use-merged-ref";
 
 const classes = cvx({
@@ -22,7 +23,7 @@ const classes = cvx({
   }
 });
 
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__Selector> &
   __SliderProps & {
     // variant?: string;
@@ -37,7 +38,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
 
 type CtxProps = {
   dir: "ltr" | "rtl";
-  getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __Selector, options?: Options): InferType<typeof getStyles>;
 };
 
 function getStyles(selector: __Selector, options: Options = {}) {

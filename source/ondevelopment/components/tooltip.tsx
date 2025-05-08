@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType } from "cretex";
+import { cvx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Slot } from "@radix-ui/react-slot";
 import { useOpenState, type HoverOpenOptions } from "@/hooks/use-open-state";
 import { createSafeContext } from "@/hooks/open-state-context";
@@ -20,7 +21,7 @@ type SharedType = {
   style?: React.CSSProperties & { [key: string]: any };
   className?: string;
 };
-type TooltipContextValue = HoverOpenOptions & inferType<typeof useOpenState> & { withArrow?: boolean; touch?: boolean };
+type TooltipContextValue = HoverOpenOptions & InferType<typeof useOpenState> & { withArrow?: boolean; touch?: boolean };
 type TooltipTriggerType = React.ComponentPropsWithoutRef<"button"> & SharedType & { asChild?: boolean };
 type TooltipContentType = React.ComponentPropsWithoutRef<"div"> & SharedType;
 
@@ -123,7 +124,7 @@ export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 /**
 import * as React from "react";
 import * as Primitive from "@radix-ui/react-tooltip";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { useTouch } from "@/hooks/use-touch";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";

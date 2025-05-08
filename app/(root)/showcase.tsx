@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import Svg from "@/ui/svg";
-import { cn, cvx } from "cretex";
+import { cvx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Tabs } from "@/ui/tabs";
 import { Times } from "@/ui/times";
 import { Avatar } from "@/ui/avatar";

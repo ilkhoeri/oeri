@@ -5,7 +5,7 @@ import { PlayTabs } from "@/source/assets/playtabs";
 import { Code } from "@/resource/docs_demo/assets/mdx/mdx-customizer";
 import { useShiki } from "../shiki/shiki-context";
 import { purify } from "@/source/libs/dom-purify";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 interface SourceCodesProps {
   ext?: string;
@@ -27,7 +27,7 @@ export function SourceCodes({ code, css, repo, name, ext }: SourceCodesProps) {
   const childs: Record<string, React.JSX.Element | null> = {};
 
   const classNames = {
-    content: merge("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", "[--pre-p:.625rem_0rem]", {
+    content: cn("m-0 block p-[var(--pre-p,.625rem_1rem)] leading-[0] [--code-line-height:--code-leading,1.7]", "[--pre-p:.625rem_0rem]", {
       "pointer-events-none overflow-hidden after:absolute after:inset-0 after:z-[21] after:bg-background/60 after:content-[''] after:animate-pulse": !mounted
     }),
     inner:

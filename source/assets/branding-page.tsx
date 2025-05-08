@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { cvx, cn } from "cretex";
+import { cvx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Typography } from "@/ui/typography";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { ArrowIcon, HasCopyIcon, BrandOeriIcon as LogoIcon, TextIcon } from "@/icons/*";

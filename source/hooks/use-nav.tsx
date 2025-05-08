@@ -4,13 +4,12 @@ import { usePathname } from "next/navigation";
 import React, { createContext, useContext, ReactNode, useEffect } from "react";
 import { useOpenState, type ClickOpenOptions } from "@/hooks/use-open-state";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { inferType } from "cretex";
 
 interface MediaQuery {
   mediaQuery?: number;
 }
 
-interface NavContextProps extends MediaQuery, ClickOpenOptions, Omit<inferType<typeof useOpenState>, keyof ClickOpenOptions> {
+interface NavContextProps extends MediaQuery, ClickOpenOptions, Omit<InferType<typeof useOpenState>, keyof ClickOpenOptions> {
   minQuery: boolean | undefined;
   maxQuery: boolean | undefined;
   isSegment: boolean | undefined;

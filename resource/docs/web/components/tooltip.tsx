@@ -4,7 +4,7 @@ import * as Primitive from "@radix-ui/react-tooltip";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";
 import { useTouch } from "@/hooks/use-touch";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 type TooltipOrigin = "trigger" | "content";
 type KeyType = "side" | "align" | "sideOffset";

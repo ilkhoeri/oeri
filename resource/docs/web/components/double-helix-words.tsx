@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;

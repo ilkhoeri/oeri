@@ -3,7 +3,7 @@ import * as React from "react";
 import { Tabs } from "@/ui/tabs";
 import { formatTitle, type FormatTransform } from "@/modules/web/utilities/text-parser";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 type TabsSwitchPageTrees = "tabs" | "list" | "trigger" | "content" | "fallback";
 export interface TabsSwitchPageProps {

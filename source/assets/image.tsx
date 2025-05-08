@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { default as NextImage } from "next/image";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 import type { ImageProps } from "next/image";
 

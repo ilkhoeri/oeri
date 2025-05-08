@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Link from "next/link";
-import { cvx, merge, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   assign: "",
@@ -20,11 +21,11 @@ type Options = Pick<AnchorProps, "unstyled" | "role" | "className" | "underline"
 function getStyles(opt: Options) {
   const role = opt.role === "anchor" ? "anchor" : undefined;
   return {
-    className: merge(!opt.unstyled && classes({ underline: opt.underline, role }), opt.className)
+    className: cn(!opt.unstyled && classes({ underline: opt.underline, role }), opt.className)
   };
 }
 
-export interface AnchorProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target">, Omit<cvxProps<typeof classes>, "role">, Omit<Link.LinkProps, "href">, AnchorTargets {
+export interface AnchorProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "target">, Omit<cvxVariants<typeof classes>, "role">, Omit<Link.LinkProps, "href">, AnchorTargets {
   unstyled?: boolean;
   href?: Link.LinkProps["href"];
   role?: React.AriaRole | "anchor";

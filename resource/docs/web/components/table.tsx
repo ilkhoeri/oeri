@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType, rem } from "cretex";
+import { cvx, rem } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -79,7 +80,7 @@ function getValidStyled(slt: Selector, opts: Partial<Styled> = {}, index: number
   const baseKey = slt.includes(".") ? (slt.split(".").at(-1)! as Selector) : slt;
   const specificKey = slt;
 
-  const mergeValues = <T,>(obj: StyleComposed<T> | undefined, merger: (base?: T, specific?: T) => T): T | undefined => {
+  const mergeValues = <T,>(obj: StyleComposed<T> | undefined, merger: (base?: T, specific?: T) => T | undefined): T | undefined => {
     const base = resolveValue(obj, baseKey);
     const specific = resolveValue(obj, specificKey);
     if (base === undefined && specific === undefined) return undefined;
@@ -142,7 +143,7 @@ export interface __TableProps {
 }
 
 interface CtxProps extends __TableProps, Styled {
-  getStyles(selector: Selector, options?: Options, areaIndex?: number): inferType<typeof getStyles>;
+  getStyles(selector: Selector, options?: Options, areaIndex?: number): InferType<typeof getStyles>;
 }
 
 const ctx = React.createContext<CtxProps | undefined>(undefined);

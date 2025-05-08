@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 type Unstyled = {
   unstyled?: boolean;

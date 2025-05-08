@@ -1,6 +1,6 @@
 import React from "react";
 import { useExpand } from "@/source/assets/playtabs";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 export const Expand = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>((_props, ref) => {
   const { children, className, ...props } = _props;
@@ -10,7 +10,7 @@ export const Expand = React.forwardRef<HTMLDivElement, React.ComponentProps<"div
     <div
       {...{
         ref,
-        className: merge(use.classes({ statecard: use.expand, card: "resize" }), "[&_pre>code[data-language]]:min-w-max [&_pre>code[data-language]]:border-0 [&_pre[data-language]]:my-0", className),
+        className: cn(use.classes({ statecard: use.expand, card: "resize" }), "[&_pre>code[data-language]]:min-w-max [&_pre>code[data-language]]:border-0 [&_pre[data-language]]:my-0", className),
         ...props
       }}
     >

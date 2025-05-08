@@ -1,5 +1,5 @@
 import React from "react";
-import { cvxResult } from "cretex";
+import { cvxResult } from "xuxi";
 
 export type Factory<Payload extends FactoryPayload> = Payload;
 export type PolymorphicFactory<Payload extends PolymorphicFactoryPayload> = Payload;

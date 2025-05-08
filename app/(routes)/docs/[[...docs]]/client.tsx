@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { cvx, cn } from "cretex";
+import { cvx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Title } from "@/source/assets/components";
 import { transform, sanitizedWord } from "@/modules/web/utilities/text-parser";
 

@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { default as NextImage, type ImageProps } from "next/image";
-import { cn, cnx, cvx, merge, ocx, rem } from "cretex";
+import { cnx, cvx, ocx, rem } from "xuxi";
+import { cn } from "@/utils/cn";
 import { PolymorphicSlot } from "@/ui/polymorphic-slot";
 import { getContrastColor } from "@/hooks/use-random-colors";
 
@@ -226,7 +227,7 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((_props, r
       {...{
         "data-initial": getInitials(_name, Number(initialLimit)),
         ...getStyles("root", {
-          className: merge(rootProps?.className, className),
+          className: cn(rootProps?.className, className),
           style: ocx(rootProps?.style, style),
           withinGroup: ctx?.withinGroup,
           size: _size,

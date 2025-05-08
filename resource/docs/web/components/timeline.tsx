@@ -1,6 +1,8 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, rem, inferType, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
+
 const classes = cvx({
   variants: {
     selector: {
@@ -15,7 +17,7 @@ const classes = cvx({
 });
 
 type __Align = "left" | "right";
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__Selector> & {};
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
@@ -26,7 +28,7 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<Nested
 type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__Selector> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | Exclude>>;
 type CtxProps = {
   align: __Align;
-  getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __Selector, options?: Options): InferType<typeof getStyles>;
 };
 
 function getStyles(selector: __Selector, options?: Options) {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link, { type LinkProps } from "next/link";
 import { SlashIcon } from "@/icons/*";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 import type { IconType } from "@/ui/svg";
 

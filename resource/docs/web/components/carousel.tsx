@@ -3,11 +3,11 @@ import * as React from "react";
 import Svg from "./svg";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { EmblaCarouselType, EmblaOptionsType, EmblaPluginType } from "embla-carousel";
-import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
-const buttonStyles = cn(
-  "hover:text-muted-foreground focus-visible:ring-constructive absolute inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 active:scale-[.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0"
-);
+const buttonStyles =
+  "hover:text-muted-foreground focus-visible:ring-constructive absolute inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 active:scale-[.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0";
 const classes = cvx({
   variants: {
     selector: {
@@ -47,7 +47,7 @@ const classes = cvx({
 });
 
 export type CarouselApi = UseEmblaCarouselType[1];
-export type __CarouselSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+export type __CarouselSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__CarouselSelector> &
   __CarouselProps & {
     direction?: "next" | "previous";
@@ -65,8 +65,8 @@ type StylesNames<T extends string, Exclude extends string = never> = Omit<
   Exclude
 >;
 type ComponentProps<T extends React.ElementType, Exclude extends string = never> = StylesNames<__CarouselSelector, Exclude> & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
-type CtxProps = inferType<typeof useCarousel> & {
-  getStyles(selector: __CarouselSelector, options?: Options): inferType<typeof getStyles>;
+type CtxProps = InferType<typeof useCarousel> & {
+  getStyles(selector: __CarouselSelector, options?: Options): InferType<typeof getStyles>;
 } & __CarouselProps;
 
 function clamp(value: number, min?: number, max?: number) {

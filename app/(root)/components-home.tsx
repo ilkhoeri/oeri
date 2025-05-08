@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { cvx, merge, rem } from "cretex";
+import { cvx, rem } from "xuxi";
+import { cn } from "@/utils/cn";
 import { TypingWords } from "@/ui/typing-words";
 import { Transform } from "@/source/ondevelopment";
 import { useNextTheme } from "@/modules/web/configuration/themes";
@@ -55,8 +56,8 @@ const classes = cvx({
 export function PageHome() {
   return (
     <>
-      <section id="header-section" className={merge(classes({ selector: "header" }), style.header_home)}>
-        <i aria-hidden="true" className={merge(classes({ selector: "aura1" }), style.aura)} />
+      <section id="header-section" className={cn(classes({ selector: "header" }), style.header_home)}>
+        <i aria-hidden="true" className={cn(classes({ selector: "aura1" }), style.aura)} />
         <article className={classes({ selector: "wrapTop" })}>
           <Transform el="h1" hold={0} className={classes({ selector: "h1" })}>
             <span className="z-9 select-none bg-clip-text text-left [background:--bg] [text-shadow:--t-sh]">Control</span>
@@ -70,7 +71,7 @@ export function PageHome() {
 
           <Transform el="div" hold={0} className="relative mx-auto -mt-4 flex w-full flex-col items-center justify-center gap-8 sm:flex-row" transform={{ before: "translateY(9rem)", after: "translateY(0)", origin: "bottom center" }}>
             {links.map((i, index) => (
-              <Link key={index} href={i.url} target={i.target} className={merge(classes({ selector: "links" }), [{ "[&_svg]:fill-current before:bg-[#6e5494] before:ring-[#6e5494]": i.title === "Repo" }, { "before:bg-color before:ring-color": i.title === "Started" }])}>
+              <Link key={index} href={i.url} target={i.target} className={cn(classes({ selector: "links" }), [{ "[&_svg]:fill-current before:bg-[#6e5494] before:ring-[#6e5494]": i.title === "Repo" }, { "before:bg-color before:ring-color": i.title === "Started" }])}>
                 <span className="relative z-[+1] flex-row gap-2 text-base font-semibold text-background centered">
                   <i.icon size={20} /> {i.title}
                 </span>
@@ -94,8 +95,8 @@ export function PageHome() {
 
       <ShowCaseComponents />
 
-      <section id="features" className={merge(classes({ selector: "featuresWrap" }))}>
-        <i aria-hidden="true" className={merge(classes({ selector: "aura2" }), style.aura)} />
+      <section id="features" className={cn(classes({ selector: "featuresWrap" }))}>
+        <i aria-hidden="true" className={cn(classes({ selector: "aura2" }), style.aura)} />
         <div className="relative z-9 mx-auto max-w-7xl px-6 md:px-12 xl:px-6">
           <div className="md:w-2/3 lg:w-1/2">
             <svg className="size-16 text-color" onContextMenu={e => e.preventDefault()}>
@@ -211,7 +212,7 @@ function BreadcrumbDemos() {
   const separator = (index: number) => (index % 2 === 0 ? "+" : "-");
 
   const items = paths.map((path, index) => (
-    <Link key={path} href={links(index)} aria-disabled={active(index)} className={merge(active(index) && "text-color")}>
+    <Link key={path} href={links(index)} aria-disabled={active(index)} className={cn(active(index) && "text-color")}>
       {renamed(path)}
     </Link>
   ));
@@ -290,7 +291,7 @@ function CopyCode({ code, className }: { code: string | null | undefined; classN
   return (
     <CopyButton timeout={1750} value={code?.trimEnd()}>
       {({ copied, copy }) => (
-        <div tabIndex={-1} onClick={copy} className={merge(showcaseVariant({ box: "copy" }), className)}>
+        <div tabIndex={-1} onClick={copy} className={cn(showcaseVariant({ box: "copy" }), className)}>
           <HasCopyIcon has={copied} />
         </div>
       )}
@@ -305,13 +306,13 @@ interface TileInnerProps extends React.ComponentProps<"div"> {
 function TileInner(_props: TileInnerProps) {
   const { className, children, contents, classNames, ...props } = _props;
   return (
-    <div className={merge(showcaseVariant({ box: "outer" }), classNames?.outer, className)} {...props}>
+    <div className={cn(showcaseVariant({ box: "outer" }), classNames?.outer, className)} {...props}>
       {children ??
         contents?.map((content, index) => (
-          <div key={index} className={merge(showcaseVariant({ box: "inner" }), classNames?.inner)}>
+          <div key={index} className={cn(showcaseVariant({ box: "inner" }), classNames?.inner)}>
             {content.content}
             {content?.code && <CopyCode code={content?.code} />}
-            {index < contents?.length - 1 && <hr className={merge(showcaseVariant({ box: "hr" }), classNames?.hr)} />}
+            {index < contents?.length - 1 && <hr className={cn(showcaseVariant({ box: "hr" }), classNames?.hr)} />}
           </div>
         ))}
     </div>
@@ -332,7 +333,7 @@ export function ShowCaseComponents() {
               One Component at a Time
             </h2>
             <p className="mb-4 mt-2 text-muted-foreground max-md:text-sm md:max-w-lg md:text-base 2xl:mb-12 2xl:mt-6 2xl:max-w-xl 2xl:text-xl">Explore modular, customizable building blocks for fully controlled, scalable applications.</p>
-            <Link href="/docs/web/components" className={merge(buttonVariants({ variant: "outline" }), "group w-fit gap-2.5 pr-2")}>
+            <Link href="/docs/web/components" className={cn(buttonVariants({ variant: "outline" }), "group w-fit gap-2.5 pr-2")}>
               More
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="size-3.5 transition-transform duration-300 group-hover:translate-x-1">
                 <path d="m9 18 6-6-6-6" />
@@ -401,7 +402,7 @@ export function ShowCaseComponents() {
 
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-2 2xl:col-span-2 2xl:col-end-7">
           <TileInner>
-            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+            <div className={cn(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
               <BreadcrumbDemos />
             </div>
             <CopyCode code={codes.breadcrumb} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />
@@ -418,7 +419,7 @@ export function ShowCaseComponents() {
 
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-3 2xl:col-span-4">
           <TileInner>
-            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+            <div className={cn(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
               <TableDemo />
             </div>
             <CopyCode code={codes.table} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />
@@ -427,7 +428,7 @@ export function ShowCaseComponents() {
 
         <div className="col-span-2 p-1 md:col-span-3 lg:col-span-1 2xl:col-span-2">
           <TileInner classNames={{ inner: "pt-[18px]" }}>
-            <div className={merge(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
+            <div className={cn(showcaseVariant({ box: "inner" }), "overflow-x-auto")}>
               <CommandDemo />
             </div>
             <CopyCode code={codes.command} className="group-hover/outer:pointer-events-auto group-hover/outer:opacity-100" />

@@ -1,4 +1,4 @@
-import { rem } from "cretex";
+import { rem } from "xuxi";
 import { ConfiguratorControlOptions } from "./demo-config";
 
 const DEFAULT_FONT_FAMILY = "var(--ff-geist-sans)";

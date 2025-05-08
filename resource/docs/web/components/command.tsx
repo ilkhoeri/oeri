@@ -7,7 +7,8 @@ import { useDidUpdate } from "@/hooks/use-did-update";
 import { useWindowEvent } from "@/hooks/use-window-event";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { useHotkeys, type HotkeyItem } from "@/hooks/use-hotkeys";
-import { cn, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -45,7 +46,7 @@ const classes = cvx({
 
 export type CommandStore = StoreValue<CommandState>;
 export type StoreSubscriber<Value> = (value: Value) => void;
-export type __CommandSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+export type __CommandSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type SetStateCallback<Value> = (value: Value) => Value;
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type StylesNames<T extends string, Exclude extends string = never> = Omit<
@@ -125,7 +126,7 @@ type Options = StylesNames<__CommandSelector> & {
 };
 function getStyles(selector: __CommandSelector, opt?: Options) {
   const isUnstyled = opt?.unstyled?.[selector];
-  const isForceMount = opt?.forceMount ? (selector as cvxProps<typeof classes>["forceMount"]) : undefined;
+  const isForceMount = opt?.forceMount ? (selector as cvxVariants<typeof classes>["forceMount"]) : undefined;
   return {
     "data-command": cn(selector),
     className: cn(!isUnstyled && [classes({ selector, forceMount: isForceMount })], opt?.classNames?.[selector], opt?.className),

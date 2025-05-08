@@ -2,7 +2,8 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { merge, cvx, inferType, rem, ocx } from "cretex";
+import { cvx, rem, ocx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { useHotkeys } from "@/hooks/use-hotkeys";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { useClickOutside } from "@/hooks/use-click-outside";
@@ -46,8 +47,8 @@ interface SheetsContextProps {
   contentRef: React.RefObject<HTMLDivElement>;
   overlayRef: React.RefObject<HTMLDivElement>;
   useHideScrollbar(value?: string | undefined): [boolean, number] | undefined;
-  triggerBounding: inferType<typeof useElementRect>;
-  contentBounding: inferType<typeof useElementRect>;
+  triggerBounding: InferType<typeof useElementRect>;
+  contentBounding: InferType<typeof useElementRect>;
   render: boolean;
   open: boolean;
   setOpen: (value: boolean) => void;
@@ -839,7 +840,7 @@ function getStyles(selector: __SheetsSelector, options: Options) {
   const { variant, side = "right", unstyled, className } = options;
   return {
     "data-sheets": selector,
-    className: merge(!unstyled && styleByVariant(side)({ [selector]: variant }), className)
+    className: cn(!unstyled && styleByVariant(side)({ [selector]: variant }), className)
   };
 }
 
@@ -875,33 +876,33 @@ function styleByVariant(side: `${SheetsSide}`) {
       },
       trigger: {
         accordion: "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&>svg]:data-[state*=open]:rotate-180",
-        collapsible: merge(styleDefault.trigger),
-        dialog: merge(styleDefault.trigger),
-        drawer: merge(styleDefault.trigger),
-        dropdown: merge(styleDefault.trigger)
+        collapsible: styleDefault.trigger,
+        dialog: styleDefault.trigger,
+        drawer: styleDefault.trigger,
+        dropdown: styleDefault.trigger
       },
       content: {
         accordion: "overflow-hidden transition-all bg-transparent m-0 p-0 w-full text-left",
         collapsible: "overflow-hidden transition-all data-[state=open]:animate-collapse-open data-[state=closed]:animate-collapse-closed bg-transparent m-0 p-0 w-full text-left",
         dialog:
           "fixed left-[50%] top-[50%] z-[111] min-h-80 w-80 translate-x-[-50%] translate-y-[-50%] gap-4 rounded-2xl border bg-background p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[60%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[60%]",
-        drawer: merge(styleDefault.content({ side })),
+        drawer: styleDefault.content({ side }),
         dropdown:
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 absolute z-[88] left-[--left] top-[--top] overflow-hidden bg-background rounded-xl border"
       },
       overlay: {
-        accordion: merge(styleDefault.overlay),
-        collapsible: merge(styleDefault.overlay),
-        dialog: merge(styleDefault.overlay),
-        drawer: merge(styleDefault.overlay),
-        dropdown: merge(styleDefault.overlay, "z-[84]")
+        accordion: styleDefault.overlay,
+        collapsible: styleDefault.overlay,
+        dialog: styleDefault.overlay,
+        drawer: styleDefault.overlay,
+        dropdown: cn(styleDefault.overlay, "z-[84]")!
       },
       closed: {
-        accordion: merge(styleDefault.closed),
-        collapsible: merge(styleDefault.closed),
-        dialog: merge(styleDefault.closed),
-        drawer: merge(styleDefault.closed),
-        dropdown: merge(styleDefault.closed)
+        accordion: styleDefault.closed,
+        collapsible: styleDefault.closed,
+        dialog: styleDefault.closed,
+        drawer: styleDefault.closed,
+        dropdown: styleDefault.closed
       }
     }
   });

@@ -5,7 +5,7 @@ import { useDidUpdate } from "@/hooks/use-did-update";
 import { useWindowEvent } from "@/hooks/use-window-event";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useId } from "@/hooks/use-id";
-import { rem } from "cretex";
+import { rem } from "xuxi";
 
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 interface TransitionProps {

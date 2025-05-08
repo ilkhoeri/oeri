@@ -1,8 +1,8 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
-import { cn } from "cretex";
 import { Svg } from "@/ui/svg";
+import { cn } from "@/utils/cn";
 import { Tabs } from "@/ui/tabs";
 import { Event } from "./events";
 import { NpmCommands } from "./unist";

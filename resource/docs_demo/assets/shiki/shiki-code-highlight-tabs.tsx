@@ -7,7 +7,8 @@ import { UnstyledButton } from "@/ui/button";
 import { ScrollArea } from "@/ui/scroll-area";
 import { Tooltip } from "@/ui/tooltip";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, ocx, rem, type cvxProps } from "cretex";
+import { cvx, ocx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 import { CopyButton } from "@/ui/copy-button";
 import { CheckIcon, CopyIcon } from "@/icons/*";
 import { useShiki } from "./shiki-context";
@@ -31,7 +32,7 @@ export const classes = cvx({
     }
   }
 });
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type StylesNames<T extends string, Exclude extends string = never> = Omit<
   {
     className?: string;

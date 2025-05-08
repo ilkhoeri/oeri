@@ -1,5 +1,6 @@
 import * as React from "react";
-import { cn, ocx, type cvxResult } from "cretex";
+import { ocx, type cvxResult } from "xuxi";
+import { cn } from "@/utils/cn";
 
 type SubKeys = {
   spinner: "root" | "bar";

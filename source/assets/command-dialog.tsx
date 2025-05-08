@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { cvx, cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
 import { Command, createCommand } from "@/ui/command";
 import { SleepingSquareIcon, FolderFilesIcon, FolderPathConnectIcon } from "@/icons/*";
 import { fuzzySearch, levenshteinDistance } from "@/source/ondevelopment/utils";
@@ -173,7 +173,7 @@ const classes = cvx({
   }
 });
 
-type Origin = NonNullable<cvxProps<typeof classes>["as"]>;
+type Origin = NonNullable<cvxVariants<typeof classes>["as"]>;
 function cns(as: Origin) {
   return {
     className: classes({ as })

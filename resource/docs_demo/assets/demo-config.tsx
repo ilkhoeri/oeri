@@ -6,6 +6,9 @@ import { DemoRoot } from "./demo-component";
 import { Tabs } from "@/ui/tabs";
 import { PlayTabs } from "@/source/assets/playtabs";
 import { useApp } from "@/modules/web/configuration/app-context";
+import { Code, getCodeArray } from "./get-code-array";
+import { getStyles } from "./shiki/shiki-code-highlight-tabs";
+import { ocx } from "xuxi";
 
 import {
   ConfiguratorBooleanControl,
@@ -23,9 +26,6 @@ import {
   ConfiguratorStringControl,
   ConfiguratorStringControlOptions
 } from "../controls";
-import { Code, getCodeArray } from "./get-code-array";
-import { getStyles } from "./shiki/shiki-code-highlight-tabs";
-import { ocx } from "cretex";
 
 const ControlComponents = {
   boolean: ConfiguratorBooleanControl,

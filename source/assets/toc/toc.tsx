@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { sourceFile } from "@/source/utils";
 import { usePathname } from "next/navigation";
 import { CircleArrowIcon } from "@/icons/*";

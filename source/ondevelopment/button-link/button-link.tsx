@@ -1,9 +1,9 @@
 import React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { merge } from "cretex";
 import { AnchorTargets } from "@/source/types";
-import { cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 export const variantLinkButton = cvx({
   assign: "cursor-pointer",
@@ -32,12 +32,12 @@ export type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
 };
 
-export type LinkButtonProps = ({ el?: "button" } & ButtonType & cvxProps<typeof variantLinkButton>) | ({ el?: "link" } & LinkType & cvxProps<typeof variantLinkButton>);
+export type LinkButtonProps = ({ el?: "button" } & ButtonType & cvxVariants<typeof variantLinkButton>) | ({ el?: "link" } & LinkType & cvxVariants<typeof variantLinkButton>);
 
 export const LinkButton = (props: LinkButtonProps) => {
   const { el = "link", className, color = "base", variant = "badge", ...rest } = props;
   const router = useRouter();
-  const classes = merge(variantLinkButton({ variant, color }), className);
+  const classes = cn(variantLinkButton({ variant, color }), className);
 
   if (el === "link") {
     const { rel = "noopener noreferrer", ...other } = rest as LinkType;

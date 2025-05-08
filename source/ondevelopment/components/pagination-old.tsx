@@ -2,7 +2,7 @@ import * as React from "react";
 import { ChevronIcon, DotsIcon } from "@/icons/*";
 import { ButtonProps, buttonVariants } from "@/ui/button";
 import { Anchor } from "@/ui/anchor";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 export function Demo() {
   const [currentPage, setCurrentPage] = React.useState(1);

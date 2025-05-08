@@ -1,6 +1,6 @@
 ---
 date: 2025-01-05
-title: cnx()
+title: cn(...args)
 description: A utility function for conditionally combining class names in a readable and maintainable way.
 summary: Merges class names conditionally into a single string.
 component: true
@@ -13,10 +13,10 @@ links:
 
 ### Installation
 
-- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/cretex/?icon=npm)](https://www.npmjs.com/cretex)
+- [![npmjs.com/~khoeriilham](https://badgen.net/npm/v/xuxi/?icon=npm)](https://www.npmjs.com/xuxi)
 
 ```bash
-npm install cretex@0.0.1
+npm install xuxi@latest
 ```
 
 #### API References
@@ -32,7 +32,7 @@ Useful for dynamically managing string classes in JavaScript or TypeScript appli
 #### Syntax
 
 ```ts
-function cnx(...inputs: cnxValues[]): string;
+function cnx(...args: cnxValues[]): string;
 ```
 
 ```ts
@@ -46,12 +46,12 @@ cnx(['', baz, (foo as string) !== 'foo' && bar], { '': !props }, '', () => ({ ''
    An empty array (classes) is used to store valid strings.
 
 2. **Input Iteration:**
-   Each item in the `...inputs` parameter (spread operator) is processed with the following logic:
+   Each item in the `...args` parameter (spread operator) is processed with the following logic:
 
 - **String or Number:**
   Immediately converted to a string and inserted into the array.
 - **Array:**
-  Processed recursively using `cnx(...input)` to support nested structures.
+  Processed recursively using `cnx(...args)` to support nested structures.
 - **Object:**
   Iterate over the keys and values ​​(key-value pairs). If the value is "truthy" (e.g., `true`), the key (class name) is added to the array.
 - **Function:**
@@ -110,7 +110,6 @@ If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](
 "tailwindCSS.experimental.classRegex": [
   ["cnx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
   ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-  ["merge\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
 ],
 ```
 
@@ -139,18 +138,19 @@ If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](
 Merge with tailwind-merge
 
 ```tsx
-import { cnx, type cnxValues } from "cretex";
+import { cnx, type cnxValues } from "xuxi";
 import { twMerge } from "tailwind-merge";
 
-function cn(...inputs: cnxValues[]) {
-  return twMerge(cnx(...inputs));
+export function cn(...args: cnxValues[]) {
+  // if (!args) return; // optional
+  return twMerge(cnx(...args));
 }
 ```
 
-#### Use merge or cn
+#### Usages
 
 ```tsx
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
-<div className={merge("bg-black/60 dark:bg-white/60 font-medium border", { "font-extrabold border-0": true })} />;
+<div className={cn("bg-black/60 dark:bg-white/60 font-medium border", { "font-extrabold border-0": true })} />;
 ```

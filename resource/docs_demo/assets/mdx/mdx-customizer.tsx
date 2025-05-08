@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, ocx } from "cretex";
+import { ocx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { sanitizedWord } from "@/modules/web/utilities/text-parser";
 import { CopyButton as CopyToggle } from "@/ui/copy-button";
 import { CopyButton, DownloadButton, GetCodeButton } from "../../../../source/assets/toggle";

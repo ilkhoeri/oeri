@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, inferType, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -15,7 +16,7 @@ const classes = cvx({
   }
 });
 
-type __CardSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __CardSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__CardSelector> & {};
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
@@ -28,7 +29,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
 } & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 
 type CtxProps = {
-  getStyles(selector: __CardSelector, options?: StylesNames<__CardSelector>): inferType<typeof getStyles>;
+  getStyles(selector: __CardSelector, options?: StylesNames<__CardSelector>): InferType<typeof getStyles>;
 } & NestedRecord<Styles, __CardSelector>;
 
 function getStyles(selector: __CardSelector, options?: Options) {

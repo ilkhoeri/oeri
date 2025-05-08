@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { Button, ButtonProps } from "@/ui/button";
 import { CheckIcon, ClipboardCheckIcon } from "@/icons/*";
 import { typographyVariant } from "@/ui/typography";

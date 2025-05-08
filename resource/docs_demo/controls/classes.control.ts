@@ -1,4 +1,5 @@
-import { cnxValues, cvx, cvxProps, merge, ocx } from "cretex";
+import { cvx, ocx, type cvxVariants, type cnxValues } from "xuxi";
+import { cn } from "@/utils/cn";
 
 export const classes = cvx({
   variants: {
@@ -22,10 +23,10 @@ export const classes = cvx({
   }
 });
 
-type Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = {
   className?: string;
   style?: React.CSSProperties & Record<string, any>;
 };
-export const __cn = (s: Selector, ...c: cnxValues[]) => merge(classes({ selector: s }), ...c);
+export const __cn = (s: Selector, ...c: cnxValues[]) => cn(classes({ selector: s }), ...c);
 export const __cs = (o: Options["style"] = {}) => ocx(o);

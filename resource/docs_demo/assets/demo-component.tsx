@@ -1,5 +1,6 @@
 import React from "react";
-import { merge, rem } from "cretex";
+import { rem } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Typography } from "@/ui/typography";
 import { getCodeFileIcon } from "./shiki/shiki-code-get-icon";
 import { CodeHighlightTabs, CodeHighlightTabsCode, CodeHighlightTabsProps } from "./shiki/shiki-code-highlight-tabs";
@@ -7,22 +8,22 @@ import { ComponentProps } from "./types/component";
 
 const classes = {
   root: {
-    root: merge("mb-20 mt-10 rounded-[.5rem] border border-solid border-[--demo-border] [--demo-border:hsl(var(--border))]")
+    root: "mb-20 mt-10 rounded-[.5rem] border border-solid border-[--demo-border] [--demo-border:hsl(var(--border))]"
   },
   columns: {
-    root: merge("flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [&_[data-demo-area]+div]:has-[[data-demo-area]+div>div:empty]:hidden [&_[data-demo-area]]:has-[[data-demo-area]+div>div:empty]:max-w-full [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]"),
-    controls: merge("flex-[0_0_var(--basis)] border-l border-solid border-[--demo-border] p-[.25rem] pb-[.625rem] rtl:border-l-0 rtl:border-r [@media(max-width:55em)]:!border-x-0 [@media(max-width:55em)]:border-t"),
-    wrapTitle: merge("mx-[-.25rem] mb-[.625rem] border-b border-solid border-[--demo-border] px-[1rem] pb-[.625rem] pt-[calc(1rem-.25rem)]"),
-    title: merge("mb-[.3125rem] font-medium"),
-    description: merge("text-[.6875rem] leading-[1.45] text-muted-foreground")
+    root: "flex flex-row [--demo-border:hsl(var(--border))] rtl:flex-row-reverse [&_[data-demo-area]+div]:has-[[data-demo-area]+div>div:empty]:hidden [&_[data-demo-area]]:has-[[data-demo-area]+div>div:empty]:max-w-full [@media(max-width:55em)]:flex-col [@media_not_all_and_(max-width:55em)]:[--basis:13.625rem]",
+    controls: "flex-[0_0_var(--basis)] border-l border-solid border-[--demo-border] p-[.25rem] pb-[.625rem] rtl:border-l-0 rtl:border-r [@media(max-width:55em)]:!border-x-0 [@media(max-width:55em)]:border-t",
+    wrapTitle: "mx-[-.25rem] mb-[.625rem] border-b border-solid border-[--demo-border] px-[1rem] pb-[.625rem] pt-[calc(1rem-.25rem)]",
+    title: "mb-[.3125rem] font-medium",
+    description: "text-[.6875rem] leading-[1.45] text-muted-foreground"
   },
   highlightTabs: {
-    root: merge("overflow-hidden rounded-b-[.5rem] border-t border-solid border-[--demo-border]")
+    root: "overflow-hidden rounded-b-[.5rem] border-t border-solid border-[--demo-border]"
   },
   demoArea: {
-    demoArea: merge("max-w-[calc(100%-var(--basis,0))] flex-1 overflow-hidden rounded-t-[calc(.5rem-.0625rem)] data-[centered]:flex data-[centered]:items-center data-[centered]:justify-center data-[dimmed]:bg-muted data-[with-padding]:p-4"),
-    demoInner: merge("mx-[--demo-margin-x,unset] my-[--demo-margin-y,unset] min-h-[--demo-min-height,unset] max-w-[--demo-max-width,100%] flex-[--demo-flex]"),
-    striped: merge("data-[striped]:rounded-tl-[calc(.5rem-.0625rem)] data-[striped]:[--stripe-color:#00000008] data-[striped]:dark:[--stripe-color:#ffffff08]"),
+    demoArea: "max-w-[calc(100%-var(--basis,0))] flex-1 overflow-hidden rounded-t-[calc(.5rem-.0625rem)] data-[centered]:flex data-[centered]:items-center data-[centered]:justify-center data-[dimmed]:bg-muted data-[with-padding]:p-4",
+    demoInner: "mx-[--demo-margin-x,unset] my-[--demo-margin-y,unset] min-h-[--demo-min-height,unset] max-w-[--demo-max-width,100%] flex-[--demo-flex]",
+    striped: "data-[striped]:rounded-tl-[calc(.5rem-.0625rem)] data-[striped]:[--stripe-color:#00000008] data-[striped]:dark:[--stripe-color:#ffffff08]",
     stripedBg: "repeating-linear-gradient(45deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px), repeating-linear-gradient(135deg, transparent 0, transparent 10px, var(--stripe-color) 10px, var(--stripe-color) 12px)"
   }
 };
@@ -39,7 +40,7 @@ export interface DemoRootProps extends ComponentProps<"div"> {
 }
 export function DemoRoot(_props: DemoRootProps) {
   const { className, style, ...others } = _props;
-  return <div className={merge(classes.root.root, className)} {...others} />;
+  return <div className={cn(classes.root.root, className)} {...others} />;
 }
 
 type DemoColumnsTrees = "root" | "controls" | "title" | "wrapTitle" | "description";
@@ -52,17 +53,17 @@ export type DemoColumnsProps = DemoAreaProps & {
 export function DemoColumns(_props: DemoColumnsProps) {
   const { children, withPadding, centered, maxWidth, minHeight, title, description, controls, dimmed, striped, className, classNames, orientation } = _props;
   return (
-    <div className={merge(classes.columns.root, classNames?.root)}>
+    <div className={cn(classes.columns.root, classNames?.root)}>
       <DemoArea {...{ withPadding, maxWidth, minHeight, centered, dimmed, striped, className, classNames, orientation }}>{children}</DemoArea>
 
-      <div className={merge(classes.columns.controls, classNames?.controls)}>
+      <div className={cn(classes.columns.controls, classNames?.controls)}>
         {title && (
-          <div className={merge(classes.columns.wrapTitle, classNames?.wrapTitle)}>
-            <Typography prose="span" className={merge(classes.columns.title, classNames?.title)}>
+          <div className={cn(classes.columns.wrapTitle, classNames?.wrapTitle)}>
+            <Typography prose="span" className={cn(classes.columns.title, classNames?.title)}>
               {title}
             </Typography>
             {description && (
-              <Typography prose="span" className={merge(classes.columns.description, classNames?.description)}>
+              <Typography prose="span" className={cn(classes.columns.description, classNames?.description)}>
                 {description}
               </Typography>
             )}
@@ -94,7 +95,7 @@ export function DemoCode(_props: DemoCodeProps & Omit<CodeHighlightTabsProps, ke
   const { code, defaultExpanded = true, withExpandButton = true, code: _, className, ...props } = _props;
   const _code: CodeHighlightTabsCode | CodeHighlightTabsCode[] | undefined = typeof code === "string" ? { code, fileName: "Demo.tsx", language: "tsx" } : code;
 
-  return _code ? <CodeHighlightTabs className={merge(classes.highlightTabs.root, className, props.classNames?.root)} {...{ code: _code, withExpandButton, defaultExpanded, getFileIcon: getCodeFileIcon, ...props }} /> : null;
+  return _code ? <CodeHighlightTabs className={cn(classes.highlightTabs.root, className, props.classNames?.root)} {...{ code: _code, withExpandButton, defaultExpanded, getFileIcon: getCodeFileIcon, ...props }} /> : null;
 }
 
 export interface DemoAreaProps {
@@ -119,7 +120,7 @@ export function DemoArea(_props: DemoAreaProps) {
       data-centered={is(centered)}
       data-with-padding={is(withPadding)}
       data-orientation={orientation}
-      className={merge(classes.demoArea.demoArea, striped && classes.demoArea.striped, classNames?.demoArea, className)}
+      className={cn(classes.demoArea.demoArea, striped && classes.demoArea.striped, classNames?.demoArea, className)}
       {...{
         style: {
           "--demo-flex": set(maxWidth, "1"),
@@ -130,7 +131,7 @@ export function DemoArea(_props: DemoAreaProps) {
         } as React.CSSProperties
       }}
     >
-      <div className={merge(classes.demoArea.demoInner, classNames?.demoInner)}>{children}</div>
+      <div className={cn(classes.demoArea.demoInner, classNames?.demoInner)}>{children}</div>
     </div>
   );
 }

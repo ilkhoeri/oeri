@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { useHotkeys } from "@/hooks/use-hotkeys";
 import { useApp } from "./app-context";
 import { UnstyledButton } from "@/ui/button";

@@ -2,7 +2,8 @@
 import * as React from "react";
 import { useId } from "@/hooks/use-id";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cvx, rem, type inferType, type cvxProps, ocx } from "cretex";
+import { cvx, rem, type cvxVariants, ocx } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -18,8 +19,8 @@ const classes = cvx({
   }
 });
 
-type Variant = NonNullable<cvxProps<typeof classes>["variant"]>;
-type __TabsSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type Variant = NonNullable<cvxVariants<typeof classes>["variant"]>;
+type __TabsSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__TabsSelector> & __TabsProps & {};
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
@@ -34,7 +35,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
 type CtxProps = __CtxProps & {
   getTabId: (value: string) => string;
   getPanelId: (value: string) => string;
-  getStyles(selector: __TabsSelector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __TabsSelector, options?: Options): InferType<typeof getStyles>;
 } & StylesRecord;
 
 const ctx = React.createContext<CtxProps | undefined>(undefined);

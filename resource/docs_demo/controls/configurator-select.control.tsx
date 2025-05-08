@@ -3,7 +3,7 @@ import { getControlLabel } from "./get-control-label";
 import { ExtractSelectValue, SelectData, SelectDataItem, transformSelectData } from "./transform-select-data";
 import { ConfiguratorControl } from "./types.control";
 import { ComponentProps, ComponentPropsWithRef } from "../assets/types/component";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 import { __cn } from "./classes.control";
 
 // export type ConfiguratorSelectControlOptions = ConfiguratorControl<"select", { data: SelectData; initialValue: string }>;
@@ -37,13 +37,13 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>((_pr
   const { data, label, className, rootProps, labelProps, optionsProps, ...props } = _props;
   const _v = (v: string) => (v !== "" ? v : "undefined");
   return (
-    <div dir="ltr" className={merge(__cn("control"))} {...rootProps}>
-      <label aria-label={label} className={merge(__cn("label"))} htmlFor={label} {...labelProps}>
+    <div dir="ltr" className={cn(__cn("control"))} {...rootProps}>
+      <label aria-label={label} className={cn(__cn("label"))} htmlFor={label} {...labelProps}>
         {label}
       </label>
 
       {data && (
-        <select ref={ref} id={label} name={label} title={label} aria-label={label} className={merge(__cn("select"), className)} {...props}>
+        <select ref={ref} id={label} name={label} title={label} aria-label={label} className={cn(__cn("select"), className)} {...props}>
           {data?.map(i => (
             <option key={_v(i.value)} value={_v(i.value)} className="h-4 cursor-pointer">
               {_v(i.label)}

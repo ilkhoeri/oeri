@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, rem, type inferType, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -20,7 +21,7 @@ const classes = cvx({
   }
 });
 
-type __BreadcrumbSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __BreadcrumbSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;
@@ -37,7 +38,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
   color?: React.CSSProperties["color"];
 } & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = {
-  getStyles(selector: __BreadcrumbSelector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __BreadcrumbSelector, options?: Options): InferType<typeof getStyles>;
   separator?: React.ReactNode | ((index: number) => React.ReactNode);
 };
 
@@ -49,7 +50,7 @@ function getStyles(selector: __BreadcrumbSelector, options: Options = {}) {
       !unstyled?.[selector] &&
         classes({
           selector,
-          overflow: overflowWrap ? (selector as NonNullable<cvxProps<typeof classes>["overflow"]>) : undefined
+          overflow: overflowWrap ? (selector as NonNullable<cvxVariants<typeof classes>["overflow"]>) : undefined
         }),
       classNames?.[selector],
       className

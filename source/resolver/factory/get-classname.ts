@@ -1,4 +1,5 @@
-import { merge, cnx, cvxResult } from "cretex";
+import { cnx, cvxResult } from "xuxi";
+import { cn } from "@/utils/cn";
 import { GetStylesApiOptions, Theme } from "./factory-types";
 
 interface GetThemeClassNamesOptions {
@@ -168,19 +169,21 @@ export function getClassName({
   props
   // classNamesPrefix,
 }: GetClassNameOptions) {
-  return merge(
-    cnx(
-      getSelectorClassName({
-        selector,
-        classes,
-        unstyled: unstyled || headless
-      }),
-      getVariantClassName({ options, selector, classes, unstyled }),
-      getGlobalClassNames({ theme, options, unstyled: unstyled || headless }),
-      getResolvedClassNames({ selector, stylesCtx, theme, classNames, props }),
-      getOptionsClassNames({ selector, stylesCtx, options, props, theme }),
-      getRootClassName({ rootSelector, selector, className }),
-      options?.className
-    )
+  return (
+    cn(
+      cnx(
+        getSelectorClassName({
+          selector,
+          classes,
+          unstyled: unstyled || headless
+        }),
+        getVariantClassName({ options, selector, classes, unstyled }),
+        getGlobalClassNames({ theme, options, unstyled: unstyled || headless }),
+        getResolvedClassNames({ selector, stylesCtx, theme, classNames, props }),
+        getOptionsClassNames({ selector, stylesCtx, options, props, theme }),
+        getRootClassName({ rootSelector, selector, className }),
+        options?.className
+      )
+    ) ?? ""
   );
 }

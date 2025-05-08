@@ -2,7 +2,8 @@
 import * as React from "react";
 import { useId } from "@/hooks/use-id";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
-import { cn, cnx, cvx, rem, type cvxProps } from "cretex";
+import { cnx, cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -31,8 +32,8 @@ const classes = cvx({
   }
 });
 
-type __KeyVar = keyof cvxProps<typeof classes>;
-type __Selector<K extends __KeyVar> = NonNullable<cvxProps<typeof classes>[K]>;
+type __KeyVar = keyof cvxVariants<typeof classes>;
+type __Selector<K extends __KeyVar> = NonNullable<cvxVariants<typeof classes>[K]>;
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type StylesNames<K extends __KeyVar, Exclude extends string = never> = Omit<
   {

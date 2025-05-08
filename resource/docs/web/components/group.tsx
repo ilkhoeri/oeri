@@ -1,5 +1,6 @@
 import * as React from "react";
-import { cn, rem } from "cretex";
+import { rem } from "xuxi";
+import { cn } from "@/utils/cn";
 
 export interface GroupProps extends React.ComponentProps<"div"> {
   grow?: boolean;

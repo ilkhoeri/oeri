@@ -4,7 +4,7 @@ import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
 import { UnstyledButton } from "@/ui/button";
 import { transform } from "@/modules/web/utilities/text-parser";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 import { SelectData, transformSelectData } from "./transform-select-data";
 import { __cn } from "./classes.control";
 
@@ -27,7 +27,7 @@ export function ConfiguratorSegmentedControl({ data, value, onChange, prop, tran
     return (
       <UnstyledButton
         onClick={() => onChange(value)}
-        className={merge(
+        className={cn(
           "inline-flex w-full min-w-16 max-w-full flex-1 grow cursor-pointer items-center justify-start rounded-md border border-primitive-foreground bg-background px-2 py-1 text-center text-sm ring-offset-constructive/35 transition-colors [-moz-appearance:none] [-webkit-appearance:none] focus-visible:border-constructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-background [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
           value === value && "border-constructive bg-constructive/20"
         )}

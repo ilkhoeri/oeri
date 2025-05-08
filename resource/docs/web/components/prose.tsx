@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import DOMPurify, { Config } from "dompurify";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 export type ProseProps<T extends React.ElementType = "div"> = React.PropsWithoutRef<React.ComponentProps<T>> & {
   el?: T | React.ElementType;
@@ -54,7 +54,7 @@ function getStyles(opts: GetStylesOptions = {}) {
     "data-prose-color": opts.color,
     "data-prose-size": opts.size,
     dir: opts.dir !== "auto" ? opts.dir : undefined,
-    className: merge(!opts.unstyled && "stylelayer-prose relative", opts.className)
+    className: cn(!opts.unstyled && "stylelayer-prose relative", opts.className)
   };
 }
 

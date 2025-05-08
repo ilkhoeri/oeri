@@ -1,5 +1,6 @@
 import * as React from "react";
-import { cn, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   assign: "active:translate-y-0.5 transition-transform cursor-default",
@@ -21,7 +22,7 @@ const classes = cvx({
 
 export const classesKbd = classes;
 
-export interface KbdProps extends React.PropsWithoutRef<Omit<React.ComponentProps<"kbd">, "style">>, cvxProps<typeof classes> {
+export interface KbdProps extends React.PropsWithoutRef<Omit<React.ComponentProps<"kbd">, "style">>, cvxVariants<typeof classes> {
   unstyled?: boolean;
   style?: React.CSSProperties & Record<string, any>;
   items?: string[];

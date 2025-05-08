@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { Tabs } from "@/ui/tabs";
-import { cn, cvx, cvxProps } from "cretex";
+import { cvx, cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Button } from "@/ui/button";
 import { nextValue } from "../utils";
 import { FloatingIndicator } from "@/ui/floating-indicator";
@@ -84,7 +85,7 @@ export function useExpand(options: { defaultExpanded?: `${Expands}` } = {}) {
 }
 
 export interface PlayTabsProps extends RecordNested<"childrens", _PlayDisplay, React.ReactNode> {
-  defaultExpanded?: NonNullable<cvxProps<typeof classes>["statecard"]>;
+  defaultExpanded?: NonNullable<cvxVariants<typeof classes>["statecard"]>;
   defaultValue?: `${_PlayDisplay}`;
   classNames?: Partial<Record<_PlayOrigin, string>>;
 }

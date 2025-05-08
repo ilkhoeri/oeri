@@ -3,7 +3,7 @@
 import React, { useState, createContext, useEffect, useRef, useContext, useCallback } from "react";
 
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 /**
 ```js
@@ -172,17 +172,17 @@ export default function classes(selector: `${Selector}`, options: ClassesProps) 
   switch (selector) {
     case "trigger":
       return {
-        className: merge(!unstyled && "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&[data-state=open]>svg]:rotate-180", className)
+        className: cn(!unstyled && "relative z-9 w-full flex flex-row items-center justify-between flex-1 py-4 rounded-none font-medium hover:underline [&[data-state=open]>svg]:rotate-180", className)
       };
 
     case "content":
       return {
-        className: merge(!unstyled && "overflow-hidden transition-[height] bg-transparent m-0 p-0 w-full text-left", className)
+        className: cn(!unstyled && "overflow-hidden transition-[height] bg-transparent m-0 p-0 w-full text-left", className)
       };
 
     case "item":
       return {
-        className: merge(!unstyled && "group relative flex flex-col h-auto select-none border-b", className)
+        className: cn(!unstyled && "group relative flex flex-col h-auto select-none border-b", className)
       };
 
     default:

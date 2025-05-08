@@ -1,6 +1,6 @@
 "use client";
-import React, { ElementType, useEffect, useState } from "react";
-import { merge } from "cretex";
+import React from "react";
+import { cn } from "@/utils/cn";
 
 export const formatterIDR = new Intl.NumberFormat("id-ID", {
   style: "currency",
@@ -23,7 +23,7 @@ export const formatterIDRK = (value: number) => {
 };
 
 type CurrencyProps = {
-  el?: ElementType;
+  el?: React.ElementType;
   quantity?: number;
   value?: string | number;
   leftSection?: React.ReactNode;
@@ -33,8 +33,8 @@ type CurrencyProps = {
 
 export function Currency(_props: CurrencyProps) {
   const { value = 0, quantity, format = "default", className, leftSection, rightSection, el = "div", ...others } = _props;
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
 
@@ -44,7 +44,7 @@ export function Currency(_props: CurrencyProps) {
   const sanitizedValue = formattedValue.replace(/Rp\s*/, "").replace(/\,00$/, ""); // Remove "Rp " and ",00"
 
   return (
-    <Component className={merge("min-w-max", className)} {...others}>
+    <Component className={cn("min-w-max", className)} {...others}>
       {leftSection}
       {format === "default" && formattedValue}
       {format === "long" && (quantity ? formatterLong.format(Number(total)) : formatterLong.format(Number(value)))}

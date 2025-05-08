@@ -4,7 +4,7 @@ import { NavLinkItem } from "@/source/assets/navlink";
 import { appRoutes } from "@/source/routes";
 import { BrandOeriIcon } from "@/icons/*";
 import { Polymorphic } from "@/ui/polymorphic-slot";
-import { cvx } from "cretex";
+import { cvx } from "xuxi";
 
 import globalStyle from "../styles/styles";
 

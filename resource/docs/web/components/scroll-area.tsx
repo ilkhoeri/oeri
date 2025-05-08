@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import * as Primitive from "@radix-ui/react-scroll-area";
-import { cn, cvx, ocx, rem, type cvxProps } from "cretex";
+import { cvx, ocx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -24,7 +25,7 @@ const classes = cvx({
 });
 
 export type Orientation = "vertical" | "horizontal";
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type CSSProperties = React.CSSProperties & Record<string, any>;
 type NestedRecord<U extends [string, unknown], T extends string> = {
   [K in U as K[0]]?: Partial<Record<T, K[1]>>;

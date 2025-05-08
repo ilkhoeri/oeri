@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import Svg from "@/ui/svg";
-import { cn, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
-const classesTime = cn("flex flex-row items-center justify-start gap-1");
+const classesTime = "flex flex-row items-center justify-start gap-1";
 const classes = cvx({
   variants: {
     selector: {
@@ -16,7 +17,7 @@ const classes = cvx({
 });
 
 export type StoreSubscriber<Value> = (value: Value) => void;
-export type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+export type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__Selector> & {};
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type StylesNames<T extends string, Exclude extends string = never> = Omit<

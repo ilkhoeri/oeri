@@ -1,5 +1,6 @@
 import * as React from "react";
-import { merge, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 export const typographyVariant = cvx({
   variants: {
@@ -36,7 +37,7 @@ export type TypographyProps<T extends React.ElementType = "div"> = React.PropsWi
   className?: string;
   style?: React.CSSProperties & Record<string, any>;
   ref?: React.ComponentPropsWithRef<T>["ref"];
-} & cvxProps<typeof typographyVariant>;
+} & cvxVariants<typeof typographyVariant>;
 
 type TypographyElement = <T extends React.ElementType = "div">(_props: TypographyProps<T>) => React.ReactElement;
 
@@ -44,5 +45,5 @@ export const Typography = React.forwardRef(function Typography<T extends React.E
   const { el, unstyled, className, prose, ...props } = _props;
   const proseElm = ["large", "lead", "muted"].includes(prose as string) ? "div" : prose;
   const Component = (el || proseElm || "div") as React.ElementType;
-  return <Component {...{ ref, className: merge(!unstyled && typographyVariant({ prose }), className), ...props }} />;
+  return <Component {...{ ref, className: cn(!unstyled && typographyVariant({ prose }), className), ...props }} />;
 }) as TypographyElement;

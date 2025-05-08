@@ -4,7 +4,7 @@ import { mergeRefs } from "@/hooks/use-merged-ref";
 import { useMeasureScrollbar } from "@/hooks/use-measure-scrollbar";
 import { XIcon } from "@/icons/*";
 import ReactDOM from "react-dom";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 type Side = "top" | "right" | "bottom" | "left";
 
@@ -152,7 +152,7 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children, defaul
 export const DialogTrigger = React.forwardRef<React.ElementRef<"button">, React.ComponentPropsWithoutRef<"button">>(({ type = "button", className, id, ...props }, ref) => {
   const ctx = useDialogContext(id);
 
-  return <button ref={mergeRefs(ctx.refs.trigger, ref)} type={type} data-value={String(ctx.refs.trigger.current?.id)} onClick={ctx.toggle} className={merge("group relative z-50 h-9 min-w-24 rounded-md bg-color px-2 text-center font-medium text-background", className)} {...props} />;
+  return <button ref={mergeRefs(ctx.refs.trigger, ref)} type={type} data-value={String(ctx.refs.trigger.current?.id)} onClick={ctx.toggle} className={cn("group relative z-50 h-9 min-w-24 rounded-md bg-color px-2 text-center font-medium text-background", className)} {...props} />;
 });
 DialogTrigger.displayName = "DialogTrigger";
 
@@ -160,7 +160,7 @@ export const DialogClose = React.forwardRef<React.ElementRef<"button">, React.Co
   const ctx = useDialogContext();
 
   return (
-    <button ref={ref} type={type} onClick={() => ctx.closed()} className={merge("absolute right-4 top-4 size-4 rounded-sm text-muted-foreground hover:text-color disabled:opacity-50", className)} {...props}>
+    <button ref={ref} type={type} onClick={() => ctx.closed()} className={cn("absolute right-4 top-4 size-4 rounded-sm text-muted-foreground hover:text-color disabled:opacity-50", className)} {...props}>
       {children || <XIcon />}
     </button>
   );
@@ -192,7 +192,7 @@ export const DialogContent = React.forwardRef<React.ElementRef<"div">, React.Com
         data-state={ctx.isOpen ? "open" : "closed"}
         aria-labelledby={value}
         data-side={effectiveSide}
-        className={merge(
+        className={cn(
           "fixed left-[50%] top-[50%] z-[111] h-80 w-80 translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:data-[side=bottom]:slide-out-to-top-2 data-[state=closed]:data-[side=left]:slide-out-to-right-2 data-[state=closed]:data-[side=right]:slide-out-to-left-2 data-[state=closed]:data-[side=top]:slide-out-to-bottom-2 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[60%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[60%]",
           className
         )}

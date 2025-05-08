@@ -4,7 +4,7 @@ import { getControlLabel } from "./get-control-label";
 import { ConfiguratorControl } from "./types.control";
 import { __cn } from "./classes.control";
 import { SelectData, transformSelectData } from "./transform-select-data";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 import { purify } from "@/source/libs/dom-purify";
 
 export type ConfiguratorStringControlOptions = ConfiguratorControl<"string", { initialValue: string | null; data?: SelectData; inputType?: ComponentProps<"input">["type"] }>;
@@ -28,7 +28,7 @@ export function ConfiguratorStringControl(_props: ConfiguratorStringControlProps
   const transformData = data && transformSelectData(data);
   return (
     <Input.Wrapper label={getControlLabel(prop)} unstyled classNames={{ root: __cn("control"), label: __cn("label") }}>
-      <Input {...others} type={inputType} value={purify(validString(value))} onChange={event => onChange(event.currentTarget.value)} placeholder="Enter prop value" className={merge(__cn("input"), className)} list={`${prop}-list`} />
+      <Input {...others} type={inputType} value={purify(validString(value))} onChange={event => onChange(event.currentTarget.value)} placeholder="Enter prop value" className={cn(__cn("input"), className)} list={`${prop}-list`} />
 
       {data && (
         <datalist id={`${prop}-list`}>
@@ -42,3 +42,4 @@ export function ConfiguratorStringControl(_props: ConfiguratorStringControlProps
     </Input.Wrapper>
   );
 }
+ConfiguratorStringControl.displayName = "ConfiguratorStringControl";

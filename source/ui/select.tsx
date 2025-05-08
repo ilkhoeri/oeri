@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 type SelectValueType = {
   value?: string;
@@ -16,7 +16,7 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>>(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={merge("flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm text-color shadow-sm ring-offset-background placeholder:text-color focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className)}
+    className={cn("flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm text-color shadow-sm ring-offset-background placeholder:text-color focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className)}
     {...props}
   >
     {children}
@@ -35,7 +35,7 @@ const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.T
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = React.forwardRef<React.ElementRef<typeof SelectPrimitive.ScrollUpButton>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>>(({ className, ...props }, ref) => (
-  <SelectPrimitive.ScrollUpButton ref={ref} className={merge("flex cursor-default items-center justify-center py-1", className)} {...props}>
+  <SelectPrimitive.ScrollUpButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props}>
     <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
@@ -49,7 +49,7 @@ const SelectScrollUpButton = React.forwardRef<React.ElementRef<typeof SelectPrim
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
 const SelectScrollDownButton = React.forwardRef<React.ElementRef<typeof SelectPrimitive.ScrollDownButton>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>>(({ className, ...props }, ref) => (
-  <SelectPrimitive.ScrollDownButton ref={ref} className={merge("flex cursor-default items-center justify-center py-1", className)} {...props}>
+  <SelectPrimitive.ScrollDownButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props}>
     <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
@@ -66,7 +66,7 @@ const SelectContent = React.forwardRef<React.ElementRef<typeof SelectPrimitive.C
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
-      className={merge(
+      className={cn(
         "relative z-50 max-h-96 min-w-[162px] overflow-hidden rounded-lg border shadow-md focus-visible:ring-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
         className
@@ -75,18 +75,18 @@ const SelectContent = React.forwardRef<React.ElementRef<typeof SelectPrimitive.C
       {...props}
     >
       <SelectScrollUpButton />
-      <SelectPrimitive.Viewport className={merge("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport>
+      <SelectPrimitive.Viewport className={cn("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]")}>{children}</SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Label>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>>(({ className, ...props }, ref) => <SelectPrimitive.Label ref={ref} className={merge("px-2 py-1.5 text-sm font-semibold", className)} {...props} />);
+const SelectLabel = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Label>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>>(({ className, ...props }, ref) => <SelectPrimitive.Label ref={ref} className={cn("px-2 py-1.5 text-sm font-semibold", className)} {...props} />);
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>>(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item ref={ref} className={merge("relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)} {...props}>
+  <SelectPrimitive.Item ref={ref} className={cn("relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)} {...props}>
     <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
         <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="16" width="16" className="h-4 w-4" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,7 @@ const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-const SelectSeparator = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>>(({ className, ...props }, ref) => <SelectPrimitive.Separator ref={ref} className={merge("-mx-1 my-1 h-px bg-muted", className)} {...props} />);
+const SelectSeparator = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>>(({ className, ...props }, ref) => <SelectPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} />);
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 const ResetSelect = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & SelectValueType>(({ className, value, type, ...props }, ref) => {
@@ -114,7 +114,7 @@ const ResetSelect = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttribut
       type={tp}
       ref={ref}
       {...props}
-      className={merge("relative flex w-full cursor-pointer select-none items-center justify-start rounded-sm py-1.5 pl-8 pr-2 text-left text-sm font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", value ? "bg-[#ff5555]" : "focus:bg-muted", className)}
+      className={cn("relative flex w-full cursor-pointer select-none items-center justify-start rounded-sm py-1.5 pl-8 pr-2 text-left text-sm font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50", value ? "bg-[#ff5555]" : "focus:bg-muted", className)}
     >
       <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="18" width="18" className="absolute left-2 flex items-center justify-center" xmlns="http://www.w3.org/2000/svg">
         <path d="M21 6H3" />

@@ -1571,50 +1571,18 @@ export const fileDocsMeta = [
     }
   },
   {
-    name: "cnx",
+    name: "cn",
     ext: ".ts",
-    path: "/docs/web/utilities/cnx",
+    path: "/docs/web/utilities/cn",
     segment: ["web", "utilities"],
     meta: {
       date: "2025-01-05T00:00:00.000Z",
-      title: "cnx()",
+      title: "cn(...args)",
       description: "A utility function for conditionally combining class names in a readable and maintainable way.",
       summary: "Merges class names conditionally into a single string.",
       component: true,
       links: {
         doc: "https://"
-      }
-    }
-  },
-  {
-    name: "cvx",
-    ext: ".ts",
-    path: "/docs/web/utilities/cvx",
-    segment: ["web", "utilities"],
-    meta: {
-      date: "2025-01-05T00:00:00.000Z",
-      title: "cvx({})",
-      description: "Utility to define and manage variant-based styling logic with configuration-based class generation.",
-      summary: "Builds class names dynamically based on variant definitions.",
-      component: true,
-      links: {
-        doc: "https://cva.style/docs"
-      }
-    }
-  },
-  {
-    name: "ocx",
-    ext: ".ts",
-    path: "/docs/web/utilities/ocx",
-    segment: ["web", "utilities"],
-    meta: {
-      date: "2025-01-05T00:00:00.000Z",
-      title: "ocx({})",
-      description: "Deep merges multiple objects into one, useful for merging component styles, props, or configurations.",
-      summary: "Deep object merge utility for styles, props, or data.",
-      component: true,
-      links: {
-        doc: "https://cva.style/docs"
       }
     }
   },

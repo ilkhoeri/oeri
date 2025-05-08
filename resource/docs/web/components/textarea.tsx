@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   autosize?: boolean;

@@ -1,4 +1,5 @@
-import { cnx, cvx, merge, type cvxProps, type cnxValues } from "cretex";
+import { cnx, cvx, type cvxVariants, type cnxValues } from "xuxi";
+import { cn } from "@/utils/cn";
 
 export const compoundStyle = cvx({
   variants: {
@@ -39,6 +40,6 @@ export const compoundStyle = cvx({
   }
 });
 
-export default function globalStyle(variants: cvxProps<typeof compoundStyle>, ...inputs: cnxValues[]) {
-  return merge(compoundStyle(variants), cnx(...inputs));
+export default function globalStyle(variants: cvxVariants<typeof compoundStyle>, ...inputs: cnxValues[]) {
+  return cn(compoundStyle(variants), cnx(...inputs))!;
 }

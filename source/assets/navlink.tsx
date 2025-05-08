@@ -2,7 +2,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { Mark } from "./mark";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 import { usePathname } from "next/navigation";
 import { Anchor, type AnchorProps } from "@/ui/anchor";
 import type { IconType, DetailedSvgProps } from "@/ui/svg";

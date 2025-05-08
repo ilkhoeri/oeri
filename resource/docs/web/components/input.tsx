@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { useId } from "@/hooks/use-id";
-import { cn, cvx, merge, ocx, rem, type cvxProps } from "cretex";
+import { cvx, ocx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 import { Svg } from "./svg";
 import { usePasswordRequirementCtx } from "./password-requirement";
 
@@ -63,8 +64,8 @@ const classesPassword = cvx({
   }
 });
 
-type __Variant = NonNullable<cvxProps<typeof classes>["variant"]>;
-type __Selector = NonNullable<cvxProps<typeof classesWrapper>["selector"]>;
+type __Variant = NonNullable<cvxVariants<typeof classes>["variant"]>;
+type __Selector = NonNullable<cvxVariants<typeof classesWrapper>["selector"]>;
 type CSSProperties = React.CSSProperties & Record<string, any>;
 type StylesNames<T extends string, Exclude extends string = never> = Omit<
   {
@@ -153,7 +154,7 @@ function getStyles(selector: __Selector, options: Options = {}) {
   };
 }
 
-interface InputStyles extends cvxProps<typeof classes> {
+interface InputStyles extends cvxVariants<typeof classes> {
   unstyled?: boolean;
   className?: string;
   style?: CSSProperties;
@@ -267,7 +268,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((_props, ref
 }) as InputComponent;
 Input.displayName = "Input";
 
-type InputPasswordTrees = NonNullable<cvxProps<typeof classesPassword>["selector"]>;
+type InputPasswordTrees = NonNullable<cvxVariants<typeof classesPassword>["selector"]>;
 
 export interface InputPasswordProps extends Omit<InputProps, "type" | "unstyled" | "indeterminate" | keyof InputStyles> {
   defaultOpen?: boolean;
@@ -422,7 +423,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
   const stylesApi = { size, __staticSelector };
 
   const _label = label && (
-    <InputLabel key="label" labelElement={labelElement} id={labelId} htmlFor={inputId} required={isRequired} unstyled={isUnstyled("label")} className={merge(classNames?.label, labelProps?.className)} style={ocx(styles?.label, labelProps?.style)} {...stylesApi} {...labelProps}>
+    <InputLabel key="label" labelElement={labelElement} id={labelId} htmlFor={inputId} required={isRequired} unstyled={isUnstyled("label")} className={cn(classNames?.label, labelProps?.className)} style={ocx(styles?.label, labelProps?.style)} {...stylesApi} {...labelProps}>
       {label}
     </InputLabel>
   );
@@ -435,7 +436,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
       size={descriptionProps?.size || stylesApi.size}
       id={descriptionProps?.id || descriptionId}
       unstyled={isUnstyled("description")}
-      className={merge(classNames?.description, descriptionProps?.className)}
+      className={cn(classNames?.description, descriptionProps?.className)}
       style={ocx(styles?.description, descriptionProps?.style)}
     >
       {description}
@@ -445,7 +446,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
   const _input = <React.Fragment key="input">{inputContainer!(children)}</React.Fragment>;
 
   const _error = hasError && (
-    <InputError key="error" {...errorProps} {...stylesApi} size={errorProps?.size || stylesApi.size} id={errorProps?.id || errorId} unstyled={isUnstyled("error")} className={merge(classNames?.error, errorProps?.className)} style={ocx(styles?.error, errorProps?.style)}>
+    <InputError key="error" {...errorProps} {...stylesApi} size={errorProps?.size || stylesApi.size} id={errorProps?.id || errorId} unstyled={isUnstyled("error")} className={cn(classNames?.error, errorProps?.className)} style={ocx(styles?.error, errorProps?.style)}>
       {error}
     </InputError>
   );

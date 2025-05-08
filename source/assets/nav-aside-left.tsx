@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
-import { useNavContext } from "@/source/hooks/use-nav";
-import { NavLinkItem } from "@/source/assets/navlink";
-import { ButtonAside, LinkHome } from "./nav-head";
-import { cvx, merge } from "cretex";
-import { ScrollArea } from "@/ui/scroll-area";
-import { Sheets, SheetsContent, SheetsTrigger } from "@/ui/sheets";
+import { cvx } from "xuxi";
+import { cn } from "@/utils/cn";
 import { isNotif } from ".notif";
-import { useApp } from "@/modules/web/configuration/app-context";
 import { Svg } from "@/ui/svg";
+import { ScrollArea } from "@/ui/scroll-area";
+import { ButtonAside, LinkHome } from "./nav-head";
+import { NavLinkItem } from "@/source/assets/navlink";
+import { useNavContext } from "@/source/hooks/use-nav";
+import { Sheets, SheetsContent, SheetsTrigger } from "@/ui/sheets";
+import { useApp } from "@/modules/web/configuration/app-context";
 
 import type { FileDocMeta, MetaDocsRoute, NestedMetaDocsRoute } from "@/routes";
 
@@ -26,7 +27,7 @@ export function AsideLeft(_props: AsideLeftProps) {
 
   return (
     <>
-      <aside data-controls="routes" data-state={query ? (open ? "open" : "closed") : undefined} className={merge(classes({ style: "aside" }), classNames?.aside)}>
+      <aside data-controls="routes" data-state={query ? (open ? "open" : "closed") : undefined} className={cn(classes({ style: "aside" }), classNames?.aside)}>
         {isSegment && (
           <>
             {query && (
@@ -134,7 +135,7 @@ function NavRoutes({ routes, query, setOpen }: { routes: (MetaDocsRoute | Nested
 function Overlay({ open, setOpen, className }: { open?: boolean; setOpen: (value: boolean) => void; className?: string }) {
   if (!open) return null;
 
-  return <span data-routes="overlay" onClick={() => setOpen(false)} className={merge(classes({ style: "overlay" }), className)} />;
+  return <span data-routes="overlay" onClick={() => setOpen(false)} className={cn(classes({ style: "overlay" }), className)} />;
 }
 
 const classes = cvx({

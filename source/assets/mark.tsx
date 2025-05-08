@@ -1,5 +1,6 @@
 import * as React from "react";
-import { cn, cvx, cvxProps } from "cretex";
+import { cvx, cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   assign: "pointer-events-none w-max select-none rounded-md px-1 py-0.5 text-center font-mono text-[10px] font-semibold leading-[16px]",
@@ -13,13 +14,13 @@ const classes = cvx({
   }
 });
 
-type Variants = NonNullable<cvxProps<typeof classes>["variant"]>;
+type Variants = NonNullable<cvxVariants<typeof classes>["variant"]>;
 interface ReverseState {
   isActive(): boolean;
   variant(): Variants;
 }
 
-export interface MarkProps extends Omit<React.ComponentProps<"mark">, "children">, cvxProps<typeof classes> {
+export interface MarkProps extends Omit<React.ComponentProps<"mark">, "children">, cvxVariants<typeof classes> {
   children?: React.ReactNode | ((state: ReverseState) => React.ReactNode);
   active?: boolean;
   label?: string | null | undefined;

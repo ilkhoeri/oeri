@@ -1,5 +1,6 @@
 import * as React from "react";
-import { cn, cnx, cvx, ocx, rem, type cvxProps } from "cretex";
+import { cnx, cvx, ocx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -24,8 +25,8 @@ const classes = cvx({
   }
 });
 
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
-type IndicatorPosition = NonNullable<cvxProps<typeof classes>["position"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
+type IndicatorPosition = NonNullable<cvxVariants<typeof classes>["position"]>;
 type Options = __IndicatorProps & { hidden?: boolean; arDis?: ElementProps["aria-disabled"] };
 
 function getStyles(selector: __Selector, options: Options) {

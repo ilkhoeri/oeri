@@ -1,7 +1,8 @@
 import * as React from "react";
-import { cn, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
-const classRoot = cn("block max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]");
+const classRoot = "block max-w-full font-mono text-xs text-color focus-visible:ring-muted overflow-visible leading-normal whitespace-pre overflow-x-auto [word-wrap:normal] [word-break:normal]";
 
 const classes = cvx({
   variants: {
@@ -25,7 +26,7 @@ const classes = cvx({
   }
 });
 
-type __CodeSelector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __CodeSelector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__CodeSelector> & __CodeProps & {};
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {

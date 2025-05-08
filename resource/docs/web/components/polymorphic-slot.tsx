@@ -1,5 +1,5 @@
 import * as React from "react";
-import { merge } from "cretex";
+import { cn } from "@/utils/cn";
 
 export type Element<T> = { el?: T | (React.ElementType & {}); style?: CSSProperties };
 export type CSSProperties = React.CSSProperties & Record<string, any>;
@@ -122,7 +122,7 @@ const SlotClone = React.forwardRef<any, SlotCloneProps>((props, forwardedRef) =>
       // @ts-ignore
       ref: forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef,
       style: { ...slotProps.style, ...children.props.style },
-      className: merge(slotProps.className, children.props.className)
+      className: cn(slotProps.className, children.props.className)
     });
   }
 

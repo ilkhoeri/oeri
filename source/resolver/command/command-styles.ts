@@ -1,4 +1,4 @@
-import { cvx, cvxResult, cvxProps } from "cretex";
+import { cvx, cvxResult, cvxVariants } from "xuxi";
 
 const classes = cvx({
   variants: {
@@ -28,7 +28,7 @@ const classes = cvx({
 });
 export default classes;
 
-export type Selectors = NonNullable<cvxProps<typeof classes>["selector"]>;
+export type Selectors = NonNullable<cvxVariants<typeof classes>["selector"]>;
 
 export type SelectorClassesName = (
   variant?: cvxResult<{

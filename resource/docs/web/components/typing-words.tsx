@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { mergeRefs } from "@/hooks/use-merged-ref";
-import { cn } from "cretex";
+import { cn } from "@/utils/cn";
 
 interface UseTypingWords {
   placeholders: string[];

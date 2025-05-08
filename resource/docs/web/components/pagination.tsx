@@ -2,7 +2,8 @@
 import * as React from "react";
 import { Group } from "./group";
 import { usePagination } from "@/hooks/use-pagination";
-import { cn, cvx, inferType, rem, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 import { getContrastColor } from "@/hooks/use-random-colors";
 
 const classes = cvx({
@@ -18,7 +19,7 @@ const classes = cvx({
   }
 });
 
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__Selector> & { active?: boolean };
 type CSSProperties = React.CSSProperties & { [key: string]: any };
 type NestedRecord<U extends [string, unknown], T extends string> = {
@@ -30,7 +31,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
   color?: React.CSSProperties["color"];
 } & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = __PaginationProps & {
-  getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __Selector, options?: Options): InferType<typeof getStyles>;
   range: (number | "dots")[];
   active: number;
   onFirst: () => void;

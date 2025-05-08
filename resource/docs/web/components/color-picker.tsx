@@ -4,9 +4,10 @@ import { useDidUpdate } from "@/hooks/use-did-update";
 import { useUncontrolled } from "@/hooks/use-uncontrolled";
 import { mergeRefs, useMergedRef } from "@/hooks/use-merged-ref";
 import { clampUseMovePosition, useMove, UseMovePosition } from "@/hooks/use-move";
-import { cn, cvx, rem, type inferType, type cvxProps, ocx } from "cretex";
-import Svg, { type SvgProps } from "@/ui/svg";
 import { getContrastColor } from "@/hooks/use-random-colors";
+import { cvx, rem, type cvxVariants, ocx } from "xuxi";
+import { Svg, type SvgProps } from "@/ui/svg";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -49,7 +50,7 @@ export interface HslaColor {
   a: number;
 }
 export type ColorFormat = "hex" | "hexa" | "rgba" | "rgb" | "hsl" | "hsla";
-type __Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type __Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type Options = StylesNames<__Selector> & {};
 type CSSProperties = React.CSSProperties & Record<string, any>;
 type NestedRecord<U extends [string, unknown], T extends string> = {
@@ -61,7 +62,7 @@ type ComponentProps<T extends React.ElementType, Exclude extends string = never>
   color?: React.CSSProperties["color"];
 } & React.PropsWithoutRef<Omit<React.ComponentProps<T>, "style" | "color" | Exclude>>;
 type CtxProps = {
-  getStyles(selector: __Selector, options?: Options): inferType<typeof getStyles>;
+  getStyles(selector: __Selector, options?: Options): InferType<typeof getStyles>;
 };
 
 function getStyles(selector: __Selector, options?: Options) {

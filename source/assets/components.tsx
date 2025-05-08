@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { merge, cvx, type cvxProps } from "cretex";
+import { cvx, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 type ElementType<T> = {
   el?: React.ElementType;
@@ -21,19 +22,19 @@ const varsComp = cvx({
   }
 });
 
-export type ClassesProps<T extends (...keys: any) => any> = cvxProps<T> & {
+export type ClassesProps<T extends (...keys: any) => any> = cvxVariants<T> & {
   unstyled?: boolean;
   className?: string;
 };
 export function classes<T extends (...keys: any) => any>(props: ClassesProps<T>): string {
   const { className, unstyled = false, ...rest } = props;
-  return merge(!unstyled && varsComp({ ...rest }), className);
+  return cn(!unstyled && varsComp({ ...rest }), className)!;
 }
 
 export const Comp = React.forwardRef<HTMLElement, ElementType<HTMLElement>>((_props, ref) => {
   const { el = "main", unstyled, className, ...props } = _props;
   const Component = el;
-  const els = (el as cvxProps<typeof varsComp>["el"]) || undefined;
+  const els = (el as cvxVariants<typeof varsComp>["el"]) || undefined;
   return (
     <Component
       {...{
@@ -71,8 +72,8 @@ const headings = cvx({
   defaultVariants: { variant: "title", size: "h3" }
 });
 
-interface HeadingElement extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>, cvxProps<typeof headings> {
-  el?: cvxProps<typeof headings>["size"];
+interface HeadingElement extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>, cvxVariants<typeof headings> {
+  el?: cvxVariants<typeof headings>["size"];
   unstyled?: boolean;
 }
 // variant="segment" className="mb-12 font-geist-sans tracking-px text-h1"
@@ -80,7 +81,7 @@ export const Title = React.forwardRef<HTMLHeadingElement, HeadingElement>((_prop
   const { el = "h1", children, title, role = "presentation", unstyled, className, variant, size, ...props } = _props;
   const Component: React.ElementType = el;
   return (
-    <Component ref={ref} role={role} className={merge(!unstyled && headings({ variant, size }), className)} {...props}>
+    <Component ref={ref} role={role} className={cn(!unstyled && headings({ variant, size }), className)} {...props}>
       {children || title}
     </Component>
   );

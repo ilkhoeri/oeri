@@ -1,9 +1,9 @@
 "use client";
 import * as React from "react";
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import Link, { type LinkProps } from "next/link";
 import { CheckIcon, ChevronIcon, CircleDotIcon } from "@/icons/*";
-import { merge } from "cretex";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { cn } from "@/utils/cn";
 
 type Unstyled = { unstyled?: boolean };
 
@@ -25,7 +25,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     inset?: boolean;
   } & Unstyled
 >(({ unstyled, className, inset, children, ...props }, ref) => (
-  <DropdownMenuPrimitive.SubTrigger ref={ref} className={merge(!unstyled && "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-muted data-[state=open]:bg-muted", !unstyled && inset && "pl-8", className)} {...props}>
+  <DropdownMenuPrimitive.SubTrigger ref={ref} className={cn(!unstyled && "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-muted data-[state=open]:bg-muted", !unstyled && inset && "pl-8", className)} {...props}>
     {children}
     <ChevronIcon chevron="right" className="ml-auto h-4 w-4" />
   </DropdownMenuPrimitive.SubTrigger>
@@ -35,7 +35,7 @@ DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayNam
 const DropdownMenuSubContent = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.SubContent>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> & Unstyled>(({ unstyled, className, ...props }, ref) => (
   <DropdownMenuPrimitive.SubContent
     ref={ref}
-    className={merge(
+    className={cn(
       !unstyled &&
         "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-background p-1 text-muted-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
@@ -47,7 +47,7 @@ DropdownMenuSubContent.displayName = DropdownMenuPrimitive.SubContent.displayNam
 
 const DropdownMenuContent = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.Content>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & Unstyled>(({ unstyled, className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.Content ref={ref} sideOffset={sideOffset} className={merge(!unstyled && "dropdown_content small_box bg-background-theme text-muted-foreground webkit-scrollbar [--overflow-y:auto]", className)} {...props} />
+    <DropdownMenuPrimitive.Content ref={ref} sideOffset={sideOffset} className={cn(!unstyled && "dropdown_content small_box bg-background-theme text-muted-foreground webkit-scrollbar [--overflow-y:auto]", className)} {...props} />
   </DropdownMenuPrimitive.Portal>
 ));
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
@@ -60,7 +60,7 @@ const DropdownMenuItem = React.forwardRef<
 >(({ unstyled, className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
-    className={merge(
+    className={cn(
       !unstyled &&
         "relative flex cursor-pointer select-none flex-row items-center justify-start rounded-sm px-2 py-1.5 text-left text-[13px] font-medium leading-tight outline-none transition-colors hover:bg-muted-foreground/60 focus:bg-muted-foreground/60 focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       !unstyled && inset && "pl-8",
@@ -83,11 +83,11 @@ DropdownMenuLinkItem.displayName = "DropdownMenuLinkItem";
 const DropdownMenuCheckboxItem = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> & Unstyled>(({ unstyled, className, children, checked, ...props }, ref) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
-    className={merge(!unstyled && "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
+    className={cn(!unstyled && "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
     checked={checked}
     {...props}
   >
-    <span role="status" className={merge(!unstyled && "absolute left-2 flex h-3.5 w-3.5 items-center justify-center")}>
+    <span role="status" className={cn(!unstyled && "absolute left-2 flex h-3.5 w-3.5 items-center justify-center")}>
       <DropdownMenuPrimitive.ItemIndicator>
         <CheckIcon className="h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -100,10 +100,10 @@ DropdownMenuCheckboxItem.displayName = DropdownMenuPrimitive.CheckboxItem.displa
 const DropdownMenuRadioItem = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> & Unstyled>(({ unstyled, className, children, ...props }, ref) => (
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
-    className={merge(!unstyled && "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
+    className={cn(!unstyled && "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted focus:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
     {...props}
   >
-    <span role="status" className={merge(!unstyled && "absolute left-2 flex h-3.5 w-3.5 items-center justify-center")}>
+    <span role="status" className={cn(!unstyled && "absolute left-2 flex h-3.5 w-3.5 items-center justify-center")}>
       <DropdownMenuPrimitive.ItemIndicator>
         <CircleDotIcon className="h-4 w-4 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -118,16 +118,16 @@ const DropdownMenuLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
     inset?: boolean;
   } & Unstyled
->(({ unstyled, className, inset, ...props }, ref) => <DropdownMenuPrimitive.Label ref={ref} className={merge(!unstyled && "px-2 py-1.5 text-sm font-semibold", !unstyled && inset && "pl-8", className)} {...props} />);
+>(({ unstyled, className, inset, ...props }, ref) => <DropdownMenuPrimitive.Label ref={ref} className={cn(!unstyled && "px-2 py-1.5 text-sm font-semibold", !unstyled && inset && "pl-8", className)} {...props} />);
 DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 
 const DropdownMenuSeparator = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.Separator>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator> & Unstyled>(({ unstyled, className, ...props }, ref) => (
-  <DropdownMenuPrimitive.Separator ref={ref} className={merge(!unstyled && "-mx-1 my-1 h-px bg-muted", className)} {...props} />
+  <DropdownMenuPrimitive.Separator ref={ref} className={cn(!unstyled && "-mx-1 my-1 h-px bg-muted", className)} {...props} />
 ));
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
 const DropdownMenuShortcut = ({ unstyled, className, ...props }: React.HTMLAttributes<HTMLSpanElement> & Unstyled) => {
-  return <span className={merge(!unstyled && "ml-auto text-xs tracking-widest opacity-60", className)} {...props} />;
+  return <span className={cn(!unstyled && "ml-auto text-xs tracking-widest opacity-60", className)} {...props} />;
 };
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 

@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { cn, cvx, rem, type cvxProps } from "cretex";
+import { cvx, rem, type cvxVariants } from "xuxi";
+import { cn } from "@/utils/cn";
 
 const classes = cvx({
   variants: {
@@ -22,7 +23,7 @@ const classes = cvx({
 });
 
 type ProgressState = "loading" | "complete" | "indeterminate";
-type Selector = NonNullable<cvxProps<typeof classes>["selector"]>;
+type Selector = NonNullable<cvxVariants<typeof classes>["selector"]>;
 type CSSProperties = React.CSSProperties & Record<string, any>;
 type Color = React.CSSProperties["color"];
 
