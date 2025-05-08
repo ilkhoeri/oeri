@@ -49,22 +49,22 @@ export const appRoutes = {
       },
       {
         title: "Configuration",
-        href: "/docs/configuration",
+        href: "/docs/web/configuration",
         icon: Icon.TuningIcon
       },
       {
         title: "Utilities",
-        href: "/docs/utilities",
+        href: "/docs/web/utilities",
         icon: Icon.FireSquareIcon
       },
       {
         title: "Components",
-        href: "/docs/components",
+        href: "/docs/web/components",
         icon: Icon.CodeSquareIcon
       },
       {
         title: "Hooks",
-        href: "/docs/hooks",
+        href: "/docs/web/hooks",
         icon: Icon.SafeSquareIcon
       },
       {

@@ -57,7 +57,7 @@ export function PasswordRequirementProvider(_props: PasswordRequirementProviderP
 
   const { min = 10, max = 100 } = strengthProp;
 
-  const [_value, _setValue] = React.useState("");
+  const [_value, _setValue] = React.useState<string>("");
 
   const onValue = valueProp ?? _value;
   const onValueChange = React.useCallback(
