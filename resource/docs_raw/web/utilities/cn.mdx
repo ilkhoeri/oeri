@@ -19,6 +19,26 @@ links:
 npm install xuxi@latest
 ```
 
+### Merge with tailwind-merge
+
+```tsx
+import { cnx, type cnxValues } from "xuxi";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...args: cnxValues[]) {
+  // if (!args) return; // optional
+  return twMerge(cnx(...args));
+}
+```
+
+#### Usages
+
+```tsx
+import { cn } from "@/utils/cn";
+
+<div className={cn("bg-black/60 dark:bg-white/60 font-medium border", { "font-extrabold border-0": true })} />;
+```
+
 #### API References
 
 - [`xuxi`](https://ilkhoeri.github.io/xuxi/)
@@ -130,28 +150,4 @@ If you are using the vscode editor, enable autocomplete for the [`tailwindcss`](
   },
   "overrides": []
 }
-```
-
-### Merger
-
-#### Merge class
-
-Merge with tailwind-merge
-
-```tsx
-import { cnx, type cnxValues } from "xuxi";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...args: cnxValues[]) {
-  // if (!args) return; // optional
-  return twMerge(cnx(...args));
-}
-```
-
-#### Usages
-
-```tsx
-import { cn } from "@/utils/cn";
-
-<div className={cn("bg-black/60 dark:bg-white/60 font-medium border", { "font-extrabold border-0": true })} />;
 ```
