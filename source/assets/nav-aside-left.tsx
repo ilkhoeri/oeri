@@ -22,8 +22,9 @@ interface AsideLeftProps {
 }
 export function AsideLeft(_props: AsideLeftProps) {
   const { classNames, routes = [] } = _props;
-  const { minQuery, maxQuery: query, open, setOpen, toggle, isRoot } = useNavContext();
+  const { minQuery, maxQuery: query, open, setOpen, toggle, pathname } = useNavContext();
   const { dir } = useApp();
+  const isRoot = pathname === "/" || pathname.startsWith("/examples/");
 
   return (
     <>

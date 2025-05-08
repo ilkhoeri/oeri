@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { cvx, rem } from "xuxi";
 import { cn } from "@/utils/cn";
-import { usePathname } from "next/navigation";
 import { TypingWords } from "@/ui/typing-words";
 import { Transform } from "@/source/ondevelopment";
 import { useNextTheme } from "@/modules/web/configuration/themes";
@@ -28,7 +27,6 @@ import { Breadcrumb } from "@/ui/breadcrumb";
 import { Tabs } from "@/ui/tabs";
 import { Input } from "@/ui/input";
 import { CopyButton } from "@/ui/copy-button";
-import { useNavContext } from "@/source/hooks/use-nav";
 import { CommandDemo, DropdownNotifications, TableDemo } from "./showcase";
 import { GitBranchIcon, GitCommitIcon, GitPullRequestIcon } from "@/icons/*";
 import { codes } from "./code-to-copy";
@@ -56,9 +54,6 @@ const classes = cvx({
 });
 
 export function PageHome() {
-  const pathname = usePathname();
-
-  useNavContext({ isRoot: pathname === "/" });
   return (
     <>
       <section id="header-section" className={cn(classes({ selector: "header" }), style.header_home)}>

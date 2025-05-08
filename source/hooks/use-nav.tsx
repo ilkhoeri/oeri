@@ -61,10 +61,10 @@ export function NavProvider({ children, popstate = true, mediaQuery = 768, ...re
   return <NavContext.Provider value={value}>{children}</NavContext.Provider>;
 }
 
-export function useNavContext({ isRoot }: { isRoot?: boolean } = {}) {
+export function useNavContext(): NavContextProps {
   const context = useContext(NavContext);
 
   if (!context) throw new Error("useNavContext must be used within an NavProvider");
 
-  return { isRoot, ...context };
+  return context;
 }
