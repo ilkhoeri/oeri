@@ -96,10 +96,10 @@ const hooks = docFilterBySegment(routes, "hooks").single;
 const components = docFilterBySegment(routes, "components").single;
 const configuration = docFilterBySegment(routes, "configuration").single;
 
-export const docsRoutes = [...utilities, ...configuration, ...components, ...hooks];
+export const docsRoutes = [...configuration, ...utilities, ...components, ...hooks];
 export const restRoutes = {
-  utilities,
   configuration,
+  utilities,
   components,
   hooks
 };
