@@ -63,8 +63,8 @@ export function NavProvider({ children, popstate = true, mediaQuery = 768, ...re
 
 export function useNavContext({ isRoot }: { isRoot?: boolean } = {}): NavContextProps {
   const context = useContext(NavContext);
-  if (!context) {
-    throw new Error("useNavContext must be used within an NavProvider");
-  }
-  return { ...context, isRoot: isRoot ?? context.isRoot, minQuery: context.minQuery ?? false, maxQuery: context.maxQuery ?? false };
+
+  if (!context) throw new Error("useNavContext must be used within an NavProvider");
+
+  return { ...context, isRoot: isRoot || context.isRoot };
 }

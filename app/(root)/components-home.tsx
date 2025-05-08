@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { cvx, rem } from "xuxi";
 import { cn } from "@/utils/cn";
+import { usePathname } from "next/navigation";
 import { TypingWords } from "@/ui/typing-words";
 import { Transform } from "@/source/ondevelopment";
 import { useNextTheme } from "@/modules/web/configuration/themes";
@@ -55,7 +56,9 @@ const classes = cvx({
 });
 
 export function PageHome() {
-  useNavContext({ isRoot: true });
+  const pathname = usePathname();
+
+  useNavContext({ isRoot: pathname === "/" });
   return (
     <>
       <section id="header-section" className={cn(classes({ selector: "header" }), style.header_home)}>
